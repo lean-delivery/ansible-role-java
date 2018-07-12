@@ -11,6 +11,7 @@ services:
 
 before_install:
   - deactivate
+  - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
 
 install:
   - sudo pip install --upgrade ansible ansible-lint docker-py molecule pyOpenSSL
@@ -18,6 +19,7 @@ install:
   - molecule --version
 
 script:
+  - ansible-lint -r ~/ansible-lint-rules/rules/ `find ./ -regex ".*\.\(yml\)"`
   - molecule test
 
 notifications:
