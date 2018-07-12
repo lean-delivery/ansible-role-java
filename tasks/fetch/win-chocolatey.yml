@@ -1,0 +1,3 @@
+- name: "Chocolatay will download artifact itself"
+  debug:
+    msg: "Chocolatay will download artifact itself"

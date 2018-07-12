@@ -1,0 +1,35 @@
+---
+galaxy_info:
+  author: "Lean Delivery team <team@lean-delivery.com>"
+  description: "Lean Delivery Java install"
+  company: "Epam Systems"
+  license: "Apache2"
+  min_ansible_version: "2.4"
+  platforms:
+    - name: "Ubuntu"
+      versions:
+        - "precise"
+        - "trusty"
+    - name: "Debian"
+      versions:
+        - "wheezy"
+        - "jessie"
+    - name: "EL"
+      versions:
+        - "6"
+        - "7"
+    - name: "Windows"
+      versions:
+        - "all"
+
+  galaxy_tags:
+    - "development"
+    - "system"
+    - "packaging"
+    - "system"
+    - "web"
+    - "java"
+    - "jdk"
+    - "jvm"
+
+dependencies: []

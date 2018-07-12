@@ -1,0 +1,13 @@
+---
+- name: "Download artifact from web"
+  get_url:
+    url: "{{ transport_web }}"
+    dest: "/tmp/"
+  until: "'OK' in FILE_DOWNLOADED.msg"
+  retries: 3
+  delay: 2
+  register: FILE_DOWNLOADED
+
+- name: "Downloaded artifact"
+  set_fact:
+    oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"

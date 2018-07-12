@@ -1,0 +1,24 @@
+---
+# select from jre / server-jre / jdk
+java_package: "jdk"
+
+# 6 / 7 / 8 (default) supported
+java_major_version: "8"
+
+java_minor_version: "172"
+
+# x64 (default), i586 supported
+java_arch: "x64"
+
+java_path: "/opt/{{ java_package }}/"
+
+# Custom artifact source transport
+transport: "oracle-fallback"
+# available are:
+# - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
+# - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
+# - "win-chocolatey" Windows specific package manager
+# - "local" Local artifact
+
+transport_web: "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
+transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"

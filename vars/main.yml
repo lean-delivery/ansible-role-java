@@ -1,0 +1,302 @@
+---
+# vars file for java
+
+# Well known java artifacts
+fallback_oracle_artifacts:
+  linux:
+    6:
+      38:
+        x64:
+          jdk: &linux_6_38_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u38-b05/jdk-6u38-linux-x64.bin"
+          jre: &linux_6_38_jre_x64 "http://download.oracle.com/otn/java/jdk/6u38-b05/jre-6u38-linux-x64.bin"
+        i586:
+          jdk: &linux_6_38_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u38-b05/jdk-6u38-linux-i586.bin"
+          jre: &linux_6_38_jre_i586 "http://download.oracle.com/otn/java/jdk/6u38-b05/jre-6u38-linux-i586.bin"
+      39:
+        x64:
+          jdk: &linux_6_39_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u39-b04/jdk-6u39-linux-ia64.bin"
+          jre: &linux_6_39_jre_x64 "http://download.oracle.com/otn/java/jdk/6u39-b04/jre-6u39-linux-ia64.bin"
+        i586:
+          jdk: &linux_6_39_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u39-b04/jdk-6u39-linux-i586.bin"
+          jre: &linux_6_39_jre_i586 "http://download.oracle.com/otn/java/jdk/6u39-b04/jre-6u39-linux-i586.bin"
+      41:
+        x64:
+          jdk: &linux_6_41_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u41-b02/jdk-6u41-linux-x64.bin"
+          jre: &linux_6_41_jre_x64 "http://download.oracle.com/otn/java/jdk/6u41-b02/jre-6u41-linux-x64.bin"
+        i586:
+          jdk: &linux_6_41_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u41-b02/jdk-6u41-linux-i586.bin"
+          jre: &linux_6_41_jre_i586 "http://download.oracle.com/otn/java/jdk/6u41-b02/jre-6u41-linux-i586.bin"
+      43:
+        x64:
+          jdk: &linux_6_43_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u43-b01/jdk-6u43-linux-x64.bin"
+          jre: &linux_6_43_jre_x64 "http://download.oracle.com/otn/java/jdk/6u43-b01/jre-6u43-linux-x64.bin"
+        i586:
+          jdk: &linux_6_43_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u43-b01/jdk-6u43-linux-i586.bin"
+          jre: &linux_6_43_jre_i586 "http://download.oracle.com/otn/java/jdk/6u43-b01/jre-6u43-linux-i586.bin"
+      45:
+        x64:
+          jdk: &linux_6_45_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin"
+          jre: &linux_6_45_jre_x64 "http://download.oracle.com/otn/java/jdk/6u45-b06/jre-6u45-linux-x64.bin"
+        i586:
+          jdk: &linux_6_45_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-linux-i586.bin"
+          jre: &linux_6_45_jre_i586 "http://download.oracle.com/otn/java/jdk/6u45-b06/jre-6u45-linux-i586.bin"
+
+      latest:
+        x64:
+          jdk: *linux_6_45_jdk_x64
+          jre: *linux_6_45_jre_x64
+        i586:
+          jdk: *linux_6_45_jdk_i586
+          jre: *linux_6_45_jre_i586
+
+    7:
+      72:
+        x64:
+          jdk: &linux_7_72_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u72-b14/jdk-7u72-linux-x64.tar.gz"
+          jre: &linux_7_72_jre_x64 "http://download.oracle.com/otn/java/jdk/7u72-b14/jre-7u72-linux-x64.tar.gz"
+          server-jre: &linux_7_72_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u72-b14/server-jre-7u72-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_7_72_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u72-b14/jdk-7u72-linux-i586.tar.gz"
+          jre: &linux_7_72_jre_i586 "http://download.oracle.com/otn/java/jdk/7u72-b14/jre-7u72-linux-i586.tar.gz"
+      75:
+        x64:
+          jdk: &linux_7_75_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u75-b13/jdk-7u75-linux-x64.tar.gz"
+          jre: &linux_7_75_jre_x64 "http://download.oracle.com/otn/java/jdk/7u75-b13/jre-7u75-linux-x64.tar.gz"
+          server-jre: &linux_7_75_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u75-b13/server-jre-7u75-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_7_75_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u75-b13/jdk-7u75-linux-i586.tar.gz"
+          jre: &linux_7_75_jre_i586 "http://download.oracle.com/otn/java/jdk/7u75-b13/jre-7u75-linux-i586.tar.gz"
+      76:
+        x64:
+          jdk: &linux_7_76_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u76-b13/jdk-7u76-linux-x64.tar.gz"
+          jre: &linux_7_76_jre_x64 "http://download.oracle.com/otn/java/jdk/7u76-b13/jre-7u76-linux-x64.tar.gz"
+          server-jre: &linux_7_76_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u76-b13/server-jre-7u76-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_7_76_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u76-b13/jdk-7u76-linux-i586.tar.gz"
+          jre: &linux_7_76_jre_i586 "http://download.oracle.com/otn/java/jdk/7u76-b13/jre-7u76-linux-i586.tar.gz"
+      79:
+        x64:
+          jdk: &linux_7_79_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz"
+          jre: &linux_7_79_jre_x64 "http://download.oracle.com/otn/java/jdk/7u79-b15/jre-7u79-linux-x64.tar.gz"
+          server-jre: &linux_7_79_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u79-b15/server-jre-7u79-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_7_79_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u79-b15/jdk-7u79-linux-i586.tar.gz"
+          jre: &linux_7_79_jre_i586 "http://download.oracle.com/otn/java/jdk/7u79-b15/jre-7u79-linux-i586.tar.gz"
+      80:
+        x64:
+          jdk: &linux_7_80_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz"
+          jre: &linux_7_80_jre_x64 "http://download.oracle.com/otn/java/jdk/7u80-b15/jre-7u80-linux-x64.tar.gz"
+          server-jre: &linux_7_80_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u80-b15/server-jre-7u80-windows-x64.tar.gz"
+        i586:
+          jdk: &linux_7_80_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-linux-i586.tar.gz"
+          jre: &linux_7_80_jre_i586 "http://download.oracle.com/otn/java/jdk/7u80-b15/jre-7u80-linux-i586.tar.gz"
+
+      latest:
+        x86_64:
+          jdk: *linux_7_80_jdk_x64
+          jre: *linux_7_80_jre_x64
+          server-jre: *linux_7_80_server-jre_x64
+        i586:
+          jdk: *linux_7_80_jdk_i586
+          jre: *linux_7_80_jre_i586
+
+    8:
+      152:
+        x64:
+          jdk: &linux_8_152_jdk_x64 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.tar.gz"
+          jre: &linux_8_152_jre_x64 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jre-8u152-linux-x64.tar.gz"
+          server-jre: &linux_8_152_server-jre_x64 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/server-jre-8u152-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_8_152_jdk_i586 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-i586.tar.gz"
+          jre: &linux_8_152_jre_i586 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jre-8u152-linux-i586.tar.gz"
+      161:
+        x64:
+          jdk: &linux_8_161_jdk_x64 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz"
+          jre: &linux_8_161_jre_x64 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jre-8u161-linux-x64.tar.gz"
+          server-jre: &linux_8_161_server-jre_x64 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/server-jre-8u161-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_8_161_jdk_i586 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-i586.tar.gz"
+          jre: &linux_8_161_jre_i586 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jre-8u161-linux-i586.tar.gz"
+      162:
+        x64:
+          jdk: &linux_8_162_jdk_x64 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-linux-x64.tar.gz"
+          jre: &linux_8_162_jre_x64 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jre-8u162-linux-x64.tar.gz"
+          server-jre: &linux_8_162_server-jre_x64 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/server-jre-8u162-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_8_162_jdk_i586 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-linux-i586.tar.gz"
+          jre: &linux_8_162_jre_i586 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jre-8u162-linux-i586.tar.gz"
+      171:
+        x64:
+          jdk: &linux_8_171_jdk_x64 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-linux-x64.tar.gz"
+          jre: &linux_8_171_jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jre-8u171-linux-x64.tar.gz"
+          server-jre: &linux_8_171_server-jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/server-jre-8u171-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_8_171_jdk_i586 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-linux-i586.tar.gz"
+          jre: &linux_8_171_jre_i586 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jre-8u171-linux-i586.tar.gz"
+      172:
+        x64:
+          jdk: &linux_8_172_jdk_x64 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-x64.tar.gz"
+          jre: &linux_8_172_jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jre-8u172-linux-x64.tar.gz"
+          server-jre: &linux_8_172_server-jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/server-jre-8u172-linux-x64.tar.gz"
+        i586:
+          jdk: &linux_8_172_jdk_i586 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-i586.tar.gz"
+          jre: &linux_8_172_jre_i586 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jre-8u172-linux-i586.tar.gz"
+
+      latest:
+        x64:
+          jdk: *linux_8_172_jdk_x64
+          jre: *linux_8_172_jre_x64
+          server-jre: *linux_8_172_server-jre_x64
+        i586:
+          jdk: *linux_8_172_jdk_i586
+          jre: *linux_8_172_jre_i586
+
+
+  windows:
+    6:
+      38:
+        x64:
+          jdk: &windows_6_38_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u38-b05/jdk-6u38-windows-x64.exe"
+          jre: &windows_6_38_jre_x64 "http://download.oracle.com/otn/java/jdk/6u38-b05/jre-6u38-windows-x64.exe"
+        i586:
+          jdk: &windows_6_38_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u38-b05/jdk-6u38-windows-i586.exe"
+          jre: &windows_6_38_jre_i586 "http://download.oracle.com/otn/java/jdk/6u38-b05/jre-6u38-windows-i586.exe"
+      39:
+        x64:
+          jdk: &windows_6_39_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u39-b04/jdk-6u39-windows-x64.exe"
+          jre: &windows_6_39_jre_x64 "http://download.oracle.com/otn/java/jdk/6u39-b04/jre-6u39-windows-x64.exe"
+        i586:
+          jdk: &windows_6_39_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u39-b04/jdk-6u39-windows-i586.exe"
+          jre: &windows_6_39_jre_i586 "http://download.oracle.com/otn/java/jdk/6u39-b04/jre-6u39-windows-i586.exe"
+      41:
+        x64:
+          jdk: &windows_6_41_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u41-b02/jdk-6u41-windows-x64.exe"
+          jre: &windows_6_41_jre_x64 "http://download.oracle.com/otn/java/jdk/6u41-b02/jre-6u41-windows-x64.exe"
+        i586:
+          jdk: &windows_6_41_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u41-b02/jdk-6u41-windows-i586.exe"
+          jre: &windows_6_41_jre_i586 "http://download.oracle.com/otn/java/jdk/6u41-b02/jre-6u41-windows-i586.exe"
+      43:
+        x64:
+          jdk: &windows_6_43_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u43-b01/jdk-6u43-windows-x64.exe"
+          jre: &windows_6_43_jre_x64 "http://download.oracle.com/otn/java/jdk/6u43-b01/jre-6u43-windows-x64.exe"
+        i586:
+          jdk: &windows_6_43_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u43-b01/jdk-6u43-windows-i586.exe"
+          jre: &windows_6_43_jre_i586 "http://download.oracle.com/otn/java/jdk/6u43-b01/jre-6u43-windows-i586.exe"
+      45:
+        x64:
+          jdk: &windows_6_45_jdk_x64 "http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-windows-x64.exe"
+          jre: &windows_6_45_jre_x64 "http://download.oracle.com/otn/java/jdk/6u45-b06/jre-6u45-windows-x64.exe"
+        i586:
+          jdk: &windows_6_45_jdk_i586 "http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-windows-i586.exe"
+          jre: &windows_6_45_jre_i586 "http://download.oracle.com/otn/java/jdk/6u45-b06/jre-6u45-windows-i586.exe"
+
+      latest:
+        x64:
+          jdk: *windows_6_45_jdk_x64
+          jre: *windows_6_45_jre_x64
+        i586:
+          jdk: *windows_6_45_jdk_i586
+          jre: *windows_6_45_jre_i586
+
+    7:
+      72:
+        x64:
+          jdk: &windows_7_72_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u72-b14/jdk-7u72-windows-x64.exe"
+          jre: &windows_7_72_jre_x64 "http://download.oracle.com/otn/java/jdk/7u72-b14/jre-7u72-windows-x64.exe"
+          server-jre: &windows_7_72_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u72-b14/server-jre-7u72-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_7_72_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u72-b14/jdk-7u72-windows-i586.exe"
+          jre: &windows_7_72_jre_i586 "http://download.oracle.com/otn/java/jdk/7u72-b14/jre-7u72-windows-i586.exe"
+      75:
+        x64:
+          jdk: &windows_7_75_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u75-b13/jdk-7u75-windows-x64.exe"
+          jre: &windows_7_75_jre_x64 "http://download.oracle.com/otn/java/jdk/7u75-b13/jre-7u75-windows-x64.exe"
+          server-jre: &windows_7_75_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u75-b13/server-jre-7u75-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_7_75_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u75-b13/jdk-7u75-windows-i586.exe"
+          jre: &windows_7_75_jre_i586 "http://download.oracle.com/otn/java/jdk/7u75-b13/jre-7u75-windows-i586.exe"
+      76:
+        x64:
+          jdk: &windows_7_76_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u76-b13/jdk-7u76-windows-x64.exe"
+          jre: &windows_7_76_jre_x64 "http://download.oracle.com/otn/java/jdk/7u76-b13/jre-7u76-windows-x64.exe"
+          server-jre: &windows_7_76_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u76-b13/server-jre-7u76-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_7_76_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u76-b13/jdk-7u76-windows-i586.exe"
+          jre: &windows_7_76_jre_i586 "http://download.oracle.com/otn/java/jdk/7u76-b13/jre-7u76-windows-i586.exe"
+      79:
+        x64:
+          jdk: &windows_7_79_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u79-b15/jdk-7u79-windows-x64.exe"
+          jre: &windows_7_79_jre_x64 "http://download.oracle.com/otn/java/jdk/7u79-b15/jre-7u79-windows-x64.exe"
+          server-jre: &windows_7_79_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u79-b15/server-jre-7u79-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_7_79_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u79-b15/jdk-7u79-windows-i586.exe"
+          jre: &windows_7_79_jre_i586 "http://download.oracle.com/otn/java/jdk/7u79-b15/jre-7u79-windows-i586.exe"
+      80:
+        x64:
+          jdk: &windows_7_80_jdk_x64 "http://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-windows-x64.exe"
+          jre: &windows_7_80_jre_x64 "http://download.oracle.com/otn/java/jdk/7u80-b15/jre-7u80-windows-x64.exe"
+          server-jre: &windows_7_80_server-jre_x64 "http://download.oracle.com/otn/java/jdk/7u80-b15/server-jre-7u80-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_7_80_jdk_i586 "http://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-windows-i586.exe"
+          jre: &windows_7_80_jre_i586 "http://download.oracle.com/otn/java/jdk/7u80-b15/jre-7u80-windows-i586.exe"
+
+      latest:
+        x64:
+          jdk: *windows_7_80_jdk_x64
+          jre: *windows_7_80_jre_x64
+          server-jre: *windows_7_80_server-jre_x64
+        i586:
+          jdk: *windows_7_80_jdk_i586
+          jre: *windows_7_80_jre_i586
+
+
+    8:
+      152:
+        x64:
+          jdk: &windows_8_152_jdk_x64 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-windows-x64.exe"
+          jre: &windows_8_152_jre_x64 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jre-8u152-windows-x64.exe"
+          server-jre: &windows_8_152_server-jre_x64 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/server-jre-8u152-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_8_152_jdk_i586 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-windows-i586.exe"
+          jre: &windows_8_152_jre_i586 "http://download.oracle.com/otn/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jre-8u152-windows-i586.exe"
+      161:
+        x64:
+          jdk: &windows_8_161_jdk_x64 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-windows-x64.exe"
+          jre: &windows_8_161_jre_x64 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jre-8u161-windows-x64.exe"
+          server-jre: &windows_8_161_server-jre_x64 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/server-jre-8u161-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_8_161_jdk_i586 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-windows-i586.exe"
+          jre: &windows_8_161_jre_i586 "http://download.oracle.com/otn/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jre-8u161-windows-i586.exe"
+      162:
+        x64:
+          jdk: &windows_8_162_jdk_x64 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-windows-x64.exe"
+          jre: &windows_8_162_jre_x64 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jre-8u162-windows-x64.exe"
+          server-jre: &windows_8_162_server-jre_x64 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/server-jre-8u162-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_8_162_jdk_i586 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-windows-i586.exe"
+          jre: &windows_8_162_jre_i586 "http://download.oracle.com/otn/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jre-8u162-windows-i586.exe"
+      171:
+        x64:
+          jdk: &windows_8_171_jdk_x64 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-windows-x64.exe"
+          jre: &windows_8_171_jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jre-8u171-windows-x64.exe"
+          server-jre: &windows_8_171_server-jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/server-jre-8u171-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_8_171_jdk_i586 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-windows-i586.exe"
+          jre: &windows_8_171_jre_i586 "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jre-8u171-windows-i586.exe"
+      172:
+        x64:
+          jdk: &windows_8_172_jdk_x64 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-windows-x64.exe"
+          jre: &windows_8_172_jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jre-8u172-windows-x64.exe"
+          server-jre: &windows_8_172_server-jre_x64 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/server-jre-8u172-windows-x64.tar.gz"
+        i586:
+          jdk: &windows_8_172_jdk_i586 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-windows-i586.exe"
+          jre: &windows_8_172_jre_i586 "http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jre-8u172-windows-i586.exe"
+
+      latest:
+        x64:
+          jdk: *windows_8_172_jdk_x64
+          jre: *windows_8_172_jre_x64
+          server-jre: *windows_8_172_server-jre_x64
+        i586:
+          jdk: *windows_8_172_jdk_i586
+          jre: *windows_8_172_jre_i586

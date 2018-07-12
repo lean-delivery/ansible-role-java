@@ -1,0 +1,20 @@
+---
+- name: "Detecting system options for fetching artifact"
+  set_fact:
+    distro: "{{ ansible_facts.system | lower }}"
+    arch: "{{ 'i586' if ansible_architecture == 'i386' else 'x64' }}"
+
+- name: "Download artifact from Oracle OTN"
+  get_url:
+    url: "{{ fallback_oracle_artifacts[distro][java_major_version][java_minor_version][arch][java_package] }}"
+    dest: "/tmp/"
+    headers:
+      Cookie: "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+  until: "'OK' in FILE_DOWNLOADED.msg"
+  retries: 3
+  delay: 2
+  register: FILE_DOWNLOADED
+
+- name: "Downloaded artifact"
+  set_fact:
+    oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"

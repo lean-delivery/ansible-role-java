@@ -1,0 +1,6 @@
+*.pyc
+venv/
+.venv/
+.vagrant/
+.idea/
+

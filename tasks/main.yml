@@ -1,0 +1,12 @@
+---
+- name: "Fetch oracle artifact with {{ transport }} transport"
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "fetch/{{ transport }}.yml"
+    - "fetch/unknown-transport.yml"
+
+- name: "Choose platform based task "
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "system/{{ ansible_facts.system }}.yml"
+    - "system/not-supported.yml"
