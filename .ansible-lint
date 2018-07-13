@@ -1,0 +1,8 @@
+exclude_paths:
+ - .travis.yml
+ - .//.travis.yml
+ - vars/main.yml
+rulesdir:
+  - ~/ansible-lint-rules/rules/
+use_default_rules: true
+verbosity: 1

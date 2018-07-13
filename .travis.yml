@@ -1,5 +1,6 @@
 ---
 dist: xenial
+sudo: required
 
 language: python
 python:
@@ -19,8 +20,7 @@ install:
   - molecule --version
 
 script:
-  # skipping long line check cause of pretty long urls
-  - ansible-lint -R -r ~/ansible-lint-rules/rules/ -x E602 `find ./ -regex ".*\.\(yml\)"`
+  - ansible-lint `find ./ -regex ".*\.\(yml\)"`
   - molecule test
 
 notifications:
