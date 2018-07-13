@@ -14,14 +14,14 @@ before_install:
   - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
 
 install:
-  - sudo pip install --upgrade pip
-  - sudo pip install --upgrade ansible ansible-lint docker-py molecule pyOpenSSL
+  # - sudo pip install --upgrade pip
+  - sudo pip install --upgrade ansible ansible-lint docker-py molecule pyOpenSSL Markdown cryptography PyYAML==3.12 six==1.11.0 requests
   - ansible --version
   - molecule --version
 
 script:
-  - ls -la ~/ansible-lint-rules/rules/
-  - ls -la ./
+  # - ls -la ~/ansible-lint-rules/rules/
+  # - ls -la ./
   - ansible-lint -r ~/ansible-lint-rules/rules/ `find ./ -regex ".*\.\(yml\)"`
   - molecule test
 
