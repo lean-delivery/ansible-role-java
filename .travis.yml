@@ -20,7 +20,7 @@ install:
   - molecule --version
 
 script:
-  - ansible-lint `find ./ -regex ".*\.\(yml\)"`
+  - ansible-lint -c .ansible-lint `find ./ -regex ".*\.\(yml\)"`
   - molecule test
 
 notifications:
