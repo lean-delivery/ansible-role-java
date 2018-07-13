@@ -19,7 +19,8 @@ install:
   - molecule --version
 
 script:
-  - ansible-lint -r ~/ansible-lint-rules/rules/ `find ./ -regex ".*\.\(yml\)"`
+# skipping long line check cause of pretty long urls
+  - ansible-lint -r ~/ansible-lint-rules/rules/ -x E602 `find ./ -regex ".*\.\(yml\)"`
   - molecule test
 
 notifications:
