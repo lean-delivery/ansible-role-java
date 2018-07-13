@@ -21,7 +21,7 @@ install:
 
 script:
 # skipping long line check cause of pretty long urls
-  - ansible-lint -r ~/ansible-lint-rules/rules/ -x E602 `find ./ -regex ".*\.\(yml\)"`
+  - ansible-lint -R -r ~/ansible-lint-rules/rules/ -x E602 `find ./ -regex ".*\.\(yml\)"`
   - molecule test
 
 notifications:
