@@ -6,10 +6,8 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: centos7
+  - name: instance
     image: centos:7
-  - name: ubuntu1604
-    image: ubuntu:xenial
 provisioner:
   name: ansible
   lint:
@@ -20,3 +18,4 @@ verifier:
   name: testinfra
   lint:
     name: flake8
+    enabled: true
