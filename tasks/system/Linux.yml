@@ -4,48 +4,50 @@
   with_first_found:
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
-    - "default.yaml"
-- block:
-  - name: "Install requirements"
-    package:
-      name: "{{ item }}"
-      state: "present"
-    with_items: "{{ requirements }}"
-    become: True
+    - "default.yml"
 
-  - name: "Mkdir for java installation"
-    file:
-      path: "/opt/{{ java_package }}/"
-      state: "directory"
-      owner: "root"
-      group: "root"
-      mode: "0755"
+- name: "Become section"
+  block:
+    - name: "Install requirements"
+      package:
+        name: "{{ item }}"
+        state: "present"
+      with_items: "{{ requirements }}"
+      become: True
 
-  - name: "Install java {{ java_major_version }}.{{ java_minor_version }}"
-    unarchive:
-      src: "{{ oracle_artifact }}"
-      dest: "{{ java_path }}"
-      owner: "root"
-      group: "root"
-      mode: "0755"
+    - name: "Mkdir for java installation"
+      file:
+        path: "/opt/{{ java_package }}/"
+        state: "directory"
+        owner: "root"
+        group: "root"
+        mode: "0755"
 
-  - name: "Update alternatives"
-    alternatives:
-      name: "{{ item }}"
-      path: "{{ java_path }}/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ item }}"
-      link: "/usr/bin/{{ item }}"
-      priority: 100
-    with_items:
-      - "java"
-      - "javac"
-      - "jar"
+    - name: "Install java {{ java_major_version }}.{{ java_minor_version }}"
+      unarchive:
+        src: "{{ oracle_artifact }}"
+        dest: "{{ java_path }}"
+        owner: "root"
+        group: "root"
+        mode: "0755"
 
-  - name: "Put java profile"
-    template:
-      src: "java.sh.j2"
-      dest: "/etc/profile.d/java.sh"
-      owner: "root"
-      group: "root"
-      mode: "0555"
+    - name: "Update alternatives"
+      alternatives:
+        name: "{{ item }}"
+        path: "{{ java_path }}/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ item }}"
+        link: "/usr/bin/{{ item }}"
+        priority: 100
+      with_items:
+        - "java"
+        - "javac"
+        - "jar"
+
+    - name: "Put java profile"
+      template:
+        src: "java.sh.j2"
+        dest: "/etc/profile.d/java.sh"
+        owner: "root"
+        group: "root"
+        mode: "0555"
 
   become: True
