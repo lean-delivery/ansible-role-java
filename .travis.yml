@@ -15,13 +15,13 @@ before_install:
 
 install:
   # - sudo pip install --upgrade pip
-  - pip install --upgrade ansible ansible-lint docker-py molecule==2.13.1 pyOpenSSL Markdown cryptography PyYAML==3.12 six==1.11.0 requests
+  - pip install --upgrade ansible==2.5.2 ansible-lint docker-py molecule==2.13.1 pyOpenSSL Markdown cryptography PyYAML==3.12 six==1.11.0 requests
   - ansible --version
   - molecule --version
 
 script:
   - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
-  - molecule --debug test
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
