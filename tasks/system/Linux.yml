@@ -12,7 +12,7 @@
       package:
         name: "{{ item }}"
         state: "present"
-      with_items: "{{ requirements }}"
+      loop: "{{ requirements }}"
       become: True
 
     - name: "Mkdir for java installation"
@@ -37,7 +37,7 @@
         path: "{{ java_path }}/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ item }}"
         link: "/usr/bin/{{ item }}"
         priority: 100
-      with_items:
+      loop:
         - "java"
         - "javac"
         - "jar"
