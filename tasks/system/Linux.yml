@@ -44,7 +44,6 @@
         - "jar"
       loop_control:
         loop_var: binary
-      become: True
 
     - name: "Put java profile"
       template:
