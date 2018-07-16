@@ -35,7 +35,7 @@ Requirements
       - `jre`
       - `server-jre`
 
-  - `transport` Artifact source transport.
+  - `transport` Artifact source transport. Use `local` or `web` for more predictable result. OTN is not enough stable. 
     Available:
       - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_artifacts` with specified:
           - `java_package`

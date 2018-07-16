@@ -1,0 +1,4 @@
+---
+requirements:
+  - "python"
+  - "python-argparse"
