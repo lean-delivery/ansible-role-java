@@ -11,8 +11,8 @@
     mode: "0755"
     headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie; --no-check-certificate"
   until: "'OK' in FILE_DOWNLOADED.msg"
-  retries: 3
-  delay: 2
+  retries: 15
+  delay: 5
   delegate_to: "localhost"
   connection: local
   become: False
