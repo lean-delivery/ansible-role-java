@@ -8,12 +8,12 @@
   get_url:
     url: "{{ fallback_oracle_artifacts[distro][java_major_version][java_minor_version][arch][java_package] }}"
     dest: "/tmp/"
-    headers:
-      Cookie: "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+    headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie; --no-check-certificate"
   until: "'OK' in FILE_DOWNLOADED.msg"
   retries: 3
   delay: 2
   register: FILE_DOWNLOADED
+  become: True
 
 - name: "Downloaded artifact"
   set_fact:

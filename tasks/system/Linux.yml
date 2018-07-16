@@ -10,10 +10,11 @@
   block:
     - name: "Install requirements"
       package:
-        name: "{{ item }}"
+        name: "{{ package }}"
         state: "present"
       loop: "{{ requirements }}"
-      become: True
+      loop_control:
+        loop_var: package
 
     - name: "Mkdir for java installation"
       file:
@@ -33,14 +34,17 @@
 
     - name: "Update alternatives"
       alternatives:
-        name: "{{ item }}"
-        path: "{{ java_path }}/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ item }}"
-        link: "/usr/bin/{{ item }}"
+        name: "{{ binary }}"
+        path: "{{ java_path }}/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ binary }}"
+        link: "/usr/bin/{{ binary }}"
         priority: 100
       loop:
         - "java"
         - "javac"
         - "jar"
+      loop_control:
+        loop_var: binary
+      become: True
 
     - name: "Put java profile"
       template:
