@@ -8,6 +8,10 @@ This Ansible role has the following features for Oracle Java:
  - Install JRE, JDK, Server-JRE
  - Additional opportunity to install from s3, web, oracle OTN, local source.
 
+DISCLAIMER: usage of any version of this role implies you have accepted the
+[Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
+
+
 Requirements
 ------------
 
