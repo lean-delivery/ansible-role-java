@@ -59,9 +59,11 @@ Requirements
   - `java_path` Where java package will be installed
     default: `/opt/{{ java_package }}/`
 
+  - `download_path`: Local folder for downloading artifacts
+    default: `/tmp/`
 
-  - `transport_web` URI for http/https artifact  "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-  - `transport_local` Path for local artifact "/tmp/jdk-8u172-linux-x64.tar.gz"
+  - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
+  - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
 
 
 ## Some examples of the installing current role

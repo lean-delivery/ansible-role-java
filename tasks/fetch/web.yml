@@ -2,7 +2,7 @@
 - name: "Download artifact from web"
   get_url:
     url: "{{ transport_web }}"
-    dest: "/tmp/"
+    dest: "{{ download_path }}"
   until: "'OK' in FILE_DOWNLOADED.msg"
   retries: 3
   delay: 2

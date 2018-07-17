@@ -10,7 +10,11 @@ java_minor_version: 172
 # x64 (default), i586 supported
 java_arch: "x64"
 
+# java installation path
 java_path: "/opt/{{ java_package }}/"
+
+# local download path
+download_path: "/tmp/"
 
 # Custom artifact source transport
 transport: "oracle-fallback"
