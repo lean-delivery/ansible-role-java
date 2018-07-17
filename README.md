@@ -1,5 +1,7 @@
 java role
 =========
+[![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-java/master/LICENSE)
+[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-java.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-java)
 
 ## Summary
 
@@ -48,8 +50,8 @@ Requirements
 
 - defaults
   - `java_major_version` 8
-  - `java_minor_version` 172
-  - `java_arch` Package architercture.
+  - `java_minor_version` 181
+  - `java_arch` Package architecture.
     Available:
       - `x64` for x86_64
       - `i586` for x86
@@ -57,9 +59,11 @@ Requirements
   - `java_path` Where java package will be installed
     default: `/opt/{{ java_package }}/`
 
+  - `download_path`: Local folder for downloading artifacts
+    default: `/tmp/`
 
-  - `transport_web` URI for http/https artifact  "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-  - `transport_local` Path for local artifact "/tmp/jdk-8u172-linux-x64.tar.gz"
+  - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
+  - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
 
 
 ## Some examples of the installing current role
@@ -73,7 +77,7 @@ Example Playbook
   roles:
     - role: "lean-delivery.ansible-role-java"
       java_major_version: 8
-      java_minor_version: 171
+      java_minor_version: 181
       java_arch: "x64"
       java_package: "jdk"
 ```
@@ -86,7 +90,7 @@ Example Playbook
   roles:
     - role: "lean-delivery.ansible-role-java"
       transport: "local"
-      transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
+      transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
 
 License

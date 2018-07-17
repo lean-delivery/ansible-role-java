@@ -18,7 +18,7 @@
 
     - name: "Mkdir for java installation"
       file:
-        path: "/opt/{{ java_package }}/"
+        path: "{{ java_path }}"
         state: "directory"
         owner: "root"
         group: "root"
