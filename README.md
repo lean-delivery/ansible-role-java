@@ -50,8 +50,8 @@ Requirements
 
 - defaults
   - `java_major_version` 8
-  - `java_minor_version` 172
-  - `java_arch` Package architercture.
+  - `java_minor_version` 181
+  - `java_arch` Package architecture.
     Available:
       - `x64` for x86_64
       - `i586` for x86
@@ -77,7 +77,7 @@ Example Playbook
   roles:
     - role: "lean-delivery.ansible-role-java"
       java_major_version: 8
-      java_minor_version: 171
+      java_minor_version: 181
       java_arch: "x64"
       java_package: "jdk"
 ```
@@ -90,7 +90,7 @@ Example Playbook
   roles:
     - role: "lean-delivery.ansible-role-java"
       transport: "local"
-      transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
+      transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
 
 License
