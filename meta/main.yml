@@ -1,20 +1,20 @@
 ---
 galaxy_info:
+  role_name: "java"
   author: "Lean Delivery team <team@lean-delivery.com>"
   description: "Lean Delivery Java install"
   company: "Epam Systems"
   license: "Apache"
-  min_ansible_version: "2.4"
+  min_ansible_version: "2.5"
   issue_tracker_url: "https://github.com/lean-delivery/ansible-role-java/issues"
-  github_branch: "master"
   platforms:
     - name: "Ubuntu"
       versions:
-        - "precise"
+        - "xenial"
         - "trusty"
     - name: "Debian"
       versions:
-        - "wheezy"
+        - "stretch"
         - "jessie"
     - name: "EL"
       versions:
