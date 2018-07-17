@@ -1,3 +1,4 @@
+---
 requirements:
   - "redhat-lsb-core"
   - "policycoreutils-python"

@@ -8,6 +8,10 @@ This Ansible role has the following features for Oracle Java:
  - Install JRE, JDK, Server-JRE
  - Additional opportunity to install from s3, web, oracle OTN, local source.
 
+DISCLAIMER: usage of any version of this role implies you have accepted the
+[Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
+
+
 Requirements
 ------------
 
@@ -31,7 +35,7 @@ Requirements
       - `jre`
       - `server-jre`
 
-  - `transport` Artifact source transport.
+  - `transport` Artifact source transport. Use `local` or `web` for more predictable result. OTN is not enough stable. 
     Available:
       - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_artifacts` with specified:
           - `java_package`

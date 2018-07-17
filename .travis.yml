@@ -1,0 +1,27 @@
+---
+dist: xenial
+sudo: required
+
+language: python
+python:
+  - "2.7"
+
+services:
+  - docker
+
+before_install:
+  # - deactivate
+  - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
+
+install:
+  # - sudo pip install --upgrade pip
+  - pip install --upgrade ansible==2.5.5 ansible-lint==3.4.21 docker-py==1.10.6 molecule==2.13.1 pyOpenSSL PyYAML==3.12
+  - ansible --version
+  - molecule --version
+
+script:
+  - ansible-lint -c .ansible-lint `find . -regex ".*\.\(yml\)"`
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

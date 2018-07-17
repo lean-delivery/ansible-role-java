@@ -1,0 +1,12 @@
+exclude_paths:
+ - ./.travis.yml
+ - ./vars/main.yml
+ - ./defaults/main.yml
+ - ./tasks/fetch/oracle-fallback.yml
+ - ./tasks/system/Linux.yml
+ - ./molecule/default/create.yml
+ - ./molecule/default/destroy.yml
+rulesdir:
+  - ~/ansible-lint-rules/rules/
+use_default_rules: true
+verbosity: 1

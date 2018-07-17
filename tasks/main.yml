@@ -1,12 +1,17 @@
 ---
 - name: "Fetch oracle artifact with {{ transport }} transport"
-  include_tasks: "{{ item }}"
+  include_tasks: "{{ transport_driver }}"
   with_first_found:
     - "fetch/{{ transport }}.yml"
     - "fetch/unknown-transport.yml"
+  loop_control:
+    loop_var: transport_driver
+
 
 - name: "Choose platform based task "
-  include_tasks: "{{ item }}"
+  include_tasks: "{{ platform }}"
   with_first_found:
     - "system/{{ ansible_facts.system }}.yml"
     - "system/not-supported.yml"
+  loop_control:
+    loop_var: platform
