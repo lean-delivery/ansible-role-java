@@ -22,11 +22,17 @@ Requirements
    - 7
    - 8
  - **Supported OS**: 
-   - CentOS
+   - Ubuntu
+     - xenial
+     - trusty
+   - Debian
+     - stretch
+     - jessie
+   - EL
      - 6
      - 7
-   - Windows:
-     - 10
+   - Windows
+     - all
 
 ## Role Variables
 
