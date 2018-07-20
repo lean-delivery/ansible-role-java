@@ -11,7 +11,7 @@ services:
 
 before_install:
   # - deactivate
-  - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
+  - git clone -b ${lint_version} https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
 
 install:
   # - sudo pip install --upgrade pip
