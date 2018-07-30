@@ -2,7 +2,7 @@
 - name: "Artifact stored localy"
   set_fact:
     oracle_artifact: "{{ transport_local }}"
-    oracle_artifact_basename: "{{ oracle_artifact | basename }}"
+    oracle_artifact_basename: "{{ transport_local | basename }}"
 
 - name: "Getting java version variables"
   set_fact:
