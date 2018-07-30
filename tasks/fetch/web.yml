@@ -11,11 +11,11 @@
 - name: "Downloaded artifact"
   set_fact:
     oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
+    oracle_artifact_basename: "{{ FILE_DOWNLOADED.dest | basename }}"
 
 - name: "Getting java version variables"
   set_fact:
-    oracle_artifact_basename: "{{ oracle_artifact | basename }}"
-    java_package: "{{ oracle_artifact.split('-')[0] }}"
-    java_major_version: "{{ oracle_artifact.split('-')[1].split('u')[0] }}"
-    java_minor_version: "{{ oracle_artifact.split('-')[1].split('u')[1] }}"
-    java_arch: "{{ oracle_artifact.split('-')[3] }}"
+    java_package: "{{ oracle_artifact_basename.split('-')[0] }}"
+    java_major_version: "{{ oracle_artifact_basename.split('-')[1].split('u')[0] }}"
+    java_minor_version: "{{ oracle_artifact_basename.split('-')[1].split('u')[1] }}"
+    java_arch: "{{ oracle_artifact_basename.split('-')[3] }}"
