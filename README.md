@@ -99,6 +99,18 @@ Example Playbook
       transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
 
+### Installing java from web storage artifact:
+```yaml
+- name: "Install java"
+  hosts: all
+
+  roles:
+    - role: "ansible-role-java"
+      transport: "web"
+      transport_web: "https://somehost/somedirectory/jdk-7u191-linux-x64.tar.gz"
+```
+
+
 License
 -------
 
