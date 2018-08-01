@@ -81,7 +81,7 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "lean-delivery.ansible-role-java"
+    - role: "lean_delivery.java"
       java_major_version: 8
       java_minor_version: 181
       java_arch: "x64"
@@ -94,7 +94,7 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "lean-delivery.ansible-role-java"
+    - role: "lean_delivery.java"
       transport: "local"
       transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
@@ -105,7 +105,7 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "ansible-role-java"
+    - role: "lean_delivery.java"
       transport: "web"
       transport_web: "https://somehost/somedirectory/jdk-7u191-linux-x64.tar.gz"
 ```
