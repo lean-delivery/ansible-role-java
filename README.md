@@ -1,4 +1,4 @@
-java role
+Ansible Galaxy lean_delivery.java role
 =========
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-java/master/LICENSE)
 [![Build Status](https://travis-ci.org/lean-delivery/ansible-role-java.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-java)
@@ -81,7 +81,7 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "lean-delivery.ansible-role-java"
+    - role: "lean_delivery.java"
       java_major_version: 8
       java_minor_version: 181
       java_arch: "x64"
@@ -94,10 +94,22 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "lean-delivery.ansible-role-java"
+    - role: "lean_delivery.java"
       transport: "local"
       transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
+
+### Installing java from web storage artifact:
+```yaml
+- name: "Install java"
+  hosts: all
+
+  roles:
+    - role: "lean_delivery.java"
+      transport: "web"
+      transport_web: "https://somehost/somedirectory/jdk-7u191-linux-x64.tar.gz"
+```
+
 
 License
 -------
