@@ -34,4 +34,4 @@ galaxy_info:
     - "jdk"
     - "jvm"
 
-  dependencies: []
+dependencies: []
