@@ -35,7 +35,7 @@
     - name: "Update alternatives"
       alternatives:
         name: "{{ binary }}"
-        path: "{{ java_path }}/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ binary }}"
+        path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ binary }}"
         link: "/usr/bin/{{ binary }}"
         priority: 100
       loop:
