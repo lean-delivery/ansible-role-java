@@ -7,6 +7,8 @@
   retries: 3
   delay: 2
   register: FILE_DOWNLOADED
+  delegate_to: "localhost"
+  connection: "local"
 
 - name: "Downloaded artifact"
   set_fact:
