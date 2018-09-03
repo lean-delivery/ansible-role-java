@@ -32,7 +32,7 @@
         group: "root"
         mode: "0755"
 
-    - name: Check for existence
+    - name: "Check for java binaries existence"
       stat:
         path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ binary }}"
       register: java_binary_collection
