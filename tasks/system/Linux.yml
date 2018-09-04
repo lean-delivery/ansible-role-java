@@ -32,18 +32,25 @@
         group: "root"
         mode: "0755"
 
-    - name: "Update alternatives"
-      alternatives:
-        name: "{{ binary }}"
+    - name: "Check for java binaries existence"
+      stat:
         path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ binary }}"
-        link: "/usr/bin/{{ binary }}"
-        priority: 100
+      register: java_binary_collection
       loop:
         - "java"
         - "javac"
         - "jar"
       loop_control:
         loop_var: binary
+
+    - name: "Update alternatives"
+      alternatives:
+        name: "{{ item.binary }}"
+        path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ item.binary }}"
+        link: "/usr/bin/{{ item.binary }}"
+        priority: 100
+      with_items: "{{ java_binary_collection.results }}"
+      when: item.stat.exists
 
     - name: "Put java profile"
       template:
