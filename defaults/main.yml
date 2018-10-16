@@ -5,7 +5,7 @@ java_package: "jdk"
 # 6 / 7 / 8 (default) supported
 java_major_version: 8
 
-java_minor_version: 181
+java_minor_version: 191
 
 # x64 (default), i586 supported
 java_arch: "x64"
