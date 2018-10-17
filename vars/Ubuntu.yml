@@ -2,4 +2,3 @@
 requirements:
   - "python"
   - "python-argparse"
-  - "python-pip"
