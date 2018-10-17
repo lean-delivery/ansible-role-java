@@ -21,7 +21,7 @@ Requirements
  - **Supported java version**:
    - 7
    - 8
- - **Supported OS**: 
+ - **Supported OS**:
    - Ubuntu
      - xenial
      - trusty
@@ -43,7 +43,7 @@ Requirements
       - `jre`
       - `server-jre`
 
-  - `transport` Artifact source transport. Use `local` or `web` for more predictable result. OTN is not enough stable. 
+  - `transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
     Available:
       - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_artifacts` with specified:
           - `java_package`
@@ -53,6 +53,7 @@ Requirements
       - `web` Fetching artifact from custom web uri (not supporting idempotent operation)
       - `win-chocolatey` Windows specific package manager
       - `local` Local artifact
+      - `s3` artifact in s3 bucket
 
 - defaults
   - `java_major_version` 8
@@ -70,6 +71,14 @@ Requirements
 
   - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
   - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
+  - `transport_s3_bucket` - s3 bucket name
+    default: `s3_bucket`
+  - `transport_s3_path` - path to patch folder in bucket
+    default: `/folder`
+  - `transport_s3_aws_access_key` - aws key. Need to set in role or set as parameter or set env variables according https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
+    default: `undefined`
+  - `transport_s3_aws_secret_key` - aws secret key. Need to set in role or set as parameter or set env variables according https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
+    default: `undefined`
 
 
 ## Some examples of the installing current role
