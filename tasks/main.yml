@@ -1,7 +1,7 @@
 ---
 - name: "Install pip package"
   package:
-    name: "{{ ansible_os_family == "Ubuntu" | ternary("python-pip","python2-pip") }}"
+    name: "{{ ansible_os_family == 'Ubuntu' | ternary('python-pip','python2-pip') }}"
     state: "present"
   delegate_to: "localhost"
   connection: "local"
