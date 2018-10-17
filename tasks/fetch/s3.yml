@@ -1,0 +1,24 @@
+---
+- name: "Download artifact from s3"
+  aws_s3:
+    bucket: "{{ transport_s3_bucket }}"
+    object: "{{ transport_s3_path }}"
+    dest: "{{ download_path }}/{{ transport_s3_path|basename }}"
+    aws_access_key: "{{ transport_s3_aws_access_key }}"
+    aws_secret_key: "{{ transport_s3_aws_secret_key }}"
+    mode: get
+  retries: 5
+  delegate_to: "localhost"
+  connection: "local"
+
+- name: "Downloaded artifact"
+  set_fact:
+    oracle_artifact: "{{ download_path }}/{{ transport_s3_path|basename }}"
+    oracle_artifact_basename: "{{ transport_s3_path|basename }}"
+
+- name: "Getting java version variables"
+  set_fact:
+    java_package: "{{ oracle_artifact_basename.split('-')[0] }}"
+    java_major_version: "{{ oracle_artifact_basename.split('-')[1].split('u')[0] }}"
+    java_minor_version: "{{ oracle_artifact_basename.split('-')[1].split('u')[1] }}"
+    java_arch: "{{ oracle_artifact_basename.split('-')[3] }}"

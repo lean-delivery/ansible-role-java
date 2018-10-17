@@ -5,3 +5,4 @@ requirements:
   - "libsemanage-python"
   - "libselinux-python"
   - "python-argparse"
+  - "python2-pip"
