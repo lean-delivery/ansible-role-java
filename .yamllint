@@ -1,13 +1,14 @@
+---
 extends: default
 
 rules:
-  braces:
-    max-spaces-inside: 1
-    level: error
-  brackets:
-    max-spaces-inside: 1
-    level: error
-  line-length: disable
-  # NOTE(retr0h): Templates no longer fail this lint rule.
-  #               Uncomment if running old Molecule templates.
-  # truthy: disable
+  # 150 chars should be enough, but don't fail if a line is longer
+  line-length:
+    max: 150
+    level: warning
+  # don't bother me with this rule
+  truthy: disable
+  comments-indentation: disable
+
+ignore: |
+  molecule

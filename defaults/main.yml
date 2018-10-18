@@ -26,3 +26,6 @@ transport: "oracle-fallback"
 
 transport_web: "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
 transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
+
+transport_s3_bucket: "s3_bucket"
+transport_s3_path: "/folder/jdk-8u172-linux-x64.tar.gz"

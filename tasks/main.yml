@@ -1,4 +1,43 @@
 ---
+- name: "Enable EPEL repository"
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+      {{ ansible_distribution_major_version }}.noarch.rpm"
+    state: "present"
+  delegate_to: "localhost"
+  connection: "local"
+  run_once: True
+  become: True
+  when:
+    - transport == "s3"
+    - ansible_os_family == 'RedHat'
+
+- name: "Install pip package"
+  package:
+    name: "{{ ansible_os_family == 'Ubuntu' | ternary('python-pip','python2-pip') }}"
+    state: "present"
+  delegate_to: "localhost"
+  connection: "local"
+  run_once: True
+  become: True
+  when: transport == "s3"
+
+- name: "Install boto module"
+  pip:
+    name: "{{ item }}"
+    state: present
+    extra_args: --upgrade
+  with_items:
+    - "pip"
+    - "botocore"
+    - "boto"
+    - "boto3"
+  delegate_to: "localhost"
+  connection: "local"
+  run_once: True
+  become: True
+  when: transport == "s3"
+
 - name: "Fetch oracle artifact with {{ transport }} transport"
   include_tasks: "{{ transport_driver }}"
   with_first_found:
@@ -6,7 +45,6 @@
     - "fetch/unknown-transport.yml"
   loop_control:
     loop_var: transport_driver
-
 
 - name: "Choose platform based task "
   include_tasks: "{{ platform }}"
