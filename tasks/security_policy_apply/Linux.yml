@@ -13,7 +13,8 @@
 
 - name: "Apply patch file"
   shell: "cp -r {{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-    {{ java_minor_version }}/jre/lib/security/{{ security_patch_folders[java_major_version|int] }}/*.jar \
+    {{ java_minor_version }}/jre/lib/security/\
+    {{ security_patch_folders[java_major_version|int] }}/*.jar \
     {{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
     {{ java_minor_version }}/jre/lib/security/"
   args:
