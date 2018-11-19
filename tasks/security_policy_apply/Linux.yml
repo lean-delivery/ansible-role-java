@@ -1,0 +1,36 @@
+---
+- name: "Unzip patch file"
+  unarchive:
+    src: "{{ security_policy_oracle_artifact }}"
+    dest: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+      {{ java_minor_version }}/jre/lib/security"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: True
+  when:
+    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
+
+- name: "Apply patch file"
+  shell: "cp -r {{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+    {{ java_minor_version }}/jre/lib/security/{{ security_patch_folders[java_major_version|int] }}/*.jar \
+    {{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+    {{ java_minor_version }}/jre/lib/security/"
+  args:
+    removes: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+      {{ java_minor_version }}/jre/lib/security/\
+      {{ security_patch_folders[java_major_version|int] }}/local_policy.jar"
+  become: True
+  when:
+    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
+
+- name: "Apply setting"
+  replace:
+    path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+      {{ java_minor_version }}/jre/lib/security/java.security"
+    regexp: "#crypto.policy=unlimited"
+    replace: "crypto.policy=unlimited"
+  become: True
+  when:
+    - java_major_version|int == 8
+    - java_minor_version|int >= 151

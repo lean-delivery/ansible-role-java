@@ -79,7 +79,21 @@ Requirements
     default: `undefined`
   - `transport_s3_aws_secret_key` - aws secret key. Need to set in role or set as parameter or set env variables according https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
     default: `undefined`
-
+# Configure unlimited policy
+  - `java_unlimited_policy_enabled` - to apply unlimited policy
+    default: `False`
+  - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
+    Available:
+      - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_security_policy_artifacts` with specified:
+      - `web` Fetching artifact from custom web uri (not supporting idempotent operation)
+      - `local` Local artifact
+      - `s3` artifact in s3 bucket
+  - `java_unlimited_policy_transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jce_policy-8.zip"
+  - `java_unlimited_policy_transport_local` Path for local artifact e.g. "/tmp/jce_policy-8.zip"
+  - `java_unlimited_policy_transport_s3_bucket` - s3 bucket name
+    default: `s3_bucket`
+  - `java_unlimited_policy_transport_s3_path` - path to patch folder in bucket
+    default: `/folder`
 
 ## Some examples of the installing current role
 
