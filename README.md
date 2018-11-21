@@ -106,7 +106,7 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "lean-delivery.java"
+    - role: "lean_delivery.java"
       java_major_version: 8
       java_minor_version: 181
       java_arch: "x64"
@@ -119,7 +119,7 @@ Example Playbook
   hosts: all
 
   roles:
-    - role: "lean-delivery.java"
+    - role: "lean_delivery.java"
       transport: "local"
       transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
@@ -129,7 +129,7 @@ Example Playbook
   hosts: windows
 
   roles:
-    - role: "lean-delivery.java"
+    - role: "lean_delivery.java"
       java_major_version: 8
       java_package: "jre"
       transport: "win-chocolatey"
@@ -138,10 +138,10 @@ Example Playbook
 License
 -------
 
-Apache2
+Apache
 
 Author Information
 ------------------
 
 authors:
-  - Ivan Bogomazov <ivan_bogomazov@lean-delivery.com>
+  - Lean Delivery Team <team@lean-delivery.com>
