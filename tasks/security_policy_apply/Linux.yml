@@ -12,15 +12,18 @@
     - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
 
 - name: "Apply patch file"
-  shell: "cp -r {{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-    {{ java_minor_version }}/jre/lib/security/\
-    {{ security_patch_folders[java_major_version|int] }}/*.jar \
-    {{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-    {{ java_minor_version }}/jre/lib/security/"
-  args:
-    removes: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+  copy:
+    src: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
       {{ java_minor_version }}/jre/lib/security/\
-      {{ security_patch_folders[java_major_version|int] }}/local_policy.jar"
+      {{ security_patch_folders[java_major_version|int] }}/{{ item }}"
+    dest: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
+    {{ java_minor_version }}/jre/lib/security/"
+    remote_src: True
+    directory_mode: True
+  loop:
+    - "local_policy.jar"
+    - "US_export_policy.jar"
+    - "README.txt"
   become: True
   when:
     - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
