@@ -17,7 +17,8 @@ java_path: "/opt/{{ java_package }}/"
 download_path: "/tmp/"
 
 # windows temporary directory
-windows_temp_path: "C:\\Windows\\Temp\\"
+default_windows_temp_path: "C:\\Windows\\Temp"
+windows_temp_path: "{{ ansible_env.TEMP | default(default_windows_temp_path) }}\\"
 
 # Custom artifact source transport
 transport: "oracle-fallback"

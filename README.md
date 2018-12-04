@@ -70,7 +70,7 @@ Requirements
     default: `/tmp/`
 
   - `windows_temp_path`: Windows local folder for downloading artifacts
-    default: `C:\Windows\Temp\`
+    default: `TEMP env variable or C:\Windows\Temp\`
 
   - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
   - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
