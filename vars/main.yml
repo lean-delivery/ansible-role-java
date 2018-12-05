@@ -147,7 +147,7 @@ fallback_oracle_artifacts:
           jdk: "http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jdk-8u192-linux-i586.tar.gz"
           jre: "http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jre-8u192-linux-i586.tar.gz"
 
-  windows:
+  win32nt:
     6:
       38:
         x64:

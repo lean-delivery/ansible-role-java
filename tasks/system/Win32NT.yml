@@ -2,34 +2,45 @@
 - name: "Install {{ java_package }} from chocolatey"
   win_chocolatey:
     name: "{{ java_package }}{{ java_major_version }}"
-    params: "/InstallationPath:C:\Program Files\\Java /Force /Machine"
+    params: "/InstallationPath:C:\\Program Files\\Java /Force /Machine"
   when: transport == "win-chocolatey"
 
-- name: "Install package from local source"
-  win_package:
-    path: "{{ java_artifact }}"
-    state: "present"
-    creates_path: "C:\Program Files\\Java"
-  when: transport != "win-chocolatey"
+- name: "Non-chocolatey installation"
+  block:
 
-- name: "Get installed java directory"
-  win_shell: "Get-ChildItem -Path 'C:\Program Files\\Java' |\
-              Select-Object -Last 1 -ExpandProperty FullName"
-  register: java_folder
-  failed_when: java_folder.stdout_lines[0] == ""
-  when: transport != "win-chocolatey"
+    - name: "Path to the remote installation package"
+      set_fact:
+        java_artifact: "{{ windows_temp_path }}\
+{{ oracle_artifact | win_basename }}"
 
-- name: "Set java environment variable"
-  win_environment:
-    name: "JAVA_HOME"
-    state: "present"
-    value: "{{ java_folder.stdout_lines[0] }}"
-    level: "machine"
-  when: transport != "win-chocolatey"
+    - name: "Copy installation package to the remote"
+      win_copy:
+        src: "{{ oracle_artifact }}"
+        dest: "{{ java_artifact }}"
 
-- name: "Ensure that 'JAVA_HOME\bin' present in 'Path' variable"
-  win_path:
-    elements: "{{ java_folder.stdout_lines[0] }}\\bin"
-    state: "present"
-    scope: "machine"
+    - name: "Install package from the remote source"
+      win_package:
+        path: "{{ java_artifact }}"
+        state: "present"
+        creates_path: "C:\\Program Files\\Java"
+
+    - name: "Get installed java directory"
+      win_shell: "Get-ChildItem -Path 'C:\\Program Files\\Java' |\
+                  Select-Object -Last 1 -ExpandProperty FullName"
+      register: java_folder
+      failed_when: java_folder.stdout_lines[0] == ""
+
+    - name: "Set java environment variable"
+      win_environment:
+        name: "JAVA_HOME"
+        state: "present"
+        value: "{{ java_folder.stdout_lines[0] }}"
+        level: "machine"
+
+    - name: "Ensure that 'JAVA_HOME/bin' present in 'Path' variable"
+      win_path:
+        elements: "{{ java_folder.stdout_lines[0] }}\\bin"
+        state: "present"
+        scope: "machine"
+
   when: transport != "win-chocolatey"
