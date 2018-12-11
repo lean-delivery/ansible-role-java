@@ -10,11 +10,8 @@
   block:
     - name: "Install requirements"
       package:
-        name: "{{ package }}"
+        name: "{{ requirements }}"
         state: "present"
-      loop: "{{ requirements }}"
-      loop_control:
-        loop_var: package
 
     - name: "Mkdir for java installation"
       file:
@@ -31,6 +28,7 @@
         owner: "root"
         group: "root"
         mode: "0755"
+        creates: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/"
 
     - name: "Check for java binaries existence"
       stat:

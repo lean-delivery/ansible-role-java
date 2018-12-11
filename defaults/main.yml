@@ -25,6 +25,7 @@ transport: "oracle-fallback"
 # available are:
 # - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
+# - "s3" Fetching artifact from s3 bucket
 # - "win-chocolatey" Windows specific package manager
 # - "local" Local artifact
 
@@ -33,3 +34,17 @@ transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
 
 transport_s3_bucket: "s3_bucket"
 transport_s3_path: "/folder/jdk-8u172-linux-x64.tar.gz"
+
+# Configure unlimited security policy
+java_unlimited_policy_enabled: False
+# For Java earlier than 1.8.0_151
+java_unlimited_policy_transport: "oracle-fallback"
+# available are:
+# - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
+# - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
+# - "s3" Fetching artifact from s3 bucket
+# - "local" Local artifact
+java_unlimited_policy_transport_s3_bucket: "s3_bucket"
+java_unlimited_policy_transport_s3_path: "/folder/jce_policy-8.zip"
+java_unlimited_policy_transport_web: "http://my-storage.com/jce_policy-8.zip"
+java_unlimited_policy_transport_local: "/tmp/jce_policy-8.zip"
