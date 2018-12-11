@@ -69,6 +69,9 @@ Requirements
   - `download_path`: Local folder for downloading artifacts
     default: `/tmp/`
 
+  - `windows_temp_path`: Windows local folder for downloading artifacts
+    default: `TEMP env variable or C:\Windows\Temp\`
+
   - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
   - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
   - `transport_s3_bucket` - s3 bucket name
@@ -79,6 +82,7 @@ Requirements
     default: `undefined`
   - `transport_s3_aws_secret_key` - aws secret key. Need to set in role or set as parameter or set env variables according https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
     default: `undefined`
+
 # Configure unlimited policy
   - `java_unlimited_policy_enabled` - to apply unlimited policy
     default: `False`
