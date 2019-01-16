@@ -57,7 +57,7 @@ Requirements
 
 - defaults
   - `java_major_version` 8
-  - `java_minor_version` 181
+  - `java_minor_version` 202
   - `java_arch` Package architecture.
     Available:
       - `x64` for x86_64
@@ -112,7 +112,7 @@ Example Playbook
   roles:
     - role: "lean_delivery.java"
       java_major_version: 8
-      java_minor_version: 181
+      java_minor_version: 202
       java_arch: "x64"
       java_package: "jdk"
 ```
