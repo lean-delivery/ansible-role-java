@@ -1,26 +1,59 @@
 ---
-- name: "Detecting system options for fetching artifact"
-  set_fact:
-    distro: "{{ ansible_facts.system | lower }}"
-    arch: "{{ 'i586' if ansible_architecture == 'i386' else 'x64' }}"
+- set_fact:
+    minor: "{{ java_minor_version | default('.*', True) }}"
 
-- name: "Download artifact from Oracle OTN"
-  get_url:
-    url: "{{ fallback_oracle_artifacts[distro][java_major_version][java_minor_version][arch][java_package] }}"
-    dest: "{{ download_path }}"
-    mode: "0755"
-    headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie; --no-check-certificate"
-  until: "'OK' in FILE_DOWNLOADED.msg"
-  # I'm convinced that about half of what separates the successful entrepreneurs
-  # from the non-successful ones is pure perseverance. It is so hard.
-  # https://en.wikiquote.org/wiki/Steve_Jobs
-  retries: 15
-  delay: 5
+- name: "HTML scraping"
+  block:
+
+    - name: "Fetch root page https://www.oracle.com/technetwork/java/javase/downloads/index.html"
+      get_url:
+        url: "https://www.oracle.com/technetwork/java/javase/downloads/index.html"
+        dest: "/tmp/page.html"
+        force: True
+
+    - name: "Slurp root page"
+      slurp:
+        src: "/tmp/page.html"
+      register: root_page
+
+    - name: "Find release url"
+      set_fact:
+        release_url: "{{ root_page['content'] | b64decode | regex_search('technetwork/java/javase/downloads/' + java_package | string + java_major_version | string + '-downloads-.*html') }}"
+
+    - name: "Fetch release page from https://www.oracle.com/{{ release_url }}"
+      get_url:
+        url: "https://www.oracle.com/{{ release_url }}"
+        dest: "/tmp/page.html"
+        force: True
+
+    - name: "Slurp release page"
+      slurp:
+        src: "/tmp/page.html"
+      register: release_page
+
+    - name: "Find artifact url"
+      set_fact:
+        artifact_url: "{{ release_page['content'] | b64decode | regex_findall('https://download.oracle.com/otn-pub/java/' + java_package | string + '/.*/' + java_package | string + '-' + java_major_version | string + 'u' + minor | string + '-' +  os | string + '-' + java_arch | string + '.' + postfix | string) | last }}"
+
+    - name: "Download artifact from {{ artifact_url }}"
+      get_url:
+        url: "{{ artifact_url }}"
+        headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
+                  oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+        dest: "{{ download_path }}"
+      until: "'OK' in download.msg"
+      retries: 15
+      delay: 5
+      register: download
+
   delegate_to: "localhost"
   connection: "local"
-  become: False
-  register: FILE_DOWNLOADED
 
 - name: "Downloaded artifact"
   set_fact:
-    oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
+    oracle_artifact: "{{ download.dest }}"
+
+- name: "Make sure java_minor_version is set"
+  set_fact:
+    java_minor_version: "{{ artifact_url | regex_replace('^.*-' + java_major_version | string + 'u(\\d+)-' + os | string + '.*$', '\\1') }}"
+  when: not java_minor_version | bool

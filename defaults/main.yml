@@ -1,11 +1,12 @@
 ---
-# select from jre / server-jre / jdk
+# select from jre/server-jre/jdk
 java_package: "jdk"
 
-# 6 / 7 / 8 (default) supported
+# 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 8
 
-java_minor_version: 202
+# latest (default)
+java_minor_version: ""
 
 # x64 (default), i586 supported
 java_arch: "x64"
