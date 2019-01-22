@@ -18,7 +18,9 @@
 
     - name: "Find release url"
       set_fact:
-        release_url: "{{ root_page['content'] | b64decode | regex_search('technetwork/java/javase/downloads/' + java_package | string + java_major_version | string + '-downloads-.*html') }}"
+        release_url: >-
+          {{ root_page['content'] | b64decode | regex_search('technetwork/java/javase/downloads/'
+          + java_package | string + java_major_version | string + '-downloads-.*html') }}
 
     - name: "Fetch release page from https://www.oracle.com/{{ release_url }}"
       get_url:
@@ -33,7 +35,12 @@
 
     - name: "Find artifact url"
       set_fact:
-        artifact_url: "{{ release_page['content'] | b64decode | regex_findall('https://download.oracle.com/otn-pub/java/' + java_package | string + '/.*/' + java_package | string + '-' + java_major_version | string + 'u' + minor | string + '-' +  os | string + '-' + java_arch | string + '.' + postfix | string) | last }}"
+        artifact_url: >-
+          {{ release_page['content'] | b64decode |
+          regex_findall('https://download.oracle.com/otn-pub/java/' + java_package |
+          string + '/.*/' + java_package | string + '-' + java_major_version | string +
+          'u' + minor | string + '-' +  os | string + '-' + java_arch | string + '.' +
+          postfix | string) | last }}
 
     - name: "Download artifact from {{ artifact_url }}"
       get_url:
