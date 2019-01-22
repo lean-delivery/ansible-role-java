@@ -8,12 +8,11 @@
     - name: "Fetch root page https://www.oracle.com/technetwork/java/javase/downloads/index.html"
       get_url:
         url: "https://www.oracle.com/technetwork/java/javase/downloads/index.html"
-        dest: "/tmp/page.html"
-        force: True
+        dest: "/tmp/java_root_page.html"
 
     - name: "Slurp root page"
       slurp:
-        src: "/tmp/page.html"
+        src: "/tmp/java_root_page.html"
       register: root_page
 
     - name: "Find release url"
@@ -25,12 +24,11 @@
     - name: "Fetch release page from https://www.oracle.com/{{ release_url }}"
       get_url:
         url: "https://www.oracle.com/{{ release_url }}"
-        dest: "/tmp/page.html"
-        force: True
+        dest: "/tmp/java_release_page.html"
 
     - name: "Slurp release page"
       slurp:
-        src: "/tmp/page.html"
+        src: "/tmp/java_release_page.html"
       register: release_page
 
     - name: "Find artifact url"
