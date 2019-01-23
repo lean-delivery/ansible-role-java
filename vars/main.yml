@@ -1,7 +1,8 @@
 ---
 # vars file for java
 os: "{{ ansible_facts.system | lower | regex_replace('win32nt', 'windows') }}"
-postfix: "{{ (os == 'linux') | ternary('tar.gz','exe') }}"
+extension: "{{ (os == 'linux') | ternary('tar.gz','exe') }}"
+java_root_page: "https://www.oracle.com/technetwork/java/javase/downloads/index.html"
 
 # Urls for java security policy
 fallback_oracle_security_policy_artifacts:

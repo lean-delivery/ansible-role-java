@@ -5,9 +5,6 @@ java_package: "jdk"
 # 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 8
 
-# latest (default)
-java_minor_version: ""
-
 # x64 (default), i586 supported
 java_arch: "x64"
 

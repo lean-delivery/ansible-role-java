@@ -5,46 +5,48 @@
 - name: "HTML scraping"
   block:
 
-    - name: "Fetch root page https://www.oracle.com/technetwork/java/javase/downloads/index.html"
-      get_url:
-        url: "https://www.oracle.com/technetwork/java/javase/downloads/index.html"
-        dest: "/tmp/java_root_page.html"
-
-    - name: "Slurp root page"
-      slurp:
-        src: "/tmp/java_root_page.html"
+    - name: "Fetch root page {{ java_root_page }}"
+      uri:
+        url: "{{ java_root_page }}"
+        return_content: True
       register: root_page
 
     - name: "Find release url"
       set_fact:
         release_url: >-
-          {{ root_page['content'] | b64decode | regex_search('technetwork/java/javase/downloads/'
-          + java_package | string + java_major_version | string + '-downloads-.*html') }}
+          {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
+          + java_package|string + java_major_version|string + '-downloads-.*html') }}
 
     - name: "Fetch release page from https://www.oracle.com/{{ release_url }}"
-      get_url:
+      uri:
         url: "https://www.oracle.com/{{ release_url }}"
-        dest: "/tmp/java_release_page.html"
-
-    - name: "Slurp release page"
-      slurp:
-        src: "/tmp/java_release_page.html"
+        return_content: True
       register: release_page
 
-    - name: "Find artifact url"
+    - name: "Find all possible artifact urls"
       set_fact:
-        artifact_url: >-
-          {{ release_page['content'] | b64decode |
-          regex_findall('https://download.oracle.com/otn-pub/java/' + java_package |
-          string + '/.*/' + java_package | string + '-' + java_major_version | string +
-          'u' + minor | string + '-' +  os | string + '-' + java_arch | string + '.' +
-          postfix | string) | last }}
+        artifact_url_list: >-
+          {{ release_page['content'] |
+             regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
+                           java_package|string + '-(?:' + java_major_version|string +
+                           'u' + minor|string + '-|' + java_major_version|string +
+                           '.' + minor|string + '_)' +  os|string + '-' +
+                           java_arch|string + '(?!-demos).*' + extension|string) | list }}
+    - fail:
+        msg: >-
+          No artifact urls found, check java_package, java_major_version,
+          java_minor_version, java_arch variables
+      when: artifact_url_list | length == 0
+
+    - name: "Extract artifact url"
+      set_fact:
+        artifact_url: "{{ artifact_url_list | last }}"
 
     - name: "Download artifact from {{ artifact_url }}"
       get_url:
         url: "{{ artifact_url }}"
-        headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
-                  oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+        headers:
+          Cookie: oraclelicense=accept-securebackup-cookie
         dest: "{{ download_path }}"
       until: "'OK' in download.msg"
       retries: 15
@@ -58,7 +60,8 @@
   set_fact:
     oracle_artifact: "{{ download.dest }}"
 
-- name: "Make sure java_minor_version is set"
+- name: "Extract java minor version"
   set_fact:
-    java_minor_version: "{{ artifact_url | regex_replace('^.*-' + java_major_version | string + 'u(\\d+)-' + os | string + '.*$', '\\1') }}"
-  when: not java_minor_version | bool
+    java_minor_version: >-
+      {{ artifact_url | regex_findall(java_package|string + '-' +
+      java_major_version|string + '[u.]([.0-9]+)') | first }}
