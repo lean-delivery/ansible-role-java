@@ -48,17 +48,17 @@
         headers:
           Cookie: oraclelicense=accept-securebackup-cookie
         dest: "{{ download_path }}"
-      until: "'OK' in download.msg"
+      until: "'OK' in FILE_DOWNLOADED.msg"
       retries: 15
       delay: 5
-      register: download
+      register: FILE_DOWNLOADED
 
   delegate_to: "localhost"
   connection: "local"
 
 - name: "Downloaded artifact"
   set_fact:
-    oracle_artifact: "{{ download.dest }}"
+    oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
 
 - name: "Extract java minor version"
   set_fact:
