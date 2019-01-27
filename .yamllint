@@ -2,13 +2,32 @@
 extends: default
 
 rules:
-  # 150 chars should be enough, but don't fail if a line is longer
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  colons:
+    max-spaces-after: -1
+    level: error
+  commas:
+    max-spaces-after: -1
+    level: error
+  empty-lines:
+    max: 3
+    level: error
+  hyphens:
+    level: error
+  truthy: disable
+  comments: disable
+  comments-indentation: disable
+  indentation: disable
+  key-duplicates: enable
   line-length:
     max: 150
     level: warning
-  # don't bother me with this rule
-  truthy: disable
-  comments-indentation: disable
+  new-lines: disable
 
 ignore: |
   molecule

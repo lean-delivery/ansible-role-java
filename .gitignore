@@ -1,6 +1,4 @@
+__pycache__
 *.pyc
-venv/
-.venv/
-.vagrant/
-.idea/
-
+*.rst
+*.log
