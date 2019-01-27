@@ -5,4 +5,3 @@
     - role: ansible-role-java
       java_package: "server-jre"
       java_major_version: 8
-      java_unlimited_policy_enabled: True
