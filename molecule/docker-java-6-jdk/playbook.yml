@@ -6,6 +6,7 @@
       java_package: "jdk"
       java_major_version: 6
       java_minor_version: 45
+      java_os: "linux"
       transport: "web"
       transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
       java_unlimited_policy_enabled: True
