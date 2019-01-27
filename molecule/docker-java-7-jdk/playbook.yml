@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-java
+      java_package: "jdk"
+      java_major_version: 7
+      transport: "web"
+      transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-7u191-linux-x64.tar.gz"
+      java_unlimited_policy_enabled: True

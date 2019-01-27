@@ -23,14 +23,21 @@ Ansible lint:
   tags:
     - delegated
 
-Docker java:
+Docker java-6-jdk:
   stage: deployment test
   script:
-    - molecule test -s default
+    - molecule test -s docker-java-6-jdk
   tags:
     - aws
 
-Docker java-8-jdk :
+Docker java-7-jdk:
+  stage: deployment test
+  script:
+    - molecule test -s docker-java-7-jdk
+  tags:
+    - aws
+
+Docker java-8-jdk:
   stage: deployment test
   script:
     - molecule test -s docker-java-8-jdk
