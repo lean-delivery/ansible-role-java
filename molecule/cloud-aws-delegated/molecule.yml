@@ -26,7 +26,7 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  # log: True
+  log: True
   playbooks:
     create: ../resources/provisioning/create.yml
     prepare: ../resources/provisioning/prepare.yml
@@ -37,7 +37,7 @@ provisioner:
   lint:
     name: ansible-lint
   env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
+    ANSIBLE_LIBRARY: "/home/gitlab-runner/.local/lib/python2.7/site-packages/epam_ansible"
 scenario:
   name: cloud-aws-delegated
 verifier:

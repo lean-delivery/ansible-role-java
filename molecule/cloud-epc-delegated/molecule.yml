@@ -37,7 +37,7 @@ provisioner:
   lint:
     name: ansible-lint
   env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
+    ANSIBLE_LIBRARY: "/home/gitlab-runner/.local/lib/python2.7/site-packages/epam_ansible"
 scenario:
   name: cloud-epc-delegated
 verifier:
