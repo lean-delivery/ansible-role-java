@@ -15,12 +15,14 @@
     oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
     oracle_artifact_basename: "{{ FILE_DOWNLOADED.dest | basename }}"
 
+- debug: var=oracle_artifact_basename
 - name: "Split artifact name"
   set_fact:
     parts: >-
       {{ oracle_artifact_basename |
       regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
       flatten }}
+- debug: var=parts
 
 - name: "Set variables based on split"
   set_fact:
