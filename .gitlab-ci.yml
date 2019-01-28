@@ -64,3 +64,21 @@ Docker java-11-jdk:
     - molecule test -s docker-java-11-jdk
   tags:
     - aws
+
+AWS java-8-jdk:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated
+  tags:
+    - delegated
+
+EPC java-8-jdk:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated
+  tags:
+    - delegated
