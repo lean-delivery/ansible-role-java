@@ -33,6 +33,7 @@
                            'u' + minor|string + '-|' + java_major_version|string +
                            '.' + minor|string + '_)' +  os|string + '-' +
                            java_arch|string + '(?!-demos).*' + extension|string) | list }}
+
     - name: "No artifact urls found"
       fail:
         msg: >-
