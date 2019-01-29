@@ -17,10 +17,6 @@
   tasks:
     # Developer must implement.
 
-    - name: Debug
-      debug:
-        msg: '{{ ec2_user_data }}'
-
     - name: Start Windows instances
       ec2:
         region: '{{ item.aws_region }}'
