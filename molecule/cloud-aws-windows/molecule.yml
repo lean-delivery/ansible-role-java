@@ -8,7 +8,7 @@ driver:
 lint:
   name: yamllint
   options:
-    config-file: molecule/yamllint.yml
+    config-file: .yamllint
 platforms:
   - name: test-aws-windows-ansible-role-java
     aws_image_id: ami-0f4c7e570f044b46f
