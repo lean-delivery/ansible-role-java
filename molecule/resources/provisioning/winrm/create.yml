@@ -11,7 +11,7 @@
     molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
     ansible_user: "{{ lookup('env', 'WINRM_ADMIN_ACC') | default('molecule', True) }}"
     ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
-    ec2_user_data: "{{ lookup('template', '../resources/provisioning/winrm/windows') }}"
+    ec2_user_data: "{{ lookup('template', './windows') }}"
     winrm_port: 5986
 
   tasks:
