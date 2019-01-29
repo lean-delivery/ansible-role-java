@@ -2,33 +2,33 @@
 - name: "Copy patch file"
   win_copy:
     src: "{{ security_policy_oracle_artifact }}"
-    dest: "C:\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}"
+    dest: "C:\\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}"
     force: True
   when:
     - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
 
 - name: "Unzip patch file"
   win_unzip:
-    src: "C:\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}"
-    dest: "C:\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}\\\
-      jre\\lib\\security"
+    src: "C:\\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}"
+    dest: "C:\\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}\\\
+      jre{{ java_major_version }}\\lib\\security"
   when:
     - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
 
 - name: "Apply patch file"
   win_command:
-    "xcopy -r C:\Program Files\\Java\\jre\\lib\\security\\\
+    "xcopy -r C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
     {{ security_patch_folders[java_major_version|int] }}/*.jar \
-    C:\Program Files\\Java\\jre\\lib\\security\\"
+    C:\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\"
   args:
-    removes: "C:\Program Files\\Java\\jre\\lib\\security\\\
+    removes: "C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
       {{ security_patch_folders[java_major_version|int] }}\\local_policy.jar"
   when:
     - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
 
 - name: "Apply setting"
   win_lineinfile:
-    path: "C:\Program Files\\Java\\jre\\lib\\security\\java.security"
+    path: "C:\\Program Files\\Java\\jre1.{{ java_major_version }}.0_{{ java_minor_version }}\\lib\\security\\java.security"
     regexp: "#crypto.policy=unlimited"
     line: "crypto.policy=unlimited"
   when:
