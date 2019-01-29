@@ -30,6 +30,7 @@
                   Select-Object -Last 1 -ExpandProperty FullName"
       register: java_folder
       failed_when: not java_folder.stdout_lines[0]
+      changed_when: False
 
     - name: "Set java environment variable"
       win_environment:
