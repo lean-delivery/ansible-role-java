@@ -1,0 +1,11 @@
+  <powershell>
+  $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+  $file = "$env:c\ConfigureRemotingForAnsible.ps1"
+  (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+  powershell.exe -ExecutionPolicy ByPass -File $file -EnableCredSSP -Verbose
+  </powershell>
+
+  <script>
+  net user {{ ansible_user }} {{ ansible_password }} /add
+  net localgroup administrators {{ ansible_user }} /add
+  </script>
