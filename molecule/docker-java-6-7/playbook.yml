@@ -1,0 +1,16 @@
+---
+- name: Java_6_jdk
+  hosts: java_6
+  roles:
+    - role: ansible-role-java
+      transport: "web"
+      transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
+      java_unlimited_policy_enabled: True
+
+- name: Java_7_jdk
+  hosts: java_7
+  roles:
+    - role: ansible-role-java
+      transport: "web"
+      transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-7u191-linux-x64.tar.gz"
+      java_unlimited_policy_enabled: True

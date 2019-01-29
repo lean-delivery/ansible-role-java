@@ -35,7 +35,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: docker-java-11-jdk
+  name: docker-java-11
 verifier:
   name: testinfra
   options:
