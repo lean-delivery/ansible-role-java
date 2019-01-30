@@ -75,6 +75,18 @@ platforms:
       - server_jre
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      jdk:
+        java_package: "jdk"
+        java_major_version: 8
+        java_unlimited_policy_enabled: True
+      jre:
+        java_package: "jre"
+        java_major_version: 8
+      server_jre:
+        java_package: "server-jre"
+        java_major_version: 8
   log: True
   lint:
     name: ansible-lint

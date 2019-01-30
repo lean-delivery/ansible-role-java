@@ -54,6 +54,16 @@ platforms:
       - java_7
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      java_6:
+        transport: "web"
+        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
+        java_unlimited_policy_enabled: True
+      java_7:
+        transport: "web"
+        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-7u191-linux-x64.tar.gz"
+        java_unlimited_policy_enabled: True
   log: True
   lint:
     name: ansible-lint

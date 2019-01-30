@@ -1,22 +1,5 @@
 ---
-- name: Java_8_jdk
-  hosts: jdk
+- name: "Install jdk/jre/server-jre 8"
+  hosts: all
   roles:
     - role: ansible-role-java
-      java_package: "jdk"
-      java_major_version: 8
-      java_unlimited_policy_enabled: True
-
-- name: Java_8_jre
-  hosts: jre
-  roles:
-    - role: ansible-role-java
-      java_package: "jre"
-      java_major_version: 8
-
-- name: Java_8_server_jre
-  hosts: server_jre
-  roles:
-    - role: ansible-role-java
-      java_package: "server-jre"
-      java_major_version: 8
