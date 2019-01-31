@@ -1,5 +1,6 @@
 ---
-- set_fact:
+- name: "Set java minor version"
+  set_fact:
     minor: "{{ java_minor_version | default('.*', True) }}"
 
 - name: "HTML scraping"
@@ -32,7 +33,9 @@
                            'u' + minor|string + '-|' + java_major_version|string +
                            '.' + minor|string + '_)' +  os|string + '-' +
                            java_arch|string + '(?!-demos).*' + extension|string) | list }}
-    - fail:
+
+    - name: "No artifact urls found"
+      fail:
         msg: >-
           No artifact urls found, check java_package, java_major_version,
           java_minor_version, java_arch variables

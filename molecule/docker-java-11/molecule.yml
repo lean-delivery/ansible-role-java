@@ -10,18 +10,32 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-java
+  - name: test-docker-centos7-java-11-jdk
     image: leandelivery/docker-systemd:centos7
     privileged: True
     groups:
       - rhel_family
+  - name: test-docker-ubuntu1804-java-11-jdk
+    image: leandelivery/docker-systemd:ubuntu-18.04
+    privileged: True
+    security_opts:
+      - seccomp=unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+      - /run
+    capabilities:
+      - SYS_ADMIN
+    groups:
+      - debian_family
 provisioner:
   name: ansible
   log: True
   lint:
     name: ansible-lint
 scenario:
-  name: default
+  name: docker-java-11
 verifier:
   name: testinfra
   options:

@@ -1,0 +1,72 @@
+---
+# Run all tests
+stages:
+  - lint
+  - deployment test
+
+before_script:
+  - ansible --version
+  - molecule --version
+#  - ansible-config dump --only-changed
+
+variables:
+  GET_SOURCES_ATTEMPTS: "5"
+
+Ansible lint:
+  stage: lint
+  before_script:
+    - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
+  script:
+    - ansible-lint . -c .ansible-lint
+  after_script:
+    - rm -rf ~/ansible-lint-rules
+  tags:
+    - delegated
+
+Docker java-6-7:
+  stage: deployment test
+  script:
+    - molecule test -s docker-java-6-7
+  tags:
+    - aws
+
+Docker java-8:
+  stage: deployment test
+  script:
+    - molecule test -s docker-java-8
+  tags:
+    - aws
+
+Docker java-11:
+  stage: deployment test
+  script:
+    - molecule test -s docker-java-11
+  tags:
+    - aws
+
+AWS java-8-jdk:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-delegated
+  tags:
+    - delegated
+
+AWS Windows java-8-jdk:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows
+  tags:
+    - aws
+
+EPC java-8-jdk:
+  variables:
+    EPC_REGION: EPAM-BY2
+  stage: deployment test
+  script:
+    - molecule test -s cloud-epc-delegated
+  tags:
+    - delegated

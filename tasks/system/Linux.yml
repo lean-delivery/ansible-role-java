@@ -46,7 +46,8 @@
     - name: "Update alternatives"
       alternatives:
         name: "{{ item.binary }}"
-        path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/{{ item.binary }}"
+        path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.\
+          0_{{ java_minor_version }}/bin/{{ item.binary }}"
         link: "/usr/bin/{{ item.binary }}"
         priority: 100
       with_items: "{{ java_binary_collection.results }}"

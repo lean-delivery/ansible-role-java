@@ -1,0 +1,5 @@
+---
+- name: "Install jdk 6/7"
+  hosts: all
+  roles:
+    - role: ansible-role-java
