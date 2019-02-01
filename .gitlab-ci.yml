@@ -7,7 +7,6 @@ stages:
 before_script:
   - ansible --version
   - molecule --version
-#  - ansible-config dump --only-changed
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
@@ -46,12 +45,12 @@ Docker java-11:
 
 AWS java-8-jdk:
   variables:
-    EPC_REGION: AWS-EUCENTRAL
+    AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-delegated
+    - molecule test -s cloud-aws-direct
   tags:
-    - delegated
+    - aws
 
 AWS Windows java-8-jdk:
   variables:
