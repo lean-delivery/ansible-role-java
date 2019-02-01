@@ -61,7 +61,7 @@ AWS Windows java-8-jdk:
   tags:
     - aws
 
-EPC java-8-jdk:
+.EPC java-8-jdk:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
