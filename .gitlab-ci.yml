@@ -20,7 +20,7 @@ Ansible lint:
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
-    - delegated
+    - aws
 
 .Docker java-6-7:
   stage: deployment test

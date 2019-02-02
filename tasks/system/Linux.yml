@@ -2,8 +2,8 @@
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:
-    - 'fetch/{{ transport }}.yml'
-    - fetch/unknown-transport.yml
+    - '../fetch/{{ transport }}.yml'
+    - ../fetch/unknown-transport.yml
   loop_control:
     loop_var: transport_driver
 
