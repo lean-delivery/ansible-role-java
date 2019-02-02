@@ -1,32 +1,33 @@
 ---
-- name: "Download artifact from s3"
+- name: Download artifact from s3
   aws_s3:
-    bucket: "{{ transport_s3_bucket }}"
-    object: "{{ transport_s3_path }}"
-    dest: "{{ download_path }}/{{ transport_s3_path|basename }}"
-    aws_access_key: "{{ transport_s3_aws_access_key }}"
-    aws_secret_key: "{{ transport_s3_aws_secret_key }}"
+    bucket: '{{ transport_s3_bucket }}'
+    object: '{{ transport_s3_path }}'
+    dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+    aws_access_key: '{{ transport_s3_aws_access_key }}'
+    aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
+  register: s3_download
   retries: 5
-  delegate_to: "localhost"
-  connection: "local"
+  delay: 2
+  until: s3_download is succeeded
 
-- name: "Downloaded artifact"
+- name: Set downloaded artifact vars
   set_fact:
-    oracle_artifact: "{{ download_path }}/{{ transport_s3_path|basename }}"
-    oracle_artifact_basename: "{{ transport_s3_path|basename }}"
+    oracle_artifact: '{{ download_path }}/{{ transport_s3_path|basename }}'
+    oracle_artifact_basename: '{{ transport_s3_path|basename }}'
 
-- name: "Split artifact name"
+- name: 'Split artifact name'
   set_fact:
     parts: >-
       {{ oracle_artifact_basename |
       regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
       fist | list }}
 
-- name: "Set variables based on split"
+- name: 'Set variables based on split'
   set_fact:
-    java_package: "{{ parts[0] }}"
-    java_major_version: "{{ parts[1] }}"
-    java_minor_version: "{{ parts[2] }}"
-    java_os: "{{ parts[3] }}"
-    java_arch: "{{ parts[4] }}"
+    java_package: '{{ parts[0] }}'
+    java_major_version: '{{ parts[1] }}'
+    java_minor_version: '{{ parts[2] }}'
+    java_os: '{{ parts[3] }}'
+    java_arch: '{{ parts[4] }}'

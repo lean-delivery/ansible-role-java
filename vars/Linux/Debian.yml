@@ -1,0 +1,6 @@
+---
+extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'deb') }}"
+requirements:
+  - python
+  - python-argparse
+  - unzip

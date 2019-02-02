@@ -1,0 +1,9 @@
+---
+extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'rpm') }}"
+requirements:
+  - redhat-lsb-core
+  - policycoreutils-python
+  - libsemanage-python
+  - libselinux-python
+  - python-argparse
+  - unzip

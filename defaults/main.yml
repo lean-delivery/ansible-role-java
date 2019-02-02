@@ -19,6 +19,8 @@ default_windows_temp_path: "C:\\Windows\\Temp"
 windows_temp_path: "{{ ansible_env.TEMP | default(default_windows_temp_path) }}\\"
 
 # Custom artifact source transport
+java_tarball_install: True
+java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
 transport: "oracle-fallback"
 # available are:
 # - "oracle-fallback" Downloading artifact from pre-defined oracle otn path

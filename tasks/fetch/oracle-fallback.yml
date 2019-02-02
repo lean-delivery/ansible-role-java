@@ -1,30 +1,30 @@
 ---
-- name: "Set java minor version"
+- name: Set java minor version
   set_fact:
     minor: "{{ java_minor_version | default('.*', True) }}"
 
-- name: "HTML scraping"
+- name: HTML scraping
   block:
 
-    - name: "Fetch root page {{ java_root_page }}"
+    - name: 'Fetch root page {{ java_root_page }}'
       uri:
-        url: "{{ java_root_page }}"
+        url: '{{ java_root_page }}'
         return_content: True
       register: root_page
 
-    - name: "Find release url"
+    - name: Find release url
       set_fact:
         release_url: >-
           {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
-          + java_package|string + java_major_version|string + '-downloads-.*html') }}
+              + java_package|string + java_major_version|string + '-downloads-.*html') }}
 
-    - name: "Fetch release page from https://www.oracle.com/{{ release_url }}"
+    - name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
       uri:
-        url: "https://www.oracle.com/{{ release_url }}"
+        url: 'https://www.oracle.com/{{ release_url }}'
         return_content: True
       register: release_page
 
-    - name: "Find all possible artifact urls"
+    - name: Find all possible artifact urls
       set_fact:
         artifact_url_list: >-
           {{ release_page['content'] |
@@ -34,36 +34,35 @@
                            '.' + minor|string + '_)' +  os|string + '-' +
                            java_arch|string + '(?!-demos).*' + extension|string) | list }}
 
-    - name: "No artifact urls found"
+    - name: No artifact urls found
       fail:
         msg: >-
           No artifact urls found, check java_package, java_major_version,
           java_minor_version, java_arch variables
       when: artifact_url_list | length == 0
+  delegate_to: localhost
+  connection: local
 
-    - name: "Extract artifact url"
-      set_fact:
-        artifact_url: "{{ artifact_url_list | last }}"
-
-    - name: "Download artifact from {{ artifact_url }}"
-      get_url:
-        url: "{{ artifact_url }}"
-        headers: "Cookie:oraclelicense=accept-securebackup-cookie"
-        dest: "{{ download_path }}"
-      until: "'OK' in FILE_DOWNLOADED.msg"
-      retries: 15
-      delay: 5
-      register: FILE_DOWNLOADED
-
-  delegate_to: "localhost"
-  connection: "local"
-
-- name: "Downloaded artifact"
+- name: Extract artifact url
   set_fact:
-    oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
+    artifact_url: '{{ hostvars["localhost"].artifact_url_list | last }}'
 
-- name: "Extract java minor version"
+- name: Extract java minor version
   set_fact:
     java_minor_version: >-
       {{ artifact_url | regex_findall(java_package|string + '-' +
       java_major_version|string + '[u.]([.0-9]+)') | first }}
+
+- name: 'Download artifact from {{ artifact_url }}'
+  get_url:
+    url: '{{ artifact_url }}'
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest: '{{ download_path }}'
+  register: file_downloaded
+  retries: 15
+  delay: 5
+  until: "'OK' in file_downloaded.msg"
+
+- name: Downloaded artifact
+  set_fact:
+    oracle_artifact: '{{ file_downloaded.dest }}'
