@@ -34,6 +34,9 @@
                            '.' + minor|string + '_)' +  os|string + '-' +
                            java_arch|string + '(?!-demos).*' + extension|string) | list }}
 
+    - debug:
+        var: artifact_url_list
+
     - name: No artifact urls found
       fail:
         msg: >-
@@ -42,6 +45,9 @@
       when: artifact_url_list | length == 0
   delegate_to: localhost
   connection: local
+
+- debug:
+    var: hostvars["localhost"].artifact_url_list
 
 - name: Extract artifact url
   set_fact:
