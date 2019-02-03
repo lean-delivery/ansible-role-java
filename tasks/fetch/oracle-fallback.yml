@@ -47,7 +47,7 @@
   connection: local
 
 - debug:
-    var: hostvars['localhost']['artifact_url_list']
+    var: hostvars['localhost']#['artifact_url_list']
 
 - name: Extract artifact url
   set_fact:

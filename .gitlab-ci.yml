@@ -29,7 +29,7 @@ Ansible lint:
   tags:
     - aws
 
-.Docker java-8:
+Docker java-8:
   stage: deployment test
   script:
     - molecule test -s docker-java-8
