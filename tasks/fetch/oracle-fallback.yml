@@ -47,11 +47,11 @@
   connection: local
 
 - debug:
-    var: hostvars[localhost].artifact_url_list
+    var: hostvars['localhost']['artifact_url_list']
 
 - name: Extract artifact url
   set_fact:
-    artifact_url: '{{ hostvars[localhost].artifact_url_list | last }}'
+    artifact_url: '{{ hostvars[localhost]["artifact_url_list"] | last }}'
 
 - name: Extract java minor version
   set_fact:
