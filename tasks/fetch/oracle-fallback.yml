@@ -44,16 +44,16 @@
           No artifact urls found, check java_package, java_major_version,
           java_minor_version, java_arch variables
       when: artifact_url_list | length == 0
-  delegate_to: localhost
-  connection: local
-  delegate_facts: True
+#   delegate_to: localhost
+#   connection: local
+#   delegate_facts: True
 
-- debug:
-    msg: "{{ hostvars['localhost'] }}"
+# - debug:
+#     msg: "{{ hostvars['localhost'] }}"
 
 - name: Extract artifact url
   set_fact:
-    artifact_url: '{{ hostvars["localhost"]["artifact_url_list"] | last }}'
+    artifact_url: '{{ artifact_url_list | last }}'
 
 - name: Extract java minor version
   set_fact:
