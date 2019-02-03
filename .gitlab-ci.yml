@@ -43,7 +43,7 @@ Docker java-11:
   tags:
     - aws
 
-AWS java-8-jdk:
+.AWS java-8-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

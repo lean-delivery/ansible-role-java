@@ -6,7 +6,7 @@
   register: file_downloaded
   retries: 5
   delay: 2
-  until: "'OK' in FILE_DOWNLOADED.msg"
+  until: "'OK' in file_downloaded.msg"
 
 - name: Set downloaded artifact vars
   set_fact:
