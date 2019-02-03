@@ -35,7 +35,8 @@
                            java_arch|string + '(?!-demos).*' + extension|string) | list }}
       register: artifact_url_fact
 
-    - debug:
+    - name: Show artifacts' urls found
+      debug:
         var: artifact_url_list
 
     - name: No artifact urls found
@@ -44,12 +45,6 @@
           No artifact urls found, check java_package, java_major_version,
           java_minor_version, java_arch variables
       when: artifact_url_list | length == 0
-#   delegate_to: localhost
-#   connection: local
-#   delegate_facts: True
-
-# - debug:
-#     msg: "{{ hostvars['localhost'] }}"
 
 - name: Extract artifact url
   set_fact:
@@ -64,7 +59,8 @@
 - name: 'Download artifact from {{ artifact_url }}'
   get_url:
     url: '{{ artifact_url }}'
-    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    headers:
+      Cookie: 'oraclelicense=accept-securebackup-cookie'
     dest: '{{ download_path }}'
   register: file_downloaded
   retries: 15

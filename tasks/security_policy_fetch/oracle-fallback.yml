@@ -11,12 +11,6 @@
   delay: 5
   register: file_downloaded
   until: "'OK' in file_downloaded.msg"
-  # I'm convinced that about half of what separates the successful entrepreneurs
-  # from the non-successful ones is pure perseverance. It is so hard.
-  # https://en.wikiquote.org/wiki/Steve_Jobs
-  # delegate_to: "localhost"
-  # connection: "local"
-  # become: False
 
 - name: "Downloaded security policy artifact"
   set_fact:
