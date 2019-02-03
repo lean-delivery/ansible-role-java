@@ -59,8 +59,7 @@
 - name: 'Download artifact from {{ artifact_url }}'
   get_url:
     url: '{{ artifact_url }}'
-    headers:
-      Cookie: 'oraclelicense=accept-securebackup-cookie'
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
     dest: '{{ download_path }}'
   register: file_downloaded
   retries: 15

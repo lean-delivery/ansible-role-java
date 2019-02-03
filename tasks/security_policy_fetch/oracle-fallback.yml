@@ -4,13 +4,12 @@
     url: "{{ fallback_oracle_security_policy_artifacts[java_major_version|int] }}"
     dest: "{{ download_path }}"
     mode: "0755"
-    headers:
-      Cookie: "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
-        oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+    headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
+      oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+  register: file_downloaded
   retries: 15
   delay: 5
-  register: file_downloaded
-  until: "'OK' in file_downloaded.msg"
+  until: "'OK' in FILE_DOWNLOADED.msg"
 
 - name: "Downloaded security policy artifact"
   set_fact:
