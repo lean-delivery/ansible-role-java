@@ -4,18 +4,19 @@
     url: "{{ fallback_oracle_security_policy_artifacts[java_major_version|int] }}"
     dest: "{{ download_path }}"
     mode: "0755"
-    headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
-      oraclelicense=accept-securebackup-cookie; --no-check-certificate"
-  until: "'OK' in FILE_DOWNLOADED.msg"
+    headers:
+      Cookie: "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; \
+        oraclelicense=accept-securebackup-cookie; --no-check-certificate"
+  retries: 15
+  delay: 5
+  register: file_downloaded
+  until: "'OK' in file_downloaded.msg"
   # I'm convinced that about half of what separates the successful entrepreneurs
   # from the non-successful ones is pure perseverance. It is so hard.
   # https://en.wikiquote.org/wiki/Steve_Jobs
-  retries: 15
-  delay: 5
   # delegate_to: "localhost"
   # connection: "local"
   # become: False
-  register: file_downloaded
 
 - name: "Downloaded security policy artifact"
   set_fact:
