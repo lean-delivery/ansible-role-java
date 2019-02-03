@@ -64,8 +64,8 @@
     - name: Update alternatives
       alternatives:
         name: '{{ java_item.binary }}'
-        path: '{{ java_path }}{{ java_package }}1.{{ java_major_version }}.\
-          0_{{ java_minor_version }}/bin/{{ java_item.binary }}'
+        path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.\
+          0_{{ java_minor_version }}/bin/{{ java_item.binary }}"
         link: '/usr/bin/{{ java_item.binary }}'
         priority: 100
       when: java_item.stat.exists | bool
