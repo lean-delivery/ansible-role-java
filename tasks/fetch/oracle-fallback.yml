@@ -33,6 +33,7 @@
                            'u' + minor|string + '-|' + java_major_version|string +
                            '.' + minor|string + '_)' +  os|string + '-' +
                            java_arch|string + '(?!-demos).*' + extension|string) | list }}
+      register: artifact_url_fact
 
     - debug:
         var: artifact_url_list
@@ -53,7 +54,6 @@
 - name: Extract artifact url
   set_fact:
     artifact_url: '{{ hostvars["localhost"]["artifact_url_list"] | last }}'
-  register: artifact_url_fact
 
 - name: Extract java minor version
   set_fact:
