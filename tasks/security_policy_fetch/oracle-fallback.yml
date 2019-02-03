@@ -12,11 +12,11 @@
   # https://en.wikiquote.org/wiki/Steve_Jobs
   retries: 15
   delay: 5
-  delegate_to: "localhost"
-  connection: "local"
-  become: False
-  register: FILE_DOWNLOADED
+  # delegate_to: "localhost"
+  # connection: "local"
+  # become: False
+  register: file_downloaded
 
 - name: "Downloaded security policy artifact"
   set_fact:
-    security_policy_oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
+    security_policy_oracle_artifact: "{{ file_downloaded.dest }}"

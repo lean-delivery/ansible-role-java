@@ -55,8 +55,8 @@
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
-    - 'system/{{ ansible_system }}.yml'
-    - system/not-supported.yml
+    - 'System-{{ ansible_system }}.yml'
+    - not-supported.yml
   loop_control:
     loop_var: platform
 
