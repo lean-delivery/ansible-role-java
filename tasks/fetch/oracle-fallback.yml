@@ -44,7 +44,8 @@
           java_minor_version, java_arch variables
       when: artifact_url_list | length == 0
   delegate_to: localhost
-  # connection: local
+  connection: local
+  delegate_facts: True
 
 - debug:
     msg: "{{ hostvars['localhost'] }}"
