@@ -47,7 +47,7 @@
   connection: local
 
 - debug:
-    msg: "{{ hostvars['localhost']['artifact_url_list'] }}"
+    msg: "{{ hostvars['localhost'] }}"
 
 - name: Extract artifact url
   set_fact:
