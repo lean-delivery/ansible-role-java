@@ -43,12 +43,21 @@ Docker java-11:
   tags:
     - aws
 
-.AWS java-8-jdk:
+AWS java-8-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-direct
+    - molecule test -s cloud-aws-direct-8
+  tags:
+    - aws
+
+AWS java-11-jdk:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-11
   tags:
     - aws
 
