@@ -3,48 +3,45 @@
   set_fact:
     minor: "{{ java_minor_version | default('.*', True) }}"
 
-- name: HTML scraping
-  block:
+- name: 'Fetch root page {{ java_root_page }}'
+  uri:
+    url: '{{ java_root_page }}'
+    return_content: True
+  register: root_page
 
-    - name: 'Fetch root page {{ java_root_page }}'
-      uri:
-        url: '{{ java_root_page }}'
-        return_content: True
-      register: root_page
+- name: Find release url
+  set_fact:
+    release_url: >-
+      {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
+          + java_package|string + java_major_version|string + '-downloads-.*html') }}
 
-    - name: Find release url
-      set_fact:
-        release_url: >-
-          {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
-              + java_package|string + java_major_version|string + '-downloads-.*html') }}
+- name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
+  uri:
+    url: 'https://www.oracle.com/{{ release_url }}'
+    return_content: True
+  register: release_page
 
-    - name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
-      uri:
-        url: 'https://www.oracle.com/{{ release_url }}'
-        return_content: True
-      register: release_page
+- name: Find all possible artifact urls
+  set_fact:
+    artifact_url_list: >-
+      {{ release_page['content'] |
+          regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
+                        java_package|string + '-(?:' + java_major_version|string +
+                        'u' + minor|string + '-|' + java_major_version|string +
+                        '.' + minor|string + '_)' +  os|string + '-' +
+                        java_arch|string + '(?!-demos).*' + extension|string) | list }}
+  register: artifact_url_fact
 
-    - name: Find all possible artifact urls
-      set_fact:
-        artifact_url_list: >-
-          {{ release_page['content'] |
-             regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
-                           java_package|string + '-(?:' + java_major_version|string +
-                           'u' + minor|string + '-|' + java_major_version|string +
-                           '.' + minor|string + '_)' +  os|string + '-' +
-                           java_arch|string + '(?!-demos).*' + extension|string) | list }}
-      register: artifact_url_fact
+- name: Show artifacts' urls found
+  debug:
+    var: artifact_url_list
 
-    - name: Show artifacts' urls found
-      debug:
-        var: artifact_url_list
-
-    - name: No artifact urls found
-      fail:
-        msg: >-
-          No artifact urls found, check java_package, java_major_version,
-          java_minor_version, java_arch variables
-      when: artifact_url_list | length == 0
+- name: No artifact urls found
+  fail:
+    msg: >-
+      No artifact urls found, check java_package, java_major_version,
+      java_minor_version, java_arch variables
+  when: artifact_url_list | length == 0
 
 - name: Extract artifact url
   set_fact:

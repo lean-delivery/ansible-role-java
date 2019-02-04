@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-java
+  - name: test-aws-centos7-ansible-role-java-11
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
@@ -24,7 +24,7 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-centos6-ansible-role-java
+  - name: test-aws-centos6-ansible-role-java-11
     image: ami-1585c46a
     instance_type: m4.large
     region: us-east-1
@@ -38,7 +38,7 @@ platforms:
     groups:
      - rhel_family
 
-  - name: test-aws-ubuntu16-ansible-role-java
+  - name: test-aws-ubuntu16-ansible-role-java-11
     image: ami-09677e0a6b14905b0
     instance_type: m5.large
     region: us-east-1
@@ -52,7 +52,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-ubuntu18-ansible-role-java
+  - name: test-aws-ubuntu18-ansible-role-java-11
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -66,7 +66,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Debian9-ansible-role-java
+  - name: test-aws-Debian9-ansible-role-java-11
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
@@ -80,7 +80,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Debian8-ansible-role-java
+  - name: test-aws-Debian8-ansible-role-java-11
     image: ami-b14ba7a7
     instance_type: m5.large
     region: us-east-1
