@@ -1,5 +1,6 @@
 ---
-- name: "Warn on unsupported transport"
+- name: Warn on unsupported transport
   debug:
-    msg: "This role does not support '{{ transport }}' transport.\
-          Please contact support@lean-delivery.com"
+    msg: |
+      This role does not support '{{ transport }}' transport.
+      Please contact support@lean-delivery.com"

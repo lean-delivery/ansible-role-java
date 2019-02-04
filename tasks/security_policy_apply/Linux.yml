@@ -1,17 +1,19 @@
 ---
-- name: "Unzip patch file"
+- name: Unzip patch file
   unarchive:
-    src: "{{ security_policy_oracle_artifact }}"
+    src: '{{ security_policy_oracle_artifact }}'
     dest: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
       {{ java_minor_version }}/jre/lib/security"
-    owner: "root"
-    group: "root"
-    mode: "0755"
+    remote_src: True
+    owner: root
+    group: root
+    mode: 0755
   become: True
   when:
-    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
+    - java_full_version is version('8.151', '<')
+    # - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
 
-- name: "Apply patch file"
+- name: Apply patch file
   copy:
     src: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
       {{ java_minor_version }}/jre/lib/security/\
@@ -21,20 +23,19 @@
     remote_src: True
     directory_mode: True
   loop:
-    - "local_policy.jar"
-    - "US_export_policy.jar"
-    - "README.txt"
+    - local_policy.jar
+    - US_export_policy.jar
+    - README.txt
   become: True
   when:
-    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
+    - java_full_version is version('8.151', '<')
 
-- name: "Apply setting"
+- name: Apply setting
   replace:
     path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
       {{ java_minor_version }}/jre/lib/security/java.security"
-    regexp: "#crypto.policy=unlimited"
-    replace: "crypto.policy=unlimited"
+    regexp: '#crypto.policy=unlimited'
+    replace: 'crypto.policy=unlimited'
   become: True
   when:
-    - java_major_version|int == 8
-    - java_minor_version|int >= 151
+    - java_full_version is version('8.151', '<')

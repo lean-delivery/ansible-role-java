@@ -7,7 +7,6 @@ stages:
 before_script:
   - ansible --version
   - molecule --version
-#  - ansible-config dump --only-changed
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
@@ -21,7 +20,7 @@ Ansible lint:
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
-    - delegated
+    - aws
 
 Docker java-6-7:
   stage: deployment test
@@ -46,14 +45,23 @@ Docker java-11:
 
 AWS java-8-jdk:
   variables:
-    EPC_REGION: AWS-EUCENTRAL
+    AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-delegated
+    - molecule test -s cloud-aws-direct-8
   tags:
-    - delegated
+    - aws
 
-AWS Windows java-8-jdk:
+AWS java-11-jdk:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-11
+  tags:
+    - aws
+
+.AWS Windows java-8-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -62,7 +70,7 @@ AWS Windows java-8-jdk:
   tags:
     - aws
 
-EPC java-8-jdk:
+.EPC java-8-jdk:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

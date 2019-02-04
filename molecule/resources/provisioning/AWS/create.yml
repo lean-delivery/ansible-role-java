@@ -1,0 +1,93 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
+  vars:
+    ssh_port: 22
+    keypair_name: "molecule-key_\
+      {{ lookup('env','MOLECULE_PROJECT_DIRECTORY').split('/')[-1] }}_\
+      {{ lookup('env','MOLECULE_SCENARIO_NAME') }}"
+    keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
+
+  tasks:
+    - name: Create keypair
+      ec2_key:
+        name: '{{ keypair_name }}'
+      register: keypair
+
+    - name: Persist the keypair
+      copy:
+        dest: '{{ keypair_path }}'
+        content: '{{ keypair.key.private_key }}'
+        mode: 0600
+      when: keypair.changed | bool
+
+    - name: Create molecule instance(s)
+      ec2:
+        key_name: '{{ keypair_name }}'
+        image: '{{ item.image }}'
+        instance_type: '{{ item.instance_type }}'
+        vpc_subnet_id: '{{ item.vpc_subnet_id }}'
+        group: '{{ item.aws_sec_group | default(item.security_group_name) }}'
+        instance_tags:
+          instance: '{{ item.name }}'
+          Name: '{{ item.name }}'
+          ssh_user: '{{ item.ssh_user }}'
+        spot_price: '{{ item.spot_price }}'
+        spot_wait_timeout: '{{ item.wait_timeout | default(600) }}'
+        wait: True
+        wait_timeout: '{{ item.wait_timeout | default(600) }}'
+        assign_public_ip: '{{ item.assign_public_ip | default(True) }}'
+        exact_count: 1
+        count_tag:
+          instance: '{{ item.name }}'
+      register: server
+      loop: '{{ molecule_yml.platforms }}'
+      async: 7200
+      poll: 0
+
+    - name: Wait for instance(s) creation to complete
+      async_status:
+        jid: '{{ item.ansible_job_id }}'
+      loop: '{{ server.results }}'
+      register: instance_create
+      until: instance_create.finished
+      delay: 5
+      retries: 300
+
+    # Mandatory configuration for Molecule to function.
+
+    - name: Populate instance config dict
+      set_fact:
+        instance_conf_dict:
+          instance: '{{ item.instances[0].tags.instance }}'
+          address: '{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}'
+          user: '{{ item.instances[0].tags.ssh_user }}'
+          port: '{{ ssh_port }}'
+          identity_file: '{{ keypair_path }}'
+          instance_ids: '{{ item.instance_ids }}'
+      loop: '{{ instance_create.results }}'
+      register: instance_config_dict
+      when: instance_create.changed | bool
+
+    - name: Convert instance config dict to a list
+      set_fact:
+        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+      when: instance_create.changed | bool
+
+    - name: Dump instance config
+      copy:
+        content: '{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}'
+        dest: '{{ molecule_instance_config }}'
+      when: instance_create.changed | bool
+
+    - name: Wait for SSH
+      wait_for:
+        port: '{{ ssh_port }}'
+        host: '{{ item.address }}'
+        search_regex: SSH
+        delay: 10
+        timeout: 320
+      loop: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"

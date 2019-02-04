@@ -28,9 +28,9 @@ provisioner:
   name: ansible
   log: True
   playbooks:
-    create: ../resources/provisioning/create.yml
-    prepare: ../resources/provisioning/prepare.yml
-    destroy: ../resources/provisioning/destroy.yml
+    create: ../resources/provisioning/EPC/create.yml
+    prepare: ../resources/provisioning/EPC/prepare.yml
+    destroy: ../resources/provisioning/EPC/destroy.yml
   config_options:
     ssh_connection:
       control_path: "/var/ans/%%h"

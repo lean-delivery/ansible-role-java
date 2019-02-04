@@ -1,80 +1,70 @@
 ---
-- name: "Enable EPEL repository"
-  yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
-      {{ ansible_distribution_major_version }}.noarch.rpm"
-    state: "present"
-  delegate_to: "localhost"
-  connection: "local"
-  run_once: True
-  register: status
-  until: status is succeeded
-  become: True
-  when:
-    - transport == "s3"
-    - ansible_os_family == 'RedHat'
+# - name: 'Enable EPEL repository'
+#   yum:
+#     name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+#       {{ ansible_distribution_major_version }}.noarch.rpm'
+#     state: 'present'
+#   delegate_to: 'localhost'
+#   connection: 'local'
+#   run_once: True
+#   register: status
+#   until: status is succeeded
+#   become: True
+#   when:
+#     - transport == 's3'
+#     - ansible_os_family == 'RedHat'
 
-- name: "Install pip package"
-  package:
-    name: "{{ ansible_os_family == 'Ubuntu' | ternary('python-pip','python2-pip') }}"
-    state: "present"
-  delegate_to: "localhost"
-  connection: "local"
-  run_once: True
-  register: status
-  until: status is succeeded
-  become: True
-  when: transport == "s3"
+# - name: 'Install pip package'
+#   package:
+#     name: '{{ ansible_os_family == 'Ubuntu' | ternary('python-pip','python2-pip') }}'
+#     state: 'present'
+#   delegate_to: 'localhost'
+#   connection: 'local'
+#   run_once: True
+#   register: status
+#   until: status is succeeded
+#   become: True
+#   when: transport == 's3'
 
-- name: "Install boto module"
-  pip:
-    name:
-      - "pip"
-      - "botocore"
-      - "boto"
-      - "boto3"
-    state: present
-    extra_args: --upgrade
-  delegate_to: "localhost"
-  connection: "local"
-  run_once: True
-  register: status
-  until: status is succeeded
-  become: True
-  when: transport == "s3"
+# - name: 'Install boto module'
+#   pip:
+#     name:
+#       - 'pip'
+#       - 'botocore'
+#       - 'boto'
+#       - 'boto3'
+#     state: present
+#     extra_args: --upgrade
+#   delegate_to: 'localhost'
+#   connection: 'local'
+#   run_once: True
+#   register: status
+#   until: status is succeeded
+#   become: True
+#   when: transport == 's3'
 
-- name: "Fetch oracle artifact with {{ transport }} transport"
-  include_tasks: "{{ transport_driver }}"
+- name: Load a variable file based on distribution or OS family
+  include_vars: '{{ distribution }}'
   with_first_found:
-    - "fetch/{{ transport }}.yml"
-    - "fetch/unknown-transport.yml"
+    - '{{ ansible_system }}/{{ ansible_os_family }}.yml'
+    # - '{{ ansible_os_family }}.yml'
+    - default.yml
   loop_control:
-    loop_var: transport_driver
+    loop_var: distribution
 
-- name: "Choose platform based task "
-  include_tasks: "{{ platform }}"
+- name: Choose platform based task
+  include_tasks: '{{ platform }}'
   with_first_found:
-    - "system/{{ ansible_facts.system }}.yml"
-    - "system/not-supported.yml"
+    - 'System-{{ ansible_system }}.yml'
+    - not-supported.yml
   loop_control:
     loop_var: platform
 
-- name: "Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport"
-  include_tasks: "{{ transport_driver }}"
+- name: Apply security policy patch
+  include_tasks: '{{ platform }}'
   with_first_found:
-    - "security_policy_fetch/{{ java_unlimited_policy_transport }}.yml"
-    - "security_policy_fetch/unknown-transport.yml"
-  loop_control:
-    loop_var: transport_driver
-  when:
-    - java_unlimited_policy_enabled
-    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
-
-- name: "Apply security policy patch"
-  include_tasks: "{{ platform }}"
-  with_first_found:
-    - "security_policy_apply/{{ ansible_facts.system }}.yml"
-    - "security_policy_apply/not-supported.yml"
+    - 'security_policy_apply/{{ ansible_system }}.yml'
+    - security_policy_apply/not-supported.yml
   loop_control:
     loop_var: platform
   when:
