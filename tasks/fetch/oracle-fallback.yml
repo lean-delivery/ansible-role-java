@@ -50,6 +50,20 @@
   set_fact:
     artifact_url: '{{ artifact_url_list | last }}'
 
+- name: Extract artifact md5 checksum
+  set_fact:
+    artifact_checksum: >-
+      {{ release_page['content'] |
+            regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
+                          java_package|string + '-(?:' + java_major_version|string +
+                          'u' + minor|string + '-|' + java_major_version|string +
+                          '.' + minor|string + '_)' +  os|string + '-' +
+                          java_arch|string + '(?!-demos).*' + extension|string + '\",\"MD5\":\"([a-fA-F\d]{32})') | last }}
+
+- name: Show artifacts' urls found
+  debug:
+    var: artifact_checksum
+
 - name: Extract java minor version
   set_fact:
     java_minor_version: >-
@@ -61,6 +75,7 @@
     url: '{{ artifact_url }}'
     headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
     dest: '{{ download_path }}'
+    checksum: 'md5: {{ artifact_checksum }}'
   register: file_downloaded
   retries: 15
   delay: 5

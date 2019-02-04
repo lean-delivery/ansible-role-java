@@ -1,13 +1,13 @@
 ---
-- name: "Download security policy artifact from web"
+- name: Download security policy artifact from web
   get_url:
-    url: "{{ java_unlimited_policy_transport_web }}"
-    dest: "{{ download_path }}"
+    url: '{{ java_unlimited_policy_transport_web }}'
+    dest: '{{ download_path }}'
   register: file_downloaded
   retries: 3
   delay: 2
   until: "'OK' in file_downloaded.msg"
 
-- name: "Downloaded security policy artifact"
+- name: Downloaded security policy artifact
   set_fact:
-    security_policy_oracle_artifact: "{{ file_downloaded.dest }}"
+    security_policy_oracle_artifact: '{{ file_downloaded.dest }}'

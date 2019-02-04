@@ -28,7 +28,6 @@
     - README.txt
   become: True
   when:
-    # - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
     - java_full_version is version('8.151', '<')
 
 - name: Apply setting
@@ -40,5 +39,3 @@
   become: True
   when:
     - java_full_version is version('8.151', '<')
-    # - java_major_version|int == 8
-    # - java_minor_version|int >= 151
