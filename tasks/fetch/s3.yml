@@ -7,7 +7,7 @@
     aws_access_key: '{{ transport_s3_aws_access_key }}'
     aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
-    overwrite: different
+    overwrite: False
   register: file_downloaded
   retries: 5
   delay: 2
