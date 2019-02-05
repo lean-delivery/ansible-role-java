@@ -12,6 +12,29 @@
       raw: test -e /usr/bin/python || (apt install -y python-minimal python-zipstream)
       become: True
       changed_when: False
+    - name: 'Install pip package'
+      package:
+        name:
+          - 'python-pip'
+          - 'python2-pip'
+        state: 'present'
+      run_once: True
+      register: status
+      until: status is succeeded
+      become: True
+    - name: 'Install boto module'
+      pip:
+        name:
+          - 'pip'
+          - 'botocore'
+          - 'boto'
+          - 'boto3'
+        state: present
+        extra_args: --upgrade
+      run_once: True
+      register: status
+      until: status is succeeded
+      become: True
 
 - name: Prepare RHEL
   hosts: rhel_family
@@ -21,3 +44,26 @@
       raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
       become: True
       changed_when: False
+    - name: 'Enable EPEL repository'
+      yum:
+        name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+          {{ ansible_distribution_major_version }}.noarch.rpm'
+        state: 'present'
+      run_once: True
+      register: status
+      until: status is succeeded
+      become: True
+      changed_when: False
+    - name: 'Install boto module'
+      pip:
+        name:
+          - 'pip'
+          - 'botocore'
+          - 'boto'
+          - 'boto3'
+        state: present
+        extra_args: --upgrade
+      run_once: True
+      register: status
+      until: status is succeeded
+      become: True
