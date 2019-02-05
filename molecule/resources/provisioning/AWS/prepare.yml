@@ -36,11 +36,11 @@
       become: True
       when:
         - ansible_os_family == 'RedHat'
-    - name: 'Debug pip'
-      command: pip --version
-      register: version
-    - debug:
-        msg: "{{ version }}"
+    # - name: 'Debug pip'
+    #   command: pip --version
+    #   register: version
+    # - debug:
+    #     msg: "{{ version }}"
     - name: 'Install pip package'
       package:
         name: 'python-pip'
