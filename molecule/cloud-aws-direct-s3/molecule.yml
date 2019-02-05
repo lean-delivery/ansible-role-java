@@ -1,0 +1,132 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-aws-centos7-ansible-role-java-8
+    image: ami-9887c6e7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - transport_s3
+
+  - name: test-aws-centos6-ansible-role-java-8
+    image: ami-1585c46a
+    instance_type: m4.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+     - rhel_family
+     - transport_s3
+
+  - name: test-aws-ubuntu16-ansible-role-java-8
+    image: ami-09677e0a6b14905b0
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - transport_s3
+
+  - name: test-aws-ubuntu18-ansible-role-java-8
+    image: ami-012fd5eb46f56731f
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - transport_s3
+
+  - name: test-aws-Debian9-ansible-role-java-8
+    image: ami-003f19e0e687de1cd
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - transport_s3
+
+  - name: test-aws-Debian8-ansible-role-java-8
+    image: ami-b14ba7a7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - transport_s3
+
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      transport_s3:
+        java_package: "jre"
+        java_major_version: 8
+        transport: "s3"
+        transport_s3_bucket: "java-molecule-s3-test"
+        transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+  log: False
+  playbooks:
+    create: ../resources/provisioning/AWS/create.yml
+    prepare: ../resources/provisioning/AWS/prepare.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+  lint:
+    name: ansible-lint
+  env:
+    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
+scenario:
+  name: cloud-aws-direct-s3
+verifier:
+  name: testinfra
+  options:
+    verbose: true
+  directory: ../resources/tests/
+  lint:
+    name: flake8
