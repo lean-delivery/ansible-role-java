@@ -16,7 +16,7 @@
       package:
         name:
           - 'python-pip'
-          - 'python2-pip'
+          # - 'python2-pip'
         state: 'present'
       run_once: True
       register: status
