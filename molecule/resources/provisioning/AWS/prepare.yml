@@ -46,9 +46,8 @@
       changed_when: False
     - name: 'Enable EPEL repository'
       yum:
-        name: >-
-          'https://dl.fedoraproject.org/pub/epel/epel-release-latest-
-          {{ ansible_distribution_major_version }}.noarch.rpm'
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+          {{ ansible_distribution_major_version }}.noarch.rpm"
         state: 'present'
       run_once: True
       register: status
