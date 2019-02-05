@@ -130,6 +130,24 @@ Example Playbook
       transport: "local"
       transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
 ```
+### Installing java from S3 bucket:
+Before install you should prepare host to use aws_s3 module
+https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
+```yaml
+- name: "Install java"
+  hosts: all
+
+
+  roles:
+    - role: "lean_delivery.java"
+        java_package: "jre"
+        java_major_version: 8
+        transport: "s3"
+        transport_s3_bucket: "java-molecule-s3-test"
+        transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+```
 ### Installing java on Windows host with win_chocolatey:
 ```yaml
 - name: "Install java"
