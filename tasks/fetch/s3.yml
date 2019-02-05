@@ -7,10 +7,10 @@
     aws_access_key: '{{ transport_s3_aws_access_key }}'
     aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
-  register: s3_download
+  register: file_downloaded
   retries: 5
   delay: 2
-  until: s3_download is succeeded
+  until: "'OK' in file_downloaded.msg"
 
 - name: Set downloaded artifact vars
   set_fact:
