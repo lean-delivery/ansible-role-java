@@ -8,10 +8,8 @@
     aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
     overwrite: False
-  register: file_downloaded
   retries: 5
   delay: 2
-  until: "'GET operation complete' in file_downloaded.msg"
 
 - name: Set downloaded artifact vars
   set_fact:
