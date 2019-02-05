@@ -35,6 +35,11 @@
       register: status
       until: status is succeeded
       become: True
+    - name: 'Debug pip modules'
+      command: pip list
+      register: piplist
+    - debug:
+        msg: "{{ piplist }}"
 
 - name: Prepare RHEL
   hosts: rhel_family
