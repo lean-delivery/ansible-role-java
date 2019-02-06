@@ -102,6 +102,7 @@ platforms:
 
 provisioner:
   name: ansible
+
   inventory:
     group_vars:
       transport_s3:
@@ -110,8 +111,6 @@ provisioner:
         transport: "s3"
         transport_s3_bucket: "java-molecule-s3-test"
         transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
-        transport_s3_aws_access_key: "{{ ansible_env.AWS_ACCESS_KEY_ID }}"
-        transport_s3_aws_secret_key: "{{ ansible_env.AWS_SECRET_ACCESS_KEY }}"
   log: False
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
