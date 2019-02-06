@@ -22,28 +22,28 @@ Ansible lint:
   tags:
     - aws
 
-Docker java-6-7:
+.Docker java-6-7:
   stage: deployment test
   script:
     - molecule test -s docker-java-6-7
   tags:
     - aws
 
-Docker java-8:
+.Docker java-8:
   stage: deployment test
   script:
     - molecule test -s docker-java-8
   tags:
     - aws
 
-Docker java-11:
+.Docker java-11:
   stage: deployment test
   script:
     - molecule test -s docker-java-11
   tags:
     - aws
 
-AWS java-8-jdk:
+.AWS java-8-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -52,7 +52,7 @@ AWS java-8-jdk:
   tags:
     - aws
 
-AWS java-11-jdk:
+.AWS java-11-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

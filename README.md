@@ -145,8 +145,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
         transport: "s3"
         transport_s3_bucket: "java-molecule-s3-test"
         transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
-        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
-        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+
 ```
 ### Installing java on Windows host with win_chocolatey:
 ```yaml
