@@ -26,85 +26,85 @@ platforms:
       - transport_s3
       - jdk8
 
-  - name: test-aws-centos6-ansible-role-java-8
-    image: ami-1585c46a
-    instance_type: m4.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-     - rhel_family
-     - transport_s3
-     - jdk8_rpm
+  # - name: test-aws-centos6-ansible-role-java-8
+  #   image: ami-1585c46a
+  #   instance_type: m4.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: False
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #    - rhel_family
+  #    - transport_s3
+  #    - jdk8_rpm
 
-  - name: test-aws-ubuntu16-ansible-role-java-8
-    image: ami-09677e0a6b14905b0
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - transport_s3
-      - server-jre
+  # - name: test-aws-ubuntu16-ansible-role-java-8
+  #   image: ami-09677e0a6b14905b0
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: False
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
+  #     - transport_s3
+  #     - server-jre
 
-  - name: test-aws-ubuntu18-ansible-role-java-8
-    image: ami-012fd5eb46f56731f
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - transport_s3
-      - jdk11
+  # - name: test-aws-ubuntu18-ansible-role-java-8
+  #   image: ami-012fd5eb46f56731f
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: False
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
+  #     - transport_s3
+  #     - jdk11
 
-  - name: test-aws-Debian9-ansible-role-java-8
-    image: ami-003f19e0e687de1cd
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - transport_s3
-      - jdk8
+  # - name: test-aws-Debian9-ansible-role-java-8
+  #   image: ami-003f19e0e687de1cd
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: False
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - transport_s3
+  #     - jdk8
 
-  - name: test-aws-Debian8-ansible-role-java-8
-    image: ami-b14ba7a7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - transport_s3
-      - jdk8_deb
+  # - name: test-aws-Debian8-ansible-role-java-8
+  #   image: ami-b14ba7a7
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: False
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - transport_s3
+  #     - jdk8_deb
 
 provisioner:
   name: ansible
@@ -113,6 +113,10 @@ provisioner:
     group_vars:
       jdk8:
         transport_s3_path: "/java/jdk-8u202-linux-x64.tar.gz"
+        java_unlimited_policy_enabled: True
+        java_unlimited_policy_transport: "s3"
+        java_unlimited_policy_transport_s3_bucket: "java-molecule-s3-test"
+        java_unlimited_policy_transport_s3_path: "/java/jce_policy-8.zip"
       jre8:
         transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
       server-jre:
