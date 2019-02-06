@@ -3,5 +3,3 @@
   hosts: all
   roles:
     - role: ansible-role-java
-      transport_s3_aws_access_key: "{{ ansible_env.AWS_ACCESS_KEY_ID }}"
-      transport_s3_aws_secret_key: "{{ ansible_env.AWS_SECRET_ACCESS_KEY }}"
