@@ -24,6 +24,7 @@ platforms:
     groups:
       - rhel_family
       - transport_s3
+      - jdk8
 
   - name: test-aws-centos6-ansible-role-java-8
     image: ami-1585c46a
@@ -39,6 +40,7 @@ platforms:
     groups:
      - rhel_family
      - transport_s3
+     - jdk8_rpm
 
   - name: test-aws-ubuntu16-ansible-role-java-8
     image: ami-09677e0a6b14905b0
@@ -54,6 +56,7 @@ platforms:
     groups:
       - debian_family
       - transport_s3
+      - server-jre
 
   - name: test-aws-ubuntu18-ansible-role-java-8
     image: ami-012fd5eb46f56731f
@@ -69,6 +72,7 @@ platforms:
     groups:
       - debian_family
       - transport_s3
+      - jdk11
 
   - name: test-aws-Debian9-ansible-role-java-8
     image: ami-003f19e0e687de1cd
@@ -84,6 +88,7 @@ platforms:
     groups:
       - debian_family
       - transport_s3
+      - jdk8
 
   - name: test-aws-Debian8-ansible-role-java-8
     image: ami-b14ba7a7
@@ -99,20 +104,28 @@ platforms:
     groups:
       - debian_family
       - transport_s3
+      - jdk8_deb
 
 provisioner:
   name: ansible
 
   inventory:
     group_vars:
-      transport_s3:
-        java_package: "jre"
-        java_major_version: 8
-        transport: "s3"
-        transport_s3_bucket: "java-molecule-s3-test"
+      jdk8:
+        transport_s3_path: "/java/jdk-8u202-linux-x64.tar.gz"
+      jre8:
         transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
-        # transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
-        # transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+      server-jre:
+        transport_s3_path: "/java/server-jre-8u202-linux-x64.tar.gz"
+      jdk11:
+        transport_s3_path: "/java/jdk-11.0.2_linux-x64_bin.tar.gz"
+      # TODO: issue #11
+      jdk8_rpm:
+        # transport_s3_path: "/java/jdk-8u202-linux-x64.rpm"
+        transport_s3_path: "/java/jdk-8u202-linux-x64.tar.gz"
+      jdk8_deb:
+        # transport_s3_path: "/java/jdk-8u202-linux-x64.deb"
+        transport_s3_path: "/java/jdk-8u202-linux-x64.tar.gz"
   log: False
   playbooks:
     create: ../resources/provisioning/AWS/create.yml

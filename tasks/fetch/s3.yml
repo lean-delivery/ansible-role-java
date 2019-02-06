@@ -4,8 +4,8 @@
     bucket: '{{ transport_s3_bucket }}'
     object: '{{ transport_s3_path }}'
     dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
-    # aws_access_key: '{{ transport_s3_aws_access_key }}'
-    # aws_secret_key: '{{ transport_s3_aws_secret_key }}'
+    aws_access_key: '{{ transport_s3_aws_access_key }}'
+    aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
     overwrite: different
   retries: 5
