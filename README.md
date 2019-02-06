@@ -82,9 +82,9 @@ Requirements
   - `transport_s3_path` - path to patch folder in bucket
     default: `/folder`
   - `transport_s3_aws_access_key` - aws key. Need to set in role or set as parameter or set env variables according https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
-    default: `undefined`
+    default: `{{ lookup('env','AWS_ACCESS_KEY') }}`
   - `transport_s3_aws_secret_key` - aws secret key. Need to set in role or set as parameter or set env variables according https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
-    default: `undefined`
+    default: `{{ lookup('env','AWS_SECRET_KEY') }}`
 
 # Configure unlimited policy
   - `java_unlimited_policy_enabled` - to apply unlimited policy
