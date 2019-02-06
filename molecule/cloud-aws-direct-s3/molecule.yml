@@ -111,6 +111,8 @@ provisioner:
         transport: "s3"
         transport_s3_bucket: "java-molecule-s3-test"
         transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   log: False
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
@@ -120,8 +122,6 @@ provisioner:
     name: ansible-lint
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
-    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 scenario:
   name: cloud-aws-direct-s3
 verifier:
