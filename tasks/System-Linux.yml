@@ -48,6 +48,31 @@
         group: root
         mode: 0755
         creates: '{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/bin/'
+      when: java_tarball_install | bool
+
+    # Default package installation path /usr/java
+    # - name: Intsall java {{ java_full_version }}' rpm / deb
+    #   package:
+    #     name: '{{ oracle_artifact }}'
+    #     state: present
+    #   when: not java_tarball_install | bool
+
+    # WORKAROUND
+    # - name: Install rpm / deb
+    #   command: "rpm -i --badreloc --force --relocate /usr/java/={{ java_path }} {{ oracle_artifact }}"
+    #   args:
+    #     creates: '{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}-amd64/bin/'
+    #   when: not java_tarball_install | bool
+
+    # Default package installation /usr/java
+    # install root don't working
+    # manual install yum --releasever=/ --installroot=/opt/java install /tmp/jdk-8u201-linux-x64.rpm
+    # - name: Install rpm
+    #   yum:
+    #     name: '{{ oracle_artifact }}'
+    #     state: present
+    #     installroot: '{{ java_path }}'
+    #   when: not java_tarball_install | bool
 
     - name: Check for java binaries existence
       stat:
