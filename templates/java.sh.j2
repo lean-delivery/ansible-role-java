@@ -1,7 +1,7 @@
 # /etc/profile.d/java.sh - set java stuff
 {% if java_tarball_install  %}
-export JAVA_HOME={{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}/
+export JAVA_HOME={{ java_path }}{{ java_folder }}
 {% elif not java_tarball_install %}
-export JAVA_HOME=/usr/java/{{ java_package }}1.{{ java_major_version }}.0_{{ java_minor_version }}-{{ (java_arch == 'x64') | ternary('amd64', 'i586') }}
+export JAVA_HOME={{ java_path }}{{ java_folder }}-{{ (java_arch == 'x64') | ternary('amd64', 'i586') }}
 {% endif %}
 export PATH=$JAVA_HOME/bin:$PATH

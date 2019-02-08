@@ -1,5 +1,6 @@
 ---
 extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'deb') }}"
+java_default_path: '/usr/java/'
 requirements:
   - python
   - python-argparse

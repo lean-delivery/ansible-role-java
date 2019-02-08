@@ -1,5 +1,6 @@
 ---
 extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'rpm') }}"
+java_default_path: '/usr/java/'
 requirements:
   - redhat-lsb-core
   - policycoreutils-python
