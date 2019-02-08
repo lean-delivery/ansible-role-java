@@ -10,69 +10,13 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-java-8-jdk
+  - name: test-docker-centos7-java-8-jdk-rpm
     image: leandelivery/docker-systemd:centos7
     privileged: True
     groups:
       - rhel_family
       - jdk
-  # - name: test-docker-ubuntu1804-java-8-jdk
-  #   image: leandelivery/docker-systemd:ubuntu-18.04
-  #   privileged: True
-  #   security_opts:
-  #     - seccomp=unconfined
-  #   volumes:
-  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  #   tmpfs:
-  #     - /tmp
-  #     - /run
-  #   capabilities:
-  #     - SYS_ADMIN
-  #   groups:
-  #     - debian_family
-  #     - jdk
-  # - name: test-docker-centos7-java-8-jre
-  #   image: leandelivery/docker-systemd:centos7
-  #   privileged: True
-  #   groups:
-  #     - rhel_family
-  #     - jre
-  # - name: test-docker-ubuntu1804-java-8-jre
-  #   image: leandelivery/docker-systemd:ubuntu-18.04
-  #   privileged: True
-  #   security_opts:
-  #     - seccomp=unconfined
-  #   volumes:
-  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  #   tmpfs:
-  #     - /tmp
-  #     - /run
-  #   capabilities:
-  #     - SYS_ADMIN
-  #   groups:
-  #     - debian_family
-  #     - jre
-  # - name: test-docker-centos7-java-8-server-jre
-  #   image: leandelivery/docker-systemd:centos7
-  #   privileged: True
-  #   groups:
-  #     - rhel_family
-  #     - server_jre
-  # - name: test-docker-ubuntu1804-java-8-server-jre
-  #   image: leandelivery/docker-systemd:ubuntu-18.04
-  #   privileged: True
-  #   security_opts:
-  #     - seccomp=unconfined
-  #   volumes:
-  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  #   tmpfs:
-  #     - /tmp
-  #     - /run
-  #   capabilities:
-  #     - SYS_ADMIN
-  #   groups:
-  #     - debian_family
-  #     - server_jre
+
 provisioner:
   name: ansible
   inventory:
@@ -82,12 +26,6 @@ provisioner:
         java_major_version: 8
         java_tarball_install: False
         java_unlimited_policy_enabled: True
-      # jre:
-      #   java_package: "jre"
-      #   java_major_version: 8
-      # server_jre:
-      #   java_package: "server-jre"
-      #   java_major_version: 8
   log: True
   lint:
     name: ansible-lint
