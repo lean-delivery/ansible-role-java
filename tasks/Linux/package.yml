@@ -1,0 +1,5 @@
+---
+- name: Intsall java {{ java_full_version }}' package
+  package:
+    name: '{{ oracle_artifact }}'
+    state: present

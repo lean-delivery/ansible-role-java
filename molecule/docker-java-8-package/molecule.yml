@@ -41,7 +41,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: docker-java-8-yum
+  name: docker-java-8-package
 verifier:
   name: testinfra
   options:
