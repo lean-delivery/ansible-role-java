@@ -7,6 +7,10 @@
   loop_control:
     loop_var: transport_driver
 
+- name: Set java full version
+  set_fact:
+    java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
+
 - name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:
@@ -20,10 +24,6 @@
 
 - name: Perform install from artifacts
   block:
-    - name: Set java full version
-      set_fact:
-        java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
-
     - name: Install requirements
       package:
         name: '{{ requirements }}'
