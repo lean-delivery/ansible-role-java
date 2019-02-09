@@ -1,0 +1,5 @@
+---
+- name: "Install jdk/jre/server-jre 8"
+  hosts: all
+  roles:
+    - role: ansible-role-java

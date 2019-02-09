@@ -3,7 +3,6 @@
   include_vars: '{{ distribution }}'
   with_first_found:
     - '{{ ansible_system }}/{{ ansible_os_family }}.yml'
-    # - '{{ ansible_os_family }}.yml'
     - default.yml
   loop_control:
     loop_var: distribution

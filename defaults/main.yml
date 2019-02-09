@@ -9,7 +9,7 @@ java_major_version: 8
 java_arch: "x64"
 
 # java installation path
-java_path: "/opt/{{ java_package }}/"
+java_path: '{{ java_default_path }}'
 
 # local download path
 download_path: "/tmp/"
