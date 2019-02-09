@@ -61,6 +61,15 @@ AWS java-11-jdk:
   tags:
     - aws
 
+AWS java-s3-transport:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-s3
+  tags:
+    - aws
+
 .AWS Windows java-8-jdk:
   variables:
     AWS_REGION: us-east-1

@@ -8,9 +8,9 @@
     aws_access_key: '{{ transport_s3_aws_access_key }}'
     aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
+    overwrite: different
   retries: 5
-  delegate_to: localhost
-  connection: local
+  delay: 2
 
 - name: Downloaded security policy artifact
   set_fact:
