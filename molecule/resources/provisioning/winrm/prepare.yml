@@ -1,0 +1,10 @@
+---
+- name: Prepare Windows
+  hosts: windows
+  gather_facts: False
+  tasks:
+    - name: grant the ansible user the SeTcbPrivilege right
+      win_user_right:
+        name: SeTcbPrivilege
+        users: '{{ ansible_user }}'
+        action: add
