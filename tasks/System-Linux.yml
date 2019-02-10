@@ -32,7 +32,8 @@
       until: installed_packages is succeeded
 
     - name: 'Perform {{ java_binary_type }} install'
-      include_tasks: '{{ ansible_system }}/{{ java_binary_type }}.yml'
+      include_tasks: >-
+        Linux/{{ java_tarball_install | ternary('tarball', ansible_os_family) }}.yml
 
     - name: Put java profile
       template:
