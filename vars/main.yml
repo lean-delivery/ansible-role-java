@@ -19,7 +19,6 @@ security_patch_folders:
   7: UnlimitedJCEPolicy
   8: UnlimitedJCEPolicyJDK8
 
-java_artifacts_src: >-
-  {{ java_unlimited_policy_enabled
-      | ternary([ 'fallback_oracle_security_policy_artifacts[java_major_version|int]',
-                  'artifact_url'], 'artifact_url') }}
+java_artifacts_src:
+  - '{{ fallback_oracle_security_policy_artifacts[java_major_version|int] }}'
+  - '{{ artifact_url }}'
