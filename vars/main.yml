@@ -1,7 +1,6 @@
 ---
 # vars file for java
 os: "{{ ansible_facts.system | lower | regex_replace('win32nt', 'windows') }}"
-extension: "{{ (os == 'linux') | ternary('tar.gz','exe') }}"
 java_root_page: "https://www.oracle.com/technetwork/java/javase/downloads/index.html"
 java_folder: >-
   {{ (java_major_version|int <= 8)
