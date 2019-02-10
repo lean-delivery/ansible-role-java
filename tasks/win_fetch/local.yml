@@ -20,7 +20,7 @@
     java_arch: '{{ parts[4] }}'
 
 - name: Copy artifact to destination
-  copy:
+  win_copy:
     src: '{{ oracle_artifact }}'
     dest: '{{ download_path }}'
   register: file_downloaded

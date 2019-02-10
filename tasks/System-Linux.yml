@@ -11,16 +11,16 @@
   set_fact:
     java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
 
-- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
-  include_tasks: '{{ transport_driver }}'
-  with_first_found:
-    - 'security_policy_fetch/{{ java_unlimited_policy_transport }}.yml'
-    - security_policy_fetch/unknown-transport.yml
-  loop_control:
-    loop_var: transport_driver
-  when:
-    - java_unlimited_policy_enabled
-    - java_full_version is version('8.151', '<')
+# - name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
+#   include_tasks: '{{ transport_driver }}'
+#   with_first_found:
+#     - 'security_policy_fetch/{{ java_unlimited_policy_transport }}.yml'
+#     - security_policy_fetch/unknown-transport.yml
+#   loop_control:
+#     loop_var: transport_driver
+#   when:
+#     - java_unlimited_policy_enabled
+#     - java_full_version is version('8.151', '<')
 
 - name: Perform install from artifacts
   block:

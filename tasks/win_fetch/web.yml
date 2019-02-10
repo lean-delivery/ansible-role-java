@@ -1,8 +1,17 @@
 ---
-- name: Artifact stored localy
+- name: Download artifact from web
+  win_get_url:
+    url: '{{ transport_web }}'
+    dest: '{{ download_path }}'
+  register: file_downloaded
+  retries: 5
+  delay: 2
+  until: "'OK' in file_downloaded.msg"
+
+- name: Set downloaded artifact vars
   set_fact:
-    oracle_artifact: '{{ transport_local }}'
-    oracle_artifact_basename: '{{ transport_local | basename }}'
+    oracle_artifact: '{{ file_downloaded.dest }}'
+    oracle_artifact_basename: '{{ file_downloaded.dest | basename }}'
 
 - name: Split artifact name
   set_fact:
@@ -18,16 +27,3 @@
     java_minor_version: '{{ parts[2] }}'
     java_os: '{{ parts[3] }}'
     java_arch: '{{ parts[4] }}'
-
-- name: Copy artifact to destination
-  copy:
-    src: '{{ oracle_artifact }}'
-    dest: '{{ download_path }}'
-  register: file_downloaded
-  retries: 5
-  delay: 2
-  until: file_downloaded is succeeded
-
-- name: Downloaded artifact
-  set_fact:
-    oracle_artifact: '{{ file_downloaded.dest }}'

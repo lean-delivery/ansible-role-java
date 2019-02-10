@@ -80,7 +80,6 @@ provisioner:
       jdk:
         java_package: "jdk"
         java_major_version: 8
-        java_unlimited_policy_enabled: True
       jre:
         java_package: "jre"
         java_major_version: 8

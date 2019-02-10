@@ -31,7 +31,7 @@ Docker java-6-7:
   tags:
     - aws
 
-.Docker java-8:
+Docker java-8:
   stage: deployment test
   script:
     - molecule test -s docker-java-8
@@ -61,7 +61,7 @@ Docker java-8-yum:
   tags:
     - aws
 
-.AWS java-11-jdk:
+AWS java-11-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -70,7 +70,7 @@ Docker java-8-yum:
   tags:
     - aws
 
-.AWS java-s3-transport:
+AWS java-s3-transport:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -79,7 +79,7 @@ Docker java-8-yum:
   tags:
     - aws
 
-.AWS Windows java-8-jdk:
+AWS Windows java-8-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

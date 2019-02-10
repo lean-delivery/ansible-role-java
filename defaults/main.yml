@@ -37,7 +37,7 @@ transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_KEY') }}"
 # Configure unlimited security policy
 java_unlimited_policy_enabled: False
 # For Java earlier than 1.8.0_151
-java_unlimited_policy_transport: oracle-fallback
+java_unlimited_policy_transport: '{{ transport }}'
 # available are:
 # - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
