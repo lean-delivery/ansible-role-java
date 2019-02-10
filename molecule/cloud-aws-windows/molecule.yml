@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
   - name: test-aws-windows-ansible-role-java
-    aws_image_id: ami-0f4c7e570f044b46f
+    aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
