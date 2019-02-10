@@ -2,8 +2,7 @@
 - name: Unzip patch file
   unarchive:
     src: '{{ security_policy_oracle_artifact }}'
-    dest: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-      {{ java_minor_version }}/jre/lib/security"
+    dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security'
     remote_src: True
     owner: root
     group: root
@@ -15,11 +14,9 @@
 
 - name: Apply patch file
   copy:
-    src: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-      {{ java_minor_version }}/jre/lib/security/\
+    src: "{{ java_path }}/{{ java_folder }}/jre/lib/security/\
       {{ security_patch_folders[java_major_version|int] }}/{{ item }}"
-    dest: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-    {{ java_minor_version }}/jre/lib/security/"
+    dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security/'
     remote_src: True
     directory_mode: True
   loop:
@@ -32,8 +29,7 @@
 
 - name: Apply setting
   replace:
-    path: "{{ java_path }}{{ java_package }}1.{{ java_major_version }}.0_\
-      {{ java_minor_version }}/jre/lib/security/java.security"
+    path: "{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security"
     regexp: '#crypto.policy=unlimited'
     replace: 'crypto.policy=unlimited'
   become: True
