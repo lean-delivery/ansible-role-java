@@ -24,7 +24,7 @@ Ansible lint:
   tags:
     - aws
 
-.Docker java-6-7:
+Docker java-6-7:
   stage: deployment test
   script:
     - molecule test -s docker-java-6-7
