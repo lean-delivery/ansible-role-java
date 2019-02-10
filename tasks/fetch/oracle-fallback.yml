@@ -69,7 +69,7 @@
 
 - name: 'Download artifact from {{ artifact_url }}'
   get_url:
-    url: '{{ hostvars["ansible_hostname"][url_item] }}'
+    url: '{{ hostvars["inventory_hostname"][url_item] }}'
     headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
     dest: '{{ download_path }}'
     checksum: 'sha256:{{ artifact_checksum }}'
