@@ -13,7 +13,7 @@
     - name: Apply patch file
       copy:
         src: "{{ java_path }}/{{ java_folder }}/jre/lib/security/\
-          {{ security_patch_folders[java_major_version|int]}}/{{ policy_item }}"
+          {{ security_patch_folders[java_major_version|int] }}/{{ policy_item }}"
         dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security/'
         remote_src: True
         directory_mode: True
