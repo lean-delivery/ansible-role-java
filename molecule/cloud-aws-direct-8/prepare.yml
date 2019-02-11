@@ -23,7 +23,7 @@
       changed_when: False
 
 - name: Prepare host to S3 transport
-  hosts: transport_s3
+  hosts: s3:localhost
   gather_facts: True
   tasks:
     - name: 'Enable EPEL repository'
@@ -36,7 +36,6 @@
       become: True
       when:
         - ansible_os_family == 'RedHat'
-
     - name: 'Install pip package'
       package:
         name: 'python-pip'
@@ -56,3 +55,22 @@
       register: status
       until: status is succeeded
       become: True
+
+- name: Prepare host to S3 transport
+  hosts: localhost
+  gather_facts: True
+  vars:
+    transport_s3_bucket: java-molecule-s3-test
+    transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
+  tasks:
+    - name: Download artifact from s3
+      aws_s3:
+        bucket: '{{ transport_s3_bucket }}'
+        object: '{{ transport_s3_path }}'
+        dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+        # aws_access_key: '{{ transport_s3_aws_access_key }}'
+        # aws_secret_key: '{{ transport_s3_aws_secret_key }}'
+        mode: get
+        overwrite: different
+      retries: 5
+      delay: 2

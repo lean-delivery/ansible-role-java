@@ -10,24 +10,10 @@ lint:
   options:
     config-file: .yamllint
 platforms:
+
   - name: test-aws-centos7-ansible-role-java-8-otn
     image: ami-9887c6e7
     instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - tarball
-
-  - name: test-aws-centos6-ansible-role-java-8-otn
-    image: ami-1585c46a
-    instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: False
@@ -55,9 +41,9 @@ platforms:
       - rhel_family
       - package
 
-  - name: test-aws-centos6-ansible-role-java-8-otn-rpm
-    image: ami-1585c46a
-    instance_type: m4.large
+  - name: test-aws-centos7-ansible-role-java-8-s3
+    image: ami-9887c6e7
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: False
@@ -68,24 +54,10 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - package
-
-  - name: test-aws-ubuntu16-ansible-role-java-8-otn
-    image: ami-09677e0a6b14905b0
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
+      - s3
       - tarball
 
-  - name: test-aws-ubuntu18-ansible-role-java-8-otn
+  - name: test-aws-ubuntu18-ansible-role-java-8-s3
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -98,10 +70,11 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - s3
       - tarball
 
-  - name: test-aws-Debian9-ansible-role-java-8-otn
-    image: ami-003f19e0e687de1cd
+  - name: test-aws-ubuntu18-ansible-role-java-8-local
+    image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -110,24 +83,10 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: admin
+    ssh_user: ubuntu
     groups:
       - debian_family
-      - tarball
-
-  - name: test-aws-Debian8-ansible-role-java-8-otn
-    image: ami-b14ba7a7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
+      - local
       - tarball
 
 provisioner:
@@ -135,24 +94,31 @@ provisioner:
   log: False
   inventory:
     group_vars:
+      local:
+        transport: local
+        transport_local: /tmp/jdk-8u202-linux-x64.tar.gz
+      s3:
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
         java_package: jdk
         java_tarball_install: True
-        transport: oracle-fallback
       package:
         java_package: jdk
         java_tarball_install: False
-        transport: oracle-fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../cloud-aws-direct-8/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-aws-direct-8-otn
+  name: cloud-aws-direct-8
 verifier:
   name: testinfra
   options:

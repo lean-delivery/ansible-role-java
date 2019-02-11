@@ -10,50 +10,6 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-java-6-tarball
-    image: ami-9887c6e7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - tarball
-
-  - name: test-aws-centos6-ansible-role-java-6-tarball
-    image: ami-1585c46a
-    instance_type: m4.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-     - rhel_family
-     - tarball
-
-  - name: test-aws-centos7-ansible-role-java-6-rpm
-    image: ami-9887c6e7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - rpm
 
   - name: test-aws-centos6-ansible-role-java-6-rpm
     image: ami-1585c46a
@@ -70,21 +26,6 @@ platforms:
      - rhel_family
      - rpm
 
-  - name: test-aws-ubuntu16-ansible-role-java-6-tarball
-    image: ami-09677e0a6b14905b0
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - tarball
-
   - name: test-aws-ubuntu18-ansible-role-java-6-tarball
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
@@ -96,36 +37,6 @@ platforms:
       - default
     wait_timeout: 1800
     ssh_user: ubuntu
-    groups:
-      - debian_family
-      - tarball
-
-  - name: test-aws-Debian9-ansible-role-java-6-tarball
-    image: ami-003f19e0e687de1cd
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - tarball
-
-  - name: test-aws-Debian8-ansible-role-java-6-tarball
-    image: ami-b14ba7a7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
     groups:
       - debian_family
       - tarball
