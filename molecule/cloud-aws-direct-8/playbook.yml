@@ -4,3 +4,9 @@
   roles:
     - role: ansible-role-java
       java_unlimited_policy_enabled: True
+      transport: "web"
+      transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-8u152-linux-x64.rpm"
+      java_tarball_install: False
+      java_unlimited_policy_transport: oracle-fallback
+      java_major_version: 8
+      java_minor_version: 152
