@@ -70,7 +70,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS java-8-oracle-fallback:
+.AWS java-8-oracle-fallback:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
