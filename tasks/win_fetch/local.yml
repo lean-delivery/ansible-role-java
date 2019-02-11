@@ -22,7 +22,7 @@
 - name: Copy artifact to destination
   win_copy:
     src: '{{ oracle_artifact }}'
-    dest: '{{ download_path }}'
+    dest: '{{ download_path }}\'
   register: file_downloaded
   retries: 5
   delay: 2
