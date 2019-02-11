@@ -22,10 +22,6 @@
       become: True
       changed_when: False
 
-- name: Prepare host to S3 transport
-  hosts: s3:localhost
-  gather_facts: True
-  tasks:
     - name: 'Enable EPEL repository'
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
@@ -34,15 +30,19 @@
       register: status
       until: status is succeeded
       become: True
-      when:
-        - ansible_os_family == 'RedHat'
+
+- name: Prepare host to S3 transport
+  hosts: s3:localhost
+  gather_facts: True
+  tasks:
     - name: 'Install pip package'
       package:
-        name: 'python-pip'
-        state: 'present'
+        name: python-pip
+        state: present
       register: status
       until: status is succeeded
       become: True
+
     - name: 'Install boto module'
       pip:
         name:
