@@ -8,22 +8,28 @@
 - name: Unzip patch file
   win_unzip:
     src: '{{ security_policy_oracle_artifact }}'
-    dest: C:\Program Files\Java\{{
-            security_policy_oracle_artifact|basename
-              }}\jre{{ java_major_version }}\lib\security\
+    dest: '{{ ansible_env.TEMP}}'
+  register: jce_res
+        # C:\Program Files\Java\{{
+        #     security_policy_oracle_artifact|basename
+        #       }}\jre{{ java_major_version }}\lib\security\
 
-- name: Apply patch file
-  win_command:
-    'xcopy -r C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
-    {{ security_patch_folders[java_major_version|int] }}/*.jar \
-    C:\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\'
-  args:
-    removes: 'C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
-      {{ security_patch_folders[java_major_version|int] }}\\local_policy.jar'
+- name: debug
+  debug:
+    var: jce_res
 
-- name: 'Apply setting'
-  win_lineinfile:
-    path: 'C:\\Program Files\\Java\\jre1.{{ java_major_version }}.0_\
-           {{ java_minor_version }}\\lib\\security\\java.security'
-    regexp: '#crypto.policy=unlimited'
-    line: 'crypto.policy=unlimited'
+# - name: Apply patch file
+#   win_command:
+#     'xcopy -r C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
+#     {{ security_patch_folders[java_major_version|int] }}/*.jar \
+#     C:\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\'
+#   args:
+#     removes: 'C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
+#       {{ security_patch_folders[java_major_version|int] }}\\local_policy.jar'
+
+# - name: 'Apply setting'
+#   win_lineinfile:
+#     path: 'C:\\Program Files\\Java\\jre1.{{ java_major_version }}.0_\
+#            {{ java_minor_version }}\\lib\\security\\java.security'
+#     regexp: '#crypto.policy=unlimited'
+#     line: 'crypto.policy=unlimited'
