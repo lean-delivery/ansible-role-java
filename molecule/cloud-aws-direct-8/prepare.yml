@@ -65,6 +65,7 @@
   vars:
     transport_s3_bucket: java-molecule-s3-test
     transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
+    download_path: /tmp
   tasks:
     - name: Download artifact from s3
       aws_s3:
