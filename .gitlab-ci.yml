@@ -61,7 +61,7 @@ AWS java-8-jdk:
   tags:
     - aws
 
-.AWS java-11-jdk:
+AWS java-11-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
