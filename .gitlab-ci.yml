@@ -70,7 +70,16 @@ Ansible lint:
   tags:
     - aws
 
-AWS java-8-web:
+AWS java-8-oracle-fallback:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-8-otn
+  tags:
+    - aws
+
+.AWS java-8-web:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
