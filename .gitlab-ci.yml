@@ -79,6 +79,15 @@ AWS java-8-oracle-fallback:
   tags:
     - aws
 
+AWS Windows java-8-jdk:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-8
+  tags:
+    - aws
+
 .AWS java-8-web:
   variables:
     AWS_REGION: us-east-1
@@ -112,15 +121,6 @@ AWS java-8-oracle-fallback:
   stage: deployment test
   script:
     - molecule test -s cloud-aws-direct-s3
-  tags:
-    - aws
-
-.AWS Windows java-8-jdk:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-windows
   tags:
     - aws
 
