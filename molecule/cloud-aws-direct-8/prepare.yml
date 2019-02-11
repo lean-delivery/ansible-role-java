@@ -22,6 +22,9 @@
       become: True
       changed_when: False
 
+    - name: gather facts
+      setup:
+
     - name: 'Enable EPEL repository'
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
