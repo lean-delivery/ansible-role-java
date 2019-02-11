@@ -76,7 +76,7 @@
       wait_for:
         port: '{{ winrm_port }}'
         host: '{{ item.address }}'
-        delay: 10
+        delay: 2
         timeout: 320
       loop: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
 
