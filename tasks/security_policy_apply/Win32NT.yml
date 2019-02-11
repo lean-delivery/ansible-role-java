@@ -8,7 +8,7 @@
 - name: Unzip patch file
   win_unzip:
     src: '{{ security_policy_oracle_artifact }}'
-    dest: '{{ ansible_env.TEMP}}'
+    dest: '{{ ansible_env.TEMP }}'
   register: jce_res
         # C:\Program Files\Java\{{
         #     security_policy_oracle_artifact|basename
