@@ -21,7 +21,7 @@
 
 - name: Copy artifact to destination
   win_copy:
-    src: '{{ oracle_artifact }}'
+    src: '{{ transport_local }}'
     dest: '{{ download_path }}\'
   register: file_downloaded
   retries: 5
@@ -30,4 +30,4 @@
 
 - name: Downloaded artifact
   set_fact:
-    oracle_artifact: '{{ file_downloaded.dest }}'
+    oracle_artifact: '{{ download_path }}\{{ transport_local | basename }}'
