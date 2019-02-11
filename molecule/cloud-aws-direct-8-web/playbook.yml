@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-java
+      java_package: jre
+      transport: web
+      transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jre-8u181-linux-x64.tar.gz"
+      java_tarball_install: True
+      java_major_version: 8
+      java_minor_version: 181
