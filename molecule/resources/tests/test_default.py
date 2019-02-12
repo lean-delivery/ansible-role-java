@@ -15,5 +15,5 @@ def test_hosts_file(host):
 
 
 def test_java_version(host):
-    command = host.run('java -version')
+    command = host.run('java --version')
     assert command.rc == 0
