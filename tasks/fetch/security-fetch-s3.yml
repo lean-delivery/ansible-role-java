@@ -1,0 +1,19 @@
+---
+- name: Download security policy artifact from s3
+  aws_s3:
+    bucket: '{{ java_unlimited_policy_transport_s3_bucket }}'
+    object: '{{ java_unlimited_policy_transport_s3_path }}'
+    dest: "{{ download_path }}/\
+      {{ java_unlimited_policy_transport_s3_path|basename }}"
+    aws_access_key: '{{ transport_s3_aws_access_key }}'
+    aws_secret_key: '{{ transport_s3_aws_secret_key }}'
+    mode: get
+    overwrite: different
+  retries: 5
+  delay: 2
+
+- name: Downloaded security policy artifact
+  set_fact:
+    security_policy_oracle_artifact: >
+      {{ download_path }}/{{  java_unlimited_policy_transport_s3_path
+                              | basename }}

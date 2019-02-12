@@ -4,7 +4,7 @@
     minor: "{{ java_minor_version | default('.*', True) }}"
 
 - name: 'Fetch root page {{ java_root_page }}'
-  uri:
+  win_uri:
     url: '{{ java_root_page }}'
     return_content: True
   register: root_page
@@ -16,7 +16,7 @@
           + java_package|string + java_major_version|string + '-downloads-.*html') }}
 
 - name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
-  uri:
+  win_uri:
     url: 'https://www.oracle.com/{{ release_url }}'
     return_content: True
   register: release_page
@@ -51,11 +51,11 @@
   set_fact:
     artifact_checksum: >-
       {{ release_page['content'] |
-        regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
-          java_package|string + '-(?:' + java_major_version|string +
-          'u' + minor|string + '-|' + java_major_version|string +
-          '.' + minor|string + '_)' +  os|string + '-' + java_arch|string +
-          '(?!-demos).*' + extension|string + '.*?\",\"SHA256\":\"([a-fA-F\d]{64})') | last }}
+        regex_findall('https?://download.oracle.com/otn-pub/java/.*/'
+          + java_package|string + '-(?:' + java_major_version|string + 'u'
+          + minor|string + '-|' + java_major_version|string + '.'
+          + minor|string + '_)' +  os|string + '-' + java_arch|string + '(?!-demos).*'
+          + extension|string + '.*?\",\"SHA256\":\"([a-fA-F\d]{64})') | last }}
 
 - name: Show artifacts' urls found
   debug:
@@ -67,17 +67,26 @@
       {{ artifact_url | regex_findall(java_package|string + '-' +
       java_major_version|string + '[u.]([.0-9]+)') | first }}
 
-- name: 'Download artifact from {{ artifact_url }}'
-  get_url:
-    url: '{{ artifact_url }}'
-    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
-    dest: '{{ download_path }}'
-    checksum: 'sha256:{{ artifact_checksum }}'
-  register: file_downloaded
-  retries: 15
-  delay: 5
-  until: "'OK' in file_downloaded.msg"
-
-- name: Sed downloaded artifact variable
+- name: Set artifact basename
   set_fact:
-    oracle_artifact: '{{ file_downloaded.dest }}'
+    artifact_basename: "{{ (artifact_url | urlsplit('path')).split('/')[-1] }}"
+
+- name: Get SHA256 checksum of file
+  win_stat:
+    path: '{{ download_path }}\{{ artifact_basename }}'
+    get_checksum: True
+    checksum_algorithm: sha256
+  register: artifact
+
+- name: Download with checksum validation
+  include_tasks: fetch_checksum.yml
+  when: |
+    not artifact.stat.exists
+    or artifact.stat.checksum != artifact_checksum
+  retries: 15
+  delay: 2
+  until: artifact.stat.checksum == artifact_checksum
+
+- name: Downloaded artifact
+  set_fact:
+    oracle_artifact: '{{ artifact.stat.path }}'

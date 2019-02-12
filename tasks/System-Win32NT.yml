@@ -1,48 +1,52 @@
 ---
-- name: "Install {{ java_package }} from chocolatey"
-  win_chocolatey:
-    name: "{{ java_package }}{{ java_major_version }}"
-    params: "/InstallationPath:C:\\Program Files\\Java /Force /Machine"
-  when: transport == "win-chocolatey"
+- name: 'Fetch oracle artifact with {{ transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - 'win_fetch/{{ transport }}.yml'
+    - fetch/unknown-transport.yml
+  loop_control:
+    loop_var: transport_driver
 
-- name: "Non-chocolatey installation"
-  block:
+- name: Set java full version
+  set_fact:
+    java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
 
-    - name: "Path to the remote installation package"
-      set_fact:
-        java_artifact: "{{ windows_temp_path }}\
-{{ oracle_artifact | win_basename }}"
+- name: 'Perform {{ java_binary_type }} install'
+  include_tasks: 'Windows/{{ java_binary_type }}.yml'
 
-    - name: "Copy installation package to the remote"
-      win_copy:
-        src: "{{ oracle_artifact }}"
-        dest: "{{ java_artifact }}"
+- name: Find java_folder
+  win_find:
+    paths: '{{ java_path }}'
+    recurse: False
+    file_type: directory
+    patterns: '{{ java_folder }}'
+    use_regex: True
+  register: java_dir
 
-    - name: "Install package from the remote source"
-      win_package:
-        path: "{{ java_artifact }}"
-        state: "present"
-        creates_path: "C:\\Program Files\\Java"
-        arguments: "/s"
+- name: Set actual java directory
+  set_fact:
+    java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
 
-    - name: "Get installed java directory"
-      win_shell: "Get-ChildItem -Path 'C:\\Program Files\\Java' |\
-                  Select-Object -Last 1 -ExpandProperty FullName"
-      register: java_folder
-      failed_when: not java_folder.stdout_lines[0]
-      changed_when: False
+- name: Set java environment variable
+  win_environment:
+    name: JAVA_HOME
+    state: present
+    value: '{{ java_act_path }}'
+    level: machine
 
-    - name: "Set java environment variable"
-      win_environment:
-        name: "JAVA_HOME"
-        state: "present"
-        value: "{{ java_folder.stdout_lines[0] }}"
-        level: "machine"
+- name: Ensure that 'JAVA_HOME\bin' present in 'Path' variable
+  win_path:
+    elements: '{{ java_act_path }}\bin'
+    state: present
+    scope: machine
 
-    - name: "Ensure that 'JAVA_HOME/bin' present in 'Path' variable"
-      win_path:
-        elements: "{{ java_folder.stdout_lines[0] }}\\bin"
-        state: "present"
-        scope: "machine"
-
-  when: transport != "win-chocolatey"
+- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - 'win_fetch/security-winfetch-{{ java_unlimited_policy_transport }}.yml'
+    - fetch/unknown-transport.yml
+  loop_control:
+    loop_var: transport_driver
+  when:
+    - java_unlimited_policy_enabled
+    - java_full_version is version('8.151', '<')

@@ -1,37 +1,22 @@
 ---
-- name: "Copy patch file"
-  win_copy:
-    src: "{{ security_policy_oracle_artifact }}"
-    dest: "C:\\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}"
-    force: True
-  when:
-    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
-
-- name: "Unzip patch file"
+- name: Unzip patch file
   win_unzip:
-    src: "C:\\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}"
-    dest: "C:\\Program Files\\Java\\{{ security_policy_oracle_artifact|basename }}\\\
-      jre{{ java_major_version }}\\lib\\security"
-  when:
-    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
+    src: '{{ security_policy_oracle_artifact }}'
+    dest: '{{ java_act_path }}\jre\lib\security\'
+    creates: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
 
-- name: "Apply patch file"
-  win_command:
-    "xcopy -r C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
-    {{ security_patch_folders[java_major_version|int] }}/*.jar \
-    C:\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\"
-  args:
-    removes: "C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
-      {{ security_patch_folders[java_major_version|int] }}\\local_policy.jar"
-  when:
-    - (java_major_version|int == 8 and java_minor_version|int < 151) or (java_major_version|int < 8)
+- name: Apply patch file
+  win_copy:
+    src: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}\{{ policy_item }}'
+    dest: '{{ java_act_path }}\jre\lib\security\'
+    remote_src: True
+  loop:
+    - local_policy.jar
+    - US_export_policy.jar
+  loop_control:
+    loop_var: policy_item
 
-- name: "Apply setting"
+- name: 'Apply setting'
   win_lineinfile:
-    path: "C:\\Program Files\\Java\\jre1.{{ java_major_version }}.0_\
-           {{ java_minor_version }}\\lib\\security\\java.security"
-    regexp: "#crypto.policy=unlimited"
-    line: "crypto.policy=unlimited"
-  when:
-    - java_major_version == "8"
-    - java_minor_version|int >= 151
+    path: '{{ java_act_path }}\jre\lib\security\java.security'
+    line: 'crypto.policy=unlimited'

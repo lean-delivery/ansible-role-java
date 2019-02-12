@@ -31,7 +31,7 @@
 - name: Update alternatives
   alternatives:
     name: '{{ java_item.binary }}'
-    path: "{{ java_path }}/{{ java_folder }}/bin/{{ java_item.binary }}"
+    path: '{{ java_path }}/{{ java_folder }}/bin/{{ java_item.binary }}'
     link: '/usr/bin/{{ java_item.binary }}'
     priority: 100
   when: java_item.stat.exists | bool

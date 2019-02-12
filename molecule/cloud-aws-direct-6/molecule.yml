@@ -10,23 +10,8 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-java-11-otn
-    image: ami-9887c6e7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - otn
-      - tarball
 
-  - name: test-aws-centos6-ansible-role-java-11-otn-rpm
+  - name: test-aws-centos6-ansible-role-java-6-rpm
     image: ami-1585c46a
     instance_type: m4.large
     region: us-east-1
@@ -39,10 +24,9 @@ platforms:
     ssh_user: centos
     groups:
      - rhel_family
-     - otn
-     - package
+     - rpm
 
-  - name: test-aws-ubuntu18-ansible-role-java-11-otn-deb
+  - name: test-aws-ubuntu18-ansible-role-java-6-tarball
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -55,23 +39,6 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - otn
-      - package
-
-  - name: test-aws-Debian9-ansible-role-java-11-web-tb
-    image: ami-003f19e0e687de1cd
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - web
       - tarball
 
 provisioner:
@@ -79,15 +46,20 @@ provisioner:
   log: False
   inventory:
     group_vars:
-      web:
-        transport: web
-        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-11.0.2_linux-x64_bin.tar.gz"
-      otn:
-        transport: oracle-fallback
       tarball:
+        java_package: jdk
+        java_major_version: 6
         java_tarball_install: True
-      package:
+        transport: web
+        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
+        java_unlimited_policy_transport: oracle-fallback
+      rpm:
+        java_package: jdk
+        java_major_version: 6
         java_tarball_install: False
+        transport: web
+        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.rpm"
+        java_unlimited_policy_transport: oracle-fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
@@ -97,7 +69,7 @@ provisioner:
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-aws-direct-11
+  name: cloud-aws-direct-6
 verifier:
   name: testinfra
   options:

@@ -16,41 +16,39 @@ Ansible lint:
   before_script:
     - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
   script:
+    - ansible-lint --version
     - ansible-lint . -c .ansible-lint
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
     - aws
 
-Docker java-6-7:
-  stage: deployment test
-  script:
-    - molecule test -s docker-java-6-7
-  tags:
-    - aws
-
 Docker java-8:
   stage: deployment test
   script:
-    - molecule test -s docker-java-8
-  tags:
-    - aws
-
-Docker java-11:
-  stage: deployment test
-  script:
-    - molecule test -s docker-java-11
-  tags:
-    - aws
-
-Docker java-8-yum:
-  stage: deployment test
-  script:
-  - molecule test -s docker-java-8-package
+  - molecule test -s default
   tags:
   - aws
 
-AWS java-8-jdk:
+AWS java-6:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-6
+  tags:
+    - aws
+
+AWS java-7:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-7
+  tags:
+    - aws
+
+AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -59,7 +57,16 @@ AWS java-8-jdk:
   tags:
     - aws
 
-AWS java-11-jdk:
+AWS java-8 Windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-8
+  tags:
+    - aws
+
+AWS java-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -68,25 +75,16 @@ AWS java-11-jdk:
   tags:
     - aws
 
-AWS java-s3-transport:
+AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-direct-s3
+    - molecule test -s cloud-aws-windows-11
   tags:
     - aws
 
-.AWS Windows java-8-jdk:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-windows
-  tags:
-    - aws
-
-.EPC java-8-jdk:
+EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

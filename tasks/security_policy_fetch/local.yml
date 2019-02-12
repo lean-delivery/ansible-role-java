@@ -1,4 +1,0 @@
----
-- name: "Security policy artifact stored localy"
-  set_fact:
-    security_policy_oracle_artifact: "{{ java_unlimited_policy_transport_local }}"
