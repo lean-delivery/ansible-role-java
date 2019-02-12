@@ -19,5 +19,4 @@
 - name: 'Apply setting'
   win_lineinfile:
     path: '{{ java_act_path }}\jre\lib\security\java.security'
-    regexp: '^#crypto.policy=unlimited'
     line: 'crypto.policy=unlimited'
