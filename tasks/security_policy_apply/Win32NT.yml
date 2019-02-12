@@ -5,18 +5,6 @@
     dest: '{{ java_act_path }}\jre\lib\security\'
     creates: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
 
-- name: Find java_folder
-  win_find:
-    paths: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
-    recurse: True
-    file_type: file
-    patterns: '*'
-  register: java_dir
-
-- name: debug
-  debug:
-    var: java_dir
-
 - name: Apply patch file
   win_copy:
     src: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}\{{ policy_item }}'
@@ -27,16 +15,6 @@
     - US_export_policy.jar
   loop_control:
     loop_var: policy_item
-
-
-# - name: Apply patch file
-#   win_command:
-#     'xcopy -r C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
-#     {{ security_patch_folders[java_major_version|int] }}/*.jar \
-#     C:\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\'
-#   args:
-#     removes: 'C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
-#       {{ security_patch_folders[java_major_version|int] }}\\local_policy.jar'
 
 - name: 'Apply setting'
   win_lineinfile:
