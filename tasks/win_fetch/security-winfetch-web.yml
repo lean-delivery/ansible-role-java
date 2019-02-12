@@ -2,7 +2,7 @@
 - name: Download security policy artifact from web
   win_get_url:
     url: '{{ java_unlimited_policy_url }}'
-    dest: >
+    dest: >-
       {{ download_path }}\{{ (java_unlimited_policy_url
         | urlsplit('path')).split('/')[-1] }}
   register: file_downloaded

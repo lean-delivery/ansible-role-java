@@ -2,7 +2,7 @@
 - name: Download artifact from web
   win_get_url:
     url: '{{ transport_web }}'
-    dest: >
+    dest: >-
       {{ download_path }}\{{ (transport_web
           | urlsplit('path')).split('/')[-1] }}
   register: file_downloaded
