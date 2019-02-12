@@ -23,18 +23,18 @@ platforms:
   #     - windows
   #     - otn
 
-  # - name: test-aws-windows-ansible-role-java-8-web
-  #   aws_image_id: ami-07a29e78aeb420471
-  #   aws_region: us-east-1
-  #   instance_type: m5.large
-  #   assign_public_ip: False
-  #   spot_price: 0.14
-  #   aws_sec_group:
-  #     - default
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   groups:
-  #     - windows
-  #     - web
+  - name: test-aws-windows-ansible-role-java-8-web
+    aws_image_id: ami-07a29e78aeb420471
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: False
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    groups:
+      - windows
+      - web
 
   # - name: test-aws-windows-ansible-role-java-8-choco
   #   aws_image_id: ami-07a29e78aeb420471
@@ -49,18 +49,18 @@ platforms:
   #     - windows
   #     - chocolatey
 
-  - name: test-aws-windows-ansible-role-java-8-s3-local
-    aws_image_id: ami-07a29e78aeb420471
-    aws_region: us-east-1
-    instance_type: m5.large
-    assign_public_ip: False
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    groups:
-      - windows
-      - local
+  # - name: test-aws-windows-ansible-role-java-8-s3-local
+  #   aws_image_id: ami-07a29e78aeb420471
+  #   aws_region: us-east-1
+  #   instance_type: m5.large
+  #   assign_public_ip: False
+  #   spot_price: 0.14
+  #   aws_sec_group:
+  #     - default
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   groups:
+  #     - windows
+  #     - local
 
 provisioner:
   name: ansible
@@ -87,12 +87,10 @@ provisioner:
         java_unlimited_policy_enabled: True
       otn:
         transport: oracle-fallback
-        java_unlimited_policy_enabled: False
       chocolatey:
         transport: chocolatey
         java_major_version: 8
         java_minor_version: 201
-        java_unlimited_policy_enabled: False
   playbooks:
     create: ../resources/provisioning/winrm/create.yml
     prepare: ../cloud-aws-windows-8/prepare.yml
