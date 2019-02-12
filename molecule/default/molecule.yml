@@ -17,7 +17,7 @@ platforms:
       - rhel_family
 provisioner:
   name: ansible
-  log: True
+  log: False
   lint:
     name: ansible-lint
 scenario:
