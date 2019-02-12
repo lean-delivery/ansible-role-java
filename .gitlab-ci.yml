@@ -78,21 +78,12 @@ Ansible lint:
   tags:
     - aws
 
-AWS Windows java-8-jdk:
+.AWS Windows java-8-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-windows-8
-  tags:
-    - aws
-
-.AWS java-8-web:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-direct-8-web
   tags:
     - aws
 
@@ -105,7 +96,7 @@ AWS Windows java-8-jdk:
   tags:
     - aws
 
-.AWS java-11-jdk:
+AWS java-11-jdk:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
