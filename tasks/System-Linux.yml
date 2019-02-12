@@ -46,18 +46,13 @@
         mode: 0555
   become: True
 
-- name: Add security policy patches
-  block:
-    - name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
-      include_tasks: '{{ transport_driver }}'
-      with_first_found:
-        - 'fetch/security-fetch-{{ java_unlimited_policy_transport }}.yml'
-        - fetch/unknown-transport.yml
-      loop_control:
-        loop_var: transport_driver
-
-    - name: Apply security policy patch if applicable
-      include_tasks: 'security_policy_apply/{{ ansible_system }}.yml'
+- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - 'fetch/security-fetch-{{ java_unlimited_policy_transport }}.yml'
+    - fetch/unknown-transport.yml
+  loop_control:
+    loop_var: transport_driver
   when:
     - java_unlimited_policy_enabled
     - java_full_version is version('8.151', '<')
