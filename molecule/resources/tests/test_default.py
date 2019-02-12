@@ -14,6 +14,6 @@ def test_hosts_file(host):
     assert f.group == 'root'
 
 
-def test_java_version(host):
-    command = host.run('java --version')
-    assert command.rc == 0
+# def test_java_version(host):
+#     command = host.run('java --version')
+#     assert command.rc == 0

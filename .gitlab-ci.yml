@@ -7,7 +7,6 @@ stages:
 before_script:
   - ansible --version
   - molecule --version
-  - pip install cryptography==2.4.2
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
