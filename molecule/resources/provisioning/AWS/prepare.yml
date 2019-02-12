@@ -9,7 +9,7 @@
       become: True
       changed_when: False
     - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt install -y python-minimal python-zipstream python-pip)
+      raw: test -e /usr/bin/python || (apt install -y python-minimal python-zipstream)
       become: True
       changed_when: False
 
@@ -18,38 +18,6 @@
   gather_facts: False
   tasks:
     - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (yum install -y epel-release python3 python-simplejson python-pip)
+      raw: test -e /usr/bin/python || (yum install -y epel-release python3 python-simplejson)
       become: True
       changed_when: False
-
-    # - name: 'Install epel-release'
-    #   package:
-    #     name: epel-release
-    #     state: present
-    #   register: status
-    #   until: status is succeeded
-    #   become: True
-
-
-- name: Install cryptography 2.4.2
-  hosts: all
-  gather_facts: True
-  tasks:
-    # - name: 'Install pip package'
-    #   package:
-    #     name:
-    #       - python-pip
-    #     state: present
-    #   register: status
-    #   until: status is succeeded
-    #   become: True
-
-    - name: 'Install cryptography 2.4.2'
-      pip:
-        name:
-          # - setuptools>=18.5
-          - cryptography==2.4.2
-        state: present
-      register: status
-      until: status is succeeded
-      become: True
