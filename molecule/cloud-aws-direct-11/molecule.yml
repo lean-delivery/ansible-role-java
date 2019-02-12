@@ -58,7 +58,7 @@ platforms:
       - otn
       - package
 
-  - name: test-aws-Debian9-ansible-role-java-11
+  - name: test-aws-Debian9-ansible-role-java-11-web-tb
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
