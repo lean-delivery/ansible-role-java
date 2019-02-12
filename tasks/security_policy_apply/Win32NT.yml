@@ -18,6 +18,19 @@
   debug:
     var: jce_res
 
+- name: Find java_folder
+  win_find:
+    paths: '{{ ansible_env.TEMP }}'
+    recurse: False
+    file_type: directory
+    patterns: '*'
+    use_regex: True
+  register: java_dir
+
+- name: debug
+  debug:
+    var: java_dir
+
 # - name: Apply patch file
 #   win_command:
 #     'xcopy -r C:\\Program Files\\Java\\jre{{ java_major_version }}\\lib\\security\\\
