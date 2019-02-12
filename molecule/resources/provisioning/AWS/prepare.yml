@@ -21,3 +21,24 @@
       raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
       become: True
       changed_when: False
+
+- name: Install cryptography 2.4.2
+  hosts: all
+  gather_facts: True
+  tasks:
+    - name: 'Install pip package'
+      package:
+        name: python-pip
+        state: present
+      register: status
+      until: status is succeeded
+      become: True
+
+    - name: 'Install cryptography 2.4.2'
+      pip:
+        name: cryptography
+        version: 2.4.2
+        state: present
+      register: status
+      until: status is succeeded
+      become: True
