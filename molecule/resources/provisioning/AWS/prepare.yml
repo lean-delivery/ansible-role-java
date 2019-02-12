@@ -37,7 +37,8 @@
   tasks:
     - name: 'Install pip package'
       package:
-        name: python-pip
+        name:
+          - python-pip
         state: present
       register: status
       until: status is succeeded
@@ -45,7 +46,9 @@
 
     - name: 'Install cryptography 2.4.2'
       pip:
-        name: cryptography
+        name:
+          - setuptools>=18.5
+          - cryptography==2.4.2
         version: 2.4.2
         state: present
       register: status
