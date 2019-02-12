@@ -8,7 +8,7 @@
 - name: Unzip patch file
   win_unzip:
     src: '{{ security_policy_oracle_artifact }}'
-    dest: '{{ ansible_env.TEMP }}'
+    dest: '{{ java_act_path }}\jre\lib\security\'
   register: jce_res
         # C:\Program Files\Java\{{
         #     security_policy_oracle_artifact|basename
@@ -20,9 +20,9 @@
 
 - name: Find java_folder
   win_find:
-    paths: '{{ ansible_env.TEMP }}'
+    paths: '{{ java_act_path }}\jre\lib\security\'
     recurse: True
-    file_type: directory
+    file_type: file
     patterns: '*'
     # use_regex: True
   register: java_dir
