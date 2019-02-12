@@ -67,10 +67,6 @@
       {{ artifact_url | regex_findall(java_package|string + '-' +
       java_major_version|string + '[u.]([.0-9]+)') | first }}
 
-- name: Show java_folder
-  debug:
-    var: java_folder
-
 - name: Set artifact basename
   set_fact:
     artifact_basename: "{{ (artifact_url | urlsplit('path')).split('/')[-1] }}"
@@ -82,10 +78,6 @@
     checksum_algorithm: sha256
   register: artifact
 
-- name: Show sha256_checksum_old
-  debug:
-    var: artifact
-
 - name: Download with checksum validation
   include_tasks: fetch_checksum.yml
   when: |
@@ -94,10 +86,6 @@
   retries: 15
   delay: 2
   until: artifact.stat.checksum == artifact_checksum
-
-- name: Show filehash
-  debug:
-    var: artifact
 
 - name: Downloaded artifact
   set_fact:
