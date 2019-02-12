@@ -21,10 +21,10 @@
 - name: Find java_folder
   win_find:
     paths: '{{ ansible_env.TEMP }}'
-    recurse: False
+    recurse: True
     file_type: directory
     patterns: '*'
-    use_regex: True
+    # use_regex: True
   register: java_dir
 
 - name: debug
