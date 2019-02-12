@@ -9,6 +9,7 @@
   win_unzip:
     src: '{{ security_policy_oracle_artifact }}'
     dest: '{{ java_act_path }}\jre\lib\security\'
+    creates: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
   register: jce_res
         # C:\Program Files\Java\{{
         #     security_policy_oracle_artifact|basename
@@ -20,7 +21,7 @@
 
 - name: Find java_folder
   win_find:
-    paths: '{{ java_act_path }}\jre\lib\security\'
+    paths: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
     recurse: True
     file_type: file
     patterns: '*'
