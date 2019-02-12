@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows-ansible-role-java-8-zip
+  - name: test-aws-windows-ansible-role-java-11-zip
     aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
@@ -23,7 +23,7 @@ platforms:
       - windows
       - zip
 
-  - name: test-aws-windows-ansible-role-java-8-exe
+  - name: test-aws-windows-ansible-role-java-11-exe
     aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
@@ -36,7 +36,7 @@ platforms:
       - windows
       - exe
 
-  - name: test-aws-windows-ansible-role-java-8-choco
+  - name: test-aws-windows-ansible-role-java-11-choco
     aws_image_id: ami-07a29e78aeb420471
     aws_region: us-east-1
     instance_type: m5.large
