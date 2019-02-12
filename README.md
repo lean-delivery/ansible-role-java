@@ -54,7 +54,7 @@ Requirements
           - `java_minor_version`
           - `java_arch`
       - `web` Fetching artifact from custom web uri (not supporting idempotent operation)
-      - `win-chocolatey` Windows specific package manager
+      - `chocolatey` Windows specific package manager
       - `local` Local artifact
       - `s3` artifact in s3 bucket
 
@@ -67,13 +67,14 @@ Requirements
       - `i586` for x86
 
   - `java_path` Where java package will be installed
-    default: `/opt/{{ java_package }}/`
+    default values depend on OS distribution: 
+      - RedHat: `/usr/java`
+      - Debian: `/usr/lib/jvm`
+      - Windows: `C:\Program Files\Java`
 
   - `download_path`: Local folder for downloading artifacts
-    default: `/tmp/`
-
-  - `windows_temp_path`: Windows local folder for downloading artifacts
-    default: `TEMP env variable or C:\Windows\Temp\`
+    Linux default: `/tmp/`
+    Windows default: `TEMP environment variable`
 
   - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
   - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"

@@ -84,7 +84,7 @@ AWS java-11 Windows:
   tags:
     - aws
 
-EPC java-8:
+.EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
