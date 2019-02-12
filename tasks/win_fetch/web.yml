@@ -5,7 +5,7 @@
     dest: >-
       {{ download_path }}\{{ (transport_web
           | urlsplit('path')).split('/')[-1] }}
-  force: False
+    force: False
   register: file_downloaded
   retries: 5
   delay: 2
