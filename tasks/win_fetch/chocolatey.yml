@@ -3,6 +3,6 @@
   set_fact:
     java_binary_type: chocolatey
 
-- name: Chocolatay will download artifact itself
+- name: Chocolatey will download artifact itself
   debug:
-    msg: 'Chocolatay will download artifact itself'
+    msg: 'Chocolatey will download artifact itself'

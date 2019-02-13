@@ -78,6 +78,6 @@
   delay: 5
   until: "'OK' in file_downloaded.msg"
 
-- name: Sed downloaded artifact variable
+- name: Set downloaded artifact variable
   set_fact:
     oracle_artifact: '{{ file_downloaded.dest }}'
