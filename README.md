@@ -24,6 +24,7 @@ Requirements
  - **Supported java version**:
    - 7
    - 8
+   - 11
  - **Supported OS**:
    - Ubuntu
      - xenial
@@ -42,7 +43,7 @@ Requirements
 - required
   - `java_package` Java package type.
     Available:
-      - `jdk`
+      - `jdk` (default)
       - `jre`
       - `server-jre`
 
@@ -53,10 +54,17 @@ Requirements
           - `java_major_version`
           - `java_minor_version`
           - `java_arch`
-      - `web` Fetching artifact from custom web uri (not supporting idempotent operation)
+        `oracle-fallback` is default value for `transport` variable.
+      - `web` Fetching artifact from custom web url
       - `chocolatey` Windows specific package manager
-      - `local` Local artifact
+      - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket
+        **Notice** using `s3` transport requires specific packages to be installed on target host:
+          - 'botocore'
+          - 'boto'
+          - 'boto3'
+        These packages are not included in given role. You should install them preliminary.
+  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `True`.
 
 - defaults
   - `java_major_version` 8
@@ -90,11 +98,11 @@ Requirements
 # Configure unlimited policy
   - `java_unlimited_policy_enabled` - to apply unlimited policy
     default: `False`
-  - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
+  - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result.
     Available:
       - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_security_policy_artifacts` with specified:
-      - `web` Fetching artifact from custom web uri (not supporting idempotent operation)
-      - `local` Local artifact
+      - `web` Fetching artifact from custom web url
+      - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket
   - `java_unlimited_policy_transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jce_policy-8.zip"
   - `java_unlimited_policy_transport_local` Path for local artifact e.g. "/tmp/jce_policy-8.zip"
@@ -123,41 +131,41 @@ Example Playbook
 
 ### Installing java from local file:
 ```yaml
-- name: "Install java"
+- name: Install java
   hosts: all
 
   roles:
-    - role: "lean_delivery.java"
-      transport: "local"
-      transport_local: "/tmp/jdk-8u181-linux-x64.tar.gz"
+    - role: lean_delivery.java
+      transport: local
+      transport_local: /tmp/jdk-8u181-linux-x64.tar.gz
 ```
 ### Installing java from S3 bucket:
 Before install you should prepare host to use aws_s3 module
 https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
 ```yaml
-- name: "Install java"
+- name: Install java
   hosts: all
 
 
   roles:
-    - role: "lean_delivery.java"
-        java_package: "jre"
+    - role: lean_delivery.java
+        java_package: jre
         java_major_version: 8
-        transport: "s3"
-        transport_s3_bucket: "java-molecule-s3-test"
-        transport_s3_path: "/java/jre-8u181-linux-x64.tar.gz"
+        transport: s3
+        transport_s3_bucket: java-s3-bucket
+        transport_s3_path: /java/jre-8u181-linux-x64.tar.gz
 
 ```
 ### Installing java on Windows host with win_chocolatey:
 ```yaml
-- name: "Install java"
+- name: Install java
   hosts: windows
 
   roles:
-    - role: "lean_delivery.java"
+    - role: lean_delivery.java
       java_major_version: 8
-      java_package: "jre"
-      transport: "win-chocolatey"
+      java_minor_version: 201
+      transport: chocolatey
 ```
 
 License

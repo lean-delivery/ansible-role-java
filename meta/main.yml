@@ -28,10 +28,9 @@ galaxy_info:
     - "development"
     - "system"
     - "packaging"
-    - "system"
-    - "web"
     - "java"
+    - "oracle"
     - "jdk"
-    - "jvm"
+    - "windows"
 
 dependencies: []
