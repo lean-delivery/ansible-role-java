@@ -1,0 +1,78 @@
+---
+- name: Prepare Ubuntu / Debian
+  hosts: debian_family
+  gather_facts: False
+  tasks:
+    - name: Workaround for Ubuntu/Debian images
+      raw: |
+        apt-get update
+      become: True
+      changed_when: False
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt install -y python-minimal python-zipstream)
+      become: True
+      changed_when: False
+
+- name: Prepare RHEL
+  hosts: rhel_family
+  gather_facts: False
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
+      become: True
+      changed_when: False
+
+    - name: gather facts
+      setup:
+
+    - name: 'Enable EPEL repository'
+      yum:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+          {{ ansible_distribution_major_version }}.noarch.rpm"
+        state: 'present'
+      register: status
+      until: status is succeeded
+      become: True
+
+- name: Prepare host to S3 transport
+  hosts: s3
+  gather_facts: True
+  tasks:
+    - name: 'Install pip package'
+      package:
+        name: python-pip
+        state: present
+      register: status
+      until: status is succeeded
+      become: True
+
+    - name: 'Install boto module'
+      pip:
+        name:
+          - 'pip'
+          - 'botocore'
+          - 'boto'
+          - 'boto3'
+        state: present
+        extra_args: --upgrade
+      register: status
+      until: status is succeeded
+      become: True
+
+- name: Prepare host to S3 transport
+  hosts: localhost
+  gather_facts: True
+  vars:
+    transport_s3_bucket: java-molecule-s3-test
+    transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
+    download_path: /tmp
+  tasks:
+    - name: Download artifact from s3
+      aws_s3:
+        bucket: '{{ transport_s3_bucket }}'
+        object: '{{ transport_s3_path }}'
+        dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+        mode: get
+        overwrite: different
+      retries: 5
+      delay: 2

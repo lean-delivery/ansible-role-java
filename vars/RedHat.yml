@@ -1,8 +1,0 @@
----
-requirements:
-  - "redhat-lsb-core"
-  - "policycoreutils-python"
-  - "libsemanage-python"
-  - "libselinux-python"
-  - "python-argparse"
-  - "unzip"

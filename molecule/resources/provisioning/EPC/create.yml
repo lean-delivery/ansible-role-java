@@ -1,0 +1,91 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  no_log: "{{ not (lookup('env', 'MOLECULE_DEBUG') | bool or molecule_yml.provisioner.log|default(false) | bool) }}"
+  vars:
+    ssh_port: 22
+  tasks:
+    # Developer must implement.
+    - name: Create molecule instance(s)
+      epc_vm:
+        description: "{{ item.name | default('auto_molecule_epc_instance') }}"
+        access_id: "{{ item.access_id | default(omit) }}"
+        token: "{{ item.token | default(omit) }}"
+        region: "{{ item.region | default(omit) }}"
+        project: "{{ item.project | default(omit) }}"
+        shape: "{{ item.shape }}"
+        image: "{{ item.image }}"
+        ignore_ssl: "{{ item.ignore_ssl | default(True) }}"
+        instance_id: "{{ item.instance_id | default(omit) }}"
+        ssh_key: "{{ item.ssh_key | default(omit) }}"
+        wait_timeout: "{{ item.wait_timeout | default(1200) }}"
+        state: run
+      register: server
+      with_items: "{{ molecule_yml.platforms }}"
+      async: 7200
+      poll: 0
+
+    - name: Wait for instance(s) creation to complete
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: epc_jobs
+      until: epc_jobs.finished
+      retries: 300
+      delay: 20
+      with_items: "{{ server.results }}"
+
+    # Mandatory configuration for Molecule to function.
+
+    # Developer must map instance config.
+    # Mandatory configuration for Molecule to function.
+
+    - name: Populate instance config dict
+      set_fact:
+        instance_conf_dict:
+          instance: "{{ item.description }}"
+          address: "{{ item.instances.ansible_host }}"
+          user: "{{ item.instances.ansible_user }}"
+          port: "{{ ssh_port }}"
+          identity_file: "{{item.instances.ansible_private_key_file }}"
+          autoconfiguration_state: "{{ item.autoConfigurationState }}"
+          created: "{{ item.created }}"
+          image: "{{ item.image }}"
+          instance_id: "{{ item.instanceId }}"
+          isexposed: "{{  item.isExposed }}"
+          last_processed_by_autoconfiguration_state: "{{ item.lastProcessedByAutoConfigurationState }}"
+          owner: "{{ item.owner }}"
+          processed_by_autoconfiguration: "{{ item.processedByAutoConfiguration }}"
+          project: "{{ item.project }}"
+          scan_counter: "{{ item.scanCounter }}"
+          scan_counter_within_period: "{{ item.scanCounterWithinPeriod }}"
+          shape: "{{ item.shape }}"
+          ssh_keyset: "{{ item.sshKeySet }}"
+          state: "{{ item.state }}"
+          region: "{{ item.zone }}"
+      with_items: "{{ epc_jobs.results }}"
+      register: instance_config_dict
+      when: server.changed | bool
+
+    - name: Convert instance config dict to a list
+      set_fact:
+        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+      when: server.changed | bool
+
+    - name: Dump instance config
+      copy:
+        # NOTE(retr0h): Workaround for Ansible 2.2.
+        #               https://github.com/ansible/ansible/issues/20885
+        content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
+        dest: "{{ molecule_instance_config }}"
+      when: server.changed | bool
+
+    - name: Wait for SSH
+      wait_for:
+        port: "{{ ssh_port }}"
+        host: "{{ item.address }}"
+        search_regex: SSH
+        delay: 10
+        timeout: 320
+      with_items: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"

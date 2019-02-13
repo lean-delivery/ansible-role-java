@@ -1,26 +1,83 @@
 ---
-- name: "Detecting system options for fetching artifact"
+- name: Set java minor version
   set_fact:
-    distro: "{{ ansible_facts.system | lower }}"
-    arch: "{{ 'i586' if ansible_architecture == 'i386' else 'x64' }}"
+    minor: "{{ java_minor_version | default('.*', True) }}"
 
-- name: "Download artifact from Oracle OTN"
+- name: 'Fetch root page {{ java_root_page }}'
+  uri:
+    url: '{{ java_root_page }}'
+    return_content: True
+  register: root_page
+
+- name: Find release url
+  set_fact:
+    release_url: >-
+      {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
+          + java_package|string + java_major_version|string + '-downloads-.*html') }}
+
+- name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
+  uri:
+    url: 'https://www.oracle.com/{{ release_url }}'
+    return_content: True
+  register: release_page
+
+- name: Find all possible artifact urls
+  set_fact:
+    artifact_url_list: >-
+      {{ release_page['content'] |
+          regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
+                        java_package|string + '-(?:' + java_major_version|string +
+                        'u' + minor|string + '-|' + java_major_version|string +
+                        '.' + minor|string + '_)' +  os|string + '-' +
+                        java_arch|string + '(?!-demos).*' + extension|string) | list }}
+  register: artifact_url_fact
+
+- name: Show artifacts' urls found
+  debug:
+    var: artifact_url_list
+
+- name: No artifact urls found
+  fail:
+    msg: >-
+      No artifact urls found, check java_package, java_major_version,
+      java_minor_version, java_arch variables
+  when: artifact_url_list | length == 0
+
+- name: Extract artifact url
+  set_fact:
+    artifact_url: '{{ artifact_url_list | last }}'
+
+- name: Extract artifact md5 checksum
+  set_fact:
+    artifact_checksum: >-
+      {{ release_page['content'] |
+        regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
+          java_package|string + '-(?:' + java_major_version|string +
+          'u' + minor|string + '-|' + java_major_version|string +
+          '.' + minor|string + '_)' +  os|string + '-' + java_arch|string +
+          '(?!-demos).*' + extension|string + '.*?\",\"SHA256\":\"([a-fA-F\d]{64})') | last }}
+
+- name: Show artifacts' urls found
+  debug:
+    var: artifact_checksum
+
+- name: Extract java minor version
+  set_fact:
+    java_minor_version: >-
+      {{ artifact_url | regex_findall(java_package|string + '-' +
+      java_major_version|string + '[u.]([.0-9]+)') | first }}
+
+- name: 'Download artifact from {{ artifact_url }}'
   get_url:
-    url: "{{ fallback_oracle_artifacts[distro][java_major_version][java_minor_version][arch][java_package] }}"
-    dest: "{{ download_path }}"
-    mode: "0755"
-    headers: "Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie; --no-check-certificate"
-  until: "'OK' in FILE_DOWNLOADED.msg"
-  # I'm convinced that about half of what separates the successful entrepreneurs
-  # from the non-successful ones is pure perseverance. It is so hard.
-  # https://en.wikiquote.org/wiki/Steve_Jobs
+    url: '{{ artifact_url }}'
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest: '{{ download_path }}'
+    checksum: 'sha256:{{ artifact_checksum }}'
+  register: file_downloaded
   retries: 15
   delay: 5
-  delegate_to: "localhost"
-  connection: "local"
-  become: False
-  register: FILE_DOWNLOADED
+  until: "'OK' in file_downloaded.msg"
 
-- name: "Downloaded artifact"
+- name: Set downloaded artifact variable
   set_fact:
-    oracle_artifact: "{{ FILE_DOWNLOADED.dest }}"
+    oracle_artifact: '{{ file_downloaded.dest }}'

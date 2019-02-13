@@ -1,0 +1,23 @@
+---
+- name: Prepare Ubuntu / Debian
+  hosts: debian_family
+  gather_facts: False
+  tasks:
+    - name: Workaround for Ubuntu/Debian images
+      raw: |
+        apt-get update
+      become: True
+      changed_when: False
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt install -y python-minimal python-zipstream)
+      become: True
+      changed_when: False
+
+- name: Prepare RHEL
+  hosts: rhel_family
+  gather_facts: False
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
+      become: True
+      changed_when: False

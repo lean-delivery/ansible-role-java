@@ -1,0 +1,15 @@
+---
+- name: 'Download artifact from {{ artifact_url }}'
+  win_get_url:
+    url: '{{ artifact_url }}'
+    headers:
+      Cookie: 'oraclelicense=accept-securebackup-cookie'
+    dest: '{{ download_path }}\{{ artifact_basename }}'
+    force: True
+
+- name: Get SHA256 checksum of file
+  win_stat:
+    path: '{{ download_path }}\{{ artifact_basename }}'
+    get_checksum: True
+    checksum_algorithm: sha256
+  register: artifact

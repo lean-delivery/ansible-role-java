@@ -1,50 +1,49 @@
 ---
-# select from jre / server-jre / jdk
-java_package: "jdk"
+# select from jre/server-jre/jdk
+java_package: jdk
 
-# 6 / 7 / 8 (default) supported
+# 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 8
-
-java_minor_version: 202
+java_product_id: '{{ java_product_id_ver[java_major_version] }}'
 
 # x64 (default), i586 supported
-java_arch: "x64"
+java_arch: 'x64'
 
 # java installation path
-java_path: "/opt/{{ java_package }}/"
+java_path: '{{ java_default_path }}'
 
 # local download path
-download_path: "/tmp/"
-
-# windows temporary directory
-default_windows_temp_path: "C:\\Windows\\Temp"
-windows_temp_path: "{{ ansible_env.TEMP | default(default_windows_temp_path) }}\\"
+download_path: '{{ download_default_path }}'
 
 # Custom artifact source transport
-transport: "oracle-fallback"
+java_tarball_install: True
+java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
+transport: oracle-fallback
 # available are:
 # - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
-# - "win-chocolatey" Windows specific package manager
+# - "chocolatey" Windows specific package manager
 # - "local" Local artifact
 
 transport_web: "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
 transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
 
-transport_s3_bucket: "s3_bucket"
-transport_s3_path: "/folder/jdk-8u172-linux-x64.tar.gz"
+transport_s3_bucket: s3_bucket
+transport_s3_path: /folder/jdk-8u172-linux-x64.tar.gz
+transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY') }}"
+transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_KEY') }}"
 
 # Configure unlimited security policy
 java_unlimited_policy_enabled: False
 # For Java earlier than 1.8.0_151
-java_unlimited_policy_transport: "oracle-fallback"
+java_unlimited_policy_transport: '{{ transport }}'
 # available are:
 # - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
 # - "local" Local artifact
-java_unlimited_policy_transport_s3_bucket: "s3_bucket"
-java_unlimited_policy_transport_s3_path: "/folder/jce_policy-8.zip"
-java_unlimited_policy_transport_web: "http://my-storage.com/jce_policy-8.zip"
-java_unlimited_policy_transport_local: "/tmp/jce_policy-8.zip"
+java_unlimited_policy_transport_s3_bucket: s3_bucket
+java_unlimited_policy_transport_s3_path: /folder/jce_policy-8.zip
+java_unlimited_policy_transport_web: http://my-storage.com/jce_policy-8.zip
+java_unlimited_policy_transport_local: /tmp/jce_policy-8.zip

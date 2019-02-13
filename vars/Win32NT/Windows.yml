@@ -1,0 +1,7 @@
+---
+extension: "{{ (java_binary_type == 'tarball') | ternary('zip', 'exe') }}"
+download_default_path: '{{ ansible_env.TEMP }}'
+java_default_path: C:\Program Files\Java
+java_product_id_ver:
+  8: '{4A03706F-666A-4037-7777-5F2748764D10}'
+  11: '{07E85AEA-1F8D-5F49-8CC8-319389751152}'

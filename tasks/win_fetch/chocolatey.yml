@@ -1,0 +1,8 @@
+---
+- name: Set java_binary_type = chocolatey
+  set_fact:
+    java_binary_type: chocolatey
+
+- name: Chocolatey will download artifact itself
+  debug:
+    msg: 'Chocolatey will download artifact itself'

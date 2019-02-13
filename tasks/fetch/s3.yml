@@ -1,24 +1,32 @@
 ---
-- name: "Download artifact from s3"
+- name: Download artifact from s3
   aws_s3:
-    bucket: "{{ transport_s3_bucket }}"
-    object: "{{ transport_s3_path }}"
-    dest: "{{ download_path }}/{{ transport_s3_path|basename }}"
-    aws_access_key: "{{ transport_s3_aws_access_key }}"
-    aws_secret_key: "{{ transport_s3_aws_secret_key }}"
+    bucket: '{{ transport_s3_bucket }}'
+    object: '{{ transport_s3_path }}'
+    dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+    aws_access_key: '{{ transport_s3_aws_access_key }}'
+    aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
+    overwrite: different
   retries: 5
-  delegate_to: "localhost"
-  connection: "local"
+  delay: 2
 
-- name: "Downloaded artifact"
+- name: Set downloaded artifact vars
   set_fact:
-    oracle_artifact: "{{ download_path }}/{{ transport_s3_path|basename }}"
-    oracle_artifact_basename: "{{ transport_s3_path|basename }}"
+    oracle_artifact: '{{ download_path }}/{{ transport_s3_path|basename }}'
+    oracle_artifact_basename: '{{ transport_s3_path|basename }}'
 
-- name: "Getting java version variables"
+- name: Split artifact name
   set_fact:
-    java_package: "{{ oracle_artifact_basename.split('-')[0] }}"
-    java_major_version: "{{ oracle_artifact_basename.split('-')[1].split('u')[0] }}"
-    java_minor_version: "{{ oracle_artifact_basename.split('-')[1].split('u')[1] }}"
-    java_arch: "{{ oracle_artifact_basename.split('-')[3] }}"
+    parts: >-
+      {{ oracle_artifact_basename |
+      regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
+      first | list }}
+
+- name: Set variables based on split
+  set_fact:
+    java_package: '{{ parts[0] }}'
+    java_major_version: '{{ parts[1] }}'
+    java_minor_version: '{{ parts[2] }}'
+    java_os: '{{ parts[3] }}'
+    java_arch: '{{ parts[4] }}'

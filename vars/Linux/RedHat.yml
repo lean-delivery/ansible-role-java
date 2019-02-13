@@ -1,0 +1,11 @@
+---
+extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'rpm') }}"
+java_default_path: /usr/java
+download_default_path: /tmp
+requirements:
+  - redhat-lsb-core
+  - policycoreutils-python
+  - libsemanage-python
+  - libselinux-python
+  - python-argparse
+  - unzip
