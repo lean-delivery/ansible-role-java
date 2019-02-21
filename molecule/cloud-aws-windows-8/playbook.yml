@@ -1,8 +1,15 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    java_major_version: 8
+    java_tarball_install: False
+    java_minor_version: 202
+    java_package: "jre"
+    transport: "web"
+    transport_web: https://s3.eu-central-1.amazonaws.com/install-sdl/jre-8u202-windows-x64.exe
   roles:
     - role: ansible-role-java
-      java_major_version: 8
-      java_package: jdk
-      java_tarball_install: False
+      # java_major_version: 8
+      # java_package: jdk
+      # java_tarball_install: False

@@ -14,7 +14,7 @@
 - name: Set downloaded artifact vars
   set_fact:
     oracle_artifact: '{{ file_downloaded.dest }}'
-    oracle_artifact_basename: '{{ file_downloaded.dest | basename }}'
+    oracle_artifact_basename: '{{ file_downloaded.dest | win_basename }}'
 
 - name: Split artifact name
   set_fact:

@@ -4,7 +4,7 @@ java_package: jdk
 
 # 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 8
-java_product_id: '{{ java_product_id_ver[java_major_version] }}'
+java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
 # x64 (default), i586 supported
 java_arch: 'x64'
