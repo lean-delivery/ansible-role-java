@@ -3,3 +3,5 @@
   apt:
     deb: '{{ oracle_artifact }}'
     state: present
+  register: package_install
+  until: package_install is succeeded
