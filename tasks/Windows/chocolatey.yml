@@ -3,3 +3,5 @@
   win_chocolatey:
     name: '{{ java_package }}{{ java_major_version }}'
     package_params: 'installdir={{ java_path }}'
+  register: choco_install
+  until: choco_install is succeeded

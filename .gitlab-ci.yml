@@ -5,8 +5,10 @@ stages:
   - deployment test
 
 before_script:
+  - rm -rf molecule/resources/provisioning
   - ansible --version
   - molecule --version
+  - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
@@ -84,7 +86,7 @@ AWS java-11 Windows:
   tags:
     - aws
 
-.EPC java-8:
+EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

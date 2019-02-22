@@ -1,8 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    java_major_version: 8
+    java_package: jdk
+    java_tarball_install: False
   roles:
     - role: ansible-role-java
-      java_major_version: 8
-      java_package: jdk
-      java_tarball_install: False

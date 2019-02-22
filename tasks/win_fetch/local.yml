@@ -2,7 +2,7 @@
 - name: Artifact stored localy
   set_fact:
     oracle_artifact: '{{ transport_local }}'
-    oracle_artifact_basename: '{{ transport_local | basename }}'
+    oracle_artifact_basename: '{{ transport_local | win_basename }}'
 
 - name: Split artifact name
   set_fact:
@@ -30,4 +30,4 @@
 
 - name: Downloaded artifact
   set_fact:
-    oracle_artifact: '{{ download_path }}\{{ transport_local | basename }}'
+    oracle_artifact: '{{ download_path }}\{{ transport_local | win_basename }}'

@@ -59,7 +59,7 @@ Requirements
       - `web` Fetching artifact from custom web url
       - `chocolatey` Windows specific package manager
       - `local` Local artifact stored on ansible master
-      - `s3` artifact in s3 bucket
+      - `s3` artifact in s3 bucket   
         **Notice** using `s3` transport requires specific packages to be installed on target host:
           - 'botocore'
           - 'boto'
@@ -84,7 +84,7 @@ Requirements
 
   - `download_path`: Local folder for downloading artifacts
 
-    Linux default: `/tmp/`
+    Linux default: `/tmp`
 
     Windows default: `TEMP environment variable`
 
@@ -132,15 +132,15 @@ ansible-galaxy install lean_delivery.java
 Example Playbook
 ----------------
 ```yaml
-- name: "Install java"
+- name: Install java
   hosts: all
 
   roles:
-    - role: "lean_delivery.java"
+    - role: lean_delivery.java
       java_major_version: 8
       java_minor_version: 202
-      java_arch: "x64"
-      java_package: "jdk"
+      java_arch: x64
+      java_package: jdk
 ```
 
 ### Installing java from local file:

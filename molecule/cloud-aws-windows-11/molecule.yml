@@ -71,8 +71,8 @@ provisioner:
         java_major_version: 11
         java_minor_version: 0.2
   playbooks:
-    create: ../resources/provisioning/winrm/create.yml
-    destroy: ../resources/provisioning/winrm/destroy.yml
+    create: ../resources/provisioning/WINRM/create.yml
+    destroy: ../resources/provisioning/WINRM/destroy.yml
   config_options:
     ssh_connection:
       control_path: "/var/ans/%%h"
