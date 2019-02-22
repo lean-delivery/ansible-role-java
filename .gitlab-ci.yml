@@ -5,9 +5,9 @@ stages:
   - deployment test
 
 before_script:
+  - rm -rf molecule/resources/provisioning
   - ansible --version
   - molecule --version
-  - rm -rf molecule/resources/provisioning/*
   - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
 
 variables:
