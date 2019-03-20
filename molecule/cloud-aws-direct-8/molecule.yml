@@ -112,7 +112,7 @@ provisioner:
         java_package: jdk
         java_tarball_install: False
   playbooks:
-    create: ../cloud-aws-direct-8/create.yml
+    create: ../resources/provisioning/AWS/create.yml
     prepare: ../cloud-aws-direct-8/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
