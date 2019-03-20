@@ -1,5 +1,5 @@
 ---
-# Workaround for new chocolatey output. 
+# Workaround for new chocolatey output.
 # See https://github.com/ansible/ansible/issues/53860#issuecomment-473431360 for more details
 - name: disable enhanced exit codes
   win_chocolatey_feature:
