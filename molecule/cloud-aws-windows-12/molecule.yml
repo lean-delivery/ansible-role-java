@@ -1,0 +1,71 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: delegated
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-aws-windows-ansible-role-java-12-zip
+    aws_image_id: ami-07a29e78aeb420471
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: False
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    groups:
+      - windows
+      - zip
+
+  - name: test-aws-windows-ansible-role-java-12-exe
+    aws_image_id: ami-07a29e78aeb420471
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: False
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    groups:
+      - windows
+      - exe
+
+provisioner:
+  name: ansible
+  log: False
+  connection_options:
+    ansible_connection: winrm
+  inventory:
+    group_vars:
+      windows:
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
+        ansible_winrm_transport: credssp
+        ansible_winrm_server_cert_validation: ignore
+      zip:
+        transport: oracle-fallback
+        java_tarball_install: True
+      exe:
+        transport: oracle-fallback
+        java_tarball_install: False
+  playbooks:
+    create: ../resources/provisioning/WINRM/create.yml
+    destroy: ../resources/provisioning/WINRM/destroy.yml
+  config_options:
+    ssh_connection:
+      control_path: "/var/ans/%%h"
+  lint:
+    name: ansible-lint
+  env:
+    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
+scenario:
+  name: cloud-aws-windows-11
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
