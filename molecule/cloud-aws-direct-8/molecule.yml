@@ -41,53 +41,53 @@ platforms:
       - rhel_family
       - package
 
-  # - name: test-aws-centos7-ansible-role-java-8-s3
-  #   image: ami-9887c6e7
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #     - rhel_family
-  #     - s3
-  #     - tarball
+  - name: test-aws-centos7-ansible-role-java-8-s3
+    image: ami-9887c6e7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - s3
+      - tarball
 
-  # - name: test-aws-ubuntu18-ansible-role-java-8-s3
-  #   image: ami-012fd5eb46f56731f
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: ubuntu
-  #   groups:
-  #     - debian_family
-  #     - s3
-  #     - tarball
+  - name: test-aws-ubuntu18-ansible-role-java-8-s3
+    image: ami-012fd5eb46f56731f
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - s3
+      - tarball
 
-  # - name: test-aws-ubuntu18-ansible-role-java-8-local
-  #   image: ami-012fd5eb46f56731f
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: ubuntu
-  #   groups:
-  #     - debian_family
-  #     - local
-  #     - tarball
+  - name: test-aws-ubuntu18-ansible-role-java-8-local
+    image: ami-012fd5eb46f56731f
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - local
+      - tarball
 
 provisioner:
   name: ansible
