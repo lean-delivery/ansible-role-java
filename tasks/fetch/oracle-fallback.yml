@@ -9,9 +9,9 @@
     return_content: True
   register: root_page
 
-- name: Debug root_page
-  debug:
-    var: root_page
+# - name: Debug root_page
+#   debug:
+#     var: root_page
 
 - name: Find release url
   set_fact:
