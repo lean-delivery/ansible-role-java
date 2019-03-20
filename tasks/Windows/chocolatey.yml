@@ -4,4 +4,6 @@
     name: '{{ java_package }}{{ java_major_version }}'
     package_params: 'installdir={{ java_path }}'
   register: choco_install
+  retries: 15
+  delay: 5
   until: choco_install is succeeded
