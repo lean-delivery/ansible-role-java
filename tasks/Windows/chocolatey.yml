@@ -1,8 +1,15 @@
 ---
+# Workaround for new chocolatey output. 
+# See https://github.com/ansible/ansible/issues/53860#issuecomment-473431360 for more details
+- name: disable enhanced exit codes
+  win_chocolatey_feature:
+    name: useEnhancedExitCodes
+    state: disabled
+
 - name: 'Install {{ java_package }} from chocolatey'
   win_chocolatey:
     name: '{{ java_package }}{{ java_major_version }}'
-    # package_params: 'installdir={{ java_path }}'
+    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
   register: choco_install
   retries: 15
   delay: 5
