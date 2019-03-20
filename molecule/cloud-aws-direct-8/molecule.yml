@@ -60,6 +60,7 @@ platforms:
   - name: test-aws-ubuntu18-ansible-role-java-8-s3
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
+    profile_name: epmldi-instance-role
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: False
@@ -110,7 +111,7 @@ provisioner:
         java_package: jdk
         java_tarball_install: False
   playbooks:
-    create: ../resources/provisioning/AWS/create.yml
+    create: ../cloud-aws-direct-8/create.yml
     prepare: ../cloud-aws-direct-8/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
