@@ -17,7 +17,7 @@
   set_fact:
     release_url: >-
       {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
-          + java_package|string + java_major_version|string + '-downloads-.*html$') }}
+          + java_package|string + java_major_version|string + '-downloads-.*html\$') }}
 
 - name: Debug release_url
   debug:
