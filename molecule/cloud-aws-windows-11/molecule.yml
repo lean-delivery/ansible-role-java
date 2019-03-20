@@ -10,31 +10,31 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  # - name: test-aws-windows-ansible-role-java-11-zip
-  #   aws_image_id: ami-07a29e78aeb420471
-  #   aws_region: us-east-1
-  #   instance_type: m5.large
-  #   assign_public_ip: False
-  #   spot_price: 0.14
-  #   aws_sec_group:
-  #     - default
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   groups:
-  #     - windows
-  #     - zip
+  - name: test-aws-windows-ansible-role-java-11-zip
+    aws_image_id: ami-07a29e78aeb420471
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: False
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    groups:
+      - windows
+      - zip
 
-  # - name: test-aws-windows-ansible-role-java-11-exe
-  #   aws_image_id: ami-07a29e78aeb420471
-  #   aws_region: us-east-1
-  #   instance_type: m5.large
-  #   assign_public_ip: False
-  #   spot_price: 0.14
-  #   aws_sec_group:
-  #     - default
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   groups:
-  #     - windows
-  #     - exe
+  - name: test-aws-windows-ansible-role-java-11-exe
+    aws_image_id: ami-07a29e78aeb420471
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: False
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    groups:
+      - windows
+      - exe
 
   - name: test-aws-windows-ansible-role-java-11-choco
     aws_image_id: ami-07a29e78aeb420471
