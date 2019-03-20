@@ -64,7 +64,7 @@ provisioner:
   env:
     ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-aws-windows-11
+  name: cloud-aws-windows-12
 verifier:
   name: testinfra
   lint:
