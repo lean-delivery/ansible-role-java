@@ -19,7 +19,7 @@ java_folder: >-
   {{ (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
         if (java_major_version|int <= 8)
         else
-          (java_package + '-'  + java_major_version|string)
+          (java_package + '-' + java_major_version|string)
             if (java_major_version == 12)
             else
               (java_package + '-'  + java_major_version|string + '.' + java_minor_version|string) }}
