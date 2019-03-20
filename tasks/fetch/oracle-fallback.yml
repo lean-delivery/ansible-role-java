@@ -9,17 +9,29 @@
     return_content: True
   register: root_page
 
+- name: Debug root_page
+  debug:
+    var: root_page
+
 - name: Find release url
   set_fact:
     release_url: >-
       {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
           + java_package|string + java_major_version|string + '-downloads-.*html') }}
 
+- name: Debug release_url
+  debug:
+    var: release_url
+
 - name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
   uri:
     url: 'https://www.oracle.com/{{ release_url }}'
     return_content: True
   register: release_page
+
+- name: Debug release_page
+  debug:
+    var: release_page
 
 - name: Find all possible artifact urls
   set_fact:
