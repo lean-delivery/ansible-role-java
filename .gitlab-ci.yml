@@ -86,6 +86,24 @@ AWS java-11 Windows:
   tags:
     - aws
 
+AWS java-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-12
+  tags:
+    - aws
+
+AWS java-12 Windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-12
+  tags:
+    - aws
+
 EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2

@@ -12,12 +12,12 @@
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ root_page['content'] | regex_search('technetwork/java/javase/downloads/'
-          + java_package|string + java_major_version|string + '-downloads-.*html') }}
+      {{ root_page['content'] | regex_findall('(technetwork/java/javase/downloads/'
+          + java_package|string + java_major_version|string + '-downloads-\d*\.html)') }}
 
-- name: 'Fetch release page from https://www.oracle.com/{{ release_url }}'
+- name: 'Fetch release page from https://www.oracle.com/{{ release_url[1] }}'
   uri:
-    url: 'https://www.oracle.com/{{ release_url }}'
+    url: 'https://www.oracle.com/{{ release_url[1] }}'
     return_content: True
   register: release_page
 
@@ -28,7 +28,7 @@
           regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
                         java_package|string + '-(?:' + java_major_version|string +
                         'u' + minor|string + '-|' + java_major_version|string +
-                        '.' + minor|string + '_)' +  os|string + '-' +
+                        '.' + minor|string + '|' + java_major_version|string + '_)' +  os|string + '-' +
                         java_arch|string + '(?!-demos).*' + extension|string) | list }}
   register: artifact_url_fact
 
@@ -54,7 +54,7 @@
         regex_findall('https?://download.oracle.com/otn-pub/java/.*/' +
           java_package|string + '-(?:' + java_major_version|string +
           'u' + minor|string + '-|' + java_major_version|string +
-          '.' + minor|string + '_)' +  os|string + '-' + java_arch|string +
+          '.' + minor|string + '|' + java_major_version|string + '_)' +  os|string + '-' + java_arch|string +
           '(?!-demos).*' + extension|string + '.*?\",\"SHA256\":\"([a-fA-F\d]{64})') | last }}
 
 - name: Show artifacts' urls found
@@ -65,7 +65,7 @@
   set_fact:
     java_minor_version: >-
       {{ artifact_url | regex_findall(java_package|string + '-' +
-      java_major_version|string + '[u.]([.0-9]+)') | first }}
+      java_major_version|string + '[u.]([.0-9]+)') | first | default('') }}
 
 - name: 'Download artifact from {{ artifact_url }}'
   get_url:
