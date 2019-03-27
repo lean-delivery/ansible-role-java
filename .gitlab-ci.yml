@@ -25,14 +25,14 @@ Ansible lint:
   tags:
     - aws
 
-Docker java-8:
+.Docker java-8:
   stage: deployment test
   script:
   - molecule test -s default
   tags:
   - aws
 
-AWS java-6:
+.AWS java-6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -41,7 +41,7 @@ AWS java-6:
   tags:
     - aws
 
-AWS java-7:
+.AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -50,7 +50,7 @@ AWS java-7:
   tags:
     - aws
 
-AWS java-8:
+.AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -59,7 +59,7 @@ AWS java-8:
   tags:
     - aws
 
-AWS java-8 Windows:
+.AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -77,7 +77,7 @@ AWS java-11:
   tags:
     - aws
 
-AWS java-11 Windows:
+.AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -86,7 +86,7 @@ AWS java-11 Windows:
   tags:
     - aws
 
-AWS java-12:
+.AWS java-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -95,7 +95,7 @@ AWS java-12:
   tags:
     - aws
 
-AWS java-12 Windows:
+.AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -104,7 +104,7 @@ AWS java-12 Windows:
   tags:
     - aws
 
-EPC java-8:
+.EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
