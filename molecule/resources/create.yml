@@ -71,6 +71,10 @@
         dest: '{{ molecule_instance_config }}'
       when: instance_create.changed | bool
 
+    - name: Sleep
+      wait_for:
+        timeout: 600
+
     - name: Wait for WinRm
       wait_for:
         port: '{{ winrm_port }}'
