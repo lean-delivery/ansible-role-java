@@ -3,6 +3,9 @@
   set_fact:
     minor: "{{ java_minor_version | default('.*', True) }}"
 
+- pause:
+    minutes: 20
+
 - name: 'Fetch root page {{ java_root_page }}'
   win_uri:
     url: '{{ java_root_page }}'
