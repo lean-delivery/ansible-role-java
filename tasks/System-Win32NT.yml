@@ -1,9 +1,4 @@
 ---
-- name: 'Check TLS version'
-  win_shell: '[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;'
-  tags:
-    - skip_ansible_lint
-
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:

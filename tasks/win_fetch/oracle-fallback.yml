@@ -7,6 +7,7 @@
   win_uri:
     url: '{{ java_root_page }}'
     return_content: True
+    validate_certs: False
   register: root_page
 
 - name: Find release url
@@ -19,6 +20,7 @@
   win_uri:
     url: 'https://www.oracle.com/{{ release_url[1] }}'
     return_content: True
+    validate_certs: False
   register: release_page
 
 - name: Find all possible artifact urls
