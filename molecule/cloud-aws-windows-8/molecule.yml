@@ -92,7 +92,7 @@ provisioner:
         java_major_version: 8
         java_minor_version: 201
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
+    create: ../resources/create.yml
     prepare: ../cloud-aws-windows-8/prepare.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
   config_options:

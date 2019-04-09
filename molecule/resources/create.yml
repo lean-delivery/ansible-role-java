@@ -1,0 +1,80 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
+
+  vars:
+    molecule_file: "{{ lookup('env', 'MOLECULE_FILE') }}"
+    molecule_instance_config: "{{ lookup('env','MOLECULE_INSTANCE_CONFIG') }}"
+    molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
+    ansible_user: "{{ lookup('env', 'WINRM_ADMIN_ACC') | default('molecule', True) }}"
+    ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
+    ec2_user_data: "{{ lookup('template', './windows') }}"
+    winrm_port: 5986
+
+  tasks:
+
+    - name: Start Windows instances
+      ec2:
+        region: '{{ item.aws_region }}'
+        image: '{{ item.aws_image_id }}'
+        instance_type: '{{ item.instance_type }}'
+        group: '{{ item.aws_sec_group }}'
+        assign_public_ip: '{{ item.assign_public_ip | default(True) }}'
+        wait: True
+        wait_timeout: '{{ item.wait_timeout | default(600) }}'
+        instance_tags:
+          instance: '{{ item.name }}'
+          Name: '{{ item.name }}'
+        vpc_subnet_id: '{{ item.vpc_subnet_id }}'
+        spot_price: '{{ item.spot_price }}'
+        spot_wait_timeout: '{{ item.wait_timeout | default(600) }}'
+        user_data: "{{ ec2_user_data }}"
+        exact_count: 1
+        count_tag:
+          instance: '{{ item.name }}'
+      register: ec2
+      loop: '{{ molecule_yml.platforms }}'
+      async: 7200
+      poll: 0
+
+    - name: Wait for instance(s) creation to complete
+      async_status:
+        jid: '{{ item.ansible_job_id }}'
+      loop: '{{ ec2.results }}'
+      register: instance_create
+      until: instance_create.finished
+      delay: 20
+      retries: 300
+
+    - name: Populate instance config dict
+      set_fact:
+        instance_conf_dict: {
+          instance: '{{ item.instances[0].tags.instance }}',
+          address: '{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}',
+          user: '{{ ansible_user }}',
+          port: '{{ winrm_port }}' }
+      loop: '{{ instance_create.results }}'
+      register: instance_config_dict
+      when: instance_create.changed | bool
+
+    - name: Convert instance config dict to a list
+      set_fact:
+        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+        when: instance_create.changed | bool
+
+    - name: Dump instance config
+      copy:
+        content: '{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}'
+        dest: '{{ molecule_instance_config }}'
+      when: instance_create.changed | bool
+
+    - name: Wait for WinRm
+      wait_for:
+        port: '{{ winrm_port }}'
+        host: '{{ item.address }}'
+        delay: 2
+        timeout: 320
+      loop: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
