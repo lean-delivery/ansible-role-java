@@ -34,7 +34,7 @@ platforms:
     vpc_subnet_id: subnet-05a2ef2b767afec50
     groups:
       - windows
-      - web
+      # - web
 
   - name: test-aws-windows-ansible-role-java-8-choco
     aws_image_id: ami-07a29e78aeb420471
@@ -47,7 +47,7 @@ platforms:
     vpc_subnet_id: subnet-05a2ef2b767afec50
     groups:
       - windows
-      - chocolatey
+      # - chocolatey
 
   - name: test-aws-windows-ansible-role-java-8-s3-local
     aws_image_id: ami-07a29e78aeb420471
@@ -60,7 +60,7 @@ platforms:
     vpc_subnet_id: subnet-05a2ef2b767afec50
     groups:
       - windows
-      - local
+      # - local
 
 provisioner:
   name: ansible
