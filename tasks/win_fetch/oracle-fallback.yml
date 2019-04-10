@@ -7,7 +7,7 @@
   win_uri:
     url: '{{ java_root_page }}'
     return_content: True
-    validate_certs: False
+    follow_redirects: all
   register: root_page
 
 - name: Find release url
