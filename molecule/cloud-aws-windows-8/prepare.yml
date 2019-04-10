@@ -42,6 +42,11 @@
       delay: 5
       until: choco_install is succeeded
 
+    - name: reboot windows
+      win_reboot:
+        reboot_timeout: 9000
+        post_reboot_delay: 20
+
 #     - name: Enable strong crypto
 #       win_regedit:
 #         path: "{{ item }}"
