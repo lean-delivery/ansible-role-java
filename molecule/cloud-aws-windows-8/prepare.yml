@@ -23,29 +23,69 @@
   tasks:
 
     - name: Check choco
-      win_chocolatey:
-        name: all
-        state: present
+      win_shell: |
+        param(
+            [string]$ComputerName = $env:COMPUTERNAME
+        )
 
-    # Workaround for new chocolatey output.
-    # See https://github.com/ansible/ansible/issues/53860#issuecomment-473431360 for more details
-    - name: disable enhanced exit codes
-      win_chocolatey_feature:
-        name: useEnhancedExitCodes
-        state: disabled
+        $dotNetRegistry = 'SOFTWARE\Microsoft\NET Framework Setup\NDP'
+        $dotNet4Registry = 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full'
+        $dotNet4Builds = @{
+            '30319'  = @{ Version = [System.Version]'4.0'                                                     }
+            '378389' = @{ Version = [System.Version]'4.5'                                                     }
+            '378675' = @{ Version = [System.Version]'4.5.1'   ; Comment = '(8.1/2012R2)'                      }
+            '378758' = @{ Version = [System.Version]'4.5.1'   ; Comment = '(8/7 SP1/Vista SP2)'               }
+            '379893' = @{ Version = [System.Version]'4.5.2'                                                   }
+            '380042' = @{ Version = [System.Version]'4.5'     ; Comment = 'and later with KB3168275 rollup'   }
+            '393295' = @{ Version = [System.Version]'4.6'     ; Comment = '(Windows 10)'                      }
+            '393297' = @{ Version = [System.Version]'4.6'     ; Comment = '(NON Windows 10)'                  }
+            '394254' = @{ Version = [System.Version]'4.6.1'   ; Comment = '(Windows 10)'                      }
+            '394271' = @{ Version = [System.Version]'4.6.1'   ; Comment = '(NON Windows 10)'                  }
+            '394802' = @{ Version = [System.Version]'4.6.2'   ; Comment = '(Windows 10 1607)'                 }
+            '394806' = @{ Version = [System.Version]'4.6.2'   ; Comment = '(NON Windows 10)'                  }
+            '460798' = @{ Version = [System.Version]'4.7'     ; Comment = '(Windows 10 1703)'                 }
+            '460805' = @{ Version = [System.Version]'4.7'     ; Comment = '(NON Windows 10)'                  }
+            '461308' = @{ Version = [System.Version]'4.7.1'   ; Comment = '(Windows 10 1709)'                 }
+            '461310' = @{ Version = [System.Version]'4.7.1'   ; Comment = '(NON Windows 10)'                  }
+            '461808' = @{ Version = [System.Version]'4.7.2'   ; Comment = '(Windows 10 1803)'                 }
+            '461814' = @{ Version = [System.Version]'4.7.2'   ; Comment = '(NON Windows 10)'                  }
+        }
 
-    - name: 'Install net framework'
-      win_chocolatey:
-        name: 'dotnet4.7.2'
-      register: choco_install
-      retries: 15
-      delay: 5
-      until: choco_install is succeeded
+        foreach($computer in $ComputerName) {
+            if($regKey = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $computer)) {
+                if ($netRegKey = $regKey.OpenSubKey("$dotNetRegistry")) {
+                    foreach ($versionKeyName in $netRegKey.GetSubKeyNames()) {
+                        if ($versionKeyName -match '^v[123]') {
+                            $versionKey = $netRegKey.OpenSubKey($versionKeyName)
+                            $version = [System.Version]($versionKey.GetValue('Version', ''))
+                            New-Object -TypeName PSObject -Property ([ordered]@{
+                                    ComputerName = $computer
+                                    Build        = $version.Build
+                                    Version      = $version
+                                    Comment      = ''
+                                })
+                        }
+                    }
+                }
 
-    - name: reboot windows
-      win_reboot:
-        reboot_timeout: 9000
-        post_reboot_delay: 20
+                if ($net4RegKey = $regKey.OpenSubKey("$dotNet4Registry")) {
+                    if(-not ($net4Release = $net4RegKey.GetValue('Release'))) {
+                        $net4Release = 30319
+                    }
+                    New-Object -TypeName PSObject -Property ([ordered]@{
+                            ComputerName = $Computer
+                            Build        = $net4Release
+                            Version      = $dotNet4Builds["$net4Release"].Version
+                            Comment      = $dotNet4Builds["$net4Release"].Comment
+                        })
+                }
+            }
+        }
+      register: ps_output
+
+    - name: debug ps
+      debug:
+        msg: "{{ ps_output }}"
 
 #     - name: Enable strong crypto
 #       win_regedit:
