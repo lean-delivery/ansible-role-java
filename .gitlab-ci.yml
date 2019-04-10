@@ -5,6 +5,7 @@ stages:
   - deployment test
 
 before_script:
+  - pip install --upgrade ansible
   - rm -rf molecule/resources/provisioning
   - ansible --version
   - molecule --version
