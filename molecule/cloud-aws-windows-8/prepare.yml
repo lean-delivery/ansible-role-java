@@ -36,7 +36,7 @@
 
     - name: 'Install net framework'
       win_chocolatey:
-        name: 'dotnet4.6.1'
+        name: 'dotnet4.6.2'
       register: choco_install
       retries: 15
       delay: 5
