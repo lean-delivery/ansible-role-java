@@ -16,3 +16,18 @@
         overwrite: different
       retries: 5
       delay: 2
+
+    - name: Enable strong crypto
+      win_regedit:
+        path: "{{ item }}"
+        name: SchUseStrongCrypto
+        type: dword
+        data: 00000001
+      loop:
+        - HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319
+        - HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319
+
+    - name: reboot windows
+      win_reboot:
+        reboot_timeout: 9000
+        post_reboot_delay: 20
