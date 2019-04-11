@@ -77,7 +77,7 @@
   register: file_downloaded
   retries: 20
   delay: 5
-  until: file_downloaded.status_code == 200
+  until: file_downloaded is succeeded
 
 - name: Set downloaded artifact variable
   set_fact:
