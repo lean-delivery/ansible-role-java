@@ -5,7 +5,7 @@ stages:
   - deployment test
 
 before_script:
-  - pip install --upgrade ansible==2.7.1
+  # - pip install --upgrade ansible==2.7.1
   - rm -rf molecule/resources/provisioning
   - ansible --version
   - molecule --version
@@ -79,7 +79,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-.AWS java-11 Windows:
+AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -97,7 +97,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-.AWS java-12 Windows:
+AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
