@@ -20,7 +20,7 @@ DISCLAIMER: usage of any version of this role implies you have accepted the
 Requirements
 ------------
 
- - Version of the ansible for installation: 2.5
+ - Version of the ansible for installation: 2.7
  - **Supported java version**:
    - 7
    - 8

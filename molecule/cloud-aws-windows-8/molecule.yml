@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
   - name: test-aws-windows-ansible-role-java-8-otn
-    aws_image_id: ami-07a29e78aeb420471
+    aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -24,7 +24,7 @@ platforms:
       - otn
 
   - name: test-aws-windows-ansible-role-java-8-web
-    aws_image_id: ami-07a29e78aeb420471
+    aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -37,7 +37,7 @@ platforms:
       - web
 
   - name: test-aws-windows-ansible-role-java-8-choco
-    aws_image_id: ami-07a29e78aeb420471
+    aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -50,7 +50,7 @@ platforms:
       - chocolatey
 
   - name: test-aws-windows-ansible-role-java-8-s3-local
-    aws_image_id: ami-07a29e78aeb420471
+    aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
