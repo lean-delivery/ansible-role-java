@@ -79,10 +79,6 @@
   delay: 5
   until: file_downloaded.status_code == 200
 
-- name: debug file_downloaded
-  debug:
-    var: file_downloaded
-
 - name: Set downloaded artifact variable
   set_fact:
     oracle_artifact: '{{ file_downloaded.dest }}'
