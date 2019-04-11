@@ -1,7 +1,7 @@
 ---
 - name: Check choco
   win_chocolatey:
-    name: all
+    name: chocolatey
     state: present
 
 # Workaround for new chocolatey output.
