@@ -20,7 +20,6 @@
   win_uri:
     url: 'https://www.oracle.com/{{ release_url[1] }}'
     return_content: True
-    validate_certs: False
   register: release_page
 
 - name: Find all possible artifact urls
