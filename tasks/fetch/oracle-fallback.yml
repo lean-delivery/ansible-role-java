@@ -75,9 +75,9 @@
     dest: '{{ download_path }}'
     checksum: 'sha256:{{ artifact_checksum }}'
   register: file_downloaded
-  # retries: 15
-  # delay: 5
-  # until: "'OK' in file_downloaded.msg"
+  retries: 20
+  delay: 5
+  until: file_downloaded.status_code == 200
 
 - name: debug file_downloaded
   debug:
