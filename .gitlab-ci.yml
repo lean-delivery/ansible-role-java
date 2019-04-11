@@ -5,7 +5,6 @@ stages:
   - deployment test
 
 before_script:
-  - pip install --upgrade ansible==2.7.10
   - rm -rf molecule/resources/provisioning
   - ansible --version
   - molecule --version
