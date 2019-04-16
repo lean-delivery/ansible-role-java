@@ -4,4 +4,4 @@
     path: '{{ oracle_artifact }}'
     product_id: '{{ java_product_id }}'
     state: present
-    arguments: '/s'
+    arguments: '/s INSTALLDIR={{ java_path }}'
