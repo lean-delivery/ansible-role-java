@@ -1,4 +1,7 @@
 ---
+#select openjdk_install
+openjdk_pkg_install: True
+
 # select from jre/server-jre/jdk
 java_package: jdk
 
@@ -26,8 +29,8 @@ transport: oracle-fallback
 # - "chocolatey" Windows specific package manager
 # - "local" Local artifact
 
-transport_web: "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
+transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
 
 transport_s3_bucket: s3_bucket
 transport_s3_path: /folder/jdk-8u172-linux-x64.tar.gz
