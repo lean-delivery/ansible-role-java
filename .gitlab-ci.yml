@@ -26,13 +26,6 @@ Ansible lint:
   tags:
     - aws
 
-Docker java-8:
-  stage: deployment test
-  script:
-  - molecule test -s default
-  tags:
-  - aws
-
 AWS java-6:
   variables:
     AWS_REGION: us-east-1
