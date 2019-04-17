@@ -1,13 +1,6 @@
 ---
 # vars file for java
 os: "{{ ansible_facts.system | lower | regex_replace('win32nt', 'windows') }}"
-java_root_page: https://www.oracle.com/technetwork/java/javase/downloads/index.html
-
-# Urls for java security policy
-fallback_oracle_security_policy_artifacts:
-  6: http://download.oracle.com/otn-pub/java/jce_policy/6/jce_policy-6.zip
-  7: http://download.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip
-  8: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
 
 # patch archive subfolder
 security_patch_folders:

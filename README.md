@@ -51,13 +51,7 @@ Requirements
   - `transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
 
     Available:
-      - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_artifacts` with specified:
-          - `java_package`
-          - `java_major_version`
-          - `java_minor_version`
-          - `java_arch`
-        `oracle-fallback` is default value for `transport` variable.
-      - `web` Fetching artifact from custom web url
+      - `web` Fetching artifact from custom web url. Is default value for `transport` variable
       - `chocolatey` Windows specific package manager
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket   
@@ -113,7 +107,6 @@ Requirements
   - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result.
 
     Available:
-      - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_security_policy_artifacts` with specified:
       - `web` Fetching artifact from custom web url
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket
@@ -181,16 +174,6 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 8
       java_minor_version: 201
       transport: chocolatey
-```
-
-### Installing java 11 on Windows host with oracle-fallback:
-```yaml
-- name: Install java
-  hosts: windows
-
-  roles:
-    - role: lean_delivery.java
-      java_major_version: 11
 ```
 
 License
