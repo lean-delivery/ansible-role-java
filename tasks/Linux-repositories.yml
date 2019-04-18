@@ -1,0 +1,18 @@
+---
+- name: Perform install from repositories
+  block:
+    - name: Install java
+      package:
+        name: '{{ openjdk_package }}'
+        state: present
+      register: installed_packages
+      until: installed_packages is succeeded
+
+    - name: Put java profile
+      template:
+        src: java.sh.j2
+        dest: /etc/profile.d/java.sh
+        owner: root
+        group: root
+        mode: 0555
+  become: True

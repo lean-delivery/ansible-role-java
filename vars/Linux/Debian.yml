@@ -6,3 +6,4 @@ requirements:
   - python
   - python-argparse
   - unzip
+openjdk_package: 'openjdk-{{ java_major_version }}-{{ java_package }}'
