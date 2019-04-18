@@ -38,6 +38,7 @@ java_unlimited_policy_enabled: False
 # For Java earlier than 1.8.0_151
 java_unlimited_policy_transport: '{{ transport }}'
 # available are:
+# - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
 # - "local" Local artifact
