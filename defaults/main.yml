@@ -1,7 +1,4 @@
 ---
-# select install openjdk_install from repositories
-openjdk_pkg_install: True
-
 # For Debian like OS openjdk supported (if install from repositories):
 # dbg              Java runtime based on OpenJDK (debugging symbols)
 # doc              OpenJDK Development Kit (JDK) documentation
@@ -35,8 +32,8 @@ openjdk_pkg_install: True
 # Oracle java supported jre/server-jre/jdk
 java_package: jdk
 
-# OpenJDK Redhat: 8 (packages) /  11 (package, tarball) / 12 (tarball)
-# OpenJDK Debian: 8 (packages) / 11 (package, tarball) / 12 (tarball)
+# OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
+# OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 8
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
@@ -54,13 +51,14 @@ download_path: '{{ download_default_path }}'
 # Custom artifact source transport
 java_tarball_install: True
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: oracle-fallback
+transport: repositories
 # available are:
 # - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
 # - "chocolatey" Windows specific package manager
 # - "local" Local artifact
+# - "repositories"
 
 transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"

@@ -78,6 +78,15 @@ Ansible lint:
   tags:
     - aws
 
+AWS java-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-11
+  tags:
+    - aws
+
 .AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1

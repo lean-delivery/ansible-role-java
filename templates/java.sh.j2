@@ -1,7 +1,3 @@
 # /etc/profile.d/java.sh - set java stuff
-{% if openjdk_pkg_install %}
-export JAVA_HOME={{ openjdk_path }}
-{% elif java_minor_version is defined %}
 export JAVA_HOME={{ java_path }}/{{ java_folder }}
 export PATH=$JAVA_HOME/bin:$PATH
-{% endif %}

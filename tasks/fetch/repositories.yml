@@ -1,0 +1,11 @@
+---
+- name: Set facts
+  set_fact:
+    openjdk_package: '{{ (ansible_os_family == "Debian") | ternary(openjdk_package_deb, openjdk_package_rhel) }}'
+    java_path: /usr/lib/jvm
+
+- name: Set facts java_folder
+  set_fact:
+    java_folder: >-
+      {{ (ansible_os_family == 'Debian') |
+      ternary('java-' + java_major_version|string + '-openjdk-*', 'java-1.8.0-openjdk-.+' + openjdk_arch_rhel|string) }}
