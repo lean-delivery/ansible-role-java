@@ -4,7 +4,7 @@
     deb: '{{ oracle_artifact | default(omit) }}'
     name: '{{ openjdk_package | default(omit) }}'
     state: present
-    update_cache: yes
+    update_cache: True
     cache_valid_time: 3600
   register: package_install
   until: package_install is succeeded
