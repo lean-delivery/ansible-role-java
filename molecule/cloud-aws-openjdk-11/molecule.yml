@@ -80,11 +80,12 @@ provisioner:
       web:
         transport: web
         transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
-      otn:
-        transport: oracle-fallback
       tarball:
         java_tarball_install: True
       package:
+        java_tarball_install: False
+      repositories:
+        transport: repositories
         java_tarball_install: False
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
