@@ -35,7 +35,7 @@
       become: True
 
 - name: Prepare host to S3 transport
-  hosts: s3
+  hosts: all
   gather_facts: True
   tasks:
     - name: 'Install pip package'
