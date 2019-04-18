@@ -1,0 +1,19 @@
+---
+- name: Download security policy artifact from Oracle OTN
+  win_get_url:
+    url: '{{ fallback_oracle_security_policy_artifacts[java_major_version|int] }}'
+    dest: >-
+      {{ download_path }}\{{ (fallback_oracle_security_policy_artifacts[java_major_version|int]
+        | urlsplit('path')).split('/')[-1] }}
+    mode: 0755
+    headers:
+      Cookie: 'oraclelicense=accept-securebackup-cookie'
+    force: False
+  register: file_downloaded
+  retries: 15
+  delay: 5
+  until: "'OK' in file_downloaded.msg"
+
+- name: Downloaded security policy artifact
+  set_fact:
+    security_policy_oracle_artifact: '{{ file_downloaded.dest }}'
