@@ -44,7 +44,7 @@ AWS java-7:
   tags:
     - aws
 
-.AWS java-8:
+AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -53,7 +53,7 @@ AWS java-7:
   tags:
     - aws
 
-.AWS java-8 Windows:
+AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

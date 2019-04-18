@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
 
-  - name: test-aws-centos7-ansible-role-java-8-otn
+  - name: test-aws-centos7-ansible-role-java-8-s3-rpm
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
@@ -24,21 +24,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - tarball
-
-  - name: test-aws-centos7-ansible-role-java-8-otn-rpm
-    image: ami-9887c6e7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
+      - s3
       - package
 
   - name: test-aws-centos7-ansible-role-java-8-s3
@@ -102,15 +88,16 @@ provisioner:
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
-        transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
         java_package: jdk
         java_tarball_install: True
+        transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
       package:
         java_package: jdk
         java_tarball_install: False
+        transport_s3_path: /java/jdk-8u202-linux-x64.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../cloud-aws-direct-8/prepare.yml
