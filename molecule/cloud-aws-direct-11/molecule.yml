@@ -23,7 +23,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - otn
+      - s3
       - tarball
 
   - name: test-aws-centos6-ansible-role-java-11-otn-rpm
@@ -39,7 +39,7 @@ platforms:
     ssh_user: centos
     groups:
      - rhel_family
-     - otn
+     - s3
      - package
 
   - name: test-aws-ubuntu18-ansible-role-java-11-otn-deb
@@ -55,7 +55,7 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - otn
+      - s3
       - package
 
   - name: test-aws-Debian9-ansible-role-java-11-web-tb
@@ -82,12 +82,20 @@ provisioner:
       web:
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-11.0.2_linux-x64_bin.tar.gz"
-      otn:
-        transport: oracle-fallback
+      s3:
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
         java_tarball_install: True
+        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.tar.gz
       package:
         java_tarball_install: False
+      debian_family:
+        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.deb
+      rhel_family:
+        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
