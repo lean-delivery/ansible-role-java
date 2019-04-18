@@ -52,16 +52,23 @@ provisioner:
         java_tarball_install: True
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
-        # java_unlimited_policy_transport: web
-        # java_unlimited_policy_transport_web:
+        java_unlimited_policy_transport: s3
+        java_unlimited_policy_transport_s3_bucket: java-molecule-s3-test
+        java_unlimited_policy_transport_s3_path: /java/jce_policy-6.zip
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+
       rpm:
         java_package: jdk
         java_major_version: 6
         java_tarball_install: False
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.rpm"
-        # java_unlimited_policy_transport: web
-        # java_unlimited_policy_transport_web:
+        java_unlimited_policy_transport: s3
+        java_unlimited_policy_transport_s3_bucket: java-molecule-s3-test
+        java_unlimited_policy_transport_s3_path: /java/jce_policy-6.zip
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
