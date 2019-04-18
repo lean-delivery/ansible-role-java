@@ -6,4 +6,6 @@ requirements:
   - python
   - python-argparse
   - unzip
+#openjdk_path: '/usr/lib/jvm/java-{{ java_major_version }}-openjdk-amd64/'
+openjdk_path: '/usr/lib/jvm'
 openjdk_package: 'openjdk-{{ java_major_version }}-{{ java_package }}'

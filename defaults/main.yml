@@ -14,13 +14,11 @@ openjdk_pkg_install: True
 # jre-zero         Alternative JVM for OpenJDK, using Zero
 
 # For RHEL like OS openjdk supported (if install from repositories)
-# The java-1.8.0-openjdk package contains just the Java Runtime Environment.
-# If you want to develop Java programs then install the devel package.
-# jdk               OpenJDK Runtime Environment 11
+# jdk               OpenJDK Development Environment 11
+# jre               OpenJDK Runtime Environment 11
 # debug             OpenJDK Runtime Environment 11 with full debug on
 # demo              OpenJDK Demos 11
 # demo-debug        OpenJDK Demos 11 with full debug on
-# devel             OpenJDK Development Environment 11
 # devel-debug       OpenJDK Development Environment 11 with full debug on
 # headless          OpenJDK Headless Runtime Environment 11
 # headless-debug    OpenJDK Runtime Environment with full debug on

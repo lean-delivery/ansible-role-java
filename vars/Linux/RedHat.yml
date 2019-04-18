@@ -9,13 +9,16 @@ requirements:
   - libselinux-python
   - python-argparse
   - unzip
-openjdk_path: '/usr/lib/jvm/java/'
+#openjdk_path: '/usr/lib/jvm/java/'
+openjdk_path: '/usr/lib/jvm'
 openjdk_arch: >-
   {{ ('x86_64') if (java_arch == 'x64')
         else ('i686') if (java_arch == 'i586')}}
 openjdk_package_rhel_spec: >-
-  {{ ('openjdk.' + openjdk_arch)
+  {{ ('openjdk-devel.' + openjdk_arch)
         if (java_package == 'jdk')
+        else ('openjdk.' + openjdk_arch)
+        if (java_package == 'jre')
         else
           ('openjdk-' + java_package|string + '.' + openjdk_arch)}}
 openjdk_package: >-
