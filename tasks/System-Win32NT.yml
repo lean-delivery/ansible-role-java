@@ -23,6 +23,11 @@
     use_regex: True
   register: java_dir
 
+- debug:
+    msg: "java_folder={{ java_folder }}\njava_path={{ java_path }}"
+
+
+
 - name: Set actual java directory
   set_fact:
     java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"

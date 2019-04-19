@@ -4,6 +4,9 @@
     path: '{{ java_path }}'
     state: directory
 
+- debug:
+    msg: "java_folder={{java_folder}}"
+
 - name: Unzip java archive
   win_unzip:
     src: '{{ oracle_artifact }}'
