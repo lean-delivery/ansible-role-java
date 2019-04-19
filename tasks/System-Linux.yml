@@ -9,7 +9,7 @@
 
 - name: Set java full version
   set_fact:
-    java_full_version: '{{ java_major_version }}.{{ java_minor_version | default("") }}'
+    java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
 
 - name: Perform install from artifacts
   block:

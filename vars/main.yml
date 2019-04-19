@@ -15,28 +15,45 @@ security_patch_folders:
   7: UnlimitedJCEPolicy
   8: UnlimitedJCEPolicyJDK8
 
-java_folder: >-
-  {{ (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
-        if (java_major_version|int <= 8)
-        else
-          (java_package + '-' + java_major_version|string)
-            if (java_major_version == 12)
-            else
-              (java_package + '-'  + java_major_version|string + '.' + java_minor_version|string) }}
-
+# Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
+# Define Centos arch specific for compatibility with oracle packages name
 openjdk_arch_rhel: >-
   {{ ('x86_64') if (java_arch == 'x64')
         else ('i686') if (java_arch == 'i586')}}
+# java-11-openjdk.x86_64 is OpenJDK Runtime Environment
+# java-11-openjdk-devel.x86_64 : OpenJDK Development Environment 11
+# change variables for more compatibility jdk/jre
 openjdk_package_rhel_spec: >-
   {{ ('openjdk-devel.' + openjdk_arch_rhel)
         if (java_package == 'jdk')
         else ('openjdk.' + openjdk_arch_rhel)
-        if (java_package == 'jre')
-        else
-          ('openjdk-' + java_package|string + '.' + openjdk_arch)}}
-openjdk_package_rhel: >-
-  {{ ('java-1.' + java_major_version|string + '.0-' + openjdk_package_rhel_spec|string)
+          if (java_package == 'jre')
+          else
+            ('openjdk-' + java_package|string + '.' + openjdk_arch) }}
+# change java_major_version (if it 8) for rhel specific 1.8.0
+openjdk_package_rhel_versions: >-
+  {{ ('1.' + java_major_version|string + '.0')
         if (java_major_version|int <= 8)
         else
-          ('java-' + java_major_version|string + '-' + openjdk_package_rhel_spec|string)}}
+          (java_major_version|string) }}
+# complite package name for RHEL
+openjdk_package_rhel: "{{ ('java-' + openjdk_package_rhel_versions|string + '-' + openjdk_package_rhel_spec|string) }}"
+# complite package name for Debian
 openjdk_package_deb: 'openjdk-{{ java_major_version }}-{{ java_package }}'
+openjdk_package: "{{ (ansible_os_family == 'Debian') | ternary(openjdk_package_deb, openjdk_package_rhel) }}"
+
+# java_folder for oracle java packages and openjdk tarball
+java_folder_ext_transport: >-
+  {{ (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
+    if (java_major_version|int <= 8)
+      else
+        (java_package + '-' + java_major_version|string)
+          if (java_major_version == 12)
+            else
+              (java_package + '-'  + java_major_version|string + '.' + java_minor_version|string) }}
+# java_folder for packages from repositories
+java_folder_repo_transport: >-
+  {{ (ansible_os_family == 'Debian') |
+  ternary('java-' + java_major_version|string + '-openjdk-*', 'java-' +
+  openjdk_package_rhel_versions + '-openjdk-.+' + openjdk_arch_rhel|string) }}
+java_folder: "{{ (transport == 'repositories') | ternary(java_folder_repo_transport, java_folder_ext_transport) }}"
