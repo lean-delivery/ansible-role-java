@@ -23,7 +23,8 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - tarball_s3
+      - s3
+      - tarball
 
   # - name: test-aws-centos6-ansible-role-java-11-s3-rpm
   #   image: ami-1585c46a
@@ -81,15 +82,15 @@ provisioner:
       web:
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-11.0.2_linux-x64_bin.tar.gz"
-      tarball:
-        java_tarball_install: True
-      tarball_s3:
-        java_tarball_install: True
+      s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
-        transport_s3_path: /java/jdk-11.0.2_linux-x64_bin.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+      tarball:
+        java_package: jdk
+        java_tarball_install: True
+        transport_s3_path: /java/jdk-11.0.2_linux-x64_bin.tar.gz
       package:
         java_tarball_install: False
 
