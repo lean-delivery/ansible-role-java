@@ -85,14 +85,9 @@ provisioner:
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
+        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
-      tarball:
-        java_package: jdk
-        java_tarball_install: True
-        transport_s3_path: /java/jdk-11.0.2_linux-x64_bin.tar.gz
-      package:
-        java_tarball_install: False
 
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
