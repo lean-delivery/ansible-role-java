@@ -10,21 +10,20 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  # - name: test-aws-centos7-ansible-role-java-11-s3
-  #   image: ami-9887c6e7
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #     - rhel_family
-  #     - s3
-  #     - tarball
+  - name: test-aws-centos7-ansible-role-java-11-s3
+    image: ami-9887c6e7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - tarball_s3
 
   # - name: test-aws-centos6-ansible-role-java-11-s3-rpm
   #   image: ami-1585c46a
@@ -84,6 +83,13 @@ provisioner:
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-11.0.2_linux-x64_bin.tar.gz"
       tarball:
         java_tarball_install: True
+      tarball_s3:
+        java_tarball_install: True
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.rpm
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       package:
         java_tarball_install: False
 
