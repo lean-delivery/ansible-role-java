@@ -41,7 +41,7 @@ platforms:
   #     - rhel_family
   #     - package
 
-  - name: test-aws-centos7-ansible-role-java-8-s3
+  - name: test-aws-centos7-ansible-role-java-11-s3
     image: ami-9887c6e7
     instance_type: m5.large
     profile_name: epmldi-instance-profile
@@ -58,7 +58,7 @@ platforms:
       - s3
       - tarball
 
-  - name: test-aws-ubuntu18-ansible-role-java-8-s3
+  - name: test-aws-ubuntu18-ansible-role-java-11-s3
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     profile_name: epmldi-instance-profile
