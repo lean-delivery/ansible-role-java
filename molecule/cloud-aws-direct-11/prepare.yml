@@ -53,6 +53,7 @@
           - 'botocore'
           - 'boto'
           - 'boto3'
+          - 'moto'
         state: present
         extra_args: --upgrade
       register: status
