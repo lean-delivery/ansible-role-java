@@ -59,7 +59,7 @@ transport: repositories
 # - "s3" Fetching artifact from s3 bucket
 # - "chocolatey" Windows specific package manager
 # - "local" Local artifact
-# - "repositories"
+# - "repositories" Install openjdk from repositories for Debian and RHEL
 
 transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
