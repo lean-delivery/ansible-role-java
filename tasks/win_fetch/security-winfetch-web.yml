@@ -13,4 +13,4 @@
 
 - name: Downloaded security policy artifact
   set_fact:
-    security_policy_oracle_artifact: '{{ file_downloaded.dest }}'
+    security_policy_java_artifact: '{{ file_downloaded.dest }}'

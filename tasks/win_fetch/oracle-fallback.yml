@@ -90,4 +90,4 @@
 
 - name: Downloaded artifact
   set_fact:
-    oracle_artifact: '{{ artifact.stat.path }}'
+    java_artifact: '{{ artifact.stat.path }}'

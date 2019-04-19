@@ -1,7 +1,7 @@
 ---
 - name: Unzip patch file
   win_unzip:
-    src: '{{ security_policy_oracle_artifact }}'
+    src: '{{ security_policy_java_artifact }}'
     dest: '{{ java_act_path }}\jre\lib\security\'
     creates: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
 

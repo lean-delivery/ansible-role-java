@@ -81,4 +81,4 @@
 
 - name: Set downloaded artifact variable
   set_fact:
-    oracle_artifact: '{{ file_downloaded.dest }}'
+    java_artifact: '{{ file_downloaded.dest }}'
