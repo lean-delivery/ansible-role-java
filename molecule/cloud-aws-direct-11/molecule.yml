@@ -90,7 +90,7 @@ provisioner:
       tarball:
         java_package: jdk
         java_tarball_install: True
-        transport_s3_path: /java/jdk-11.0.2_linux-x64_bin.tar.gz
+        transport_s3_path: java/jdk-11.0.2_linux-x64_bin.tar.gz
       package:
         java_tarball_install: False
 
