@@ -8,7 +8,14 @@ java role
 ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F27687%2F&query=$.min_ansible_version)
 ## Summary
 
-This Ansible role has the following features for Oracle Java:
+This Ansible role has the following features for:
+
+**OpenJDK**
+
+- Install JRE, JDK
+- Additional opportunity to install from repositories, s3, web, local source.
+
+**Oracle Java:**
 
  - Install JRE, JDK, Server-JRE
  - Additional opportunity to install from s3, web, oracle OTN, local source.
@@ -21,6 +28,22 @@ Requirements
 ------------
 
  - Version of the ansible for installation: 2.7
+- **Supported OpenJDK version**:
+   - 8
+      - EL 6: repositories, tarball
+      - EL 7: repositories, tarball
+      - Ubuntu bionic: repositories, tarball
+      - Debian stretch: repositories, tarball
+   - 11
+      - EL 6: tarball
+      - EL 7: repositories, tarball
+      - Ubuntu bionic: repositories, tarball
+      - Debian stretch: tarball
+   - 12
+      - EL 6: tarball
+      - EL 7: tarball
+      - Ubuntu bionic: tarball
+      - Debian stretch: tarball
  - **Supported java version**:
    - 7
    - 8
@@ -28,11 +51,11 @@ Requirements
    - 12
  - **Supported OS**:
    - Ubuntu
+     - bionic
      - xenial
      - trusty
    - Debian
      - stretch
-     - jessie
    - EL
      - 6
      - 7
@@ -46,18 +69,13 @@ Requirements
     Available:
       - `jdk` (default)
       - `jre`
-      - `server-jre`
+      - `server-jre` (not supported for OpenJDK)
 
-  - `transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
+  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
 
     Available:
-      - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_artifacts` with specified:
-          - `java_package`
-          - `java_major_version`
-          - `java_minor_version`
-          - `java_arch`
-        `oracle-fallback` is default value for `transport` variable.
-      - `web` Fetching artifact from custom web url
+      - `repositories` Intalling OpenJDK java from system repositories. Is default value for `transport` variable
+      - `web` Fetching artifact from custom web url.
       - `chocolatey` Windows specific package manager
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket   
@@ -67,19 +85,20 @@ Requirements
           - 'boto3'
         These packages are not included in given role. You should install them preliminary.
 
-  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `True`.
-  - `java_major_version` - major version of oracle-java (6,7,8, 11 etc.) Default is 8.
-  - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). 
-  - `java_arch` Package architecture.
+  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `False`.
+  - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 8.
+  - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
+  - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )
 
     Available:
       - `x64` for x86_64 (default)
       - `i586` for x86
 
-  - `java_path` Where java package will be installed
+  - `java_path` Where java package will be installed.
+    **Notice** Not use this variable if transport = repositories selected
 
-    default values depend on OS distribution: 
-      - RedHat: `/usr/java`
+    default values depend on OS distribution:
+      - RedHat: `/usr/java` (`/usr/lib/jvm` from repositories)
       - Debian: `/usr/lib/jvm`
       - Windows: `C:\Program Files\Java`
 
@@ -113,7 +132,6 @@ Requirements
   - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result.
 
     Available:
-      - `oracle-fallback` Downloading artifact from pre-defined oracle otn known artifacts `fallback_oracle_security_policy_artifacts` with specified:
       - `web` Fetching artifact from custom web url
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket
@@ -132,21 +150,31 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
+
+### Installing OpenJDK 8 from repositories:
 ```yaml
-- name: Install java
+- name: Install openjdk java
   hosts: all
 
   roles:
     - role: lean_delivery.java
-      java_major_version: 8
-      java_minor_version: 202
-      java_arch: x64
-      java_package: jdk
+```
+### Installing OpenJDK 11 from web:
+```yaml
+- name: Install openjdk java
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_major_version: 11
+      java_tarball_install: True
+      transport: web
+      transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
 ```
 
 ### Installing java from local file:
 ```yaml
-- name: Install java
+- name: Install oracle java
   hosts: all
 
   roles:
@@ -181,16 +209,6 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 8
       java_minor_version: 201
       transport: chocolatey
-```
-
-### Installing java 11 on Windows host with oracle-fallback:
-```yaml
-- name: Install java
-  hosts: windows
-
-  roles:
-    - role: lean_delivery.java
-      java_major_version: 11
 ```
 
 License
