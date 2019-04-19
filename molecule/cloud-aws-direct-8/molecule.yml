@@ -102,7 +102,7 @@ provisioner:
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
-        transport_s3_path: /java/8/JDK/jdk-8u212-linux-x64.tar.gz
+        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
