@@ -11,37 +11,24 @@ lint:
     config-file: .yamllint
 platforms:
 
-  # - name: test-aws-centos7-ansible-role-java-8-otn
-  #   image: ami-9887c6e7
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #     - rhel_family
-  #     - tarball
+  - name: test-aws-centos7-ansible-role-java-8-s3-rpm
+    image: ami-9887c6e7
+    instance_type: m5.large
+    profile_name: epmldi-instance-profile
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - s3
+      - package
 
-  # - name: test-aws-centos7-ansible-role-java-8-otn-rpm
-  #   image: ami-9887c6e7
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #     - rhel_family
-  #     - package
-
-  - name: test-aws-centos7-ansible-role-java-11-s3
+  - name: test-aws-centos7-ansible-role-java-8-s3
     image: ami-9887c6e7
     instance_type: m5.large
     profile_name: epmldi-instance-profile
@@ -58,7 +45,7 @@ platforms:
       - s3
       - tarball
 
-  - name: test-aws-ubuntu18-ansible-role-java-11-s3
+  - name: test-aws-ubuntu18-ansible-role-java-8-s3
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     profile_name: epmldi-instance-profile
@@ -75,21 +62,21 @@ platforms:
       - s3
       - tarball
 
-  # - name: test-aws-ubuntu18-ansible-role-java-8-local
-  #   image: ami-012fd5eb46f56731f
-  #   instance_type: m5.large
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: ubuntu
-  #   groups:
-  #     - debian_family
-  #     - local
-  #     - tarball
+  - name: test-aws-ubuntu18-ansible-role-java-8-local
+    image: ami-012fd5eb46f56731f
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - local
+      - tarball
 
 provisioner:
   name: ansible
@@ -102,7 +89,6 @@ provisioner:
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
-        transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
