@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-java-11-otn
+  - name: test-aws-centos7-ansible-role-java-11-s3
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
@@ -26,7 +26,7 @@ platforms:
       - s3
       - tarball
 
-  - name: test-aws-centos6-ansible-role-java-11-otn-rpm
+  - name: test-aws-centos6-ansible-role-java-11-s3-rpm
     image: ami-1585c46a
     instance_type: m4.large
     region: us-east-1
@@ -42,7 +42,7 @@ platforms:
      - s3
      - package
 
-  - name: test-aws-ubuntu18-ansible-role-java-11-otn-deb
+  - name: test-aws-ubuntu18-ansible-role-java-11-s3-deb
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -90,11 +90,23 @@ provisioner:
       tarball:
         java_tarball_install: True
         transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.tar.gz
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       package:
         java_tarball_install: False
       debian_family:
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
         transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.deb
       rhel_family:
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
         transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
