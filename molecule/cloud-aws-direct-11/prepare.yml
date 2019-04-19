@@ -61,7 +61,7 @@
       become: True
 
 - name: Prepare host to S3 transport
-  hosts: localhost
+  hosts: s3
   gather_facts: True
   vars:
     transport_s3_bucket: java-molecule-s3-test
