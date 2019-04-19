@@ -35,12 +35,14 @@
       become: True
 
 - name: Prepare host to S3 transport
-  hosts: all
+  hosts: s3
   gather_facts: True
   tasks:
     - name: 'Install pip package'
       package:
-        name: python-pip
+        name:
+          - python-pip
+          - setuptools
         state: present
       register: status
       until: status is succeeded
@@ -49,11 +51,11 @@
     - name: 'Install boto module'
       pip:
         name:
+          - 'setuptools'
           - 'pip'
           - 'botocore'
           - 'boto'
           - 'boto3'
-          - 'moto'
         state: present
         extra_args: --upgrade
       register: status

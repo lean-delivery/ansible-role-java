@@ -26,7 +26,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS java-6:
+.AWS java-6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -35,7 +35,7 @@ AWS java-6:
   tags:
     - aws
 
-AWS java-7:
+.AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -44,7 +44,7 @@ AWS java-7:
   tags:
     - aws
 
-AWS java-8:
+.AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
