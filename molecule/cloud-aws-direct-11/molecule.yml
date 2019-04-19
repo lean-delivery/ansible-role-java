@@ -98,7 +98,7 @@ provisioner:
         transport_s3_path: /java/11/jdk-11.0.3_linux-x64_bin.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../cloud-aws-direct-11/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
