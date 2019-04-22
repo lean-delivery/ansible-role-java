@@ -70,10 +70,10 @@ provisioner:
         transport: local
         transport_local: /tmp/jdk-11.0.3_windows-x64_bin.exe
         java_minor_version: 0.3
-      # chocolatey:
-      #   transport: chocolatey
-      #   java_major_version: 11
-      #   java_minor_version: 0.2
+      chocolatey:
+        transport: chocolatey
+        java_major_version: 11
+        java_minor_version: 0.2
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
