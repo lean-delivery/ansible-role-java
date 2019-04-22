@@ -54,7 +54,6 @@ java_tarball_install: False
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
 transport: repositories
 # available are:
-# - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
 # - "chocolatey" Windows specific package manager

@@ -74,8 +74,12 @@ Requirements
   - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
 
     Available:
+<<<<<<< HEAD
       - `repositories` Intalling OpenJDK java from system repositories. Is default value for `transport` variable
       - `web` Fetching artifact from custom web url.
+=======
+      - `web` Fetching artifact from custom web url. Is default value for `transport` variable
+>>>>>>> origin/develop
       - `chocolatey` Windows specific package manager
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket   
