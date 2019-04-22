@@ -9,7 +9,7 @@
     - name: Download artifact from s3
       aws_s3:
         bucket: '{{ transport_s3_bucket }}'
-        object: '{{ transport_s3_path }}'
+        object: '{{ item }}'
         dest: '{{ download_path }}/{{ item | basename }}'
         mode: get
         overwrite: different
