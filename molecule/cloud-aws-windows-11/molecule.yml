@@ -61,15 +61,19 @@ provisioner:
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
       zip:
-        transport: oracle-fallback
         java_tarball_install: True
+        transport: local
+        transport_local: /tmp/jdk-11.0.3_windows-x64_bin.zip
+        java_minor_version: 0.3
       exe:
-        transport: oracle-fallback
         java_tarball_install: False
-      chocolatey:
-        transport: chocolatey
-        java_major_version: 11
-        java_minor_version: 0.2
+        transport: local
+        transport_local: /tmp/jdk-11.0.3_windows-x64_bin.exe
+        java_minor_version: 0.3
+      # chocolatey:
+      #   transport: chocolatey
+      #   java_major_version: 11
+      #   java_minor_version: 0.2
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml

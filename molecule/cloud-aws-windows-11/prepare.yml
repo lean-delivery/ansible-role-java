@@ -1,0 +1,20 @@
+---
+- name: Prepare host to S3 transport
+  hosts: localhost
+  gather_facts: True
+  vars:
+    transport_s3_bucket: java-molecule-s3-test
+    download_path: /tmp
+  tasks:
+    - name: Download artifact from s3
+      aws_s3:
+        bucket: '{{ transport_s3_bucket }}'
+        object: '{{ transport_s3_path }}'
+        dest: '{{ download_path }}/{{ item | basename }}'
+        mode: get
+        overwrite: different
+      retries: 5
+      delay: 2
+      loop:
+        - java/11/jdk-11.0.3_windows-x64_bin.exe
+        - java/11/jdk-11.0.3_windows-x64_bin.zip
