@@ -26,13 +26,6 @@ Ansible lint:
   tags:
     - aws
 
-Docker java-8:
-  stage: deployment test
-  script:
-  - molecule test -s default
-  tags:
-  - aws
-
 AWS java-6:
   variables:
     AWS_REGION: us-east-1
@@ -105,7 +98,7 @@ AWS java-12 Windows:
   tags:
     - aws
 
-EPC java-8:
+.EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
