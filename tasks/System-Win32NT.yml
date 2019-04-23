@@ -14,9 +14,6 @@
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: 'Windows/{{ java_binary_type }}.yml'
 
-#- debug:
-#    msg : 'java_path={{java_path}} java_folder={{java_folder}}'
-
 - name: Find java_folder
   win_find:
     paths: '{{ java_path }}'
@@ -27,7 +24,7 @@
   register: java_dir
 
 - debug:
-    msg: "java_folder={{ java_folder }} java_path={{ java_path }}"
+    msg: "java_folder={{ java_folder }}\njava_path={{ java_path }}"
 
 
 

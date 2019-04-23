@@ -41,29 +41,12 @@ openjdk_package_rhel: "{{ ('java-' + openjdk_package_rhel_versions|string + '-' 
 openjdk_package_deb: 'openjdk-{{ java_major_version }}-{{ java_package }}'
 openjdk_package: "{{ (ansible_os_family == 'Debian') | ternary(openjdk_package_deb, openjdk_package_rhel) }}"
 
-win_openjdk_package_suffix: >-
-    {{ (java_major_version)
-        if (java_major_version == 11 and java_package == 'jdk')
-        else ('')
-            if (java_major_version == 12 and java_package == 'jdk')
-            else (java_major_version)
-                if (java_major_version == 8 and java_package == 'jre')
-    }}
-
 win_openjdk_package: >-
-  {{ ('openjdk'+win_openjdk_package_suffix|string)
+  {{ ('openjdk')
         if (java_package == 'jdk') 
-        else ('jre'+win_openjdk_package_suffix|string)
+        else ('jre')
             if (java_package == 'jre')
   }}
-
-win_java_path: >-
-  {{ ('C:\Program Files\OpenJDK')
-        if (java_package == 'jdk' and ansible_os_family == 'Windows')
-        else ('C:\Program Files\Java')
-            if (java_package == 'jre' and ansible_os_family == 'Windows')
-  }}
-
 
 # java_folder for oracle java packages and openjdk tarball
 java_folder_ext_transport: >-

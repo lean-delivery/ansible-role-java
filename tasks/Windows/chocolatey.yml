@@ -12,21 +12,12 @@
     state: disabled
 
 - debug:
-    msg: 'java_package={{java_package}} java_major_version={{java_major_version}} win_openjdk_package={{win_openjdk_package}} win_openjdk_package_suffix={{win_openjdk_package_suffix}}'
+    msg: 'java_package={{java_package}} java_major_version={{java_major_version}} win_openjdk_package={{win_openjdk_package}}'
 
-#- name: 'Install {{ java_package }} from chocolatey'
-#  win_chocolatey:
-#    name: '{{ java_package }}{{ java_major_version }}'
-#    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
-#  register: choco_install
-#  retries: 15
-#  delay: 5
-#  until: choco_install is succeeded
-
-- name: 'Install {{ win_openjdk_package }} from chocolatey'
+- name: 'Install {{ java_package }} from chocolatey'
   win_chocolatey:
-    name: '{{ win_openjdk_package }}'
-    package_params: "\\'installdir={{ win_java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
+    name: '{{ java_package }}{{ java_major_version }}'
+    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
   register: choco_install
   retries: 15
   delay: 5
