@@ -86,7 +86,6 @@ provisioner:
         java_tarball_install: False
       repositories:
         transport: repositories
-        java_tarball_install: False
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml

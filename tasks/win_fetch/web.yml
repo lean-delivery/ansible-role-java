@@ -13,13 +13,13 @@
 
 - name: Set downloaded artifact vars
   set_fact:
-    oracle_artifact: '{{ file_downloaded.dest }}'
-    oracle_artifact_basename: '{{ file_downloaded.dest | win_basename }}'
+    java_artifact: '{{ file_downloaded.dest }}'
+    java_artifact_basename: '{{ file_downloaded.dest | win_basename }}'
 
 - name: Split artifact name
   set_fact:
     parts: >-
-      {{ oracle_artifact_basename |
+      {{ java_artifact_basename |
       regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
       first | list }}
 

@@ -20,7 +20,6 @@ install:
 
 script:
   - ansible-lint . -c .ansible-lint
-  - molecule test -s default
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

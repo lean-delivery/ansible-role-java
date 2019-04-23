@@ -9,7 +9,7 @@
 
 - name: 'Install java {{ java_full_version }}'
   unarchive:
-    src: '{{ oracle_artifact }}'
+    src: '{{ java_artifact }}'
     dest: '{{ java_path }}/{{ java_folder }}'
     remote_src: True
     owner: root
