@@ -14,20 +14,20 @@
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: 'Windows/{{ java_binary_type }}.yml'
 
-#- debug:
-#    msg : 'java_path={{java_path}} java_folder={{java_folder}}'
+- debug:
+    msg : 'java_path={{win_java_path}} java_folder={{win_java_folder}}'
 
 - name: Find java_folder
   win_find:
     paths: '{{ win_java_path }}'
     recurse: False
     file_type: directory
-    patterns: '{{ java_folder }}'
+    patterns: '{{ win_java_folder }}'
     use_regex: True
   register: java_dir
 
 - debug:
-    msg: "java_folder={{ java_folder }} java_path={{ java_path }}"
+    msg: "java_folder={{ win_java_folder }} java_path={{ win_java_path }}"
 
 
 
