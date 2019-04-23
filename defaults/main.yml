@@ -36,7 +36,7 @@ java_package: jdk
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 8
-java_minor_version: ''
+java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
 # This features supported only for oracle java and rhel packages install
