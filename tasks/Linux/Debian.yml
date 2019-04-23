@@ -1,7 +1,7 @@
 ---
 - name: Install java packages
   apt:
-    deb: '{{ oracle_artifact | default(omit) }}'
+    deb: '{{ java_artifact | default(omit) }}'
     name: '{{ openjdk_package | default(omit) }}'
     state: present
     update_cache: True

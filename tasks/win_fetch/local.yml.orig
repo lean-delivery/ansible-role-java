@@ -2,13 +2,18 @@
 - name: Artifact stored localy
   set_fact:
     java_artifact: '{{ transport_local }}'
-    java_artifact_basename: '{{ transport_local | basename }}'
+    java_artifact_basename: '{{ transport_local | win_basename }}'
 
 - name: Split artifact name
   set_fact:
     parts: >-
+<<<<<<< HEAD
+      {{ oracle_artifact_basename |
+      regex_findall('^.*(j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
+=======
       {{ java_artifact_basename |
       regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
+>>>>>>> remotes/origin/add_openjdk
       first | list }}
 
 - name: Set variables based on split
@@ -20,9 +25,9 @@
     java_arch: '{{ parts[4] }}'
 
 - name: Copy artifact to destination
-  copy:
-    src: '{{ java_artifact }}'
-    dest: '{{ download_path }}'
+  win_copy:
+    src: '{{ transport_local }}'
+    dest: '{{ download_path }}\'
   register: file_downloaded
   retries: 5
   delay: 2
@@ -30,4 +35,4 @@
 
 - name: Downloaded artifact
   set_fact:
-    java_artifact: '{{ file_downloaded.dest }}'
+    java_artifact: '{{ download_path }}\{{ transport_local | win_basename }}'
