@@ -19,7 +19,7 @@
 
 - name: Find java_folder
   win_find:
-    paths: '{{ java_path }}'
+    paths: '{{ win_java_path }}'
     recurse: False
     file_type: directory
     patterns: '{{ java_folder }}'
