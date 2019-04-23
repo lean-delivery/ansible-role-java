@@ -37,6 +37,14 @@ win_java_path: >-
             if (java_package == 'jre' and ansible_os_family == 'Windows')
   }}
 
+win_java_folder: >-
+  {{('jdk-'+java_major_version|string)
+        if (java_package == 'jdk' and java_major_version == 12)
+        else ('jdk-'+java_major_version|string+'.'+ java_minor_version|string)
+            if (java_package == 'jdk' and java_major_version == 11)
+            else (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
+                if (java_package == 'jre' and java_major_version == 8)
+  }}
 
 # java_folder for oracle java packages and openjdk tarball
 java_folder_ext_transport: >-
