@@ -50,7 +50,7 @@ java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_defa
 download_path: '{{ download_default_path }}'
 
 # Custom artifact source transport
-java_tarball_install: False
+java_tarball_install: True
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
 transport: web
 # available are:
