@@ -158,6 +158,9 @@ Example Playbook
 
   roles:
     - role: lean_delivery.java
+      transport: repositories
+      java_tarball_install: False
+      java_major_version: 8
 ```
 ### Installing OpenJDK 11 from web:
 ```yaml
