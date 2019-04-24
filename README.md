@@ -74,8 +74,8 @@ Requirements
   - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
 
     Available:
-      - `repositories` Intalling OpenJDK java from system repositories. Is default value for `transport` variable
-      - `web` Fetching artifact from custom web url.
+      - `repositories` Intalling OpenJDK java from system repositories.
+      - `web` Fetching artifact from custom web url. Is default value for `transport` variable
       - `chocolatey` Windows specific package manager
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket   
@@ -109,7 +109,7 @@ Requirements
     Windows default: `TEMP environment variable`
 
   - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-
+  - `transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"` (OpenJDK 11 for example)
   - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
 
   - `transport_s3_bucket` - s3 bucket name
