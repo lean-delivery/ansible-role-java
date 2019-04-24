@@ -71,7 +71,7 @@ Requirements
       - `jre`
       - `server-jre` (not supported for OpenJDK)
 
-  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
+  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Intalling OpenJDK java from system repositories.

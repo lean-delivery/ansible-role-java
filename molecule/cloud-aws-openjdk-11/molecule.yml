@@ -93,8 +93,6 @@ provisioner:
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-openjdk-11
 verifier:
