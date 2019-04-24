@@ -85,7 +85,7 @@ Requirements
           - 'boto3'
         These packages are not included in given role. You should install them preliminary.
 
-  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `False`.
+  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `True`.
   - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 11.
   - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
   - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )

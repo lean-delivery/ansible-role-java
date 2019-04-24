@@ -60,7 +60,7 @@ transport: web
 # - "local" Local artifact
 # - "repositories" Install openjdk from repositories for Debian and RHEL
 
-transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+transport_web: '{{ transport_web_default }}'
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
 
 transport_s3_bucket: s3_bucket
