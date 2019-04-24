@@ -8,10 +8,6 @@
   delay: 2
   until: "'OK' in file_downloaded.msg"
 
-- name: debugging
-  debug:
-    var: file_downloaded
-
 - name: Set downloaded artifact vars
   set_fact:
     java_artifact: '{{ file_downloaded.dest }}'

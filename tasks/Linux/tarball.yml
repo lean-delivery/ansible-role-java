@@ -7,6 +7,18 @@
     group: root
     mode: 0755
 
+- name: debugging java_artifact
+  debug:
+    var: java_artifact
+
+- name: debugging java_path
+  debug:
+    var: java_path
+
+- name: debugging java_folder
+  debug:
+    var: java_folder
+
 - name: 'Install java {{ java_full_version }}'
   unarchive:
     src: '{{ java_artifact }}'
