@@ -14,37 +14,37 @@ security_patch_folders:
   7: UnlimitedJCEPolicy
   8: UnlimitedJCEPolicyJDK8
 
-win_openjdk_package_suffix: >-
-    {{ (java_major_version)
-        if (java_major_version == 11 and java_package == 'jdk')
-        else ('')
-            if (java_major_version == 12 and java_package == 'jdk')
-            else (java_major_version)
-                if (java_major_version == 8 and java_package == 'jre')
-    }}
+#win_openjdk_package_suffix: >-
+#    {{ (java_major_version)
+#        if (java_major_version == 11 and java_package == 'jdk')
+#        else ('')
+#            if (java_major_version == 12 and java_package == 'jdk')
+#            else (java_major_version)
+#                if (java_major_version == 8 and java_package == 'jre')
+#    }}
 
-win_openjdk_package: >-
-  {{ ('openjdk'+win_openjdk_package_suffix|string)
-        if (java_package == 'jdk') 
-        else ('jre'+win_openjdk_package_suffix|string)
-            if (java_package == 'jre')
-  }}
+#win_openjdk_package: >-
+#  {{ ('openjdk'+win_openjdk_package_suffix|string)
+#        if (java_package == 'jdk') 
+#        else ('jre'+win_openjdk_package_suffix|string)
+#            if (java_package == 'jre')
+#  }}
 
-win_java_path: >-
-  {{ ('C:\Program Files\OpenJDK')
-        if (java_package == 'jdk' and ansible_os_family == 'Windows')
-        else ('C:\Program Files\Java')
-            if (java_package == 'jre' and ansible_os_family == 'Windows')
-  }}
+#win_java_path: >-
+#  {{ ('C:\Program Files\OpenJDK')
+#        if (java_package == 'jdk' and ansible_os_family == 'Windows')
+#        else ('C:\Program Files\Java')
+#            if (java_package == 'jre' and ansible_os_family == 'Windows')
+#  }}
 
-win_java_folder: >-
-  {{('jdk-'+java_major_version|string)
-        if (java_package == 'jdk' and java_major_version == 12)
-        else ('jdk-'+java_major_version|string+'.'+ java_minor_version|string)
-            if (java_package == 'jdk' and java_major_version == 11)
-            else (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
-                if (java_package == 'jre' and java_major_version == 8)
-  }}
+#win_java_folder: >-
+#  {{('jdk-'+java_major_version|string)
+#        if (java_package == 'jdk' and java_major_version == 12)
+#        else ('jdk-'+java_major_version|string+'.'+ java_minor_version|string)
+#            if (java_package == 'jdk' and java_major_version == 11)
+#            else (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
+#                if (java_package == 'jre' and java_major_version == 8)
+#  }}
 
 # java_folder for oracle java packages and openjdk tarball
 java_folder_ext_transport: >-
