@@ -1,16 +1,50 @@
 ---
-# select from jre/server-jre/jdk
+# For Debian like OS openjdk supported (if install from repositories):
+# dbg              Java runtime based on OpenJDK (debugging symbols)
+# doc              OpenJDK Development Kit (JDK) documentation
+# jdk              OpenJDK Development Kit (JDK)
+# jdk-headless     OpenJDK Development Kit (JDK) (headless)
+# jre              OpenJDK Java runtime, using Hotspot JIT
+# jre-headless     OpenJDK Java runtime, using Hotspot JIT (headless)
+# source           OpenJDK Development Kit (JDK) source files
+# demo             Java runtime based on OpenJDK (demos and examples)
+# jre-zero         Alternative JVM for OpenJDK, using Zero
+
+# For RHEL like OS openjdk supported (if install from repositories)
+# jdk               OpenJDK Development Environment 11
+# jre               OpenJDK Runtime Environment 11
+# debug             OpenJDK Runtime Environment 11 with full debug on
+# demo              OpenJDK Demos 11
+# demo-debug        OpenJDK Demos 11 with full debug on
+# devel-debug       OpenJDK Development Environment 11 with full debug on
+# headless          OpenJDK Headless Runtime Environment 11
+# headless-debug    OpenJDK Runtime Environment with full debug on
+# javadoc           OpenJDK 11 API documentation
+# javadoc-debug     OpenJDK 11 API documentation for packages with debug on
+# javadoc-zip       OpenJDK 11 API documentation compressed in single archive
+# javadoc-zip-debug OpenJDK 11 API documentation compressed in single archive for packages with debug on
+# jmods             JMods for OpenJDK 11
+# jmods-debug       JMods for OpenJDK 11 with full debug on
+# src               OpenJDK Source Bundle 11
+# src-debug         OpenJDK Source Bundle 11 for packages with debug on
+
+# OpenJDK tarball supported only jdk
+# Oracle java supported jre/server-jre/jdk
 java_package: jdk
 
-# 8 (jre/server-jre/jdk) / 11 (jdk)
-java_major_version: 8
+# OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
+# OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
+# Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
+java_major_version: 11
+java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
-# x64 (default), i586 supported
+# This features supported only for oracle java and rhel packages install
+# x64 (default), i586
 java_arch: 'x64'
 
 # java installation path
-java_path: '{{ java_default_path }}'
+java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_default_path) }}"
 
 # local download path
 download_path: '{{ download_default_path }}'
@@ -24,9 +58,10 @@ transport: web
 # - "s3" Fetching artifact from s3 bucket
 # - "chocolatey" Windows specific package manager
 # - "local" Local artifact
+# - "repositories" Install openjdk from repositories for Debian and RHEL
 
-transport_web: "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
+transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
 
 transport_s3_bucket: s3_bucket
 transport_s3_path: /folder/jdk-8u172-linux-x64.tar.gz

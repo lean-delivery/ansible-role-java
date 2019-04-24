@@ -1,0 +1,4 @@
+---
+- name: Install openjdk from repositories
+  debug:
+    msg: 'Install openjdk from repositories'

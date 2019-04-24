@@ -3,7 +3,7 @@
   block:
     - name: Unzip patch file
       unarchive:
-        src: '{{ security_policy_oracle_artifact }}'
+        src: '{{ security_policy_java_artifact }}'
         dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security'
         remote_src: True
         owner: root

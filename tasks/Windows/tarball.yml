@@ -6,6 +6,6 @@
 
 - name: Unzip java archive
   win_unzip:
-    src: '{{ oracle_artifact }}'
+    src: '{{ java_artifact }}'
     dest: '{{ java_path }}'
     creates: '{{ java_path }}\{{ java_folder }}'
