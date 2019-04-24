@@ -11,43 +11,10 @@
     name: useEnhancedExitCodes
     state: disabled
 
-- debug:
-    msg: 'java_package={{java_package}} java_major_version={{java_major_version}}'
-
-- debug:
-    msg: 'win_openjdk_package={{win_openjdk_package}} win_openjdk_package_suffix={{win_openjdk_package_suffix}}'
-
-#- name: 'Install {{ java_package }} from chocolatey'
-#  win_chocolatey:
-#    name: '{{ java_package }}{{ java_major_version }}'
-#    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
-#  register: choco_install
-#  retries: 15
-#  delay: 5
-#  until: choco_install is succeeded
-
-
-# Workaround for new chocolatey output.
-# See https://github.com/ansible/ansible/issues/53860#issuecomment-473431360 for more details
-- name: disable enhanced exit codes
-  win_chocolatey_feature:
-    name: useEnhancedExitCodes
-    state: disabled
-
-- name: 'Install {{ java_package }} from chocolatey'
+- name: 'Install {{ choco_java_package }} from chocolatey'
   win_chocolatey:
-    name: '{{ java_package }}{{ java_major_version }}'
-    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
+    name: '{{ choco_java_package }}'
   register: choco_install
   retries: 15
   delay: 5
   until: choco_install is succeeded
-
-#- name: 'Install {{ win_openjdk_package }} from chocolatey'
-#  win_chocolatey:
-#    name: '{{ win_openjdk_package }}'
-#    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
-#  register: choco_install
-#  retries: 15
-#  delay: 5
-#  until: choco_install is succeeded

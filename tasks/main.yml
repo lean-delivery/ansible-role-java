@@ -1,4 +1,5 @@
 ---
+
 - name: Load a variable file based on distribution or OS family
   include_vars: '{{ distribution }}'
   with_first_found:

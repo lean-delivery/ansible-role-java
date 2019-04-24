@@ -15,21 +15,16 @@
   include_tasks: 'Windows/{{ java_binary_type }}.yml'
 
 - debug:
-    msg : 'java_path={{win_java_path}} java_folder={{win_java_folder}}'
+    msg: '{{java_path}}\{{java_folder}}'
 
 - name: Find java_folder
   win_find:
-    paths: '{{ win_java_path }}'
+    paths: '{{ java_path }}'
     recurse: False
     file_type: directory
-    patterns: '{{ win_java_folder }}'
+    patterns: '{{ java_folder }}'
     use_regex: True
   register: java_dir
-
-- debug:
-    msg: "java_folder={{ win_java_folder }} java_path={{ win_java_path }}"
-
-
 
 - name: Set actual java directory
   set_fact:

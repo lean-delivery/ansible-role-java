@@ -8,7 +8,7 @@ java_product_id_ver:
   12: '{0D60E96D-0B74-55A5-ACA5-0F6786FDF256}'
 
 
-win_openjdk_package_suffix: >-
+java_package_suffix: >-
     {{ (java_major_version)
         if (java_major_version == 11 and java_package == 'jdk')
         else ('')
@@ -17,23 +17,23 @@ win_openjdk_package_suffix: >-
                 if (java_major_version == 8 and java_package == 'jre')
     }}
 
-win_openjdk_package: >-
-  {{ ('openjdk'+win_openjdk_package_suffix|string)
+choco_java_package: >-
+  {{ ('openjdk'+java_package_suffix|string)
         if (java_package == 'jdk')
-        else ('jre'+win_openjdk_package_suffix|string)
+        else ('jre'+java_package_suffix|string)
             if (java_package == 'jre')
   }}
 
 
-win_java_path: >-
+java_path: >-
   {{ ('C:\Program Files\OpenJDK')
-        if (java_package == 'jdk' and ansible_os_family == 'Windows')
+        if (java_package == 'jdk')
         else ('C:\Program Files\Java')
-            if (java_package == 'jre' and ansible_os_family == 'Windows')
+            if (java_package == 'jre')
   }}
 
 
-win_java_folder: >-
+java_folder: >-
   {{('jdk-'+java_major_version|string)
         if (java_package == 'jdk' and java_major_version == 12)
         else ('jdk-'+java_major_version|string+'.'+ java_minor_version|string)
