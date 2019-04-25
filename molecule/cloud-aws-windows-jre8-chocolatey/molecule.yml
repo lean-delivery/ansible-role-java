@@ -87,7 +87,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-windows-8-chocolatey
+  name: cloud-aws-windows-jre8-chocolatey
 verifier:
   name: testinfra
   lint:
