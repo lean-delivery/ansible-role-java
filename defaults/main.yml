@@ -35,7 +35,7 @@ java_package: jdk
 # OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
-java_major_version: 8
+java_major_version: 11
 java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
@@ -60,7 +60,7 @@ transport: repositories
 # - "local" Local artifact
 # - "repositories" Install openjdk from repositories for Debian and RHEL
 
-transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+transport_web: '{{ transport_web_default }}'
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
 
 transport_s3_bucket: s3_bucket

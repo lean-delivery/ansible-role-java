@@ -71,11 +71,11 @@ Requirements
       - `jre`
       - `server-jre` (not supported for OpenJDK)
 
-  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result. OTN is not enough stable.
+  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result.
 
     Available:
-      - `repositories` Intalling OpenJDK java from system repositories. Is default value for `transport` variable
-      - `web` Fetching artifact from custom web url.
+      - `repositories` Intalling OpenJDK java from system repositories.
+      - `web` Fetching artifact from custom web url. Is default value for `transport` variable
       - `chocolatey` Windows specific package manager
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket   
@@ -85,8 +85,13 @@ Requirements
           - 'boto3'
         These packages are not included in given role. You should install them preliminary.
 
+<<<<<<< HEAD
   - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `False`.
   - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 8.
+=======
+  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `True`.
+  - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 11.
+>>>>>>> develop
   - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
   - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )
 
@@ -109,7 +114,7 @@ Requirements
     Windows default: `TEMP environment variable`
 
   - `transport_web` URI for http/https artifact  e.g. "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-
+  - `transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"` (OpenJDK 11 for example)
   - `transport_local` Path for local artifact e.g. "/tmp/jdk-8u172-linux-x64.tar.gz"
 
   - `transport_s3_bucket` - s3 bucket name
@@ -158,6 +163,12 @@ Example Playbook
 
   roles:
     - role: lean_delivery.java
+<<<<<<< HEAD
+=======
+      transport: repositories
+      java_tarball_install: False
+      java_major_version: 8
+>>>>>>> develop
 ```
 ### Installing OpenJDK 11 from web:
 ```yaml

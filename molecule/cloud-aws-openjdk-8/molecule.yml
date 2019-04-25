@@ -38,8 +38,7 @@ platforms:
     ssh_user: centos
     groups:
      - rhel_family
-     - web
-     - tarball
+     - repositories
 
   - name: test-aws-ubuntu18-ansible-role-openjdk-11-repo
     image: ami-012fd5eb46f56731f
@@ -69,8 +68,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - web
-      - tarball
+      - repositories
 
 provisioner:
   name: ansible
@@ -79,7 +77,6 @@ provisioner:
     group_vars:
       web:
         transport: web
-        transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
       tarball:
         java_tarball_install: True
       package:
@@ -94,7 +91,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-openjdk-11
+  name: cloud-aws-openjdk-8
 verifier:
   name: testinfra
   options:

@@ -1,4 +1,5 @@
 ---
+transport_web: 'https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz'
 extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'deb') }}"
 java_default_path: /usr/lib/jvm
 download_default_path: /tmp
