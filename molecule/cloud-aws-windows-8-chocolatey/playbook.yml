@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    java_major_version: 8
+    java_package: jre
+    #java_tarball_install: False
+    transport: chocolatey
+    java_major_version: 8
+    java_minor_version: 201
+  roles:
+    - role: ansible-role-java
