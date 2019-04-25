@@ -4,7 +4,7 @@
   vars:
     java_package: jdk
     transport: chocolatey
-    java_major_version: 11
-    java_minor_version: 0.2
+    java_major_version: 12
+    java_minor_version: 0.0
   roles:
     - role: ansible-role-java

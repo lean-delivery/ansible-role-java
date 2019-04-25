@@ -80,6 +80,16 @@ AWS openjdk-11 Windows chocolatey:
   tags:
     - aws
 
+AWS openjdk-12 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-openjdk12-chocolatey
+  tags:
+    - aws
+
+
 .AWS java-11:
   variables:
     AWS_REGION: us-east-1
