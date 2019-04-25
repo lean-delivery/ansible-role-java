@@ -6,7 +6,7 @@ java_package: jdk
 # OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
-java_major_version: 11
+java_major_version: 12
 java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
@@ -23,7 +23,7 @@ download_path: '{{ download_default_path }}'
 # Custom artifact source transport
 java_tarball_install: True
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: web
+transport: openjdk-fallback
 # available are:
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
