@@ -1,6 +1,7 @@
 ---
 # vars file for java
 os: "{{ ansible_facts.system | lower | regex_replace('win32nt', 'windows') }}"
+openjdk_root_page: 'https://jdk.java.net'
 
 # Urls for java security policy
 fallback_oracle_security_policy_artifacts:
