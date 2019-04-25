@@ -1,5 +1,5 @@
 ---
-transport_web: 'https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz'
+transport_web_default: 'https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz'
 extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'rpm') }}"
 java_default_path: /usr/java
 download_default_path: /tmp
@@ -12,30 +12,34 @@ requirements:
   - unzip
 # Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
 # Define Centos arch specific for compatibility with oracle packages name
-openjdk_arch_rhel: >-
-  {{ ('x86_64') if (java_arch == 'x64')
-        else ('i686') if (java_arch == 'i586')}}
+openjdk_arch_rhel: '{{ (java_arch == "x64") | ternary("x86_64", "i686") }}'
 # java-11-openjdk.x86_64 is OpenJDK Runtime Environment
 # java-11-openjdk-devel.x86_64 : OpenJDK Development Environment 11
 # change variables for more compatibility jdk/jre
 openjdk_package_rhel_spec: >-
-  {{ ('openjdk-devel.' + openjdk_arch_rhel)
-        if (java_package == 'jdk')
-        else ('openjdk.' + openjdk_arch_rhel)
-          if (java_package == 'jre')
-          else
-            ('openjdk-' + java_package|string + '.' + openjdk_arch) }}
+  {{ (java_package == 'jdk') |
+  ternary(
+  'openjdk-devel.' + openjdk_arch_rhel,
+  'openjdk.' + openjdk_arch_rhel)
+  }}
 # change java_major_version (if it 8) for rhel specific 1.8.0
 openjdk_package_rhel_versions: >-
-  {{ ('1.' + java_major_version|string + '.0')
-        if (java_major_version|int <= 8)
-        else
-          (java_major_version|string) }}
+  {{ (java_major_version|int <= 8) |
+  ternary(
+  '1.' + java_major_version|string + '.0',
+  java_major_version|string)
+  }}
 # complite package name for RHEL
 openjdk_package: >-
-  {{ 'java-' + openjdk_package_rhel_versions|string + '-' +
-  openjdk_package_rhel_spec|string }}
+  {{ 'java-'
+  + openjdk_package_rhel_versions|string
+  + '-'
+  + openjdk_package_rhel_spec|string
+  }}
 # java_folder for packages from repositories
 java_folder_repo_transport: >-
-  {{ 'java-' + openjdk_package_rhel_versions + '-openjdk-.+' +
-  openjdk_arch_rhel|string }}
+  {{ 'java-'
+  + openjdk_package_rhel_versions
+  + '-openjdk-.+'
+  + openjdk_arch_rhel|string
+  }}

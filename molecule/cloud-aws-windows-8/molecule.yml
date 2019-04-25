@@ -86,8 +86,6 @@ provisioner:
       control_path: "/var/ans/%%h"
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-windows-8
 verifier:
