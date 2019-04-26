@@ -15,19 +15,19 @@ java_product_id_ver:
   11: '{26A5A3EF-92DC-5243-ABF9-00B12A3DF649}'
   12: '{0D60E96D-0B74-55A5-ACA5-0F6786FDF256}'
 
-
 java_package_suffix: >-
-    {{ (java_major_version)
-        if (java_major_version == 11 and java_package == 'jdk')
-        else ('')
-            if (java_major_version == 12 and java_package == 'jdk')
-            else (java_major_version)
-                if (java_major_version == 8 and java_package == 'jre')
-    }}
+  {{ (java_major_version == 11 or java_major_version == 8) |
+  ternary(java_major_version, '')
+  }}
 
 choco_java_package: >-
   {{ ('openjdk'+java_package_suffix|string)
         if (java_package == 'jdk')
         else ('jre'+java_package_suffix|string)
             if (java_package == 'jre')
+  }}
+
+choco_java_package: >-
+  {{ (java_package == 'jdk') |
+  ternary('openjdk'+java_package_suffix|string, 'jre'+java_package_suffix|string)
   }}
