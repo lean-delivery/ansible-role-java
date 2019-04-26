@@ -9,7 +9,7 @@ before_script:
   - ansible --version
   - molecule --version
   - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
-  - pip install --upgrade ansible==2.8.0rc1
+  # - pip install --upgrade ansible==2.8.0rc1
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
@@ -63,7 +63,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS jre-8 Windows chocolatey:
+AWS jre-8 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -72,7 +72,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-11 Windows chocolatey:
+AWS openjdk-11 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -81,7 +81,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS openjdk-12 Windows chocolatey:
+.AWS openjdk-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
