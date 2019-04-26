@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-openjdk-8-repo
+  - name: test-aws-centos7-ansible-role-openjdk-12-of
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
@@ -23,9 +23,9 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - repositories
+      - openjdk_fallback
 
-  - name: test-aws-centos6-ansible-role-openjdk-8-repo
+  - name: test-aws-centos6-ansible-role-openjdk-12-of
     image: ami-1585c46a
     instance_type: m4.large
     region: us-east-1
@@ -38,9 +38,9 @@ platforms:
     ssh_user: centos
     groups:
      - rhel_family
-     - repositories
+     - openjdk_fallback
 
-  - name: test-aws-ubuntu18-ansible-role-openjdk-8-repo
+  - name: test-aws-ubuntu18-ansible-role-openjdk-12-of
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -53,9 +53,9 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - repositories
+      - openjdk_fallback
 
-  - name: test-aws-Debian9-ansible-role-openjdk-8-web-tb
+  - name: test-aws-Debian9-ansible-role-openjdk-12-of
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
@@ -68,7 +68,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - repositories
+      - openjdk_fallback
 
 provisioner:
   name: ansible
@@ -77,13 +77,13 @@ provisioner:
     group_vars:
       web:
         transport: web
+        transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
       tarball:
         java_tarball_install: True
       package:
         java_tarball_install: False
-      repositories:
-        transport: repositories
-        java_tarball_install: False
+      openjdk_fallback:
+        transport: openjdk-fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
@@ -91,7 +91,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-openjdk-8
+  name: cloud-aws-openjdk-12-of
 verifier:
   name: testinfra
   options:

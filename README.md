@@ -13,12 +13,12 @@ This Ansible role has the following features for:
 **OpenJDK**
 
 - Install JRE, JDK
-- Additional opportunity to install from repositories, s3, web, local source.
+- Additional opportunity to install from openjdk-fallback, repositories, s3, web, local source.
 
 **Oracle Java:**
 
  - Install JRE, JDK, Server-JRE
- - Additional opportunity to install from s3, web, oracle OTN, local source.
+ - Additional opportunity to install from s3, web, local source.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
@@ -40,11 +40,11 @@ Requirements
       - Ubuntu bionic: repositories, tarball
       - Debian stretch: tarball
    - 12
-      - EL 6: tarball
-      - EL 7: tarball
-      - Ubuntu bionic: tarball
-      - Debian stretch: tarball
- - **Supported java version**:
+      - EL 6: tarball, openjdk-fallback
+      - EL 7: tarball, openjdk-fallback
+      - Ubuntu bionic: tarball, openjdk-fallback
+      - Debian stretch: tarball, openjdk-fallback
+ - **Supported oracle java version**:
    - 7
    - 8
    - 11
@@ -71,7 +71,7 @@ Requirements
       - `jre`
       - `server-jre` (not supported for OpenJDK)
 
-  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Intalling OpenJDK java from system repositories.
@@ -152,6 +152,16 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
+### Installing OpenJDK 12 from openjdk-fallback:
+```yaml
+- name: Install openjdk java
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      transport: openjdk-fallback
+      java_major_version: 12
+```
 
 ### Installing OpenJDK 8 from repositories:
 ```yaml
@@ -161,7 +171,6 @@ Example Playbook
   roles:
     - role: lean_delivery.java
       transport: repositories
-      java_tarball_install: False
       java_major_version: 8
 ```
 ### Installing OpenJDK 11 from web:
