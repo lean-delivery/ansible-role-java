@@ -56,22 +56,6 @@ platforms:
       - debian_family
       - repositories
 
-  - name: test-aws-Debian9-ansible-role-openjdk-11-web-tb
-    image: ami-003f19e0e687de1cd
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - web
-      - tarball
-
 provisioner:
   name: ansible
   log: False
@@ -82,8 +66,6 @@ provisioner:
         transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
       tarball:
         java_tarball_install: True
-      package:
-        java_tarball_install: False
       repositories:
         transport: repositories
         java_tarball_install: False

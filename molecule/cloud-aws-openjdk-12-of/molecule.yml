@@ -10,11 +10,9 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-
-  - name: test-aws-centos7-ansible-role-java-8-s3-rpm
+  - name: test-aws-centos7-ansible-role-openjdk-12-of
     image: ami-9887c6e7
     instance_type: m5.large
-    profile_name: epmldi-instance-profile
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: False
@@ -25,13 +23,10 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - s3
-      - package
 
-  - name: test-aws-centos7-ansible-role-java-8-s3
-    image: ami-9887c6e7
-    instance_type: m5.large
-    profile_name: epmldi-instance-profile
+  - name: test-aws-centos6-ansible-role-openjdk-12-of
+    image: ami-1585c46a
+    instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: False
@@ -41,28 +36,9 @@ platforms:
     wait_timeout: 1800
     ssh_user: centos
     groups:
-      - rhel_family
-      - s3
-      - tarball
+     - rhel_family
 
-  - name: test-aws-ubuntu18-ansible-role-java-8-s3
-    image: ami-012fd5eb46f56731f
-    instance_type: m5.large
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - s3
-      - tarball
-
-  - name: test-aws-ubuntu18-ansible-role-java-8-local
+  - name: test-aws-ubuntu18-ansible-role-openjdk-12-of
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
@@ -75,38 +51,36 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - local
-      - tarball
+
+  - name: test-aws-Debian9-ansible-role-openjdk-12-of
+    image: ami-003f19e0e687de1cd
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
 
 provisioner:
   name: ansible
   log: False
   inventory:
     group_vars:
-      local:
-        transport: local
-        transport_local: /tmp/jdk-8u202-linux-x64.tar.gz
-      s3:
-        transport: s3
-        transport_s3_bucket: java-molecule-s3-test
-        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
-        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
-      tarball:
-        java_package: jdk
-        java_tarball_install: True
-        transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
-      package:
-        java_package: jdk
-        java_tarball_install: False
-        transport_s3_path: /java/jdk-8u202-linux-x64.rpm
+      openjdk_fallback:
+        transport: openjdk-fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../cloud-aws-direct-8/prepare.yml
+    prepare: ../resources/provisioning/AWS/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-direct-8
+  name: cloud-aws-openjdk-12-of
 verifier:
   name: testinfra
   options:

@@ -1,33 +1,4 @@
 ---
-# For Debian like OS openjdk supported (if install from repositories):
-# dbg              Java runtime based on OpenJDK (debugging symbols)
-# doc              OpenJDK Development Kit (JDK) documentation
-# jdk              OpenJDK Development Kit (JDK)
-# jdk-headless     OpenJDK Development Kit (JDK) (headless)
-# jre              OpenJDK Java runtime, using Hotspot JIT
-# jre-headless     OpenJDK Java runtime, using Hotspot JIT (headless)
-# source           OpenJDK Development Kit (JDK) source files
-# demo             Java runtime based on OpenJDK (demos and examples)
-# jre-zero         Alternative JVM for OpenJDK, using Zero
-
-# For RHEL like OS openjdk supported (if install from repositories)
-# jdk               OpenJDK Development Environment 11
-# jre               OpenJDK Runtime Environment 11
-# debug             OpenJDK Runtime Environment 11 with full debug on
-# demo              OpenJDK Demos 11
-# demo-debug        OpenJDK Demos 11 with full debug on
-# devel-debug       OpenJDK Development Environment 11 with full debug on
-# headless          OpenJDK Headless Runtime Environment 11
-# headless-debug    OpenJDK Runtime Environment with full debug on
-# javadoc           OpenJDK 11 API documentation
-# javadoc-debug     OpenJDK 11 API documentation for packages with debug on
-# javadoc-zip       OpenJDK 11 API documentation compressed in single archive
-# javadoc-zip-debug OpenJDK 11 API documentation compressed in single archive for packages with debug on
-# jmods             JMods for OpenJDK 11
-# jmods-debug       JMods for OpenJDK 11 with full debug on
-# src               OpenJDK Source Bundle 11
-# src-debug         OpenJDK Source Bundle 11 for packages with debug on
-
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
 java_package: jdk
@@ -35,7 +6,7 @@ java_package: jdk
 # OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
-java_major_version: 11
+java_major_version: 12
 java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
@@ -50,9 +21,9 @@ java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_defa
 download_path: '{{ download_default_path }}'
 
 # Custom artifact source transport
-java_tarball_install: True
+java_tarball_install: "{{ transport != 'repositories' }}"
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: web
+transport: openjdk-fallback
 # available are:
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket

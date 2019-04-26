@@ -11,10 +11,9 @@
     name: useEnhancedExitCodes
     state: disabled
 
-- name: 'Install {{ java_package }} from chocolatey'
+- name: 'Install {{ choco_java_package }} from chocolatey'
   win_chocolatey:
-    name: '{{ java_package }}{{ java_major_version }}'
-    package_params: "\\'installdir={{ java_path | regex_replace('\\\\', '\\\\\\\\') }}\\'"
+    name: '{{ choco_java_package }}'
   register: choco_install
   retries: 15
   delay: 5

@@ -13,12 +13,12 @@ This Ansible role has the following features for:
 **OpenJDK**
 
 - Install JRE, JDK
-- Additional opportunity to install from repositories, s3, web, local source.
+- Additional opportunity to install from openjdk-fallback, repositories, s3, web, chocolatey, local source.
 
 **Oracle Java:**
 
  - Install JRE, JDK, Server-JRE
- - Additional opportunity to install from s3, web, oracle OTN, local source.
+ - Additional opportunity to install from s3, web, local source.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
@@ -40,11 +40,11 @@ Requirements
       - Ubuntu bionic: repositories, tarball
       - Debian stretch: tarball
    - 12
-      - EL 6: tarball
-      - EL 7: tarball
-      - Ubuntu bionic: tarball
-      - Debian stretch: tarball
- - **Supported java version**:
+      - EL 6: tarball, openjdk-fallback
+      - EL 7: tarball, openjdk-fallback
+      - Ubuntu bionic: tarball, openjdk-fallback
+      - Debian stretch: tarball, openjdk-fallback
+ - **Supported oracle java version**:
    - 7
    - 8
    - 11
@@ -71,14 +71,16 @@ Requirements
       - `jre`
       - `server-jre` (not supported for OpenJDK)
 
-  - `transport` Artifact source transport. Use `repositories`(OpenJDK), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Intalling OpenJDK java from system repositories.
-      - `web` Fetching artifact from custom web url. Is default value for `transport` variable
-      - `chocolatey` Windows specific package manager
+      - `web` Fetching artifact from custom web url.
+      - `chocolatey` Windows specific package manager (Supported OpenJDK  JDK 11,12 or JRE 8)
       - `local` Local artifact stored on ansible master
-      - `s3` artifact in s3 bucket   
+      - `s3` artifact in s3 bucket
+      - `openjdk-fallback`  Fetching artifact from jdk.java.net. Is default value for `transport` variable
+
         **Notice** using `s3` transport requires specific packages to be installed on target host:
           - 'botocore'
           - 'boto'
@@ -86,7 +88,7 @@ Requirements
         These packages are not included in given role. You should install them preliminary.
 
   - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `True`.
-  - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 11.
+  - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 12.
   - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
   - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )
 
@@ -150,6 +152,14 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
+### Installing OpenJDK 12 from openjdk-fallback:
+```yaml
+- name: Install openjdk java
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+```
 
 ### Installing OpenJDK 8 from repositories:
 ```yaml
@@ -159,9 +169,9 @@ Example Playbook
   roles:
     - role: lean_delivery.java
       transport: repositories
-      java_tarball_install: False
       java_major_version: 8
 ```
+
 ### Installing OpenJDK 11 from web:
 ```yaml
 - name: Install openjdk java

@@ -10,20 +10,8 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows-ansible-role-java-12-zip
-    aws_image_id: ami-00a20f508263efd30
-    aws_region: us-east-1
-    instance_type: m5.large
-    assign_public_ip: False
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    groups:
-      - windows
-      - zip
 
-  - name: test-aws-windows-ansible-role-java-12-exe
+  - name: test-aws-windows-ansible-role-java-11-choco
     aws_image_id: ami-00a20f508263efd30
     aws_region: us-east-1
     instance_type: m5.large
@@ -34,7 +22,6 @@ platforms:
     vpc_subnet_id: subnet-05a2ef2b767afec50
     groups:
       - windows
-      - exe
 
 provisioner:
   name: ansible
@@ -47,16 +34,6 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
-      zip:
-        java_tarball_install: True
-        transport: local
-        transport_local: /tmp/jdk-12.0.1_windows-x64_bin.zip
-        java_minor_version: 0.1
-      exe:
-        java_tarball_install: False
-        transport: local
-        transport_local: /tmp/jdk-12.0.1_windows-x64_bin.exe
-        java_minor_version: 0.1
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
@@ -66,7 +43,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-windows-12
+  name: cloud-aws-windows-openjdk11-chocolatey
 verifier:
   name: testinfra
   lint:

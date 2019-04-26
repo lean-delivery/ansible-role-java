@@ -2,8 +2,24 @@
 transport_web_default: 'https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip'
 extension: "{{ (java_binary_type == 'tarball') | ternary('zip', 'exe') }}"
 download_default_path: '{{ ansible_env.TEMP }}'
-java_default_path: C:\Program Files\Java
+choco_install_path: >-
+  {{ (java_package == 'jre')
+      | ternary('C:\Program Files\Java',
+                'C:\Program Files\OpenJDK') }}
+java_default_path: >-
+  {{ (transport == 'chocolatey')
+      | ternary(choco_install_path,
+                'C:\Program Files\Java') }}
 java_product_id_ver:
   8: '{4A03706F-666A-4037-7777-5F2748764D10}'
   11: '{26A5A3EF-92DC-5243-ABF9-00B12A3DF649}'
   12: '{0D60E96D-0B74-55A5-ACA5-0F6786FDF256}'
+
+java_package_suffix: >-
+  {{ (java_major_version == 11 or java_major_version == 8)
+      | ternary(java_major_version, '') }}
+
+choco_java_package: >-
+  {{ (java_package == 'jdk')
+      | ternary('openjdk'+ java_package_suffix|string,
+                    'jre'+ java_package_suffix|string) }}
