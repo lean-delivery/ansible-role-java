@@ -173,6 +173,7 @@ Example Playbook
       transport: repositories
       java_major_version: 8
 ```
+
 ### Installing OpenJDK 11 from web:
 ```yaml
 - name: Install openjdk java
