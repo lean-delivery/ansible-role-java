@@ -55,7 +55,7 @@ platforms:
       - debian_family
       - repositories
 
-  - name: test-aws-Debian9-ansible-role-openjdk-8-web-tb
+  - name: test-aws-Debian9-ansible-role-openjdk-8-repo
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
@@ -75,12 +75,6 @@ provisioner:
   log: False
   inventory:
     group_vars:
-      web:
-        transport: web
-      tarball:
-        java_tarball_install: True
-      package:
-        java_tarball_install: False
       repositories:
         transport: repositories
         java_tarball_install: False

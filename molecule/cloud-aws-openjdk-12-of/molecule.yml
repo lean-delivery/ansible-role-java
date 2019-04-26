@@ -23,7 +23,6 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - openjdk_fallback
 
   - name: test-aws-centos6-ansible-role-openjdk-12-of
     image: ami-1585c46a
@@ -38,7 +37,6 @@ platforms:
     ssh_user: centos
     groups:
      - rhel_family
-     - openjdk_fallback
 
   - name: test-aws-ubuntu18-ansible-role-openjdk-12-of
     image: ami-012fd5eb46f56731f
@@ -53,7 +51,6 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - openjdk_fallback
 
   - name: test-aws-Debian9-ansible-role-openjdk-12-of
     image: ami-003f19e0e687de1cd
@@ -68,20 +65,12 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - openjdk_fallback
 
 provisioner:
   name: ansible
   log: False
   inventory:
     group_vars:
-      web:
-        transport: web
-        transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
-      tarball:
-        java_tarball_install: True
-      package:
-        java_tarball_install: False
       openjdk_fallback:
         transport: openjdk-fallback
   playbooks:

@@ -35,7 +35,7 @@ AWS java-6:
   tags:
     - aws
 
-AWS java-7:
+.AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -89,7 +89,16 @@ AWS java-11-openjdk:
   tags:
     - aws
 
-AWS java-11 Windows:
+AWS java-12-openjdk:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-12-of
+  tags:
+    - aws
+
+.AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -98,7 +107,7 @@ AWS java-11 Windows:
   tags:
     - aws
 
-AWS java-12:
+.AWS java-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
