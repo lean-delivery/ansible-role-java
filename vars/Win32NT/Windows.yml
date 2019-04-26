@@ -16,11 +16,10 @@ java_product_id_ver:
   12: '{0D60E96D-0B74-55A5-ACA5-0F6786FDF256}'
 
 java_package_suffix: >-
-  {{ (java_major_version == 11 or java_major_version == 8) |
-  ternary(java_major_version, '')
-  }}
+  {{ (java_major_version == 11 or java_major_version == 8)
+      | ternary(java_major_version, '') }}
 
 choco_java_package: >-
-  {{ (java_package == 'jdk') |
-  ternary('openjdk'+java_package_suffix|string, 'jre'+java_package_suffix|string)
-  }}
+  {{ (java_package == 'jdk')
+      | ternary('openjdk'+ java_package_suffix|string,
+                    'jre'+ java_package_suffix|string) }}
