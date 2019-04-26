@@ -77,19 +77,3 @@
     java_minor_version: '{{ parts[2] }}'
     java_os: '{{ parts[3] }}'
     java_arch: '{{ parts[4] }}'
-
-- name: debug java_artifact
-  debug:
-    var: java_artifact
-
-- name: debug java_package
-  debug:
-    var: java_package
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug java_minor_version
-  debug:
-    var: java_minor_version

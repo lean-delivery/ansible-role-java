@@ -11,14 +11,6 @@
   set_fact:
     java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
 
-- name: debug java_path
-  debug:
-    var: java_path
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: 'Windows/{{ java_binary_type }}.yml'
 
@@ -30,10 +22,6 @@
     patterns: '{{ java_folder }}'
     use_regex: True
   register: java_dir
-
-- name: debug java_dir
-  debug:
-    var: java_dir
 
 - name: Set actual java directory
   set_fact:
