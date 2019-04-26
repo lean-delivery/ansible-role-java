@@ -9,7 +9,7 @@ before_script:
   - ansible --version
   - molecule --version
   - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
-  - pip install --upgrade ansible==2.8.*
+  - pip install --upgrade ansible==2.8.0rc1
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
