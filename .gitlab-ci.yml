@@ -89,7 +89,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS openjdk-12:
+.AWS openjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
