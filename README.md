@@ -13,7 +13,7 @@ This Ansible role has the following features for:
 **OpenJDK**
 
 - Install JRE, JDK
-- Additional opportunity to install from openjdk-fallback, repositories, s3, web, local source.
+- Additional opportunity to install from openjdk-fallback, repositories, s3, web, chocolatey, local source.
 
 **Oracle Java:**
 
@@ -76,7 +76,7 @@ Requirements
     Available:
       - `repositories` Intalling OpenJDK java from system repositories.
       - `web` Fetching artifact from custom web url.
-      - `chocolatey` Windows specific package manager
+      - `chocolatey` Windows specific package manager (Supported OpenJDK  JDK 11,12 or JRE 8)
       - `local` Local artifact stored on ansible master
       - `s3` artifact in s3 bucket
       - `openjdk-fallback`  Fetching artifact from jdk.java.net. Is default value for `transport` variable

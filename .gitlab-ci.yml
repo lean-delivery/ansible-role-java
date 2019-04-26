@@ -67,7 +67,7 @@ AWS jre-8 Windows chocolatey:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule --debug test -s cloud-aws-windows-jre8-chocolatey
+    - molecule test -s cloud-aws-windows-jre8-chocolatey
   tags:
     - aws
 
