@@ -26,12 +26,12 @@ choco_java_package: >-
   }}
 
 
-java_path: >-
-  {{ ('C:\Program Files\OpenJDK')
-        if (java_package == 'jdk')
-        else ('C:\Program Files\Java')
-            if (java_package == 'jre')
-  }}
+# java_path: >-
+#   {{ ('C:\Program Files\OpenJDK')
+#         if (java_package == 'jdk')
+#         else ('C:\Program Files\Java')
+#             if (java_package == 'jre')
+#   }}
 
 
 java_folder: >-
