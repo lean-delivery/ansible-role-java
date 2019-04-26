@@ -29,7 +29,7 @@
   when: release_url[1] is not defined
 
 - name: 'Get artifact checksum {{ release_url[1] }}'
-  uri:
+  win_uri:
     url: '{{ release_url[1] }}'
     return_content: True
   register: artifact_checksum

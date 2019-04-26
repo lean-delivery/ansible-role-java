@@ -22,7 +22,7 @@ platforms:
     groups:
       - windows
 
-  - name: test-aws-window2019-ansible-role-java-12-exe
+  - name: test-aws-window2019-ansible-role-openjdk-12
     aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
