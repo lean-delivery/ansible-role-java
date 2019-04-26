@@ -1,10 +1,9 @@
 ---
 - name: Converge
   hosts: all
-  vars:
-    java_package: jdk
-    transport: chocolatey
-    java_major_version: 12
-    java_minor_version: 0.0
   roles:
     - role: ansible-role-java
+      java_package: jdk
+      transport: chocolatey
+      java_major_version: 12
+      java_minor_version: 0.0
