@@ -39,7 +39,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: True
   connection_options:
     ansible_connection: winrm
   inventory:
