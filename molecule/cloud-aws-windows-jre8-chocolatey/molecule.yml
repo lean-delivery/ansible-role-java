@@ -54,7 +54,6 @@ provisioner:
         java_minor_version: 211
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
-    prepare: ../cloud-aws-windows-8/prepare.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
   config_options:
     ssh_connection:

@@ -159,8 +159,6 @@ Example Playbook
 
   roles:
     - role: lean_delivery.java
-      transport: openjdk-fallback
-      java_major_version: 12
 ```
 
 ### Installing OpenJDK 8 from repositories:
