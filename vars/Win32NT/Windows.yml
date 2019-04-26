@@ -21,13 +21,6 @@ java_package_suffix: >-
   }}
 
 choco_java_package: >-
-  {{ ('openjdk'+java_package_suffix|string)
-        if (java_package == 'jdk')
-        else ('jre'+java_package_suffix|string)
-            if (java_package == 'jre')
-  }}
-
-choco_java_package: >-
   {{ (java_package == 'jdk') |
   ternary('openjdk'+java_package_suffix|string, 'jre'+java_package_suffix|string)
   }}
