@@ -2,7 +2,14 @@
 transport_web_default: 'https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip'
 extension: "{{ (java_binary_type == 'tarball') | ternary('zip', 'exe') }}"
 download_default_path: '{{ ansible_env.TEMP }}'
-java_default_path: C:\Program Files\Java
+choco_install_path: >-
+  {{ (java_package == 'jre')
+      | ternary('C:\Program Files\Java',
+                'C:\Program Files\OpenJDK') }}
+java_default_path: >-
+  {{ (transport == 'chocolatey')
+      | ternary(choco_install_path,
+                'C:\Program Files\Java') }}
 java_product_id_ver:
   8: '{4A03706F-666A-4037-7777-5F2748764D10}'
   11: '{26A5A3EF-92DC-5243-ABF9-00B12A3DF649}'
@@ -24,21 +31,3 @@ choco_java_package: >-
         else ('jre'+java_package_suffix|string)
             if (java_package == 'jre')
   }}
-
-
-# java_path: >-
-#   {{ ('C:\Program Files\OpenJDK')
-#         if (java_package == 'jdk')
-#         else ('C:\Program Files\Java')
-#             if (java_package == 'jre')
-#   }}
-
-
-# java_folder: >-
-#   {{('jdk-'+java_major_version|string)
-#         if (java_package == 'jdk' and java_major_version == 12)
-#         else ('jdk-'+java_major_version|string+'.'+ java_minor_version|string)
-#             if (java_package == 'jdk' and java_major_version == 11)
-#             else (java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string)
-#                 if (java_package == 'jre' and java_major_version == 8)
-#   }}
