@@ -62,3 +62,18 @@
 - name: Downloaded artifact
   set_fact:
     java_artifact: '{{ artifact.stat.path }}'
+
+- name: Split artifact name
+  set_fact:
+    parts: >-
+      {{ java_artifact |
+      regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
+      first | list }}
+
+- name: Set variables based on split
+  set_fact:
+    java_package: '{{ parts[0] | regex_replace(download_default_path + "/(.*)", "\1") }}'
+    java_major_version: '{{ parts[1] }}'
+    java_minor_version: '{{ parts[2] }}'
+    java_os: '{{ parts[3] }}'
+    java_arch: '{{ parts[4] }}'
