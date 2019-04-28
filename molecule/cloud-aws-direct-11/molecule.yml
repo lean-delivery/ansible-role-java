@@ -25,24 +25,7 @@ platforms:
     groups:
       - rhel_family
       - s3
-      - tarball
-
-  # - name: test-aws-centos6-ansible-role-java-11-s3-rpm
-  #   image: ami-1585c46a
-  #   instance_type: m4.large
-  #   profile_name: epmldi-instance-profile
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   assign_public_ip: False
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #    - rhel_family
-  #    - s3
-  #    - package
+      - package
 
   - name: test-aws-ubuntu18-ansible-role-java-11-s3-deb
     image: ami-012fd5eb46f56731f
@@ -79,7 +62,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: True
+  log: False
   inventory:
     group_vars:
       web:

@@ -69,10 +69,6 @@ platforms:
 provisioner:
   name: ansible
   log: False
-  inventory:
-    group_vars:
-      openjdk_fallback:
-        transport: openjdk-fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml

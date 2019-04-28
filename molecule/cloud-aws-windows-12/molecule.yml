@@ -10,8 +10,8 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows-ansible-role-java-12-zip
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-aws-windows2016-ansible-role-java-12-zip
+    aws_image_id: ami-0a125a00b5b736e77
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -23,8 +23,8 @@ platforms:
       - windows
       - zip
 
-  - name: test-aws-windows-ansible-role-java-12-exe
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-aws-windows2019-ansible-role-java-12-exe
+    aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False

@@ -10,8 +10,8 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows-ansible-role-java-11-zip
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-aws-windows2016-ansible-role-java-11-zip
+    aws_image_id: ami-0a125a00b5b736e77
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -23,8 +23,8 @@ platforms:
       - windows
       - zip
 
-  - name: test-aws-windows-ansible-role-java-11-exe
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-aws-windows2019-ansible-role-java-11-exe
+    aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -35,19 +35,6 @@ platforms:
     groups:
       - windows
       - exe
-
-  # - name: test-aws-windows-ansible-role-java-11-choco
-  #   aws_image_id: ami-00a20f508263efd30
-  #   aws_region: us-east-1
-  #   instance_type: m5.large
-  #   assign_public_ip: False
-  #   spot_price: 0.14
-  #   aws_sec_group:
-  #     - default
-  #   vpc_subnet_id: subnet-05a2ef2b767afec50
-  #   groups:
-  #     - windows
-  #     - chocolatey
 
 provisioner:
   name: ansible
@@ -70,10 +57,6 @@ provisioner:
         transport: local
         transport_local: /tmp/jdk-11.0.3_windows-x64_bin.exe
         java_minor_version: 0.3
-      chocolatey:
-        transport: chocolatey
-        java_major_version: 11
-        java_minor_version: 0.2
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
