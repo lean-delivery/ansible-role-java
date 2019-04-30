@@ -1,19 +1,19 @@
 ---
 - name: Artifact stored localy
   set_fact:
-    oracle_artifact: '{{ transport_local }}'
-    oracle_artifact_basename: '{{ transport_local | basename }}'
+    java_artifact: '{{ transport_local }}'
+    java_artifact_basename: '{{ transport_local | basename }}'
 
 - name: Split artifact name
   set_fact:
     parts: >-
-      {{ oracle_artifact_basename |
-      regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)') |
-      first | list }}
+      {{ java_artifact_basename
+        | regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
+        | first | list }}
 
 - name: Set variables based on split
   set_fact:
-    java_package: '{{ parts[0] }}'
+    java_package: '{{ parts[0][-3:] }}'
     java_major_version: '{{ parts[1] }}'
     java_minor_version: '{{ parts[2] }}'
     java_os: '{{ parts[3] }}'
@@ -21,7 +21,7 @@
 
 - name: Copy artifact to destination
   copy:
-    src: '{{ oracle_artifact }}'
+    src: '{{ java_artifact }}'
     dest: '{{ download_path }}'
   register: file_downloaded
   retries: 5
@@ -30,4 +30,4 @@
 
 - name: Downloaded artifact
   set_fact:
-    oracle_artifact: '{{ file_downloaded.dest }}'
+    java_artifact: '{{ file_downloaded.dest }}'

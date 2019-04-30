@@ -1,0 +1,60 @@
+---
+- name: Prepare Ubuntu / Debian
+  hosts: debian_family
+  gather_facts: False
+  tasks:
+
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt install -y python-minimal)
+      become: True
+      changed_when: False
+      register: update_result
+      retries: 10
+      delay: 5
+      until: update_result.rc == 0
+
+- name: Prepare RHEL
+  hosts: rhel_family
+  gather_facts: False
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
+      become: True
+      changed_when: False
+
+    - name: gather facts
+      setup:
+
+    - name: 'Enable EPEL repository'
+      yum:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+          {{ ansible_distribution_major_version }}.noarch.rpm"
+        state: 'present'
+      register: status
+      until: status is succeeded
+      become: True
+
+- name: Prepare host to S3 transport
+  hosts: s3
+  gather_facts: True
+  tasks:
+    - name: 'Install pip package'
+      package:
+        name: python-pip
+        state: present
+      register: status
+      until: status is succeeded
+      become: True
+
+    - name: 'Install boto module'
+      pip:
+        name:
+          - 'pip'
+          - 'botocore'
+          - 'boto'
+          - 'boto3'
+        state: present
+        extra_args: --upgrade
+      register: status
+      until: status is succeeded
+      become: True

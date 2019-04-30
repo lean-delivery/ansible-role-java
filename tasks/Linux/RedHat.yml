@@ -1,7 +1,7 @@
 ---
 - name: Install java packages
   yum:
-    name: '{{ oracle_artifact }}'
+    name: '{{ (transport == "repositories") | ternary(openjdk_package, java_artifact)  }}'
     state: present
   register: package_install
   until: package_install is succeeded

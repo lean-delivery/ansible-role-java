@@ -19,7 +19,6 @@ install:
   - ansible-lint --version
 
 script:
-  - ansible-lint . -c .ansible-lint
   - molecule test -s default
 
 notifications:

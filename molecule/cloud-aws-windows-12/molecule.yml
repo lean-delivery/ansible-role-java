@@ -10,8 +10,8 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows-ansible-role-java-12-zip
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-aws-windows2016-ansible-role-java-12-zip
+    aws_image_id: ami-0a125a00b5b736e77
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -23,8 +23,8 @@ platforms:
       - windows
       - zip
 
-  - name: test-aws-windows-ansible-role-java-12-exe
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-aws-windows2019-ansible-role-java-12-exe
+    aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
     assign_public_ip: False
@@ -48,11 +48,15 @@ provisioner:
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
       zip:
-        transport: oracle-fallback
         java_tarball_install: True
+        transport: local
+        transport_local: /tmp/jdk-12.0.1_windows-x64_bin.zip
+        java_minor_version: 0.1
       exe:
-        transport: oracle-fallback
         java_tarball_install: False
+        transport: local
+        transport_local: /tmp/jdk-12.0.1_windows-x64_bin.exe
+        java_minor_version: 0.1
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
@@ -61,8 +65,6 @@ provisioner:
       control_path: "/var/ans/%%h"
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-windows-12
 verifier:

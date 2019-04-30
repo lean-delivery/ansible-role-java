@@ -26,13 +26,6 @@ Ansible lint:
   tags:
     - aws
 
-Docker java-8:
-  stage: deployment test
-  script:
-  - molecule test -s default
-  tags:
-  - aws
-
 AWS java-6:
   variables:
     AWS_REGION: us-east-1
@@ -42,7 +35,7 @@ AWS java-6:
   tags:
     - aws
 
-AWS java-7:
+.AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -69,12 +62,75 @@ AWS java-8 Windows:
   tags:
     - aws
 
+AWS jre-8 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-jre8-chocolatey
+  tags:
+    - aws
+
+AWS openjdk-11 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-openjdk11-chocolatey
+  tags:
+    - aws
+
+.AWS openjdk-12 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-openjdk12-chocolatey
+  tags:
+    - aws
+
 AWS java-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-direct-11
+  tags:
+    - aws
+
+AWS openjdk-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-8
+  tags:
+    - aws
+
+AWS openjdk-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-11
+  tags:
+    - aws
+
+AWS openjdk-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-12-of
+  tags:
+    - aws
+
+AWS openjdk-12 Windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-windows-12
   tags:
     - aws
 

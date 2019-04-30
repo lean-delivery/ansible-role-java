@@ -1,33 +1,38 @@
 ---
-# select from jre/server-jre/jdk
+# OpenJDK tarball supported only jdk
+# Oracle java supported jre/server-jre/jdk
 java_package: jdk
 
-# 8 (jre/server-jre/jdk) / 11 (jdk)
-java_major_version: 8
+# OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
+# OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
+# Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
+java_major_version: 12
+java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
-# x64 (default), i586 supported
+# This features supported only for oracle java and rhel packages install
+# x64 (default), i586
 java_arch: 'x64'
 
 # java installation path
-java_path: '{{ java_default_path }}'
+java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_default_path) }}"
 
 # local download path
 download_path: '{{ download_default_path }}'
 
 # Custom artifact source transport
-java_tarball_install: True
+java_tarball_install: "{{ transport != 'repositories' }}"
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: oracle-fallback
+transport: openjdk-fallback
 # available are:
-# - "oracle-fallback" Downloading artifact from pre-defined oracle otn path
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
 # - "chocolatey" Windows specific package manager
 # - "local" Local artifact
+# - "repositories" Install openjdk from repositories for Debian and RHEL
 
-transport_web: "http://my-storage.com/jdk-8u172-linux-x64.tar.gz"
-transport_local: "/tmp/jdk-8u172-linux-x64.tar.gz"
+transport_web: '{{ transport_web_default }}'
+transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
 
 transport_s3_bucket: s3_bucket
 transport_s3_path: /folder/jdk-8u172-linux-x64.tar.gz

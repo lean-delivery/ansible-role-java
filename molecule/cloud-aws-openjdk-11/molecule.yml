@@ -1,0 +1,86 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-aws-centos7-ansible-role-openjdk-11-repo
+    image: ami-9887c6e7
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - repositories
+
+  - name: test-aws-centos6-ansible-role-openjdk-11-repo
+    image: ami-1585c46a
+    instance_type: m4.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+     - rhel_family
+     - web
+     - tarball
+
+  - name: test-aws-ubuntu18-ansible-role-openjdk-11-repo
+    image: ami-012fd5eb46f56731f
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-05a2ef2b767afec50
+    assign_public_ip: False
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - repositories
+
+provisioner:
+  name: ansible
+  log: False
+  inventory:
+    group_vars:
+      web:
+        transport: web
+        transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+      tarball:
+        java_tarball_install: True
+      repositories:
+        transport: repositories
+        java_tarball_install: False
+  playbooks:
+    create: ../resources/provisioning/AWS/create.yml
+    prepare: ../resources/provisioning/AWS/prepare.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-aws-openjdk-11
+verifier:
+  name: testinfra
+  options:
+    verbose: true
+  directory: ../resources/tests/
+  lint:
+    name: flake8

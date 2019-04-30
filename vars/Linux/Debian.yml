@@ -1,8 +1,12 @@
 ---
-extension: "{{ (java_binary_type == 'tarball') | ternary('tar.gz', 'deb') }}"
+transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
 java_default_path: /usr/lib/jvm
 download_default_path: /tmp
 requirements:
   - python
   - python-argparse
   - unzip
+# Full package name for Debian
+openjdk_package: 'openjdk-{{ java_major_version }}-{{ java_package }}'
+# java_folder for packages from repositories
+java_folder_repo_transport: 'java-{{ java_major_version|string }}-openjdk-*'

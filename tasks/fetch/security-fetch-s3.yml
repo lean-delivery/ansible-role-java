@@ -14,6 +14,6 @@
 
 - name: Downloaded security policy artifact
   set_fact:
-    security_policy_oracle_artifact: >
-      {{ download_path }}/{{  java_unlimited_policy_transport_s3_path
-                              | basename }}
+    security_policy_java_artifact: >
+      {{ download_path }}/{{ java_unlimited_policy_transport_s3_path
+                             | basename }}
