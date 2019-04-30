@@ -12,7 +12,7 @@
   register: file_downloaded
   retries: 15
   delay: 5
-  until: "'OK' in file_downloaded.msg"
+  until: file_downloaded is succeeded
 
 - name: Downloaded security policy artifact
   set_fact:

@@ -13,7 +13,7 @@
   set_fact:
     release_url: >-
       {{ root_page['content'] |
-      regex_findall('(https://download\.java\.net/java/GA/jdk' +
+      regex_findall('(https://download\.oracle\.com/java/GA/jdk' +
       java_major_version|string +
       '[.\d]+/[\d\w]+/' +
       java_major_version|string +

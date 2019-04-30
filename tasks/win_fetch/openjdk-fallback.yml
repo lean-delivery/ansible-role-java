@@ -14,7 +14,7 @@
   set_fact:
     release_url: >-
       {{ root_page['content'] |
-      regex_findall('(https://download\.java\.net/java/GA/jdk' +
+      regex_findall('(https://download\.oracle\.com/java/GA/jdk' +
       java_major_version|string +
       '[.\d]+/[\d\w]+/' +
       java_major_version|string +
@@ -25,7 +25,7 @@
 
 - name: Exit if OpenJDK version is not General-Availability Release
   fail:
-    msg: 'OpenJDK version {{ java_major_version }} not GA Release'
+    msg: 'OpenJDK version {{ java_major_version }} not GA Release, or maybe something wrong with java.net'
   when: release_url[1] is not defined
 
 - name: 'Get artifact checksum {{ release_url[1] }}'
