@@ -26,7 +26,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS java-6:
+AWS java-6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -44,7 +44,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS java-8:
+AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -53,7 +53,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS java-8 Windows:
+AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -62,7 +62,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS jre-8 Windows chocolatey:
+AWS jre-8 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -71,7 +71,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-11 Windows chocolatey:
+AWS openjdk-11 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -89,7 +89,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS java-11:
+AWS java-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -98,7 +98,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-8:
+AWS openjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -107,7 +107,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-11:
+AWS openjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -134,7 +134,7 @@ AWS openjdk-12 Windows:
   tags:
     - aws
 
-.AWS java-11 Windows:
+AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -143,7 +143,7 @@ AWS openjdk-12 Windows:
   tags:
     - aws
 
-.AWS java-12:
+AWS java-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -152,7 +152,7 @@ AWS openjdk-12 Windows:
   tags:
     - aws
 
-.AWS java-12 Windows:
+AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -161,7 +161,7 @@ AWS openjdk-12 Windows:
   tags:
     - aws
 
-.EPC java-8:
+EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
