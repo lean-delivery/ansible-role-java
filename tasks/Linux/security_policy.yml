@@ -17,7 +17,7 @@
       unarchive:
         src: '{{ security_policy_java_artifact }}'
         dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security'
-        remote_src: True
+        remote_src: true
         owner: root
         group: root
         mode: 0755
@@ -27,8 +27,8 @@
         src: "{{ java_path }}/{{ java_folder }}/jre/lib/security/\
           {{ security_patch_folders[java_major_version|int] }}/{{ policy_item }}"
         dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security/'
-        remote_src: True
-        directory_mode: True
+        remote_src: true
+        directory_mode: true
         owner: root
         group: root
         mode: 0644
@@ -44,4 +44,4 @@
         path: '{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security'
         regexp: '#crypto.policy=unlimited'
         replace: 'crypto.policy=unlimited'
-  become: True
+  become: true

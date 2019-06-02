@@ -8,7 +8,7 @@
     mode: 0755
     headers:
       Cookie: 'oraclelicense=accept-securebackup-cookie'
-    force: False
+    force: false
   register: file_downloaded
   retries: 15
   delay: 5

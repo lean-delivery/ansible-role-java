@@ -2,7 +2,7 @@
 - name: 'Fetch root page {{ openjdk_root_page }}'
   uri:
     url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
-    return_content: True
+    return_content: true
   register: root_page
 
 - name: Find release url
@@ -23,7 +23,7 @@
 - name: 'Get artifact checksum {{ release_url[1] }}'
   uri:
     url: '{{ release_url[1] }}'
-    return_content: True
+    return_content: true
   register: artifact_checksum
 
 - name: 'Download artifact from {{ release_url[0] }}'

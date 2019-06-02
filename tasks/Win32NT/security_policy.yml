@@ -20,7 +20,7 @@
   win_copy:
     src: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}\{{ policy_item }}'
     dest: '{{ java_act_path }}\jre\lib\security\'
-    remote_src: True
+    remote_src: true
   loop:
     - local_policy.jar
     - US_export_policy.jar

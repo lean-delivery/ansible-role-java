@@ -2,7 +2,7 @@
 - name: 'Fetch root page {{ java_root_page }}'
   win_uri:
     url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
-    return_content: True
+    return_content: true
     follow_redirects: all
   register: root_page
 
@@ -27,7 +27,7 @@
 - name: 'Get artifact checksum {{ release_url[1] }}'
   win_uri:
     url: '{{ release_url[1] }}'
-    return_content: True
+    return_content: true
   register: artifact_checksum
 
 - name: Set artifact basename
@@ -38,7 +38,7 @@
 - name: Get SHA256 checksum of file
   win_stat:
     path: '{{ download_path }}\{{ artifact_basename }}'
-    get_checksum: True
+    get_checksum: true
     checksum_algorithm: sha256
   register: artifact
 

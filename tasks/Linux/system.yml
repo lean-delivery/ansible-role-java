@@ -44,10 +44,10 @@
     - name: Find java_folder
       find:
         paths: '{{ java_path }}'
-        recurse: False
+        recurse: false
         file_type: directory
         patterns: '{{ java_folder }}'
-        use_regex: True
+        use_regex: true
       register: java_dir
 
     - name: Set actual java directory
@@ -83,4 +83,4 @@
       loop: '{{ java_binary_collection.results }}'
       loop_control:
         loop_var: java_item
-  become: True
+  become: true
