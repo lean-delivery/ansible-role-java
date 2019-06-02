@@ -51,12 +51,10 @@ provisioner:
         java_tarball_install: True
         transport: local
         transport_local: /tmp/jdk-12.0.1_windows-x64_bin.zip
-        java_minor_version: 0.1
       exe:
         java_tarball_install: False
         transport: local
         transport_local: /tmp/jdk-12.0.1_windows-x64_bin.exe
-        java_minor_version: 0.1
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
