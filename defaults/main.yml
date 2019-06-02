@@ -23,7 +23,8 @@ java_arch: 'x64'
 
 # java installation path
 ## java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_default_path) }}"
-java_path: "{{ (java_binary_type == 'package') | ternary('/usr/lib/jvm', java_default_path) }}"
+### java_path: "{{ (java_binary_type == 'package') | ternary('/usr/lib/jvm', java_default_path) }}"
+java_path: '{{ java_default_path }}'
 
 # local download path
 download_path: '{{ download_default_path }}'

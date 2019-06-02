@@ -1,5 +1,5 @@
 ---
-java_default_path: /usr/java
+java_default_path: "{{ (java_binary_type == 'package') | ternary('/usr/lib/jvm', /usr/java) }}"
 requirements:
   - redhat-lsb-core
   - policycoreutils-python
