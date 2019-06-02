@@ -18,6 +18,7 @@
 - name: Set PARSE variables based on java distribution
   include_vars:
     file: '{{ ansible_system }}/{{ java_distribution }}/parse_{{ java_binary_type }}.yml'
+  when: java_binary_type != 'chocolatey'
 
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: '{{ ansible_system }}/install/{{ java_binary_type }}.yml'
