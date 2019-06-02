@@ -1,8 +1,4 @@
 ---
-- name: Set java minor version
-  set_fact:
-    minor: "{{ java_minor_version | default('.*', True) }}"
-
 - name: 'Fetch root page {{ java_root_page }}'
   win_uri:
     url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
@@ -34,10 +30,6 @@
     return_content: True
   register: artifact_checksum
 
-- name: Show artifact checksum
-  debug:
-    var: artifact_checksum.content
-
 - name: Set artifact basename
   set_fact:
     artifact_url: '{{ release_url[0] }}'
@@ -59,21 +51,6 @@
   delay: 2
   until: artifact.stat.checksum == artifact_checksum.content
 
-- name: Downloaded artifact
+- name: Set downloaded artifact vars
   set_fact:
-    java_artifact: '{{ artifact.stat.path }}'
-
-- name: Split artifact name
-  set_fact:
-    parts: >-
-      {{ java_artifact | win_basename
-        | regex_findall('^(.*j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
-        | first | list }}
-
-- name: Set variables based on split
-  set_fact:
-    java_package: '{{ parts[0][-3:] }}'
-    java_major_version: '{{ parts[1] }}'
-    java_minor_version: '{{ parts[2] }}'
-    java_os: '{{ parts[3] }}'
-    java_arch: '{{ parts[4] }}'
+    java_artifact_fallback: '{{ artifact.stat.path }}'

@@ -1,4 +1,16 @@
 ---
+
+- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - '{{ ansible_system }}/fetch/securite-fetch/security-fetch-{{ java_unlimited_policy_transport }}.yml'
+    - '{{ ansible_system }}/fetch/unknown-transport.yml'
+  loop_control:
+    loop_var: transport_driver
+  when:
+    - java_unlimited_policy_enabled
+    - java_full_version is version('8.151', '<')
+
 - name: Become block
   block:
     - name: Unzip patch file

@@ -1,4 +1,11 @@
 ---
+# Java distribution type:
+#  - openjdk
+#  - oracle_java
+#  - sapjvm
+#  - coretto
+java_distribution: openjdk
+
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
 java_package: jdk
@@ -15,7 +22,8 @@ java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 java_arch: 'x64'
 
 # java installation path
-java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_default_path) }}"
+## java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_default_path) }}"
+java_path: "{{ (java_binary_type == 'package') | ternary('/usr/lib/jvm', java_default_path) }}"
 
 # local download path
 download_path: '{{ download_default_path }}'

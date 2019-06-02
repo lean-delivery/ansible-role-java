@@ -1,6 +1,5 @@
 ---
-
-- name: Load a variable file based on distribution or OS family
+- name: Load a system variables file based on distribution or OS family
   include_vars: '{{ distribution }}'
   with_first_found:
     - '{{ ansible_system }}/{{ ansible_os_family }}.yml'
@@ -11,7 +10,7 @@
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
-    - 'System-{{ ansible_system }}.yml'
+    - '{{ ansible_system }}/system.yml'
     - not-supported.yml
   loop_control:
     loop_var: platform
@@ -19,10 +18,11 @@
 - name: Apply security policy patch
   include_tasks: '{{ platform }}'
   with_first_found:
-    - 'security_policy_apply/{{ ansible_system }}.yml'
+    - '{{ ansible_system }}/security_policy.yml'
     - not-supported.yml
   loop_control:
     loop_var: platform
   when:
     - java_unlimited_policy_enabled
+    - java_distribution == 'oracle_java'
     - java_full_version is version('8.151', '<')

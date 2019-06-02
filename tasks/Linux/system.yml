@@ -1,4 +1,12 @@
 ---
+- name: Set BASE variables based on java distribution
+  include_vars: '{{ distribution }}'
+  with_first_found:
+    - '{{ ansible_system }}/{{ java_distribution }}/base_vars.yml'
+    - '{{ ansible_system }}/{{ java_distribution }}/default.yml'
+  loop_control:
+    loop_var: distribution
+
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:
@@ -7,9 +15,19 @@
   loop_control:
     loop_var: transport_driver
 
-- name: Set java full version
-  set_fact:
-    java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
+- name: Set REPO variables based on java distribution
+  include_vars: '{{ distribution }}'
+  with_first_found:
+    - '{{ ansible_system }}/{{ java_distribution }}/{{ java_binary_type }}_vars_{{ ansible_os_family }}.yml'
+    - '{{ ansible_system }}/{{ java_distribution }}/default.yml'
+  loop_control:
+    loop_var: distribution
+  when: java_binary_type == 'package'
+
+- name: Set PARSE variables based on java distribution
+  include_vars:
+    file: '{{ ansible_system }}/{{ java_distribution }}/parse_{{ java_binary_type }}.yml'
+  when: transport != 'repositories'
 
 - name: Perform install from artifacts
   block:
@@ -21,8 +39,7 @@
       until: installed_packages is succeeded
 
     - name: 'Perform {{ java_binary_type }} install'
-      include_tasks: >-
-        Linux/{{ java_tarball_install | ternary('tarball', ansible_os_family) }}.yml
+      include_tasks: '{{ ansible_system }}/install/{{ java_tarball_install | ternary("tarball", ansible_os_family) }}.yml'
 
     - name: Find java_folder
       find:
@@ -67,14 +84,3 @@
       loop_control:
         loop_var: java_item
   become: True
-
-- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
-  include_tasks: '{{ transport_driver }}'
-  with_first_found:
-    - 'fetch/security-fetch-{{ java_unlimited_policy_transport }}.yml'
-    - fetch/unknown-transport.yml
-  loop_control:
-    loop_var: transport_driver
-  when:
-    - java_unlimited_policy_enabled
-    - java_full_version is version('8.151', '<')
