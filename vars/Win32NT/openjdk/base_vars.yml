@@ -7,7 +7,6 @@ java_folder_ext_transport: >-
     java_package + '-'  + java_major_version|string + '.'   + java_minor_version|string)
   }}
 
-java_folder: >-
-  {{ (java_tarball_install | bool) | ternary(java_folder_ext_transport, java_folder_repo_transport) }}
+java_folder: '{{ java_folder_ext_transport }}'
 
 java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
