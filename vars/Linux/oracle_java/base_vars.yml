@@ -1,6 +1,4 @@
 ---
-java_default_path: "{{ '/usr/java' if ansible_os_family == 'RedHat' }}"
-
 java_folder_ext_transport: >-
   {{ (java_major_version|int <= 8) | ternary(
     java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string,
