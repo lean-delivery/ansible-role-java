@@ -15,6 +15,11 @@
   win_chocolatey:
     name: '{{ choco_java_package }}'
   register: choco_install
-  retries: 15
-  delay: 5
-  until: choco_install is succeeded
+  ignore_errors: yes
+#  retries: 15
+#  delay: 5
+#  until: choco_install is succeeded
+
+- name: Debug chocolatey
+  debug:
+    var: choco_install
