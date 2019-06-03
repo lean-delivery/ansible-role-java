@@ -1,13 +1,13 @@
 ---
 - name: Prepare Ubuntu / Debian
   hosts: debian_family
-  gather_facts: False
+  gather_facts: false
   tasks:
 
     - name: Install python for Ansible
       raw: test -e /usr/bin/python || (apt install -y python-minimal)
-      become: True
-      changed_when: False
+      become: true
+      changed_when: false
       register: update_result
       retries: 10
       delay: 5
@@ -15,12 +15,12 @@
 
 - name: Prepare RHEL
   hosts: rhel_family
-  gather_facts: False
+  gather_facts: false
   tasks:
     - name: Install python for Ansible
       raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
-      become: True
-      changed_when: False
+      become: true
+      changed_when: false
 
     - name: gather facts
       setup:
@@ -32,11 +32,11 @@
         state: 'present'
       register: status
       until: status is succeeded
-      become: True
+      become: true
 
 - name: Prepare host to S3 transport
   hosts: s3
-  gather_facts: True
+  gather_facts: true
   tasks:
     - name: 'Install pip package'
       package:
@@ -44,7 +44,7 @@
         state: present
       register: status
       until: status is succeeded
-      become: True
+      become: true
 
     - name: 'Install boto module'
       pip:
@@ -57,4 +57,4 @@
         extra_args: --upgrade
       register: status
       until: status is succeeded
-      become: True
+      become: true

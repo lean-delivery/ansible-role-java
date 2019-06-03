@@ -3,5 +3,5 @@
   hosts: all
   roles:
     - role: ansible-role-java
-      java_unlimited_policy_enabled: False
+      java_unlimited_policy_enabled: false
       java_major_version: 8

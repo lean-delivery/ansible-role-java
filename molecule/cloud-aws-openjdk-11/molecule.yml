@@ -15,7 +15,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -30,7 +30,7 @@ platforms:
     instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -46,7 +46,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -58,17 +58,17 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       web:
         transport: web
         transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
       tarball:
-        java_tarball_install: True
+        java_tarball_install: true
       repositories:
         transport: repositories
-        java_tarball_install: False
+        java_tarball_install: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml

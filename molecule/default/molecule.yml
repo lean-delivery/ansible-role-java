@@ -12,12 +12,12 @@ lint:
 platforms:
   - name: test-docker-centos7-openjdk
     image: leandelivery/docker-systemd:centos7
-    privileged: True
+    privileged: true
     groups:
       - rhel_family
   - name: test-docker-ubuntu1804-openjdk
     image: leandelivery/docker-systemd:ubuntu-18.04
-    privileged: True
+    privileged: true
     security_opts:
       - seccomp=unconfined
     volumes:
@@ -31,7 +31,7 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  log: False
+  log: false
   lint:
     name: ansible-lint
 scenario:
@@ -39,7 +39,7 @@ scenario:
 verifier:
   name: testinfra
   options:
-    verbose: True
+    verbose: true
   directory: ../resources/tests/
   lint:
     name: flake8

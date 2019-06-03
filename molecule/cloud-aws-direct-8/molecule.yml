@@ -17,7 +17,7 @@ platforms:
     profile_name: epmldi-instance-profile
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -34,7 +34,7 @@ platforms:
     profile_name: epmldi-instance-profile
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -51,7 +51,7 @@ platforms:
     profile_name: epmldi-instance-profile
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -67,7 +67,7 @@ platforms:
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -80,7 +80,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       local:
@@ -93,11 +93,11 @@ provisioner:
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
         java_package: jdk
-        java_tarball_install: True
+        java_tarball_install: true
         transport_s3_path: /java/jdk-8u202-linux-x64.tar.gz
       package:
         java_package: jdk
-        java_tarball_install: False
+        java_tarball_install: false
         transport_s3_path: /java/jdk-8u202-linux-x64.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml

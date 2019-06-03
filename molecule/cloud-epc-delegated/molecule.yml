@@ -26,7 +26,7 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  log: False
+  log: true
   playbooks:
     create: ../resources/provisioning/EPC/create.yml
     prepare: ../resources/provisioning/EPC/prepare.yml
@@ -37,7 +37,7 @@ provisioner:
   lint:
     name: ansible-lint
   env:
-    ANSIBLE_LIBRARY: /home/gitlab-runner/.local/lib/python2.7/site-packages/epam_ansible
+    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-epc-delegated
 verifier:

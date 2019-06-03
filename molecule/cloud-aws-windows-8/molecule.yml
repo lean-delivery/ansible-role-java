@@ -15,7 +15,7 @@ platforms:
     aws_image_id: ami-0a125a00b5b736e77
     aws_region: us-east-1
     instance_type: m5.large
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
       - default
@@ -28,7 +28,7 @@ platforms:
     aws_image_id: ami-03ad37b4adab50a4c
     aws_region: us-east-1
     instance_type: m5.large
-    assign_public_ip: False
+    assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
       - default
@@ -39,13 +39,13 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   connection_options:
     ansible_connection: winrm
   inventory:
     group_vars:
       windows:
-        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', True) }}"
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
       local:
@@ -59,7 +59,7 @@ provisioner:
         java_major_version: 8
         java_minor_version: 45
         java_unlimited_policy_transport: oracle-fallback
-        java_unlimited_policy_enabled: True
+        java_unlimited_policy_enabled: true
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     prepare: ../cloud-aws-windows-8/prepare.yml
