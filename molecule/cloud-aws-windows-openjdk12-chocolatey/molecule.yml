@@ -23,7 +23,8 @@ platforms:
     aws_sec_group:
       - default
     #vpc_subnet_id: subnet-05a2ef2b767afec50
-    vpc_subnet_id: subnet-00e0c8e19face9102
+    #vpc_subnet_id: subnet-00e0c8e19face9102
+    vpc_subnet_id: subnet-1fb31333
     groups:
       - windows
 
@@ -39,7 +40,8 @@ platforms:
     aws_sec_group:
       - default
     #vpc_subnet_id: subnet-05a2ef2b767afec50
-    vpc_subnet_id: subnet-00e0c8e19face9102
+    #vpc_subnet_id: subnet-00e0c8e19face9102
+    vpc_subnet_id: subnet-1fb31333
     groups:
       - windows
 
