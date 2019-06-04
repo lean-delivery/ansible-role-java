@@ -8,4 +8,4 @@
   win_unzip:
     src: '{{ java_artifact }}'
     dest: '{{ java_path }}'
-    creates: '{{ java_path }}\{{ java_folder }}'
+#    creates: '{{ java_path }}\{{ java_folder }}'
