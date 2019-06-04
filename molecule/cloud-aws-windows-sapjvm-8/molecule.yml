@@ -54,7 +54,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-openjdk-windows-12
+  name: cloud-aws-windows-sapjvm-8
 verifier:
   name: testinfra
   lint:
