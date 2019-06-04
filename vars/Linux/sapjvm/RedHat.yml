@@ -1,0 +1,10 @@
+---
+java_default_path: /usr/java
+requirements:
+  - redhat-lsb-core
+  - policycoreutils-python
+  - libsemanage-python
+  - libselinux-python
+  - python-argparse
+  - unzip
+  - which

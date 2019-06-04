@@ -1,0 +1,26 @@
+---
+- name: 'Fetch root page {{ sapjvm_root_page }}'
+  uri:
+    url: '{{ sapjvm_root_page }}'
+    return_content: true
+  register: root_page
+
+- name: Find release url
+  set_fact:
+    release_url: >-
+      {{ root_page['content']
+        | regex_findall('(additional/sapjvm-'
+          + java_major_version|string
+          + '[\d.]+-linux-x64.zip)')
+      }}
+
+- name: 'Download artifact from {{ release_url[0] }}'
+  get_url:
+    url: '{{ sapjvm_root_page }}/{{ release_url[0] }}'
+    dest: '{{ download_path }}'
+    headers:
+      Cookie: eula_3_1_agreed=tools.hana.ondemand.com/developer-license-3_1.txt
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded

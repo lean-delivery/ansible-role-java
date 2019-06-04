@@ -1,7 +1,7 @@
 ---
 - name: Mkdir for java installation
   file:
-    path: '{{ java_path }}/{{ java_folder }}'
+    path: '{{ java_path }}'
     state: directory
     owner: root
     group: root
@@ -10,10 +10,14 @@
 - name: 'Install java {{ java_full_version }}'
   unarchive:
     src: '{{ java_artifact }}'
-    dest: '{{ java_path }}/{{ java_folder }}'
+    dest: '{{ java_path }}'
     remote_src: true
     owner: root
     group: root
     mode: 0755
-    extra_opts: [--strip-components=1]
-    creates: '{{ java_path }}/{{ java_folder }}/bin/'
+    list_files: true
+  register: unarchived_folder
+
+- name: Set actual java directory
+  set_fact:
+    java_folder: '{{ unarchived_folder.files[0].split("/")[0] }}'

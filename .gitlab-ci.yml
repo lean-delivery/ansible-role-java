@@ -87,7 +87,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS openjdk-12 Windows chocolatey:
+.AWS openjdk-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -165,6 +165,24 @@ AWS openjdk-12 Windows chocolatey:
   stage: deployment test
   script:
     - molecule test -s cloud-aws-windows-12
+  tags:
+    - aws
+
+AWS sapjvm-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapjvm-8
+  tags:
+    - aws
+
+AWS sapjvm-8 Windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-sapjvm-8
   tags:
     - aws
 

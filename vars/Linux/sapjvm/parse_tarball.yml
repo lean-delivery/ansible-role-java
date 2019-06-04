@@ -1,0 +1,14 @@
+---
+java_artifact: '{{ (transport == "s3") | ternary(java_artifact_s3, (file_downloaded|default({})).dest) }}'
+java_artifact_basename: '{{ java_artifact | basename }}'
+
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
+    | first | list }}
+
+java_package: '{{ parts[0] }}'
+java_major_version: '{{ parts[1] }}'
+java_minor_version: '{{ parts[2] }}'
+java_os: '{{ parts[3] }}'
+java_arch: '{{ parts[4] }}'
