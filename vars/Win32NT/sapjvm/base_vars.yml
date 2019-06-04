@@ -1,4 +1,5 @@
 ---
+sapjvm_root_page: https://tools.hana.ondemand.com
 java_folder_ext_transport: >-
   {{ java_package + '_'
      + java_major_version|string

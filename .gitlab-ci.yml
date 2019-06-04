@@ -168,7 +168,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS sapjvm-8:
+.AWS sapjvm-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
