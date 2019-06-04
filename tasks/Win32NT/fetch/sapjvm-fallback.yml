@@ -27,4 +27,4 @@
 
 - name: Debug file_downloaded
   debug:
-    var: 
+    var: file_downloaded
