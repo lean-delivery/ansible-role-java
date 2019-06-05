@@ -1,6 +1,6 @@
 ---
 #java_artifact: '{{ (file_downloaded|default({})).dest }}'
-java_artifact: '{{ artifact.stat.exists|bool | ternary(artifact.stat.path, file_downloaded|default({})).dest) }}'
+java_artifact: '{{ artifact.stat.exists|bool | ternary(artifact.stat.path, (file_downloaded|default({})).dest) }}'
 #java_artifact: '{{ (transport == "sapjvm-fallback") | ternary(java_artifact_fallback, (file_downloaded|default({})).dest) }}'
 java_artifact_basename: '{{ java_artifact | win_basename }}'
 
