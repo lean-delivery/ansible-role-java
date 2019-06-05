@@ -4,8 +4,29 @@
     path: '{{ java_path }}'
     state: directory
 
+- name: Find java_folder for tarball
+  win_find:
+    paths: '{{ java_path }}'
+    recurse: false
+    file_type: directory
+    patterns: '{{ java_folder }}'
+    use_regex: true
+  register: java_dir
+
+- name: Debug java_dir in tarball install
+  debug:
+    var: java_dir
+
+- name: Set actual java directory for tarball
+  set_fact:
+    java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
+
+- name: Debug java_act_path in tarball install
+  debug:
+    var: java_act_path
+
 - name: Unzip java archive
   win_unzip:
     src: '{{ java_artifact }}'
     dest: '{{ java_path }}'
-#    creates: '{{ java_path }}\{{ java_folder }}'
+    creates: '{{ java_act_path }}'

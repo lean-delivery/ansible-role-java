@@ -32,9 +32,17 @@
     use_regex: true
   register: java_dir
 
+- name: Debug java_dir in system
+  debug:
+    var: java_dir
+
 - name: Set actual java directory
   set_fact:
     java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
+
+- name: Debug java_act_path in system
+  debug:
+    var: java_act_path
 
 - name: Set java environment variable
   win_environment:
