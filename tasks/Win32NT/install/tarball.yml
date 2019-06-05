@@ -4,6 +4,14 @@
     path: '{{ java_path }}'
     state: directory
 
+- name: Debug java_path in tarball install
+  debug:
+    var: java_path
+
+- name: Debug java_folder in tarball install
+  debug:
+    var: java_folder
+
 - name: Find java_folder for tarball
   win_find:
     paths: '{{ java_path }}'
