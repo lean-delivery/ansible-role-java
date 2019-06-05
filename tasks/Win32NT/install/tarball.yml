@@ -1,8 +1,10 @@
 ---
-java_folder: >-
-  {{ java_package + '_'
-     + java_major_version|string
-  }}
+- name: Set java_folder for tarball
+  set_fact:
+    java_folder: >-
+      {{ java_package + '_'
+         + java_major_version|string
+      }}
 
 - name: Mkdir for java installation
   win_file:
