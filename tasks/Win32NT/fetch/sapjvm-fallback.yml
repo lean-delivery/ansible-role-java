@@ -14,16 +14,35 @@
           + '[\d.]+-windows-x64.zip)')
       }}
 
-- name: 'Download artifact from {{ release_url[0] }}'
+- name: Set artifact basename
+  set_fact:
+    artifact_url: '{{ release_url[0] }}'
+    artifact_basename: '{{ release_url[0].split("/")[-1] }}'
+
+- name: Debug artifact_url
+  debug:
+    var: artifact_url
+
+- name: Debug artifact_basename
+  debug:
+    var: artifact_basename
+
+- name: Get SHA256 checksum of file
+  win_stat:
+    path: '{{ download_path }}\{{ artifact_basename }}'
+  register: artifact
+
+- name: 'Download {{ artifact_basename }} artifact '
   win_get_url:
-    url: '{{ sapjvm_root_page }}/{{ release_url[0] }}'
+    url: '{{ sapjvm_root_page }}/{{ artifact_url }}'
     headers:
       Cookie: eula_3_1_agreed=tools.hana.ondemand.com/developer-license-3_1.txt
     dest: '{{ download_path }}'
+  when: not artifact.stat.exists
   register: file_downloaded
-  # retries: 20
-  # delay: 5
-  # until: file_downloaded is succeeded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded
 
 - name: Debug file_downloaded
   debug:
