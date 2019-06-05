@@ -27,10 +27,14 @@
   debug:
     var: artifact_basename
 
-- name: Get SHA256 checksum of file
+- name: Check artifact existence
   win_stat:
     path: '{{ download_path }}\{{ artifact_basename }}'
   register: artifact
+
+- name: Debug artifact
+  debug:
+    var: artifact
 
 - name: 'Download {{ artifact_basename }} artifact '
   win_get_url:
@@ -38,8 +42,8 @@
     headers:
       Cookie: eula_3_1_agreed=tools.hana.ondemand.com/developer-license-3_1.txt
     dest: '{{ download_path }}'
-  when: not artifact.stat.exists
   register: file_downloaded
+  when: not artifact.stat.exists
   retries: 20
   delay: 5
   until: file_downloaded is succeeded
