@@ -1,5 +1,6 @@
 ---
 openjdk_root_page: https://jdk.java.net
+transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip
 
 java_folder_ext_transport: >-
   {{ (java_major_version|int <= 8) | ternary(
