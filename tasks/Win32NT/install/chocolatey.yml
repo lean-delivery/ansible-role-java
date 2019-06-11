@@ -11,6 +11,10 @@
     name: useEnhancedExitCodes
     state: disabled
 
+- name: Debug hoco_package
+  debug:
+    var: choco_java_package
+
 - name: 'Install {{ choco_java_package }} from chocolatey'
   win_chocolatey:
     name: '{{ choco_java_package }}'
@@ -18,3 +22,7 @@
 #  retries: 15
 #  delay: 5
   until: choco_install is succeeded
+
+- name: Debug choco_install
+  debug:
+    var: choco_install
