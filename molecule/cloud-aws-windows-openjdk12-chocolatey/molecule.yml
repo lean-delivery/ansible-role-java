@@ -13,7 +13,6 @@ platforms:
 
   - name: test-aws-windows2016-ansible-role-openjdk-12-choco
     aws_image_id: ami-0a125a00b5b736e77
-    #new
     platform: windows2016core
     aws_region: us-east-1
     instance_type: m5a.large
@@ -26,19 +25,19 @@ platforms:
     groups:
       - windows
 
-  # - name: test-aws-windows2019-ansible-role-openjdk-12-choco
-    # aws_image_id: ami-03ad37b4adab50a4c
-    # platform: windows2019core
-    # aws_region: us-east-1
-    # instance_type: m5a.large
-    ##assign_public_ip: false
-    # assign_public_ip: true
-    # spot_price: 0.14
-    # aws_sec_group:
-      # - default
-    # vpc_subnet_id: subnet-05a2ef2b767afec50
-    # groups:
-      # - windows
+  - name: test-aws-windows2019-ansible-role-openjdk-12-choco
+    aws_image_id: ami-03ad37b4adab50a4c
+    platform: windows2019core
+    aws_region: us-east-1
+    instance_type: m5a.large
+    #assign_public_ip: false
+    assign_public_ip: true
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
 
 provisioner:
   name: ansible

@@ -78,7 +78,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-11 Windows chocolatey:
+AWS openjdk-11 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

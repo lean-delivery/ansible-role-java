@@ -4,13 +4,6 @@
     name: chocolatey
     state: present
 
-# Workaround for new chocolatey output.
-# See https://github.com/ansible/ansible/issues/53860#issuecomment-473431360 for more details
-#- name: disable enhanced exit codes
-#  win_chocolatey_feature:
-#    name: useEnhancedExitCodes
-#    state: disabled
-
 - name: Debug hoco_package
   debug:
     var: choco_java_package
