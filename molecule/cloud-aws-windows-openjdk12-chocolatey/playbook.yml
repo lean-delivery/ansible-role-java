@@ -6,4 +6,4 @@
       java_package: jdk
       transport: chocolatey
       java_major_version: 12
-      java_minor_version: 0.0.1
+      java_minor_version: 0.1
