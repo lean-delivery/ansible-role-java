@@ -8,15 +8,4 @@
   win_unzip:
     src: '{{ java_artifact }}'
     dest: '{{ java_path }}'
-    creates: '{{ java_path }}\{{ java_temp_folder }}'
-
-- name: Copy a single file where the source is on the remote host
-  win_copy:
-    src: '{{ java_path }}\{{ java_temp_folder }}'
-    dest: '{{ java_path }}\{{ java_temp_folder }}.{{ java_minor_version }}'
-    remote_src: true
-
-- name: Remove directory structure
-  win_file:
-    path: '{{ java_path }}\{{ java_temp_folder }}'
-    state: absent
+    creates: '{{ java_path }}/{{ java_folder }}'
