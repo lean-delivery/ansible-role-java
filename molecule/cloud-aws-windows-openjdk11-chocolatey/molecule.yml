@@ -13,7 +13,7 @@ platforms:
 
   - name: test-aws-windows2016-ansible-role-openjdk-11-choco
     aws_image_id: ami-0a125a00b5b736e77
-    platform: windows2016core    
+    platform: windows2016core
     aws_region: us-east-1
     instance_type: m5a.large
     #assign_public_ip: false
