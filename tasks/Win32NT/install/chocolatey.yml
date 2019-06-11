@@ -6,21 +6,15 @@
 
 # Workaround for new chocolatey output.
 # See https://github.com/ansible/ansible/issues/53860#issuecomment-473431360 for more details
-# - name: disable enhanced exit codes
-  # win_chocolatey_feature:
-    # name: useEnhancedExitCodes
-    # state: disabled
+- name: disable enhanced exit codes
+  win_chocolatey_feature:
+    name: useEnhancedExitCodes
+    state: disabled
 
 - name: 'Install {{ choco_java_package }} from chocolatey'
   win_chocolatey:
     name: '{{ choco_java_package }}'
   register: choco_install
-  ignore_errors: true
-  retries: 15
-  delay: 5
-  #until: choco_install is succeeded
-  until: choco_install.rc == 0
-
-- name: Debug chocolatey
-  debug:
-    var: choco_install
+#  retries: 15
+#  delay: 5
+  until: choco_install is succeeded
