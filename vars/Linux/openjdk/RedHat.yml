@@ -7,3 +7,4 @@ requirements:
   - libselinux-python
   - python-argparse
   - unzip
+  - rsync

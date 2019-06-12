@@ -3,11 +3,11 @@
   get_url:
     url: '{{ java_unlimited_policy_url }}'
     dest: '{{ download_path }}'
-  register: file_downloaded
+  register: policy_file_downloaded
   retries: 3
   delay: 2
-  until: file_downloaded is succeeded
+  until: policy_file_downloaded is succeeded
 
 - name: Downloaded security policy artifact
   set_fact:
-    security_policy_java_artifact: '{{ file_downloaded.dest }}'
+    security_policy_java_artifact: '{{ policy_file_downloaded.dest }}'

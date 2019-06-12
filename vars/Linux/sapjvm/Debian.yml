@@ -4,3 +4,4 @@ requirements:
   - python
   - python-argparse
   - unzip
+  - rsync

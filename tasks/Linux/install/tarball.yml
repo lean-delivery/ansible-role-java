@@ -1,23 +1,53 @@
 ---
-- name: Mkdir for java installation
-  file:
-    path: '{{ java_path }}'
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
+- name: Check that the java_folder exists
+  stat:
+    path: '{{ java_path }}/{{ java_folder }}/bin'
+  register: java_folder_bin
 
-- name: 'Install java {{ java_full_version }}'
-  unarchive:
-    src: '{{ java_artifact }}'
-    dest: '{{ java_path }}'
-    remote_src: true
-    owner: root
-    group: root
-    mode: 0755
-    list_files: true
-  register: unarchived_folder
+- name: debug path
+  debug:
+    var: java_folder_bin
 
-- name: Set actual java directory
-  set_fact:
-    java_folder: '{{ unarchived_folder.files[0].split("/")[0] }}'
+- name: Install java from tarball
+  block:
+  - name: Mkdir for java installation
+    file:
+      path: '{{ java_path }}/{{ java_folder }}'
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: create temporary directory
+    tempfile:
+      state: directory
+    register: temp_dir
+
+  - name: debug path
+    debug:
+      var: temp_dir.path
+
+  - name: Test_unarchive
+    unarchive:
+      src: '{{ java_artifact }}'
+      dest: '{{ temp_dir.path }}'
+      remote_src: true
+      list_files: true
+    register: unarchived_folder
+
+  - name: debug
+    debug:
+      msg: '{{ unarchived_folder.files[0] }}'
+
+  - name: Sync from temp
+    synchronize:
+      src: '{{ temp_dir.path }}/{{ unarchived_folder.files[0] }}'
+      dest: '{{ java_path }}/{{ java_folder }}'
+      recursive: true
+      archive: false
+      rsync_opts:
+        - '--chown=root:root'
+        - '--chmod=755'
+      checksum: true
+    delegate_to: '{{ inventory_hostname }}'
+  when: not java_folder_bin.stat.exists

@@ -9,11 +9,11 @@
         gpw_e24=http%3A%2F%2Fwww.oracle.com%2F;
         oraclelicense=accept-securebackup-cookie;
         --no-check-certificate
-  register: file_downloaded
+  register: policy_file_downloaded
   retries: 15
   delay: 5
-  until: file_downloaded is succeeded
+  until: policy_file_downloaded is succeeded
 
 - name: Downloaded security policy artifact
   set_fact:
-    security_policy_java_artifact: '{{ file_downloaded.dest }}'
+    security_policy_java_artifact: '{{ policy_file_downloaded.dest }}'

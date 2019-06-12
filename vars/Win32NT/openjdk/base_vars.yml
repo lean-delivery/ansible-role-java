@@ -9,7 +9,6 @@ java_folder_ext_transport: >-
   }}
 
 java_folder: '{{ java_folder_ext_transport }}'
-java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
 
 choco_install_path: >-
   {{ (java_package == 'jre')
