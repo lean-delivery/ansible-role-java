@@ -34,8 +34,6 @@
       paths: '{{ temp_dir_path }}'
       recurse: false
       file_type: directory
-      patterns: '*'
-      use_regex: true
     register: java_temp_folder
 
   - name: debug java_temp_folder
