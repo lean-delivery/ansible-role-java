@@ -123,16 +123,16 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-12:
+AWS openjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-openjdk-12-of
+    - molecule test -s cloud-aws-openjdk-12
   tags:
     - aws
 
-.AWS openjdk-12 Windows:
+AWS openjdk-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -159,7 +159,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS java-12 Windows:
+AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
