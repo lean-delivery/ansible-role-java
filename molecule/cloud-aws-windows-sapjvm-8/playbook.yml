@@ -3,6 +3,4 @@
   hosts: all
   roles:
     - role: ansible-role-java
-      java_distribution: sapjvm
-      transport: sapjvm-fallback
-      java_major_version: 8
+

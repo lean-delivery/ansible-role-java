@@ -23,6 +23,7 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
+      - chocolatey
 
   - name: test-aws-windows2019-openjdk-11-chocolatey
     aws_image_id: ami-03ad37b4adab50a4c
@@ -36,6 +37,7 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
+      - chocolatey
 
 provisioner:
   name: ansible

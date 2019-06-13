@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-ansible-role-sapjvm-8
+  - name: test-aws-windows2016-sapjvm-8
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -22,19 +22,21 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
+      - sapjvm
 
-  # - name: test-aws-windows2019-ansible-role-sapjvm-8
-    # aws_image_id: ami-0477b9335a5a75438
-    # platform: windows2019core
-    # aws_region: us-east-1
-    # instance_type: m5.large
-    # assign_public_ip: false
-    # spot_price: 0.14
-    # aws_sec_group:
-      # - default
-    # vpc_subnet_id: subnet-0f2b9cd66faea38af
-    # groups:
-      # - windows
+  - name: test-aws-windows2019-sapjvm-8
+    aws_image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapjvm
 
 provisioner:
   name: ansible
@@ -47,6 +49,10 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
+      sapjvm:
+        java_distribution: sapjvm
+        transport: sapjvm-fallback
+        java_major_version: 8
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
