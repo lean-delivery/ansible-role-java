@@ -16,12 +16,13 @@ platforms:
     platform: windows2016core
     aws_region: us-east-1
     instance_type: m5a.large
-    assign_public_ip: true
+    #assign_public_ip: true
+    assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
       - default
-    #vpc_subnet_id: subnet-0f2b9cd66faea38af
-    vpc_subnet_id: subnet-0da98b31
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    #vpc_subnet_id: subnet-0da98b31
     groups:
       - windows
       - chocolatey
@@ -31,12 +32,13 @@ platforms:
     platform: windows2019core
     aws_region: us-east-1
     instance_type: m5a.large
-    assign_public_ip: true
+    #assign_public_ip: true
+    assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
       - default
-    #vpc_subnet_id: subnet-0f2b9cd66faea38af
-    vpc_subnet_id: subnet-0da98b31
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    #vpc_subnet_id: subnet-0da98b31
     groups:
       - windows
       - chocolatey

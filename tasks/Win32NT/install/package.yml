@@ -2,6 +2,7 @@
 - name: Install java packages
   win_package:
     path: '{{ java_artifact }}'
-    product_id: '{{ java_product_id }}'
+#    product_id: '{{ java_product_id }}'
     state: present
     arguments: '/s'
+    creates_path: '{{ java_path }}\{{ java_folder }}'

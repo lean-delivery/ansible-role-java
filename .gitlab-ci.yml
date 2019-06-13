@@ -141,7 +141,7 @@ AWS openjdk-12:
   tags:
     - aws
 
-.AWS java-11 Windows:
+AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -159,7 +159,7 @@ AWS openjdk-12:
   tags:
     - aws
 
-.AWS java-12 Windows:
+AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
