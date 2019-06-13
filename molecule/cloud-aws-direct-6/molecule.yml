@@ -11,8 +11,9 @@ lint:
     config-file: .yamllint
 platforms:
 
-  - name: test-aws-centos6-ansible-role-java-6-rpm
+  - name: test-aws-centos6-oracle_java-6-rpm
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
@@ -26,9 +27,10 @@ platforms:
      - rhel_family
      - rpm
 
-  - name: test-aws-ubuntu18-ansible-role-java-6-tarball
+  - name: test-aws-ubuntu18-oracle_java-6-tarball
     image: ami-012fd5eb46f56731f
-    instance_type: m5.large
+    platform: ubuntu18
+    instance_type: m5a.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -47,19 +49,23 @@ provisioner:
   inventory:
     group_vars:
       tarball:
+        java_distribution: oracle_java
         java_package: jdk
         java_major_version: 6
         java_tarball_install: true
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
+        java_unlimited_policy_enabled: true
         java_unlimited_policy_transport: oracle-fallback
 
       rpm:
+        java_distribution: oracle_java
         java_package: jdk
         java_major_version: 6
         java_tarball_install: false
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.rpm"
+        java_unlimited_policy_enabled: true
         java_unlimited_policy_transport: oracle-fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
