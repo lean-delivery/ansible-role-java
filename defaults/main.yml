@@ -47,7 +47,7 @@ transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY') }}"
 transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_KEY') }}"
 
 # Configure unlimited security policy
-java_unlimited_policy_enabled: False
+java_unlimited_policy_enabled: false
 # For Java earlier than 1.8.0_151
 java_unlimited_policy_transport: '{{ transport }}'
 # available are:

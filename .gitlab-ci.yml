@@ -26,7 +26,7 @@ Ansible lint:
   tags:
     - aws
 
-.Docker java-on-defaults:
+Docker java-on-defaults:
   stage: deployment test
   script:
   - molecule test -s default
@@ -78,7 +78,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-11 Windows chocolatey:
+AWS openjdk-11 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -87,7 +87,7 @@ Ansible lint:
   tags:
     - aws
 
-.AWS openjdk-12 Windows chocolatey:
+AWS openjdk-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -177,7 +177,7 @@ Ansible lint:
   tags:
     - aws
 
-AWS sapjvm-8 Windows:
+.AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

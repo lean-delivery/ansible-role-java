@@ -14,7 +14,7 @@ platforms:
     image: ami-9887c6e7
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:
@@ -29,7 +29,7 @@ platforms:
     image: ami-1585c46a
     instance_type: m4.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:
@@ -44,7 +44,7 @@ platforms:
     image: ami-012fd5eb46f56731f
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:
@@ -59,7 +59,7 @@ platforms:
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:

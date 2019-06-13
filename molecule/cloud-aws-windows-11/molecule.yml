@@ -18,7 +18,7 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
       - zip
@@ -31,7 +31,7 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
       - exe

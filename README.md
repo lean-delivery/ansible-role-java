@@ -87,7 +87,7 @@ Requirements
           - 'boto3'
         These packages are not included in given role. You should install them preliminary.
 
-  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `True`.
+  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `true`.
   - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 12.
   - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
   - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )
@@ -130,7 +130,7 @@ Requirements
 # Configure unlimited policy
   - `java_unlimited_policy_enabled` - to apply unlimited policy
 
-    default: `False`
+    default: `false`
   - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result.
 
     Available:
@@ -180,7 +180,7 @@ Example Playbook
   roles:
     - role: lean_delivery.java
       java_major_version: 11
-      java_tarball_install: True
+      java_tarball_install: true
       transport: web
       transport_web: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
 ```

@@ -15,7 +15,7 @@ platforms:
     instance_type: m5.large
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:
@@ -32,7 +32,7 @@ platforms:
     instance_type: m5.large
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:
@@ -48,7 +48,7 @@ platforms:
     image: ami-003f19e0e687de1cd
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
     security_group_name:
