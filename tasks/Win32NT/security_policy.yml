@@ -2,8 +2,8 @@
 - name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:
-    - '{{ ansible_system }}/fetch/securite-fetch/security-winfetch-{{ java_unlimited_policy_transport }}.yml'
-    - '{{ ansible_system }}/fetch/unknown-transport.yml'
+    - 'fetch/securite-fetch/security-winfetch-{{ java_unlimited_policy_transport }}.yml'
+    - 'fetch/unknown-transport.yml'
   loop_control:
     loop_var: transport_driver
   when:

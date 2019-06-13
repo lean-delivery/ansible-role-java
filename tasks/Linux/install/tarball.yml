@@ -14,9 +14,6 @@
     file:
       path: '{{ java_path }}/{{ java_folder }}'
       state: directory
-      owner: root
-      group: root
-      mode: 0755
 
   - name: create temporary directory
     tempfile:
@@ -45,9 +42,14 @@
       dest: '{{ java_path }}/{{ java_folder }}'
       recursive: true
       archive: false
-      rsync_opts:
-        - '--chown=root:root'
-        - '--chmod=755'
       checksum: true
     delegate_to: '{{ inventory_hostname }}'
+
+  - name: Set permissions for files
+    file:
+      path: '{{ java_path }}/{{ java_folder }}'
+      recurse: true
+      owner: root
+      group: root
+      mode: 0755
   when: not java_folder_bin.stat.exists
