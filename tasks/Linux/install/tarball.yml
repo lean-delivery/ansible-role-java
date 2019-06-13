@@ -37,11 +37,11 @@
 
   - name: debug
     debug:
-      msg: '{{ unarchived_folder.files[0] }}'
+      msg: '{{ unarchived_folder.files[0].split("/")[0] }}'
 
   - name: Sync from temp
     synchronize:
-      src: '{{ temp_dir.path }}/{{ unarchived_folder.files[0] }}'
+      src: '{{ temp_dir.path }}/{{ unarchived_folder.files[0].split("/")[0] }}/'
       dest: '{{ java_path }}/{{ java_folder }}'
       recursive: true
       archive: false

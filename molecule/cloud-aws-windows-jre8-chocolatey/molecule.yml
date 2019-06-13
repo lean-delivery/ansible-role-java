@@ -11,10 +11,11 @@ lint:
     config-file: .yamllint
 platforms:
 
-  - name: test-aws-windows2016-ansible-role-openjre-8-choco
+  - name: test-aws-windows2016-oracle_java_jre-8-chocolatey
     aws_image_id: ami-0a125a00b5b736e77
+    platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5.large
+    instance_type: m5a.large
     assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
@@ -24,10 +25,11 @@ platforms:
       - windows
       - chocolatey
 
-  - name: test-aws-windows2019-ansible-role-openjre-8-choco
+  - name: test-aws-windows2019-oracle_java_jre-8-chocolatey
     aws_image_id: ami-03ad37b4adab50a4c
+    platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5.large
+    instance_type: m5a.large
     assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
@@ -49,6 +51,8 @@ provisioner:
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
       chocolatey:
+        java_distribution: oracle_java
+        java_package: jre
         transport: chocolatey
         java_major_version: 8
         java_minor_version: 211

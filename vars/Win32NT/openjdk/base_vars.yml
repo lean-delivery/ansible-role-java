@@ -10,10 +10,7 @@ java_folder_ext_transport: >-
 
 java_folder: '{{ java_folder_ext_transport }}'
 
-choco_install_path: >-
-  {{ (java_package == 'jre')
-      | ternary('C:\Program Files\Java',
-                'C:\Program Files\OpenJDK') }}
+choco_install_path: C:\Program Files\OpenJDK
 
 java_default_path: >-
   {{ (transport == 'chocolatey')
@@ -21,10 +18,7 @@ java_default_path: >-
                 'C:\Program Files\Java') }}
 
 java_package_suffix: >-
-  {{ (java_major_version == 11 or java_major_version == 8)
+  {{ (java_major_version == 11)
       | ternary(java_major_version, '') }}
 
-choco_java_package: >-
-  {{ (java_package == 'jdk')
-      | ternary('openjdk'+ java_package_suffix|string,
-                    'jre'+ java_package_suffix|string) }}
+choco_java_package: 'openjdk{{ java_package_suffix }}'

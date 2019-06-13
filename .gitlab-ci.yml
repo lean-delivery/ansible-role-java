@@ -69,7 +69,7 @@ Docker java-on-defaults:
   tags:
     - aws
 
-.AWS jre-8 Windows chocolatey:
+AWS jre-8 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
