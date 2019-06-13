@@ -9,11 +9,11 @@
     headers:
       Cookie: 'oraclelicense=accept-securebackup-cookie'
     force: false
-  register: file_downloaded
+  register: policy_file_downloaded
   retries: 15
   delay: 5
-  until: file_downloaded is succeeded
+  until: policy_file_downloaded is succeeded
 
 - name: Downloaded security policy artifact
   set_fact:
-    security_policy_java_artifact: '{{ file_downloaded.dest }}'
+    security_policy_java_artifact: '{{ policy_file_downloaded.dest }}'

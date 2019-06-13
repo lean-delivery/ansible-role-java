@@ -6,11 +6,11 @@
       {{ download_path }}\{{ (java_unlimited_policy_url
         | urlsplit('path')).split('/')[-1] }}
     force: false
-  register: file_downloaded
+  register: policy_file_downloaded
   retries: 3
   delay: 2
-  until: file_downloaded is succeeded
+  until: policy_file_downloaded is succeeded
 
 - name: Downloaded security policy artifact
   set_fact:
-    security_policy_java_artifact: '{{ file_downloaded.dest }}'
+    security_policy_java_artifact: '{{ policy_file_downloaded.dest }}'
