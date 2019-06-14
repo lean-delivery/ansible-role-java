@@ -20,6 +20,11 @@ This Ansible role has the following features for:
  - Install JRE, JDK, Server-JRE
  - Additional opportunity to install from s3, web, local source.
 
+**SAPJVM**
+
+- Install JDK
+- Additional opportunity to install from sapjvm-fallback, s3, web, local source.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -49,6 +54,9 @@ Requirements
    - 8
    - 11
    - 12
+ - **Supported sapjvm version**:
+   - 7
+   - 8
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -63,6 +71,10 @@ Requirements
      - all
 
 ## Role Variables
+  - `java_distribution` Java distribution type, one of:
+     - `openjdk` (default)
+     - `oracle_java`
+     - `sapjvm`
 
   - `java_package` Java package type.
 
@@ -70,7 +82,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only) `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -78,6 +90,7 @@ Requirements
       - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11,12 or JRE 8)
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
+      - `sapjvm-fallback` fetching artifact from SAP site.   
       - `openjdk-fallback` fetching artifact from jdk.java.net.   
          This is default value for `transport` variable
 
@@ -87,7 +100,7 @@ Requirements
           - 'boto3'
         These packages are not included in given role. You should install them preliminary.
 
-  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `true`.
+  - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `true` is `transport` is not `repositories`.
   - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 12.
   - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
   - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )
@@ -192,6 +205,7 @@ Example Playbook
 
   roles:
     - role: lean_delivery.java
+      java_distribution: oracle_java
       transport: local
       transport_local: /tmp/jdk-8u181-linux-x64.tar.gz
 ```
@@ -201,10 +215,10 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
 ```yaml
 - name: Install java
   hosts: all
-
-
+  
   roles:
     - role: lean_delivery.java
+        java_distribution: oracle_java
         java_package: jre
         java_major_version: 8
         transport: s3
@@ -224,7 +238,17 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 11
       java_minor_version: 0.2
 ```
+### Installing SAPJVM 8 from sapjvm-fallback:
+```yaml
+- name: Install sapjvm
+  hosts: all
 
+  roles:
+    - role: lean_delivery.java
+      java_distribution: sapjvm
+      transport: sapjvm-fallback
+      java_major_version: 8
+```
 License
 -------
 

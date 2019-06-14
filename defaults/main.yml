@@ -3,7 +3,6 @@
 #  - openjdk
 #  - oracle_java
 #  - sapjvm
-#  - coretto
 java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk
@@ -36,7 +35,9 @@ transport: openjdk-fallback
 # - "s3" Fetching artifact from s3 bucket
 # - "chocolatey" Windows specific package manager
 # - "local" Local artifact
-# - "repositories" Install openjdk from repositories for Debian and RHEL
+# - "repositories" Install from repositories for Debian and RHEL
+# - "openjdk-fallback" Install from artifact downloaded from openjdk site
+# - "sapjvm-fallback" Install from artifact downloaded from SAP site
 
 transport_web: '{{ transport_web_default }}'
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
