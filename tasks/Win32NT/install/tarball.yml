@@ -4,10 +4,6 @@
     path: '{{ java_path }}\{{ java_folder }}/bin'
   register: java_folder_bin
 
-- name: debug path
-  debug:
-    var: java_folder_bin
-
 - name: Install java from tarball
   block:
   - name: Mkdir for java installation
@@ -15,16 +11,12 @@
       path: '{{ java_path }}\{{ java_folder }}'
       state: directory
 
-  - name: create temporary directory
+  - name: Create temporary directory
     win_tempfile:
       state: directory
     register: temp_dir_path
 
-  - name: debug temp_dir_path
-    debug:
-      var: temp_dir_path
-
-  - name: Unzip java archive
+  - name: Unarchive to temporary directory
     win_unzip:
       src: '{{ java_artifact }}'
       dest: '{{ temp_dir_path }}'
@@ -36,11 +28,7 @@
       file_type: directory
     register: java_temp_folder
 
-  - name: debug java_temp_folder
-    debug:
-      var: java_temp_folder
-
-  - name: Copy from temp
+  - name: Copy from temporary directory
     win_copy:
       src: '{{ java_temp_folder.files | map(attribute="path") | list | last }}\'
       dest: '{{ java_path }}\{{ java_folder }}'

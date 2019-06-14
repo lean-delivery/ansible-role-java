@@ -1,11 +1,6 @@
 ---
-- name: Set BASE variables based on java distribution
-  include_vars: '{{ distribution }}'
-  with_first_found:
-    - '{{ ansible_system }}/{{ java_distribution }}/base_vars.yml'
-    - '{{ ansible_system }}/{{ java_distribution }}/default.yml'
-  loop_control:
-    loop_var: distribution
+- name: Set base variables based on java distribution
+  include_vars: '{{ ansible_system }}/{{ java_distribution }}/base_vars.yml'
 
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
@@ -15,21 +10,12 @@
   loop_control:
     loop_var: transport_driver
 
-- name: Set PARSE variables based on java distribution
-  include_vars:
-    file: '{{ ansible_system }}/{{ java_distribution }}/parse_{{ java_binary_type }}.yml'
+- name: Set parse variables based on java distribution
+  include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_{{ java_binary_type }}.yml'
   when: java_binary_type != 'chocolatey'
 
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: '{{ ansible_system }}/install/{{ java_binary_type }}.yml'
-
-- name: Debug java_path
-  debug:
-    var: java_path
-
-- name: Debug java_folder
-  debug:
-    var: java_folder
 
 - name: Find java_folder
   win_find:
@@ -39,10 +25,6 @@
     patterns: '{{ java_folder }}'
     use_regex: true
   register: java_dir
-
-- name: Debug java_dir
-  debug:
-    var: java_dir
 
 - name: Set actual java directory
   set_fact:
