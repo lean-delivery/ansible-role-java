@@ -11,7 +11,12 @@
     loop_var: transport_driver
 
 - name: Set package variables based on java distribution
-  include_vars: '{{ ansible_system }}/{{ java_distribution }}/{{ java_binary_type }}_vars_{{ ansible_os_family }}.yml'
+  include_vars: '{{ package_vars }}'
+  with_first_found:
+    - '{{ ansible_system }}/{{ java_distribution }}/{{ java_binary_type }}_vars_{{ ansible_os_family }}.yml'
+    - default.yml
+  loop_control:
+    loop_var: package_vars
   when: java_binary_type == 'package'
 
 - name: Set parse variables based on java distribution
