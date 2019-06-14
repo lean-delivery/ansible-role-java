@@ -3,5 +3,6 @@
   yum:
     name: '{{ (transport == "repositories") | ternary(openjdk_package, java_artifact)  }}'
     state: present
+    lock_timeout: 180
   register: package_install
   until: package_install is succeeded
