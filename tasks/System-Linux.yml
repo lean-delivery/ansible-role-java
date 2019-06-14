@@ -17,6 +17,7 @@
       package:
         name: '{{ requirements }}'
         state: present
+        lock_timeout: 180
       register: installed_packages
       until: installed_packages is succeeded
 
