@@ -1,7 +1,0 @@
----
-java_default_path: /usr/lib/jvm
-requirements:
-  - python
-  - python-argparse
-  - unzip
-  - rsync
