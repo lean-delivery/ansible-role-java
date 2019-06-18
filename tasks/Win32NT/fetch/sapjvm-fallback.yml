@@ -20,6 +20,7 @@
     headers:
       Cookie: eula_3_1_agreed=tools.hana.ondemand.com/developer-license-3_1.txt
     dest: '{{ download_path }}'
+    force: false
   register: file_downloaded
   retries: 20
   delay: 5
