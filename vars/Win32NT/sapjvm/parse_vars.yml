@@ -1,7 +1,4 @@
 ---
-java_artifact: '{{ (transport == "s3") | ternary(java_artifact_s3, (file_downloaded|default({})).dest) }}'
-java_artifact_basename: '{{ java_artifact | basename }}'
-
 parts: >-
   {{ java_artifact_basename
     | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')

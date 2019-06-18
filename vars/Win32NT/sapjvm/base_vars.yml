@@ -5,3 +5,6 @@ java_folder: >-
   {{ java_package + '_' + java_major_version|string + '.' + java_minor_version|string }}
 
 java_default_path: C:\Program Files\Java
+
+java_artifact: '{{ artifact.stat.exists|bool | ternary(artifact.stat.path, (file_downloaded|default({})).dest) }}'
+java_artifact_basename: '{{ java_artifact | win_basename }}'

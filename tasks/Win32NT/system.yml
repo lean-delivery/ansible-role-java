@@ -11,7 +11,7 @@
     loop_var: transport_driver
 
 - name: Set parse variables based on java distribution
-  include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_{{ java_binary_type }}.yml'
+  include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_vars.yml'
   when: java_binary_type != 'chocolatey'
 
 - name: 'Perform {{ java_binary_type }} install'
