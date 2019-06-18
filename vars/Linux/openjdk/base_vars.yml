@@ -43,6 +43,3 @@ java_folder_repo_transport: >-
 
 java_folder: >-
   {{ (java_tarball_install | bool) | ternary(java_folder_ext_transport, java_folder_repo_transport) }}
-
-java_artifact: '{{ (transport == "s3") | ternary(java_artifact_s3, (file_downloaded|default({})).dest | default(omit)) }}'
-java_artifact_basename: '{{ java_artifact | basename }}'

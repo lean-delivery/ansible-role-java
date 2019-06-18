@@ -23,26 +23,6 @@
       register: installed_packages
       until: installed_packages is succeeded
 
-    - name: Debug1
-      debug:
-        var: java_artifact
-
-    - name: Debug2
-      debug:
-        var: java_artifact_basename
-
-    - name: Debug java_package
-      debug:
-        var: java_package
-
-    - name: Debug java_major_version
-      debug:
-        var: java_major_version
-
-    - name: Debug openjdk_package
-      debug:
-        var: openjdk_package
-
     - name: 'Perform {{ java_binary_type }} install'
       include_tasks: '{{ ansible_system }}/install/{{ java_tarball_install | ternary("tarball", ansible_os_family) }}.yml'
 

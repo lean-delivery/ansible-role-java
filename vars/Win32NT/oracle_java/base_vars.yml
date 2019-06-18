@@ -12,6 +12,3 @@ java_folder: >-
 
 java_default_path: C:\Program Files\Java
 choco_java_package: '{{ java_package }}{{ java_major_version }}'
-
-java_artifact: '{{ (file_downloaded|default({})).dest }}'
-java_artifact_basename: '{{ java_artifact | win_basename }}'

@@ -26,7 +26,7 @@ platforms:
       - rhel_family
       - repositories
 
-  - name: test-aws-centos6-openjdk-11-repo
+  - name: test-aws-centos6-openjdk-11-tarball
     image: ami-1585c46a
     platform: centos6
     instance_type: m4.large

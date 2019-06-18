@@ -5,6 +5,3 @@ java_default_path: "{{ (ansible_os_family == 'RedHat') | ternary('/usr/java', '/
 
 java_folder: >-
   {{ java_package + '_' + java_major_version|string + '.' + java_minor_version|string }}
-
-java_artifact: '{{ (transport == "s3") | ternary(java_artifact_s3, (file_downloaded|default({})).dest) }}'
-java_artifact_basename: '{{ java_artifact | basename }}'

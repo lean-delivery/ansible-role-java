@@ -1,2 +1,5 @@
 ---
 download_default_path: '{{ ansible_env.TEMP }}'
+
+java_artifact: '{{ (transport == "openjdk-fallback") | ternary(java_artifact_fallback, (file_downloaded|default({})).dest) }}'
+java_artifact_basename: '{{ java_artifact | win_basename }}'

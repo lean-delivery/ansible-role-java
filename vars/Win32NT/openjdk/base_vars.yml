@@ -17,6 +17,3 @@ java_package_suffix: >-
   {{ (java_major_version == 11) | ternary(java_major_version, '') }}
 
 choco_java_package: 'openjdk{{ java_package_suffix }}'
-
-java_artifact: '{{ (transport == "openjdk-fallback") | ternary(java_artifact_fallback, (file_downloaded|default({})).dest) }}'
-java_artifact_basename: '{{ java_artifact | win_basename }}'
