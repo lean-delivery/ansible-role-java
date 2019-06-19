@@ -4,7 +4,7 @@
     deb: '{{ java_artifact | default(omit) }}'
     name: '{{ (openjdk_package if transport == "repositories") | default(omit) }}'
     state: present
-    update_cache: True
+    update_cache: true
     cache_valid_time: 3600
   register: package_install
   until: package_install is succeeded

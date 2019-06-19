@@ -3,11 +3,11 @@
   win_get_url:
     url: '{{ artifact_url }}'
     dest: '{{ download_path }}\{{ artifact_basename }}'
-    force: True
+    force: true
 
 - name: Get SHA256 checksum of file
   win_stat:
     path: '{{ download_path }}\{{ artifact_basename }}'
-    get_checksum: True
+    get_checksum: true
     checksum_algorithm: sha256
   register: artifact

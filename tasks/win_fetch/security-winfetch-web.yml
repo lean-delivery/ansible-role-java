@@ -5,7 +5,7 @@
     dest: >-
       {{ download_path }}\{{ (java_unlimited_policy_url
         | urlsplit('path')).split('/')[-1] }}
-    force: False
+    force: false
   register: file_downloaded
   retries: 3
   delay: 2

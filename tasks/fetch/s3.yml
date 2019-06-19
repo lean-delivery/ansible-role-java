@@ -8,7 +8,7 @@
     aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
     overwrite: different
-    ignore_nonexistent_bucket: True
+    ignore_nonexistent_bucket: true
   retries: 5
   delay: 2
 
