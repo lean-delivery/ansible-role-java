@@ -1,17 +1,6 @@
 ---
 openjdk_root_page: https://jdk.java.net
 
-#java_default_path: "{{ (ansible_os_family == 'RedHat' and java_binary_type == 'tarball') | ternary('/usr/java', '/usr/lib/jvm') }}"
-
-
-# full package name
-# openjdk_package: >-
-#   {{ (ansible_os_family == 'RedHat')
-#       | ternary('java-' + openjdk_package_rhel_versions|string + '-' + openjdk_package_rhel_spec|string,
-#                 'openjdk-' + java_major_version|string + '-' + java_package)
-#   }}
-
-
 java_folder: >-
   {{ (java_tarball_install | bool) | ternary(java_folder_ext_transport, java_folder_repo_transport) }}
 
