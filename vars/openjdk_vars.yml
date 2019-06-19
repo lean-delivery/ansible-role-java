@@ -5,7 +5,7 @@ parts: >-
     | first | list }}
 
 java_folder: >-
-  {{ (not java_tarball_install | bool and (ansible_os_family == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
 
 java_package_suffix: >-
   {{ (java_major_version == 11) | ternary(java_major_version, '') }}
