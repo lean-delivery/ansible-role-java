@@ -5,6 +5,9 @@ requirements:
   - unzip
   - rsync
 
+openjdk_package: >-
+  {{ 'openjdk-' + java_major_version|string + '-' + java_package }}
+
 java_default_path: /usr/lib/jvm
 
 java_folder_repo_transport: >-
