@@ -8,7 +8,7 @@ parts: >-
     | first | list }}
 
 choco_install_path: >-
-  {{ (transport == 'chocolatey') | ternary('C:\Program Files\OpenJDK', omit) }}
+  {{ 'C:\Program Files\OpenJDK' if (transport == 'chocolatey') else omit }}
 
 java_package_suffix: >-
   {{ (java_major_version == 11) | ternary(java_major_version, '') }}

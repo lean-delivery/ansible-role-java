@@ -17,6 +17,30 @@
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: '{{ ansible_system }}/install/{{ java_binary_type }}.yml'
 
+- name: debug java_path
+  debug:
+    var: java_path
+
+- name: debug java_folder
+  debug:
+    var: java_folder
+
+- name: debug file_downloaded
+  debug:
+    var: file_downloaded
+
+- name: debug java_artifact_basename
+  debug:
+    var: java_artifact_basename
+
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
+- name: debug java_minor_version
+  debug:
+    var: java_minor_version
+
 - name: Find java_folder
   win_find:
     paths: '{{ java_path }}'
@@ -25,6 +49,10 @@
     patterns: '{{ java_folder }}'
     use_regex: true
   register: java_dir
+
+- name: debug java_dir
+  debug:
+    var: java_dir
 
 - name: Set actual java directory
   set_fact:

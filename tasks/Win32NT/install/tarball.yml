@@ -21,7 +21,7 @@
       src: '{{ java_artifact }}'
       dest: '{{ temp_dir_path }}'
 
-  - name: Find java_folder
+  - name: Find java_folder in temp
     win_find:
       paths: '{{ temp_dir_path }}'
       recurse: false
