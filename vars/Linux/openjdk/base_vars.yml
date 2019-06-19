@@ -5,11 +5,11 @@ openjdk_root_page: https://jdk.java.net
 
 
 # full package name
-openjdk_package: >-
-  {{ (ansible_os_family == 'RedHat')
-      | ternary('java-' + openjdk_package_rhel_versions|string + '-' + openjdk_package_rhel_spec|string,
-                'openjdk-' + java_major_version|string + '-' + java_package)
-  }}
+# openjdk_package: >-
+#   {{ (ansible_os_family == 'RedHat')
+#       | ternary('java-' + openjdk_package_rhel_versions|string + '-' + openjdk_package_rhel_spec|string,
+#                 'openjdk-' + java_major_version|string + '-' + java_package)
+#   }}
 
 
 java_folder: >-
