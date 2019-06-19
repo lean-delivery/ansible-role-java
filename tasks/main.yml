@@ -25,4 +25,3 @@
     loop_var: platform
   when:
     - java_unlimited_policy_enabled
-    - java_full_version is version('8.151', '<')

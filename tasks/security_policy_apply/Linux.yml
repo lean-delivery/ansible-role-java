@@ -9,6 +9,8 @@
         owner: root
         group: root
         mode: 0755
+      when:
+        - java_full_version is version('8.151', '<')
 
     - name: Apply patch file
       copy:
@@ -26,6 +28,8 @@
         - README.txt
       loop_control:
         loop_var: policy_item
+      when:
+        - java_full_version is version('8.151', '<')
 
     - name: Apply setting
       replace:
