@@ -30,6 +30,14 @@
   debug:
     var: java_artifact_basename
 
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
+- name: debug java_minor_version
+  debug:
+    var: java_minor_version
+
 - name: Perform install from artifacts
   block:
     - name: Install requirements
