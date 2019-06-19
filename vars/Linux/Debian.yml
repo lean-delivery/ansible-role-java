@@ -1,6 +1,6 @@
 ---
 requirements:
-  - python
-  - python-argparse
+  # - python
+  # - python-argparse
   - unzip
   - rsync
