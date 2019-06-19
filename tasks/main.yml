@@ -1,7 +1,7 @@
 ---
 - name: Set parse variables based on java distribution
   include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_vars.yml'
-  # when: transport != 'repositories'
+  when: transport != 'repositories'
 
 - name: Load a system variables file based on distribution or OS family
   include_vars: '{{ distribution }}'
