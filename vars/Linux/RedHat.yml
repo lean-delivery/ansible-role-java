@@ -7,3 +7,8 @@ requirements:
   # - python-argparse
   - unzip
   - rsync
+
+java_folder_repo_transport: >-
+  {{ 'java-' + openjdk_package_rhel_versions
+      + '-openjdk-.+' + openjdk_arch_rhel
+      | default(omit) }}
