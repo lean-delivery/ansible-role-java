@@ -1,6 +1,6 @@
 ---
 - name: Set base variables based on java distribution
-  include_vars: '{{ java_distribution }}_vars.yml'
+  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
 
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
@@ -13,30 +13,6 @@
 - name: Set parse variables based on java distribution
   include_vars: java_parts.yml
   when: transport != 'repositories'
-
-- name: debug java_path
-  debug:
-    var: java_path
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
-- name: debug file_downloaded
-  debug:
-    var: file_downloaded
-
-- name: debug java_artifact_basename
-  debug:
-    var: java_artifact_basename
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug java_minor_version
-  debug:
-    var: java_minor_version
 
 - name: Perform install from artifacts
   block:
