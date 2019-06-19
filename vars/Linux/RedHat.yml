@@ -8,6 +8,8 @@ requirements:
   - unzip
   - rsync
 
+java_default_path: /usr/java
+
 java_folder_repo_transport: >-
   {{ 'java-' + openjdk_package_rhel_versions
       + '-openjdk-.+' + openjdk_arch_rhel
