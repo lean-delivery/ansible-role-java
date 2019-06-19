@@ -7,10 +7,6 @@
   loop_control:
     loop_var: distribution
 
-# - name: Set parse variables based on java distribution
-#   include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_vars.yml'
-#   when: java_binary_type != 'chocolatey'
-
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
