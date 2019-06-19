@@ -1,6 +1,4 @@
 ---
-sapjvm_root_page: https://tools.hana.ondemand.com
-
 parts: >-
   {{ java_artifact_basename
     | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')

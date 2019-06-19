@@ -1,6 +1,6 @@
 ---
 - name: Set base variables based on java distribution
-  include_vars: '{{ ansible_system }}/{{ java_distribution }}/base_vars.yml'
+  include_vars: '{{ java_distribution }}_vars.yml'
 
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'

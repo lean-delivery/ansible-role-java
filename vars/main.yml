@@ -1,4 +1,7 @@
 ---
+openjdk_root_page: https://jdk.java.net
+sapjvm_root_page: https://tools.hana.ondemand.com
+
 # vars file for java
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
 java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'

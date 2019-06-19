@@ -1,14 +1,11 @@
 ---
-openjdk_root_page: https://jdk.java.net
-transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip
-
 parts: >-
   {{ java_artifact_basename
     | regex_findall('^.*(j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
     | first | list }}
 
-java_default_path: >-
-  {{ (transport == 'chocolatey') | ternary('C:\Program Files\OpenJDK', 'C:\Program Files\Java')}}
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_os_family == Linux)) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
 
 java_package_suffix: >-
   {{ (java_major_version == 11) | ternary(java_major_version, '') }}
