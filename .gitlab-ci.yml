@@ -177,7 +177,7 @@ AWS java-11:
   tags:
     - aws
 
-AWS sapjvm-8 Windows:
+.AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
