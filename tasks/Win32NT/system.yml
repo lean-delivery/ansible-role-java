@@ -12,7 +12,7 @@
 
 - name: Set parse variables based on java distribution
   include_vars: java_parts.yml
-  when: transport != 'repositories'
+  when: java_binary_type != 'chocolatey'
 
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: '{{ ansible_system }}/install/{{ java_binary_type }}.yml'

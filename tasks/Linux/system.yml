@@ -22,6 +22,14 @@
     - name: 'Perform {{ java_binary_type }} install'
       include_tasks: '{{ ansible_system }}/install/{{ java_tarball_install | ternary("tarball", ansible_os_family) }}.yml'
 
+    - name: debug java_path
+      debug:
+        var: java_path
+
+    - name: debug java_folder
+      debug:
+        var: java_folder
+
     - name: Find java_folder
       find:
         paths: '{{ java_path }}'
