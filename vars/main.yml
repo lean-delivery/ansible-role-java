@@ -17,9 +17,3 @@ security_patch_folders:
   6: jce
   7: UnlimitedJCEPolicy
   8: UnlimitedJCEPolicyJDK8
-
-java_package: '{{ parts[0] }}'
-java_major_version: '{{ parts[1] }}'
-java_minor_version: '{{ parts[2] }}'
-java_os: '{{ parts[3] }}'
-java_arch: '{{ parts[4] }}'

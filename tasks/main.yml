@@ -1,8 +1,4 @@
 ---
-- name: Set parse variables based on java distribution
-  include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_vars.yml'
-  when: transport != 'repositories'
-
 - name: Load a system variables file based on distribution or OS family
   include_vars: '{{ distribution }}'
   with_first_found:
@@ -14,6 +10,10 @@
 # - name: Set parse variables based on java distribution
 #   include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_vars.yml'
 #   when: java_binary_type != 'chocolatey'
+
+- name: Set parse variables based on java distribution
+  include_vars: java_parts.yml
+  when: transport != 'repositories'
 
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
