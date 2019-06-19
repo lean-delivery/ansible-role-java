@@ -3,11 +3,11 @@ openjdk_root_page: https://jdk.java.net
 
 java_default_path: "{{ (ansible_os_family == 'RedHat' and java_binary_type == 'tarball') | ternary('/usr/java', '/usr/lib/jvm') }}"
 
-java_folder_ext_transport: >-
-  {{ (java_major_version|int <= 8)
-      | ternary(java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string,
-                java_package + '-'  + java_major_version|string + '.'   + java_minor_version|string)
-  }}
+# java_folder_ext_transport: >-
+#   {{ (java_major_version|int <= 8)
+#       | ternary(java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string,
+#                 java_package + '-'  + java_major_version|string + '.'   + java_minor_version|string)
+#   }}
 
 # Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
 # Define Centos arch specific for compatibility with oracle packages name
@@ -35,14 +35,14 @@ openjdk_package: >-
   }}
 
 # java_folder for packages from repositories
-java_folder_repo_transport: >-
-  {{ (ansible_os_family == 'RedHat')
-      | ternary('java-' + openjdk_package_rhel_versions + '-openjdk-.+' + openjdk_arch_rhel,
-                'java-' + java_major_version|string + '-openjdk-*')
-  }}
+# java_folder_repo_transport: >-
+#   {{ (ansible_os_family == 'RedHat')
+#       | ternary('java-' + openjdk_package_rhel_versions + '-openjdk-.+' + openjdk_arch_rhel,
+#                 'java-' + java_major_version|string + '-openjdk-*')
+#   }}
 
-java_folder: >-
-  {{ (java_tarball_install | bool) | ternary(java_folder_ext_transport, java_folder_repo_transport) }}
+# java_folder: >-
+#   {{ (java_tarball_install | bool) | ternary(java_folder_ext_transport, java_folder_repo_transport) }}
 
 parts: >-
   {{ java_artifact_basename

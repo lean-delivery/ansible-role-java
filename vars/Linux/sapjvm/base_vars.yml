@@ -3,8 +3,8 @@ sapjvm_root_page: https://tools.hana.ondemand.com
 
 java_default_path: "{{ (ansible_os_family == 'RedHat') | ternary('/usr/java', '/usr/lib/jvm') }}"
 
-java_folder: >-
-  {{ java_package + '_' + java_major_version|string + '.' + java_minor_version|string }}
+# java_folder: >-
+#   {{ java_package + '_' + java_major_version|string + '.' + java_minor_version|string }}
 
 parts: >-
   {{ java_artifact_basename
