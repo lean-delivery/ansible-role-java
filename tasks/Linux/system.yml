@@ -22,6 +22,14 @@
   debug:
     var: java_folder
 
+- name: debug file_downloaded
+  debug:
+    var: file_downloaded
+
+- name: debug java_artifact_basename
+  debug:
+    var: java_artifact_basename
+
 - name: Perform install from artifacts
   block:
     - name: Install requirements
