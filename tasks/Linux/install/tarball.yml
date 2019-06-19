@@ -6,13 +6,6 @@
 
 - name: Install java from tarball
   block:
-  - name: Install requirements
-    package:
-      name: '{{ requirements }}'
-      state: present
-    register: installed_packages
-    until: installed_packages is succeeded
-
   - name: Mkdir for java installation
     file:
       path: '{{ java_path }}/{{ java_folder }}'

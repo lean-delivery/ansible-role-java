@@ -10,12 +10,15 @@
   loop_control:
     loop_var: transport_driver
 
-- name: Set parse variables based on java distribution
-  include_vars: '{{ ansible_system }}/{{ java_distribution }}/parse_vars.yml'
-  when: transport != 'repositories'
-
 - name: Perform install from artifacts
   block:
+    - name: Install requirements
+      package:
+        name: '{{ requirements }}'
+        state: present
+      register: installed_packages
+      until: installed_packages is succeeded
+
     - name: 'Perform {{ java_binary_type }} install'
       include_tasks: '{{ ansible_system }}/install/{{ java_tarball_install | ternary("tarball", ansible_os_family) }}.yml'
 
