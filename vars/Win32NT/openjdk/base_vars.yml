@@ -2,16 +2,13 @@
 openjdk_root_page: https://jdk.java.net
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip
 
-java_folder: >-
-  {{ (java_major_version|int <= 8)
-      | ternary(java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string,
-                java_package + '-'  + java_major_version|string + '.'   + java_minor_version|string)
-  }}
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^.*(j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
+    | first | list }}
 
-choco_install_path: C:\Program Files\OpenJDK
-
-java_default_path: >-
-  {{ (transport == 'chocolatey') | ternary(choco_install_path, 'C:\Program Files\Java') }}
+choco_install_path: >-
+  {{ (transport == 'chocolatey') | ternary('C:\Program Files\OpenJDK', omit) }}
 
 java_package_suffix: >-
   {{ (java_major_version == 11) | ternary(java_major_version, '') }}

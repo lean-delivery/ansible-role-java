@@ -1,7 +1,7 @@
 ---
 sapjvm_root_page: https://tools.hana.ondemand.com
 
-java_folder: >-
-  {{ java_package + '_' + java_major_version|string + '.' + java_minor_version|string }}
-
-java_default_path: C:\Program Files\Java
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
+    | first | list }}
