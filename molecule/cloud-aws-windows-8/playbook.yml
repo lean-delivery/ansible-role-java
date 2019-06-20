@@ -3,3 +3,7 @@
   hosts: all
   roles:
     - role: ansible-role-java
+      java_major_version: 8
+      java_package: jdk
+      java_tarball_install: False
+      java_path: C:\Temp\Java
