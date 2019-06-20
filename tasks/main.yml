@@ -21,9 +21,8 @@
 - name: Set parse variables based on java distribution
   include_vars: java_parts.yml
   when:
-    transport != 'repositories'
-    or
-    java_binary_type != 'chocolatey'
+    - transport != 'repositories'
+    - java_binary_type != 'chocolatey'
 
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
