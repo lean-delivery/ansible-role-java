@@ -12,11 +12,12 @@
     - name: 'Perform {{ java_binary_type }} install'
       include_tasks: '{{ install_task }}'
       with_first_found:
-        - '{{ ansible_system }}/install/{{ java_distribution }}_{{ java_binary_type }}.yml'
-        - '{{ ansible_system }}/install/{{ java_binary_type }}.yml'
-        - '{{ ansible_system }}/install/{{ ansible_os_family }}.yml'
+        - 'install/{{ java_distribution }}_{{ java_binary_type }}.yml'
+        - 'install/{{ java_binary_type }}.yml'
+        - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
+      ignore_errors: true
 
     - name: Find java_folder
       find:
