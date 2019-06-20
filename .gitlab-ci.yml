@@ -132,7 +132,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-AWS openjdk-12 Windows:
+.AWS openjdk-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
