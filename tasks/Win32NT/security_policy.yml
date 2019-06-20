@@ -34,3 +34,4 @@
   win_lineinfile:
     path: '{{ java_act_path }}\jre\lib\security\java.security'
     line: 'crypto.policy=unlimited'
+  when: java_major_version | int < 9
