@@ -5,4 +5,4 @@
     product_id: '{{ java_product_id }}'
     state: present
     arguments: '/s'
-    creates_path: '{{ java_path }}\{{ java_folder }}'
+    # creates_path: '{{ java_path }}\{{ java_folder }}'
