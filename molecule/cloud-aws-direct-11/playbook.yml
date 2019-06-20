@@ -4,3 +4,4 @@
   roles:
     - role: ansible-role-java
       java_unlimited_policy_enabled: True
+
