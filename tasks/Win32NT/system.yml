@@ -16,18 +16,6 @@
     use_regex: true
   register: java_dir
 
-- name: debug java_path
-  debug:
-    var: java_path
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
-- name: debug java_dir
-  debug:
-    var: java_dir
-
 - name: Set actual java directory
   set_fact:
     java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
