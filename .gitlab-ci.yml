@@ -105,7 +105,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-AWS openjdk-8:
+.AWS openjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -132,7 +132,7 @@ AWS openjdk-8:
   tags:
     - aws
 
-AWS openjdk-12 Windows:
+.AWS openjdk-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -141,7 +141,7 @@ AWS openjdk-12 Windows:
   tags:
     - aws
 
-AWS java-11 Windows:
+.AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -159,7 +159,7 @@ AWS java-11 Windows:
   tags:
     - aws
 
-AWS java-12 Windows:
+.AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -177,7 +177,7 @@ AWS java-12 Windows:
   tags:
     - aws
 
-AWS sapjvm-8 Windows:
+.AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -186,7 +186,7 @@ AWS sapjvm-8 Windows:
   tags:
     - aws
 
-EPC java-8:
+.EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
