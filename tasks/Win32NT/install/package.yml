@@ -6,3 +6,6 @@
     state: present
     arguments: '/s'
     # creates_path: '{{ java_path }}\{{ java_folder }}'
+- name: debug java_product_id
+  debug:
+    var: java_product_id
