@@ -1,0 +1,43 @@
+---
+- name: Check that the java_folder exists
+  stat:
+    path: '{{ java_path }}/{{ java_folder }}/bin'
+  register: java_folder_bin
+
+- name: 'Install java {{ java_full_version }} from tarball'
+  block:
+  - name: Mkdir for java installation
+    file:
+      path: '{{ java_path }}/{{ java_folder }}'
+      state: directory
+
+  - name: Create temporary directory
+    tempfile:
+      state: directory
+    register: temp_dir
+
+  - name: Unarchive to temporary directory
+    unarchive:
+      src: '{{ java_artifact }}'
+      dest: '{{ temp_dir.path }}'
+      remote_src: true
+      list_files: true
+    register: unarchived_folder
+
+  - name: Sync from temporary directory
+    synchronize:
+      src: '{{ temp_dir.path }}/{{ unarchived_folder.files[0].split("/")[0] }}/'
+      dest: '{{ java_path }}/{{ java_folder }}'
+      recursive: true
+      archive: false
+      checksum: true
+    delegate_to: '{{ inventory_hostname }}'
+
+  - name: Set permissions for java installation
+    file:
+      path: '{{ java_path }}/{{ java_folder }}'
+      recurse: true
+      owner: root
+      group: root
+      mode: 0755
+  when: not java_folder_bin.stat.exists
