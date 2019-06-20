@@ -1,15 +1,4 @@
 ---
-- name: Set base variables based on java distribution
-  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
-
-- name: 'Fetch oracle artifact with {{ transport }} transport'
-  include_tasks: '{{ transport_driver }}'
-  with_first_found:
-    - 'fetch/{{ transport }}.yml'
-    - fetch/unknown-transport.yml
-  loop_control:
-    loop_var: transport_driver
-
 - name: Set parse variables based on java distribution
   include_vars: java_parts.yml
   when: transport != 'repositories'
