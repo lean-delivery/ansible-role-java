@@ -10,13 +10,14 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-java-12-rpm
+  - name: test-aws-centos7-oracle_java-12-s3-rpm
     image: ami-9887c6e7
-    instance_type: m5.large
+    platform: centos7
+    instance_type: m5a.large
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -27,13 +28,14 @@ platforms:
       - s3
       - package
 
-  - name: test-aws-ubuntu18-ansible-role-java-12-s3-deb
+  - name: test-aws-ubuntu18-oracle_java-12-s3-deb
     image: ami-012fd5eb46f56731f
-    instance_type: m5.large
+    platform: ubuntu18
+    instance_type: m5a.large
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -44,13 +46,14 @@ platforms:
       - s3
       - package
 
-  - name: test-aws-Debian9-ansible-role-java-12-s3-tb
+  - name: test-aws-Debian9-oracle_java-12-s3-tb
     image: ami-003f19e0e687de1cd
-    instance_type: m5.large
+    platform: debian9
+    instance_type: m5a.large
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -63,7 +66,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       s3:
@@ -72,10 +75,12 @@ provisioner:
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       tarball:
-        java_tarball_install: True
+        java_distribution: oracle_java
+        java_tarball_install: true
         transport_s3_path: /java/12/jdk-12.0.1_linux-x64_bin.tar.gz
       package:
-        java_tarball_install: False
+        java_distribution: oracle_java
+        java_tarball_install: false
       debian_family:
         transport_s3_path: /java/12/jdk-12.0.1_linux-x64_bin.deb
       rhel_family:
@@ -92,6 +97,6 @@ verifier:
   name: testinfra
   options:
     verbose: true
-  # directory: ../resources/tests/
+  directory: ../resources/tests/
   lint:
     name: flake8

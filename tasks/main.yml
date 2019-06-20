@@ -1,17 +1,33 @@
 ---
-
-- name: Load a variable file based on distribution or OS family
+- name: Load a system variables file based on distribution or OS family
   include_vars: '{{ distribution }}'
   with_first_found:
-    - '{{ ansible_system }}/{{ ansible_os_family }}.yml'
+    - '{{ ansible_os_family }}.yml'
     - default.yml
   loop_control:
     loop_var: distribution
 
+- name: Set base variables based on java distribution
+  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
+
+- name: 'Fetch oracle artifact with {{ transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - '{{ ansible_system }}/fetch/{{ transport }}.yml'
+    - unknown-transport.yml
+  loop_control:
+    loop_var: transport_driver
+
+- name: Set parse variables based on java distribution
+  include_vars: java_parts.yml
+  when:
+    - transport != 'repositories'
+    - java_binary_type != 'chocolatey'
+
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
-    - 'System-{{ ansible_system }}.yml'
+    - '{{ ansible_system }}/system.yml'
     - not-supported.yml
   loop_control:
     loop_var: platform
@@ -19,10 +35,10 @@
 - name: Apply security policy patch
   include_tasks: '{{ platform }}'
   with_first_found:
-    - 'security_policy_apply/{{ ansible_system }}.yml'
+    - '{{ ansible_system }}/security_policy.yml'
     - not-supported.yml
   loop_control:
     loop_var: platform
   when:
     - java_unlimited_policy_enabled
-    - java_full_version is version('8.151', '<')
+    - java_distribution == 'oracle_java'

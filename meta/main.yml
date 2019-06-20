@@ -10,12 +10,12 @@ galaxy_info:
   platforms:
     - name: "Ubuntu"
       versions:
-        - "xenial"
         - "trusty"
+        - "xenial"
+        - "bionic"
     - name: "Debian"
       versions:
         - "stretch"
-        - "jessie"
     - name: "EL"
       versions:
         - "6"
@@ -31,6 +31,8 @@ galaxy_info:
     - "java"
     - "oracle"
     - "jdk"
+    - "openjdk"
+    - "sapjvm"
     - "windows"
 
 dependencies: []

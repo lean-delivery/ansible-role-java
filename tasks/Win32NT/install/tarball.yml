@@ -1,0 +1,11 @@
+---
+- name: Mkdir for java installation
+  win_file:
+    path: '{{ java_path }}'
+    state: directory
+
+- name: 'Install java {{ java_full_version }}'
+  win_unzip:
+    src: '{{ java_artifact }}'
+    dest: '{{ java_path }}'
+    creates: '{{ java_path }}\{{ java_folder }}'

@@ -1,0 +1,19 @@
+---
+- name: Mkdir for java installation
+  file:
+    path: '{{ java_path }}/{{ java_folder }}'
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: 'Install java {{ java_full_version }}'
+  unarchive:
+    src: '{{ java_artifact }}'
+    dest: '{{ java_path }}/{{ java_folder }}'
+    remote_src: true
+    owner: root
+    group: root
+    mode: 0755
+    extra_opts: [--strip-components=1]
+    creates: '{{ java_path }}/{{ java_folder }}/bin/'

@@ -1,7 +1,7 @@
 ---
 - name: Prepare host to S3 transport
   hosts: localhost
-  gather_facts: True
+  gather_facts: true
   vars:
     transport_s3_bucket: java-molecule-s3-test
     transport_s3_path: java/jdk-8u202-windows-x64.exe

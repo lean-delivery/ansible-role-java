@@ -1,0 +1,5 @@
+---
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^.*(j[dkre]{2})-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
+    | first | list }}

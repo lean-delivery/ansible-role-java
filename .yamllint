@@ -27,7 +27,5 @@ rules:
   line-length:
     max: 150
     level: warning
-  new-lines: disable
-
-ignore: |
-  molecule
+  new-lines:
+    type: unix

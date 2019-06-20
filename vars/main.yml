@@ -1,7 +1,13 @@
 ---
-# vars file for java
-os: "{{ ansible_facts.system | lower | regex_replace('win32nt', 'windows') }}"
 openjdk_root_page: https://jdk.java.net
+sapjvm_root_page: https://tools.hana.ondemand.com
+
+# vars file for java
+transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
+download_default_path: /tmp
+java_artifact: '{{ (transport == "s3") | ternary(java_artifact_s3, (file_downloaded|default({})).dest | default(omit)) }}'
+java_artifact_basename: '{{ java_artifact | basename }}'
 
 # Urls for java security policy
 fallback_oracle_security_policy_artifacts:
@@ -15,13 +21,10 @@ security_patch_folders:
   7: UnlimitedJCEPolicy
   8: UnlimitedJCEPolicyJDK8
 
-# java_folder for oracle java packages and openjdk tarball
 java_folder_ext_transport: >-
-  {{ (java_major_version|int <= 8) | ternary(
-    java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string,
-    java_package + '-'  + java_major_version|string + '.'   + java_minor_version|string)
+  {{ (java_major_version|int <= 8)
+      | ternary(java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string,
+                java_package + '-'  + java_major_version|string + '.'   + java_minor_version|string)
   }}
 
-java_folder: >-
-  {{ (transport == 'repositories')
-    | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
+java_folder: '{{ java_folder_ext_transport }}'

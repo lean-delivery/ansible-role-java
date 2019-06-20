@@ -1,0 +1,50 @@
+---
+- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - 'fetch/security-fetch/security-fetch-{{ java_unlimited_policy_transport }}.yml'
+    - 'fetch/unknown-transport.yml'
+  loop_control:
+    loop_var: transport_driver
+  when:
+    - java_unlimited_policy_enabled
+    - java_distribution == 'oracle_java'
+    - java_full_version is version('8.151', '<')
+
+- name: Become block
+  block:
+    - name: Unzip patch file
+      unarchive:
+        src: '{{ security_policy_java_artifact }}'
+        dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security'
+        remote_src: true
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Apply patch file
+      copy:
+        src: "{{ java_path }}/{{ java_folder }}/jre/lib/security/\
+          {{ security_patch_folders[java_major_version|int] }}/{{ policy_item }}"
+        dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security/'
+        remote_src: true
+        directory_mode: true
+        owner: root
+        group: root
+        mode: 0644
+      loop:
+        - local_policy.jar
+        - US_export_policy.jar
+        - README.txt
+      loop_control:
+        loop_var: policy_item
+  when: java_full_version is version('8.151', '<')
+  become: true
+
+- name: Apply setting
+  replace:
+    path: '{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security'
+    regexp: '#crypto.policy=unlimited'
+    replace: 'crypto.policy=unlimited'
+  when: java_major_version | int < 9
+  become: true

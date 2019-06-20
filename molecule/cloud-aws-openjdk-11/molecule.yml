@@ -10,12 +10,13 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-openjdk-11-repo
+  - name: test-aws-centos7-openjdk-11-repo
     image: ami-9887c6e7
-    instance_type: m5.large
+    platform: centos7
+    instance_type: m5a.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -25,12 +26,13 @@ platforms:
       - rhel_family
       - repositories
 
-  - name: test-aws-centos6-ansible-role-openjdk-11-repo
+  - name: test-aws-centos6-openjdk-11-tarball
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -41,12 +43,13 @@ platforms:
      - web
      - tarball
 
-  - name: test-aws-ubuntu18-ansible-role-openjdk-11-repo
+  - name: test-aws-ubuntu18-openjdk-11-repo
     image: ami-012fd5eb46f56731f
-    instance_type: m5.large
+    platform: ubuntu18
+    instance_type: m5a.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -58,17 +61,20 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       web:
         transport: web
         transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
       tarball:
-        java_tarball_install: True
+        java_distribution: openjdk
+        java_tarball_install: true
       repositories:
+        java_distribution: openjdk
+        java_major_version: 11
         transport: repositories
-        java_tarball_install: False
+        java_tarball_install: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml

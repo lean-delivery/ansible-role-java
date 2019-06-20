@@ -1,0 +1,13 @@
+---
+- name: Copy security policy artifact to destination
+  win_copy:
+    src: '{{ java_unlimited_policy_transport_local }}'
+    dest: '{{ download_path }}'
+  register: policy_file_downloaded
+  retries: 5
+  delay: 2
+  until: policy_file_downloaded is succeeded
+
+- name: Downloaded artifact
+  set_fact:
+    security_policy_java_artifact: '{{ policy_file_downloaded.dest }}'

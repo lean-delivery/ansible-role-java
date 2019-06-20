@@ -1,0 +1,37 @@
+---
+- name: 'Fetch oracle security policy with {{ java_unlimited_policy_transport }} transport'
+  include_tasks: '{{ transport_driver }}'
+  with_first_found:
+    - 'fetch/security-fetch/security-winfetch-{{ java_unlimited_policy_transport }}.yml'
+    - 'fetch/unknown-transport.yml'
+  loop_control:
+    loop_var: transport_driver
+  when:
+    - java_unlimited_policy_enabled
+    - java_full_version is version('8.151', '<')
+
+- name: Block
+  block:
+    - name: Unzip patch file
+      win_unzip:
+        src: '{{ security_policy_java_artifact }}'
+        dest: '{{ java_act_path }}\jre\lib\security\'
+        creates: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}'
+
+    - name: Apply patch file
+      win_copy:
+        src: '{{ java_act_path }}\jre\lib\security\{{ security_patch_folders[java_major_version|int] }}\{{ policy_item }}'
+        dest: '{{ java_act_path }}\jre\lib\security\'
+        remote_src: true
+      loop:
+        - local_policy.jar
+        - US_export_policy.jar
+      loop_control:
+        loop_var: policy_item
+  when: java_full_version is version('8.151', '<')
+
+- name: 'Apply setting'
+  win_lineinfile:
+    path: '{{ java_act_path }}\jre\lib\security\java.security'
+    line: 'crypto.policy=unlimited'
+  when: java_major_version | int < 9

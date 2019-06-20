@@ -10,12 +10,13 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-openjdk-8-repo
+  - name: test-aws-centos7-openjdk-8-repo
     image: ami-9887c6e7
+    platform: centos7
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -25,12 +26,13 @@ platforms:
       - rhel_family
       - repositories
 
-  - name: test-aws-centos6-ansible-role-openjdk-8-repo
+  - name: test-aws-centos6-openjdk-8-repo
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -40,12 +42,13 @@ platforms:
      - rhel_family
      - repositories
 
-  - name: test-aws-ubuntu18-ansible-role-openjdk-8-repo
+  - name: test-aws-ubuntu18-openjdk-8-repo
     image: ami-012fd5eb46f56731f
+    platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -55,12 +58,13 @@ platforms:
       - debian_family
       - repositories
 
-  - name: test-aws-Debian9-ansible-role-openjdk-8-repo
+  - name: test-aws-Debian9-openjdk-8-repo
     image: ami-003f19e0e687de1cd
+    platform: debian9
     instance_type: m5.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -72,12 +76,14 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
   inventory:
     group_vars:
       repositories:
+        java_distribution: openjdk
+        java_major_version: 8
         transport: repositories
-        java_tarball_install: False
+        java_tarball_install: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml

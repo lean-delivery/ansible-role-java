@@ -3,5 +3,3 @@
   hosts: all
   roles:
     - role: ansible-role-java
-      java_major_version: 11
-      java_package: 'jdk'

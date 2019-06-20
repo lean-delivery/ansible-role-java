@@ -7,24 +7,31 @@ stages:
 before_script:
   - rm -rf molecule/resources/provisioning
   - ansible --version
+  - ansible-lint --version
   - molecule --version
   - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
 
-Ansible lint:
+Lint:
   stage: lint
   before_script:
-    - ansible --version
     - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
   script:
-    - ansible-lint --version
+    - yamllint . -c .yamllint
     - ansible-lint . -c .ansible-lint
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
     - aws
+
+Docker java-on-defaults:
+  stage: deployment test
+  script:
+  - molecule test -s default
+  tags:
+  - aws
 
 AWS java-6:
   variables:
@@ -35,7 +42,7 @@ AWS java-6:
   tags:
     - aws
 
-.AWS java-7:
+AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -62,7 +69,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-AWS jre-8 Windows chocolatey:
+.AWS jre-8 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -80,7 +87,7 @@ AWS openjdk-11 Windows chocolatey:
   tags:
     - aws
 
-.AWS openjdk-12 Windows chocolatey:
+AWS openjdk-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -121,7 +128,7 @@ AWS openjdk-12:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-openjdk-12-of
+    - molecule test -s cloud-aws-openjdk-12
   tags:
     - aws
 
@@ -158,6 +165,24 @@ AWS java-12 Windows:
   stage: deployment test
   script:
     - molecule test -s cloud-aws-windows-12
+  tags:
+    - aws
+
+AWS sapjvm-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapjvm-8
+  tags:
+    - aws
+
+AWS sapjvm-8 Windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-sapjvm-8
   tags:
     - aws
 

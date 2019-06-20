@@ -3,8 +3,3 @@
   hosts: all
   roles:
     - role: ansible-role-java
-      java_package: jre
-      java_major_version: 8
-      transport: web
-      transport_web: "{{ lookup('env','STORAGE_EPC') }}/oracle-java/jre-8u211-linux-x64.tar.gz"
-      java_tarball_install: True
