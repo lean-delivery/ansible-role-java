@@ -17,4 +17,3 @@
     mode: 0755
     extra_opts: [--strip-components=1]
     creates: '{{ java_path }}/{{ java_folder }}/bin/'
-    
