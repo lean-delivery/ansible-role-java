@@ -1,8 +1,4 @@
 ---
-- name: Set parse variables based on java distribution
-  include_vars: java_parts.yml
-  when: transport != 'repositories'
-
 - name: Perform install from artifacts
   block:
     - name: Install requirements

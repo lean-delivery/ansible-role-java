@@ -44,4 +44,5 @@
         path: '{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security'
         regexp: '#crypto.policy=unlimited'
         replace: 'crypto.policy=unlimited'
+  when: java_full_version is version('8.151', '<')
   become: true
