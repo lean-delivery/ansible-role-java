@@ -38,11 +38,12 @@
         - README.txt
       loop_control:
         loop_var: policy_item
-
-    - name: Apply setting
-      replace:
-        path: '{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security'
-        regexp: '#crypto.policy=unlimited'
-        replace: 'crypto.policy=unlimited'
   when: java_full_version is version('8.151', '<')
+  become: true
+
+- name: Apply setting
+  replace:
+    path: '{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security'
+    regexp: '#crypto.policy=unlimited'
+    replace: 'crypto.policy=unlimited'
   become: true

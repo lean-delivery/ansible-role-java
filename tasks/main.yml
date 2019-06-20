@@ -42,4 +42,3 @@
   when:
     - java_unlimited_policy_enabled
     - java_distribution == 'oracle_java'
-    - java_full_version is version('8.151', '<')

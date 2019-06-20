@@ -28,9 +28,9 @@
         - US_export_policy.jar
       loop_control:
         loop_var: policy_item
-
-    - name: 'Apply setting'
-      win_lineinfile:
-        path: '{{ java_act_path }}\jre\lib\security\java.security'
-        line: 'crypto.policy=unlimited'
   when: java_full_version is version('8.151', '<')
+
+- name: 'Apply setting'
+  win_lineinfile:
+    path: '{{ java_act_path }}\jre\lib\security\java.security'
+    line: 'crypto.policy=unlimited'
