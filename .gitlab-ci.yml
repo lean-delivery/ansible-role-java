@@ -26,7 +26,7 @@ Lint:
   tags:
     - aws
 
-Docker java-on-defaults:
+.Docker java-on-defaults:
   stage: deployment test
   script:
   - molecule test -s default
