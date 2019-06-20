@@ -11,7 +11,7 @@
   unarchive:
     src: '{{ java_artifact }}'
     dest: '{{ java_path }}/{{ java_folder }}'
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
     mode: 0755
