@@ -164,7 +164,7 @@ AWS java-12 Windows:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-windows-12
+    - molecule --debug test -s cloud-aws-windows-12
   tags:
     - aws
 
