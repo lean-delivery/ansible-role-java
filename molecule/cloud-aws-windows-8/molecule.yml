@@ -69,6 +69,8 @@ provisioner:
   config_options:
     ssh_connection:
       control_path: "/var/ans/%%h"
+    defaults:
+      callback_whitelist: profile_tasks,timer
   lint:
     name: ansible-lint
 scenario:

@@ -61,6 +61,9 @@ platforms:
 provisioner:
   name: ansible
   log: false
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
       sapjvm:
