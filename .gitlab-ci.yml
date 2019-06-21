@@ -137,7 +137,7 @@ AWS java-11 Windows:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule --debug test -s cloud-aws-windows-11
+    - molecule test -s cloud-aws-windows-11
   tags:
     - aws
 
