@@ -1,0 +1,11 @@
+---
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^(zulu)([0-9]+)\.([0-9.]+)-.+-([a-z]+)[_.](x64|i686|amd64|x86_64)')
+    | first | list }}
+
+java_default_path: /usr/lib/jvm
+
+java_folder_repo_transport: >-
+  {{ java_package + '-' + java_major_version|string + '*'
+      | default(omit) }}

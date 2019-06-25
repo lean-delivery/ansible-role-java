@@ -60,7 +60,7 @@ AWS java-8:
   tags:
     - aws
 
-AWS java-8 Windows:
+.AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -69,7 +69,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-AWS openjdk-11 Windows chocolatey:
+.AWS openjdk-11 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -78,7 +78,7 @@ AWS openjdk-11 Windows chocolatey:
   tags:
     - aws
 
-AWS openjdk-12 Windows chocolatey:
+.AWS openjdk-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -123,7 +123,7 @@ AWS openjdk-12:
   tags:
     - aws
 
-AWS openjdk-12 Windows:
+.AWS openjdk-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -132,7 +132,7 @@ AWS openjdk-12 Windows:
   tags:
     - aws
 
-AWS java-11 Windows:
+.AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -150,7 +150,7 @@ AWS java-12:
   tags:
     - aws
 
-AWS java-12 Windows:
+.AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -168,12 +168,21 @@ AWS sapjvm-8:
   tags:
     - aws
 
-AWS sapjvm-8 Windows:
+.AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-windows-sapjvm-8
+  tags:
+    - aws
+
+AWS zulu-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-zulu-12
   tags:
     - aws
 

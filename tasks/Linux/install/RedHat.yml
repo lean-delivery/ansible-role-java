@@ -1,4 +1,12 @@
 ---
+- name: debug java_artifact
+  debug:
+    var: java_artifact
+
+- name: debug java_folder_repo_transport
+  debug:
+    var: java_folder_repo_transport
+
 - name: Install java packages
   yum:
     name: '{{ (transport == "repositories") | ternary(openjdk_package, java_artifact) }}'
