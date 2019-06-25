@@ -8,3 +8,6 @@ java_package_suffix: >-
   {{ (java_major_version == 11) | ternary(java_major_version, '') }}
 
 choco_java_package: 'openjdk{{ java_package_suffix }}'
+
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
