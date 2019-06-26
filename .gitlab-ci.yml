@@ -177,7 +177,7 @@ Lint:
   tags:
     - aws
 
-AWS zulu-12:
+.AWS zulu-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

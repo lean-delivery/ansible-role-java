@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-zulu-8
+  - name: test-aws-windows2016-zulu-12
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -24,7 +24,7 @@ platforms:
       - windows
       - zulu
 
-  - name: test-aws-windows2019-zulu-8
+  - name: test-aws-windows2019-zulu-12
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
