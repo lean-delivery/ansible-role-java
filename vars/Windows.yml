@@ -11,7 +11,7 @@ transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.
 download_default_path: '{{ ansible_env.TEMP }}'
 
 java_default_path: >-
-  {{ ((transport == 'chocolatey') and (java_distribution == 'openjdk')) | ternary('C:\Program Files\OpenJDK', 'C:\Program Files\Java')}}
+  {{ ((transport == 'chocolatey') | ternary(choco_path | default('C:\Program Files\Java'), 'C:\Program Files\Java')}}
 
 java_artifact: '{{ (transport == "openjdk-fallback") | ternary(java_artifact_fallback, (file_downloaded|default({})).dest) }}'
 java_artifact_basename: '{{ java_artifact | win_basename }}'

@@ -1,6 +1,6 @@
 ---
   - name: 'Fetch root page {{ zulu_root_page }}'
-    uri:
+    win_uri:
       url: '{{ zulu_root_page }}'
       return_content: true
     register: root_page

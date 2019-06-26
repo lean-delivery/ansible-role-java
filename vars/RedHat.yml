@@ -25,7 +25,8 @@ openjdk_package: >-
   {{ 'java-' + openjdk_package_rhel_versions|string
              + '-' + openjdk_package_rhel_spec|string }}
 
-java_default_path: /usr/java
+java_default_path: >-
+  {{ (java_distribution == 'zulu') | ternary('/usr/lib/jvm', '/usr/java') }}
 
 java_folder_repo_transport: >-
   {{ 'java-' + openjdk_package_rhel_versions

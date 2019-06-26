@@ -195,6 +195,15 @@ AWS zulu-12 Windows:
   tags:
     - aws
 
+AWS zulu-12 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-zulu12-chocolatey
+  tags:
+    - aws
+
 .EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
