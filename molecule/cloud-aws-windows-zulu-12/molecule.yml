@@ -63,7 +63,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-windows-zulu-8
+  name: cloud-aws-windows-zulu-12
 verifier:
   name: testinfra
   lint:
