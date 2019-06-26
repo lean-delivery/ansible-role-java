@@ -4,6 +4,8 @@ java_product_id_ver:
   11: '{26A5A3EF-92DC-5243-ABF9-00B12A3DF649}'
   12: '{0D60E96D-0B74-55A5-ACA5-0F6786FDF256}'
 
+checksum_alg: sha256
+
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_windows-x64_bin.zip
 
 download_default_path: '{{ ansible_env.TEMP }}'

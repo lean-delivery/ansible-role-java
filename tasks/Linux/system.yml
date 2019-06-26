@@ -48,6 +48,7 @@
         - java
         - javac
         - jar
+        - keytool
       loop_control:
         loop_var: binary
 

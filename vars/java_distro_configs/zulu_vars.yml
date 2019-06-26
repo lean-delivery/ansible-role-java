@@ -6,6 +6,8 @@ parts: >-
 
 java_default_path: /usr/lib/jvm
 
+checksum_alg: md5
+
 java_folder_repo_transport: >-
   {{ java_package + '-' + java_major_version|string + '*'
       | default(omit) }}

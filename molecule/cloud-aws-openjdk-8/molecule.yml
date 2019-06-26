@@ -13,7 +13,7 @@ platforms:
   - name: test-aws-centos7-openjdk-8-repo
     image: ami-9887c6e7
     platform: centos7
-    instance_type: m5.large
+    instance_type: m5a.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -45,7 +45,7 @@ platforms:
   - name: test-aws-ubuntu18-openjdk-8-repo
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: m5.large
+    instance_type: m5a.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -61,7 +61,7 @@ platforms:
   - name: test-aws-Debian9-openjdk-8-repo
     image: ami-003f19e0e687de1cd
     platform: debian9
-    instance_type: m5.large
+    instance_type: m5a.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
