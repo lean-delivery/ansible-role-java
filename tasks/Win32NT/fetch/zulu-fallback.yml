@@ -36,7 +36,7 @@
   - name: Download with checksum validation
     include_tasks: fetch_checksum.yml
     when: |
-      not artifact.stat.exists
+      not artifact.stat.exists | bool
       or artifact.stat.checksum != checksum[0]
     retries: 15
     delay: 2
@@ -44,4 +44,5 @@
 
   - name: Set downloaded artifact vars
     set_fact:
-      file_downloaded: {"dest": "{{ artifact.stat.path }}"}
+      file_downloaded:
+        dest: '{{ artifact.stat.path }}'

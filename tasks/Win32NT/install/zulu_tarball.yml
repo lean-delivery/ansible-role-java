@@ -33,4 +33,4 @@
       src: '{{ java_temp_folder.files | map(attribute="path") | list | last }}\'
       dest: '{{ java_path }}\{{ java_folder }}'
       remote_src: true
-  when: not java_folder_bin.stat.exists
+  when: not java_folder_bin.stat.exists | bool

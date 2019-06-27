@@ -53,4 +53,5 @@
 
 - name: Set downloaded artifact vars
   set_fact:
-    file_downloaded: {"dest": "{{ artifact.stat.path }}"}
+    file_downloaded:
+      dest: '{{ artifact.stat.path }}'
