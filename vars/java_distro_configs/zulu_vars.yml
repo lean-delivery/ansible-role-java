@@ -14,8 +14,8 @@ java_folder_repo_transport: >-
 
 choco_path: 'C:\Program Files\Zulu'
 
-java_folder_ext_transport: >-
-  {{ java_package + java_major_version|string + '.'   + java_minor_version|string }}
+# java_folder_ext_transport: >-
+#   {{ java_package + java_major_version|string + '.'   + java_minor_version|string }}
 
 zulu_folder: >-
   {{ (transport == 'chocolatey') | ternary('zulu-'  + java_major_version|string, java_folder_ext_transport) }}

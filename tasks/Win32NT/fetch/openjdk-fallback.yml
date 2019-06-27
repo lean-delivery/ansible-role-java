@@ -51,6 +51,10 @@
   delay: 2
   until: artifact.stat.checksum == artifact_checksum.content
 
-- name: Set downloaded artifact vars
-  set_fact:
-    java_artifact_fallback: '{{ artifact.stat.path }}'
+  - name: Set downloaded artifact vars
+    set_fact:
+      file_downloaded: {"dest": "{{ artifact.stat.path }}"}
+
+  - name: Debug file_downloaded
+    debug:
+      var: file_downloaded
