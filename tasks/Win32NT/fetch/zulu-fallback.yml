@@ -14,20 +14,12 @@
             + '.+' + java_package + '.+-win_x64.zip)')
         }}
 
-  - name: Debug release_url
-    debug:
-      var: release_url
-
   - name: Find checksum
     set_fact:
       checksum: >-
         {{ root_page['content']
           | regex_findall('Checksum \(MD5\): ([a-z0-9]+).+[\n\w\s<>=":/.-]+' + release_url[0])
         }}
-
-  - name: Debug checksum
-    debug:
-      msg: 'md5:{{ checksum[0] }}'
 
   - name: Set artifact basename
     set_fact:
@@ -53,7 +45,3 @@
   - name: Set downloaded artifact vars
     set_fact:
       file_downloaded: {"dest": "{{ artifact.stat.path }}"}
-
-  - name: Debug file_downloaded
-    debug:
-      var: file_downloaded

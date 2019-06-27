@@ -15,7 +15,3 @@
 - name: Set downloaded artifact vars
   set_fact:
     file_downloaded: {"dest": "{{ download_path }}/{{ transport_s3_path | basename }}"}
-
-- name: Debug file_downloaded
-  debug:
-    var: file_downloaded
