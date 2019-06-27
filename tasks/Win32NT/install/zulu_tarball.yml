@@ -1,7 +1,7 @@
 ---
 - name: Check that the java_folder exists
   win_stat:
-    path: '{{ java_path }}\{{ java_folder }}/bin'
+    path: '{{ java_path }}\{{ java_folder }}\bin'
   register: java_folder_bin
 
 - name: Install java from tarball
