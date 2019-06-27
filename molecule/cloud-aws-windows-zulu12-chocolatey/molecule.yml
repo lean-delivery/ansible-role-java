@@ -10,8 +10,9 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-sapjvm-8
-    aws_image_id: ami-00a20f508263efd30
+
+  - name: test-aws-windows2016-zulu-12-chocolatey
+    aws_image_id: ami-0a125a00b5b736e77
     platform: windows2016core
     aws_region: us-east-1
     instance_type: m5a.large
@@ -22,10 +23,10 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
-      - sapjvm
+      - chocolatey
 
-  - name: test-aws-windows2019-sapjvm-8
-    aws_image_id: ami-0477b9335a5a75438
+  - name: test-aws-windows2019-zulu-12-chocolatey
+    aws_image_id: ami-03ad37b4adab50a4c
     platform: windows2019core
     aws_region: us-east-1
     instance_type: m5a.large
@@ -36,7 +37,7 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
-      - sapjvm
+      - chocolatey
 
 provisioner:
   name: ansible
@@ -49,10 +50,10 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
-      sapjvm:
-        java_distribution: sapjvm
-        transport: sapjvm-fallback
-        java_major_version: 8
+      chocolatey:
+        java_distribution: zulu
+        transport: chocolatey
+        java_major_version: 12
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
@@ -64,7 +65,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-windows-sapjvm-8
+  name: cloud-aws-windows-zulu12-chocolatey
 verifier:
   name: testinfra
   lint:

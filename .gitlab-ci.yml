@@ -177,6 +177,33 @@ AWS sapjvm-8 Windows:
   tags:
     - aws
 
+AWS zulu-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-zulu-12
+  tags:
+    - aws
+
+AWS zulu-12 Windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-zulu-12
+  tags:
+    - aws
+
+AWS zulu-12 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-zulu12-chocolatey
+  tags:
+    - aws
+
 EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2

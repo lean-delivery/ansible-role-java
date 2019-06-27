@@ -1,12 +1,13 @@
 ---
 openjdk_root_page: https://jdk.java.net
 sapjvm_root_page: https://tools.hana.ondemand.com
+zulu_root_page: https://www.azul.com/downloads/zulu/
 
 # vars file for java
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
 java_full_version: '{{ java_major_version }}.{{ java_minor_version }}'
 download_default_path: /tmp
-java_artifact: '{{ (transport == "s3") | ternary(java_artifact_s3, (file_downloaded|default({})).dest | default(omit)) }}'
+java_artifact: '{{ (file_downloaded|default({})).dest | default(omit) }}'
 java_artifact_basename: '{{ java_artifact | basename }}'
 
 # Urls for java security policy

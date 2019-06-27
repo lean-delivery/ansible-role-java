@@ -35,11 +35,11 @@
     artifact_url: '{{ release_url[0] }}'
     artifact_basename: "{{ (release_url[0] | urlsplit('path')).split('/')[-1] }}"
 
-- name: Get SHA256 checksum of file
+- name: 'Get {{ checksum_alg }} checksum of file'
   win_stat:
     path: '{{ download_path }}\{{ artifact_basename }}'
     get_checksum: true
-    checksum_algorithm: sha256
+    checksum_algorithm: '{{ checksum_alg }}'
   register: artifact
 
 - name: Download with checksum validation
@@ -53,4 +53,5 @@
 
 - name: Set downloaded artifact vars
   set_fact:
-    java_artifact_fallback: '{{ artifact.stat.path }}'
+    file_downloaded:
+      dest: '{{ artifact.stat.path }}'

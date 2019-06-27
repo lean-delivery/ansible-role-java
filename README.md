@@ -25,6 +25,11 @@ This Ansible role has the following features for:
 - Install JDK
 - Additional opportunity to install from sapjvm-fallback, s3, web, local source.
 
+**ZULU**
+
+- Install JDK
+- Additional opportunity to install from zulu-fallback, s3, web, local source, chocolatey.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -57,6 +62,11 @@ Requirements
  - **Supported sapjvm version**:
    - 7
    - 8
+ - **Supported zulu version**:
+   - 7
+   - 8
+   - 11
+   - 12
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -75,6 +85,7 @@ Requirements
      - `openjdk` (default)
      - `oracle_java`
      - `sapjvm`
+     - `zulu`
 
   - `java_package` Java package type.
 
@@ -82,7 +93,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only) `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -90,8 +101,9 @@ Requirements
       - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11,12 or JRE 8)
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
-      - `sapjvm-fallback` fetching artifact from SAP site.   
-      - `openjdk-fallback` fetching artifact from jdk.java.net.   
+      - `sapjvm-fallback` fetching artifact from SAP site.
+      - `zulu-fallback` fetching artifact from AZUL site.
+      - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
         **Notice** using `s3` transport requires specific packages to be installed on target host:
@@ -248,6 +260,16 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_distribution: sapjvm
       transport: sapjvm-fallback
       java_major_version: 8
+```
+### Installing ZULU 12 from zulu-fallback:
+```yaml
+- name: Install zulu
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: zulu
+      transport: zulu-fallback
 ```
 License
 -------

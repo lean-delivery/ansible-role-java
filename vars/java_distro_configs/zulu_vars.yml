@@ -1,0 +1,21 @@
+---
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^(zulu)([0-9]+)\.([0-9.]+)-.+-([a-z]+)[_.](x64|i686|amd64|x86_64)')
+    | first | list }}
+
+checksum_alg: md5
+
+choco_java_package: 'zulu{{ java_major_version }}'
+
+java_folder_repo_transport: >-
+  {{ java_package + '-' + java_major_version|string + '*'
+      | default(omit) }}
+
+choco_path: 'C:\Program Files\Zulu'
+
+zulu_folder: >-
+  {{ (transport == 'chocolatey') | ternary('zulu-'  + java_major_version|string, java_folder_ext_transport) }}
+
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, zulu_folder) }}
