@@ -222,24 +222,6 @@ AWS adoptopenjdk-8:
   tags:
     - aws
 
-AWS adoptopenjdk-9:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-adoptopenjdk-9
-  tags:
-    - aws
-
-AWS adoptopenjdk-10:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-adoptopenjdk-10
-  tags:
-    - aws
-
 AWS adoptopenjdk-11:
   variables:
     AWS_REGION: us-east-1

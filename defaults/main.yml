@@ -4,8 +4,8 @@
 #  - oracle_java
 #  - sapjvm
 #  - zulu
-#  - adoptopenjdk (not supported openj9-jre-9/hotspot-jre-10/openj9-jre-10)
-java_distribution: openjdk
+#  - adoptopenjdk (not supported 9/10)
+java_distribution: adoptopenjdk
 
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
@@ -20,7 +20,7 @@ adoptopenjdk_rel: latest
 # OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
-java_major_version: 12
+java_major_version: 8
 java_minor_version: '*'
 java_product_id: '{{ java_product_id_ver[java_major_version | int] }}'
 
@@ -37,7 +37,7 @@ download_path: '{{ download_default_path }}'
 # Custom artifact source transport
 java_tarball_install: "{{ transport != 'repositories' }}"
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: openjdk-fallback
+transport: adoptopenjdk-fallback
 # available are:
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
