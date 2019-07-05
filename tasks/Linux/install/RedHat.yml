@@ -4,8 +4,8 @@
     name: AdoptOpenJDK
     description: AdoptOpenJDK
     baseurl: http://adoptopenjdk.jfrog.io/adoptopenjdk/rpm/centos/7/x86_64
-    enabled: yes
-    gpgcheck: yes
+    enabled: true
+    gpgcheck: true
     gpgkey: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
   when:
     - java_distribution == "adoptopenjdk"

@@ -12,8 +12,7 @@
     filename: adoptopenjdk
     state: present
     codename: trusty
-    update_cache: yes
-  become: yes
+    update_cache: true
   when:
     - java_distribution == "adoptopenjdk"
 
