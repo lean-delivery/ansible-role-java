@@ -4,10 +4,15 @@ requirements:
   - rsync
 
 openjdk_package: >-
-  {{ 'openjdk-' + java_major_version|string + '-' + java_package }}
+  {{ (java_distribution == 'adoptopenjdk') |
+      ternary('adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
+                  + (java_package == 'jre') | ternary('-' + java_package, ''),
+                        'openjdk-' + java_major_version|string + '-' + java_package) }}
 
 java_default_path: /usr/lib/jvm
 
 java_folder_repo_transport: >-
-  {{ 'java-' + java_major_version|string + '-openjdk-*'
-      | default(omit) }}
+  {{ (java_distribution == 'adoptopenjdk') |
+      ternary('adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
+                  + (java_package == 'jre') | ternary('-' + java_package, ''),
+                        'java-' + java_major_version|string + '-openjdk-*') | default(omit) }}

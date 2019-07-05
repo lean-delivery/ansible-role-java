@@ -33,7 +33,7 @@ This Ansible role has the following features for:
 **AdoptOpenJDK**
 
 - Install JDK
-- Additional opportunity to install from adoptopenjdk-fallback, s3, local source.
+- Additional opportunity to install from adoptopenjdk-fallback, repositories.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
@@ -168,9 +168,6 @@ Requirements
   - `adoptopenjdk_impl` AdoptOpenJDK Implementation
      - `hotspot` (default)
      - `openj9`
-
-  - `adoptopenjdk_rel` AdoptOpenJDK Release
-     - `latest` (default)
 
 # Configure unlimited policy
   - `java_unlimited_policy_enabled` - to apply unlimited policy

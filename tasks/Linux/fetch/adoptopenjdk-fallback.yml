@@ -5,7 +5,7 @@
     openjdk{{ java_major_version }}\
     ?openjdk_impl={{ adoptopenjdk_impl }}\
     &os=linux&arch=x64\
-    &release={{ adoptopenjdk_rel }}\
+    &release=latest\
     &type={{ java_package }}&heap_size=normal"
     dest: '{{ download_path }}'
   register: file_downloaded

@@ -3,3 +3,6 @@ parts: >-
   {{ java_artifact_basename
     | regex_findall('^(OpenJDK)([0-9]+)[U]*[_-]*[jdk|jre|OPENJ9]*_(x64)_(Linux|linux)+_[\w\d]+[-_]+[0-9]+[u._](.*)\.tar\.gz')
     | first | list }}
+
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
