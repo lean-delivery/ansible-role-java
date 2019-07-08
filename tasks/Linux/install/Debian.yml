@@ -3,6 +3,8 @@
   apt_key:
     url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
     state: present
+  register: package_install
+  until: package_install is succeeded
   when:
   - java_distribution == "adoptopenjdk"
 
