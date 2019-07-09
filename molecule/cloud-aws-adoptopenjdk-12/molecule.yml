@@ -546,7 +546,7 @@ provisioner:
         transport_local: /tmp/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz
       web:
         transport: web
-        transport_web_default: >-
+        transport_web: >-
           https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1+12/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz
       s3:
         transport: s3
