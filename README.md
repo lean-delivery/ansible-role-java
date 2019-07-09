@@ -32,7 +32,7 @@ This Ansible role has the following features for:
 
 **AdoptOpenJDK**
 
-- Install JRE, JDK
+- Install JDK, JRE
 - Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
