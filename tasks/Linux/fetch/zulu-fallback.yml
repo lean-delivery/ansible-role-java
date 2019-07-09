@@ -14,6 +14,9 @@
             + '.+' + java_package + '.+-linux_x64.tar.gz)')
         }}
 
+  - debug:
+      var: release_url
+
   - name: Find checksum
     set_fact:
       checksum: >-
