@@ -5,7 +5,7 @@
 #  - sapjvm
 #  - zulu
 #  - adoptopenjdk (not supported 9/10)
-java_distribution: adoptopenjdk
+java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
@@ -35,7 +35,7 @@ download_path: '{{ download_default_path }}'
 # Custom artifact source transport
 java_tarball_install: "{{ transport != 'repositories' }}"
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: adoptopenjdk-fallback
+transport: repositories
 # available are:
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
