@@ -1,0 +1,77 @@
+---
+- name: Prepare Ubuntu / Debian
+  hosts: debian_family
+  gather_facts: false
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt install -y python-minimal)
+      become: true
+      changed_when: false
+      register: update_result
+      retries: 10
+      delay: 5
+      until: update_result.rc == 0
+
+- name: Prepare RHEL
+  hosts: rhel_family
+  gather_facts: false
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
+      become: true
+      changed_when: false
+
+    - name: gather facts
+      setup:
+
+    - name: 'Enable EPEL repository'
+      yum:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+          {{ ansible_distribution_major_version }}.noarch.rpm"
+        state: 'present'
+      register: status
+      until: status is succeeded
+      become: true
+
+- name: Prepare host to S3 transport
+  hosts: s3
+  gather_facts: true
+  tasks:
+    - name: 'Install pip package'
+      package:
+        name: python-pip
+        state: present
+      register: status
+      until: status is succeeded
+      become: true
+
+    - name: 'Install boto module'
+      pip:
+        name:
+          - 'pip'
+          - 'botocore'
+          - 'boto'
+          - 'boto3'
+        state: present
+        extra_args: --upgrade
+      register: status
+      until: status is succeeded
+      become: true
+
+- name: Prepare host to S3 transport
+  hosts: localhost
+  gather_facts: true
+  vars:
+    transport_s3_bucket: java-molecule-s3-test
+    transport_s3_path: /java/adoptopenjdk/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
+    download_path: /tmp
+  tasks:
+    - name: Download artifact from s3
+      aws_s3:
+        bucket: '{{ transport_s3_bucket }}'
+        object: '{{ transport_s3_path }}'
+        dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+        mode: get
+        overwrite: different
+      retries: 5
+      delay: 2
