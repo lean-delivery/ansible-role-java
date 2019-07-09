@@ -35,7 +35,7 @@ download_path: '{{ download_default_path }}'
 # Custom artifact source transport
 java_tarball_install: "{{ transport != 'repositories' }}"
 java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: repositories
+transport: openjdk-fallback
 # available are:
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
