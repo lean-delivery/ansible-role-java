@@ -21,7 +21,7 @@ openjdk_package_rhel_versions: >-
                        java_major_version|string)
   }}
 
-openjdk_package: >-
+jdk_package: >-
   {{ (java_distribution == 'adoptopenjdk') |
       ternary('adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
                   + (java_package == 'jre') | ternary('-' + java_package, ''),
