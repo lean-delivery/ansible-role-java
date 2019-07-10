@@ -1,4 +1,4 @@
 ---
-- name: Install openjdk from repositories
+- name: 'Install {{ java_distribution }} from repositories'
   debug:
-    msg: 'Install openjdk from repositories'
+    msg: 'Install {{ java_distribution }} from repositories'

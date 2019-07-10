@@ -21,7 +21,7 @@ openjdk_package_rhel_versions: >-
                        java_major_version|string)
   }}
 
-openjdk_package: >-
+jdk_package: >-
   {{ 'java-' + openjdk_package_rhel_versions|string
              + '-' + openjdk_package_rhel_spec|string }}
 

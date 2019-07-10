@@ -212,3 +212,30 @@ EPC java-8:
     - molecule test -s cloud-epc-delegated
   tags:
     - delegated
+
+AWS adoptopenjdk-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-8
+  tags:
+    - aws
+
+AWS adoptopenjdk-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-11
+  tags:
+    - aws
+
+AWS adoptopenjdk-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-12
+  tags:
+    - aws
