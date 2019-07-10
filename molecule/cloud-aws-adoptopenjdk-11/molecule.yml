@@ -10,461 +10,81 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-adoptopenjdk-hotspot-jdk-tarball-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - hotspot
-      - jdk
-      - adoptopenjdk-fallback
+   # - name: test-aws-centos7-adoptopenjdk-hotspot-jre-tarball-11
+  #   image: ami-9887c6e7
+  #   platform: centos7
+  #   instance_type: m5a.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - adoptopenjdk
+  #     - hotspot
+  #     - jre
+  #     - adoptopenjdk-fallback
 
-  - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jdk-tarball-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jdk
-      - adoptopenjdk-fallback
+  # - name: test-aws-ubuntu18-adoptopenjdk-openj9-jre-tarball-11
+  #   image: ami-012fd5eb46f56731f
+  #   platform: ubuntu18
+  #   instance_type: m5a.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
+  #     - adoptopenjdk
+  #     - openj9
+  #     - jre
+  #     - adoptopenjdk-fallback
 
-  - name: test-aws-Debian9-adoptopenjdk-hotspot-jdk-tarball-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jdk
-      - adoptopenjdk-fallback
+  # - name: test-aws-Debian9-adoptopenjdk-hotspot-jdk-repositories-11
+  #   image: ami-003f19e0e687de1cd
+  #   platform: debian9
+  #   instance_type: m5a.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - adoptopenjdk
+  #     - hotspot
+  #     - jdk
+  #     - repositories
 
-  - name: test-aws-centos7-adoptopenjdk-hotspot-jre-tarball-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - hotspot
-      - jre
-      - adoptopenjdk-fallback
-
-  - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jre-tarball-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jre
-      - adoptopenjdk-fallback
-
-  - name: test-aws-Debian9-adoptopenjdk-hotspot-jre-tarball-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jre
-      - adoptopenjdk-fallback
-
-  - name: test-aws-centos7-adoptopenjdk-openj9-jdk-tarball-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - openj9
-      - jdk
-      - adoptopenjdk-fallback
-
-  - name: test-aws-ubuntu18-adoptopenjdk-openj9-jdk-tarball-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jdk
-      - adoptopenjdk-fallback
-
-  - name: test-aws-Debian9-adoptopenjdk-openj9-jdk-tarball-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jdk
-      - adoptopenjdk-fallback
-
-  - name: test-aws-centos7-adoptopenjdk-openj9-jre-tarball-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - openj9
-      - jre
-      - adoptopenjdk-fallback
-
-  - name: test-aws-ubuntu18-adoptopenjdk-openj9-jre-tarball-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jre
-      - adoptopenjdk-fallback
-
-  - name: test-aws-Debian9-adoptopenjdk-openj9-jre-tarball-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jre
-      - adoptopenjdk-fallback
-
-  - name: test-aws-centos7-adoptopenjdk-hotspot-jdk-repositories-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - hotspot
-      - jdk
-      - repositories
-
-  - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jdk-repositories-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jdk
-      - repositories
-
-  - name: test-aws-Debian9-adoptopenjdk-hotspot-jdk-repositories-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jdk
-      - repositories
-
-  - name: test-aws-centos7-adoptopenjdk-hotspot-jre-repositories-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - hotspot
-      - jre
-      - repositories
-
-  - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jre-repositories-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jre
-      - repositories
-
-  - name: test-aws-Debian9-adoptopenjdk-hotspot-jre-repositories-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - hotspot
-      - jre
-      - repositories
-
-  - name: test-aws-centos7-adoptopenjdk-openj9-jdk-repositories-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - openj9
-      - jdk
-      - repositories
-
-  - name: test-aws-ubuntu18-adoptopenjdk-openj9-jdk-repositories-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jdk
-      - repositories
-
-  - name: test-aws-Debian9-adoptopenjdk-openj9-jdk-repositories-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jdk
-      - repositories
-
-  - name: test-aws-centos7-adoptopenjdk-openj9-jre-repositories-11
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - openj9
-      - jre
-      - repositories
-
-  - name: test-aws-ubuntu18-adoptopenjdk-openj9-jre-repositories-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jre
-      - repositories
-
-  - name: test-aws-Debian9-adoptopenjdk-openj9-jre-repositories-11
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - openj9
-      - jre
-      - repositories
+  # - name: test-aws-centos7-adoptopenjdk-openj9-jre-repositories-11
+  #   image: ami-9887c6e7
+  #   platform: centos7
+  #   instance_type: m5a.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - adoptopenjdk
+  #     - openj9
+  #     - jre
+  #     - repositories
 
   - name: test-aws-centos7-adoptopenjdk-local-11
     image: ami-9887c6e7
@@ -482,41 +102,6 @@ platforms:
       - rhel_family
       - adoptopenjdk
       - local
-
-  - name: test-aws-ubuntu18-adoptopenjdk-web-11
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - web
-
-  - name: test-aws-Debian9-adoptopenjdk-s3-11
-    image: ami-003f19e0e687de1cd
-    profile_name: epmldi-instance-profile
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - s3
 
 provisioner:
   name: ansible
@@ -544,16 +129,6 @@ provisioner:
       local:
         transport: local
         transport_local: /tmp/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
-      web:
-        transport: web
-        transport_web: >-
-          https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.3+7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
-      s3:
-        transport: s3
-        transport_s3_bucket: java-molecule-s3-test
-        transport_s3_path: /java/adoptopenjdk/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
-        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
-        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../cloud-aws-adoptopenjdk-11/prepare.yml

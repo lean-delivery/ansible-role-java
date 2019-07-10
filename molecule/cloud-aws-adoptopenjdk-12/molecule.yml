@@ -466,40 +466,6 @@ platforms:
       - jre
       - repositories
 
-  - name: test-aws-centos7-adoptopenjdk-local-12
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - adoptopenjdk
-      - local
-
-  - name: test-aws-ubuntu18-adoptopenjdk-web-12
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - adoptopenjdk
-      - web
-
   - name: test-aws-Debian9-adoptopenjdk-s3-12
     image: ami-003f19e0e687de1cd
     profile_name: epmldi-instance-profile
@@ -541,13 +507,6 @@ provisioner:
         transport: adoptopenjdk-fallback
       repositories:
         transport: repositories
-      local:
-        transport: local
-        transport_local: /tmp/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz
-      web:
-        transport: web
-        transport_web: >-
-          https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1+12/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
