@@ -22,18 +22,13 @@ openjdk_package_rhel_versions: >-
   }}
 
 jdk_package: >-
-  {{ (java_distribution == 'adoptopenjdk') |
-      ternary('adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
-                  + (java_package == 'jre') | ternary('-' + java_package, ''),
-                        'java-' + openjdk_package_rhel_versions|string
-                        + '-' + openjdk_package_rhel_spec|string) }}
+  {{ 'java-' + openjdk_package_rhel_versions|string
+             + '-' + openjdk_package_rhel_spec|string }}
 
 java_default_path: >-
   {{ (java_distribution == 'zulu') | ternary('/usr/lib/jvm', '/usr/java') }}
 
 java_folder_repo_transport: >-
-  {{ (java_distribution == 'adoptopenjdk') |
-      ternary('adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
-                  + (java_package == 'jre') | ternary('-' + java_package, ''),
-                        'java-' + openjdk_package_rhel_versions
-                        + '-openjdk-.+' + openjdk_arch_rhel | default(omit)) }}
+  {{ 'java-' + openjdk_package_rhel_versions
+      + '-openjdk-.+' + openjdk_arch_rhel
+      | default(omit) }}
