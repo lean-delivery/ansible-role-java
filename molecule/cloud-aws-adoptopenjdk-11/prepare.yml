@@ -34,31 +34,6 @@
       become: true
 
 - name: Prepare host to S3 transport
-  hosts: s3
-  gather_facts: true
-  tasks:
-    - name: 'Install pip package'
-      package:
-        name: python-pip
-        state: present
-      register: status
-      until: status is succeeded
-      become: true
-
-    - name: 'Install boto module'
-      pip:
-        name:
-          - 'pip'
-          - 'botocore'
-          - 'boto'
-          - 'boto3'
-        state: present
-        extra_args: --upgrade
-      register: status
-      until: status is succeeded
-      become: true
-
-- name: Prepare host to S3 transport
   hosts: localhost
   gather_facts: true
   vars:
