@@ -239,3 +239,12 @@ AWS adoptopenjdk-12:
     - molecule test -s cloud-aws-adoptopenjdk-12
   tags:
     - aws
+
+AWS cloud-aws-adoptopenjdk-windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-windows
+  tags:
+    - aws
