@@ -4,7 +4,7 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: ec2
+  name: delegated
 lint:
   name: yamllint
   options:

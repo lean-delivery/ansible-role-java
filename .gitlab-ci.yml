@@ -240,7 +240,7 @@ AWS adoptopenjdk-12:
   tags:
     - aws
 
-AWS cloud-aws-adoptopenjdk-windows:
+AWS adoptopenjdk-windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
