@@ -55,4 +55,3 @@
   set_fact:
     file_downloaded:
       dest: '{{ artifact.stat.path }}'
-      
