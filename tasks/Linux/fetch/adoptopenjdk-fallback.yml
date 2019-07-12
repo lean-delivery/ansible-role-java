@@ -1,12 +1,13 @@
 ---
 - name: 'Download artifact'
   get_url:
-    url: "{{ adoptopen_api_page }}\
-    openjdk{{ java_major_version }}\
-    ?openjdk_impl={{ adoptopenjdk_impl }}\
-    &os=linux&arch=x64\
-    &release=latest\
-    &type={{ java_package }}&heap_size=normal"
+    url: "{{ adoptopenjdk_api_page }}\
+      binary/releases/\
+      openjdk{{ java_major_version }}\
+      ?openjdk_impl={{ adoptopenjdk_impl }}\
+      &os=linux&arch=x64\
+      &release=latest\
+      &type={{ java_package }}&heap_size=normal"
     dest: '{{ download_path }}'
   register: file_downloaded
   retries: 20
