@@ -4,8 +4,20 @@ parts: >-
     | regex_findall('^(OpenJDK)([0-9]*)[a-zA-Z-_]*(x64)_(Linux|linux|windows)_[hotspot|openj9]*[-_]*[0-9]+[u._](.*)\.[t|z].*')
     | first | list }}
 
+java_package_suffix: >-
+  {{ (java_major_version == 12) | ternary('', java_major_version) }}
+  
+java_jre_suffix: >-
+  {{ (java_package == 'jdk') | ternary('', java_package) }}
+
+java_jre_regex_suffix: >-
+  {{ (java_package == 'jdk') | ternary('[^-jre]$', '[jre]') }}
+
+adoptopenjdk_choco_folder: >-
+  {{'jdk[-]*' + java_major_version|string + '.*' + java_jre_regex_suffix|string}}
+
 adoptopenjdk_folder: >-
-  {{ (transport == 'chocolatey') | ternary('jdk*', java_folder_ext_transport) }}
+  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport) }}
 
 java_folder: >-
   {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, adoptopenjdk_folder) }}
@@ -17,12 +29,6 @@ jdk_package: >-
 java_folder_repo_transport: >-
   {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
                   + (java_package == 'jre') | ternary('-' + java_package, '') }}
-
-java_package_suffix: >-
-  {{ (java_major_version == 12) | ternary('', java_major_version) }}
-  
-java_jre_suffix: >-
-  {{ (java_package == 'jdk') | ternary('', java_package) }}
 
 choco_java_package: 'adoptopenjdk{{ java_package_suffix }}{{ java_jre_suffix }}'
 
