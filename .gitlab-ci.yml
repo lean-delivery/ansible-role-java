@@ -240,11 +240,20 @@ AWS adoptopenjdk-12:
   tags:
     - aws
 
-AWS adoptopenjdk-windows:
+AWS adoptopenjdk Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-adoptopenjdk-windows
+  tags:
+    - aws
+
+AWS adoptopenjdk-12 Windows chocolatey:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-adoptopenjdk12-chocolatey
   tags:
     - aws
