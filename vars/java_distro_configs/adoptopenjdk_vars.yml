@@ -6,7 +6,7 @@ parts: >-
 
 java_package_suffix: >-
   {{ (java_major_version == 12) | ternary('', java_major_version) }}
-  
+
 java_jre_suffix: >-
   {{ (java_package == 'jdk') | ternary('', java_package) }}
 
