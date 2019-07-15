@@ -3,6 +3,7 @@
   win_get_url:
     url: '{{ artifact_url }}'
     dest: '{{ download_path }}\{{ artifact_basename }}'
+    force: true
 
 - name: 'Get {{ checksum_alg }} checksum of file'
   win_stat:

@@ -22,13 +22,20 @@
 - name: Exit if AdobtOpenJDK version is not found
   fail:
     msg: 'AdoptOpenJDK version {{ java_major_version }} not found'
-  when: release_url[1] is not defined
+  when: release_url[0] is not defined
 
-- name: 'Get artifact checksum {{ release_url[1] }}'
+- name: 'Fetch artifact checksum file {{ release_url[1] }}'
   win_uri:
     url: '{{ release_url[1] }}'
     return_content: true
-  register: artifact_checksum
+  register: artifact_checksum_file
+
+- name: 'Get artifact checksum from file {{ release_url[1] }}'
+  set_fact:
+    artifact_checksum: >-
+      {{ artifact_checksum_file['content'] |
+      regex_search('([^\s]+)')
+      }}
 
 - name: Set artifact basename
   set_fact:
@@ -45,11 +52,11 @@
 - name: Download with checksum validation
   include_tasks: fetch_checksum.yml
   when: |
-    not artifact.stat.exists
-    or artifact.stat.checksum != artifact_checksum.content
+    not artifact.stat.exists | bool
+    or artifact.stat.checksum != artifact_checksum
   retries: 15
   delay: 2
-  until: artifact.stat.checksum == artifact_checksum.content
+  until: artifact.stat.checksum == artifact_checksum
 
 - name: Set downloaded artifact vars
   set_fact:
