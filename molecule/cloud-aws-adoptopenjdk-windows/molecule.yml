@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-adoptopenjdk-12
+  - name: test-aws-windows2016-adoptopenjdk-tarball-12
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -27,7 +27,7 @@ platforms:
       - jdk
       - adoptopenjdk-fallback
 
-  - name: test-aws-windows2019-adoptopenjdk-12
+  - name: test-aws-windows2019-adoptopenjdk-tarball-12
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
@@ -44,7 +44,7 @@ platforms:
       - jre
       - adoptopenjdk-fallback
 
-  - name: test-aws-windows2016-adoptopenjdk-12
+  - name: test-aws-windows2016-adoptopenjdk-chocolatey-12
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -61,7 +61,7 @@ platforms:
       - jdk
       - chocolatey
 
-  - name: test-aws-windows2019-adoptopenjdk-12
+  - name: test-aws-windows2019-adoptopenjdk-chocolatey-12
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
