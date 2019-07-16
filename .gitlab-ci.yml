@@ -177,7 +177,7 @@ AWS sapjvm-8 Windows:
   tags:
     - aws
 
-AWS zulu-12:
+.AWS zulu-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -186,7 +186,7 @@ AWS zulu-12:
   tags:
     - aws
 
-AWS zulu-12 Windows:
+.AWS zulu-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -195,7 +195,7 @@ AWS zulu-12 Windows:
   tags:
     - aws
 
-AWS zulu-12 Windows chocolatey:
+.AWS zulu-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
