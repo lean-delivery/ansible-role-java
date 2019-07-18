@@ -33,7 +33,7 @@ This Ansible role has the following features for:
 **AdoptOpenJDK**
 
 - Install JDK, JRE
-- Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3.
+- Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3, chocolatey.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
