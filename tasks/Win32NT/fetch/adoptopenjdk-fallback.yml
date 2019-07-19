@@ -12,14 +12,14 @@
     follow_redirects: all
   register: download_page
 
-- name: Find release url
+- name: 'Find release url'
   set_fact:
     release_url: >-
       {{ download_page['content'] |
       regex_findall('(https://github.com/AdoptOpenJDK/.*\.zip[.sha256.txt]*)')
       }}
 
-- name: Exit if AdobtOpenJDK version is not found
+- name: 'Exit if AdobtOpenJDK version is not found'
   fail:
     msg: 'AdoptOpenJDK version {{ java_major_version }} not found'
   when: release_url[0] is not defined
@@ -37,7 +37,7 @@
       regex_search('([^\s]+)')
       }}
 
-- name: Set artifact basename
+- name: 'Set artifact basename'
   set_fact:
     artifact_url: '{{ release_url[0] }}'
     artifact_basename: "{{ (release_url[0] | urlsplit('path')).split('/')[-1] }}"
@@ -49,7 +49,7 @@
     checksum_algorithm: '{{ checksum_alg }}'
   register: artifact
 
-- name: Download with checksum validation
+- name: 'Download with checksum validation'
   include_tasks: fetch_checksum.yml
   when: |
     not artifact.stat.exists | bool
@@ -58,7 +58,7 @@
   delay: 5
   until: artifact.stat.checksum == artifact_checksum
 
-- name: Set downloaded artifact vars
+- name: 'Set downloaded artifact vars'
   set_fact:
     file_downloaded:
       dest: '{{ artifact.stat.path }}'
