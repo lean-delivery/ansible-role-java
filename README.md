@@ -112,7 +112,7 @@ Requirements
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
       - `sapjvm-fallback` fetching artifact from SAP site.
-      - `zulu-fallback` fetching artifact from AZUL site.
+      - `zulu-fallback` fetching artifact from AZUL site. [(Deprecated)](https://github.com/lean-delivery/ansible-role-java/issues/84) 
       - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
