@@ -30,6 +30,11 @@ This Ansible role has the following features for:
 - Install JDK
 - Additional opportunity to install from zulu-fallback, s3, web, local source, chocolatey.
 
+**AdoptOpenJDK**
+
+- Install JDK, JRE
+- Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3, chocolatey.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -67,6 +72,10 @@ Requirements
    - 8
    - 11
    - 12
+ - **Supported AdoptOpenJDK version**:
+   - 8
+   - 11
+   - 12
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -86,6 +95,7 @@ Requirements
      - `oracle_java`
      - `sapjvm`
      - `zulu`
+     - `adoptopenjdk`
 
   - `java_package` Java package type.
 
@@ -93,7 +103,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -102,7 +112,8 @@ Requirements
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
       - `sapjvm-fallback` fetching artifact from SAP site.
-      - `zulu-fallback` fetching artifact from AZUL site.
+      - `zulu-fallback` fetching artifact from AZUL site. [(Deprecated)](https://github.com/lean-delivery/ansible-role-java/issues/84) 
+      - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
@@ -151,6 +162,11 @@ Requirements
   - `transport_s3_aws_secret_key` - aws secret key. Need to be set as parameter or env variables according to https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html
 
     default: `{{ lookup('env','AWS_SECRET_KEY') }}`
+
+#  Configure AdoptOpenJDK
+  - `adoptopenjdk_impl` AdoptOpenJDK Implementation
+     - `hotspot` (default)
+     - `openj9`
 
 # Configure unlimited policy
   - `java_unlimited_policy_enabled` - to apply unlimited policy
@@ -270,6 +286,19 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
     - role: lean_delivery.java
       java_distribution: zulu
       transport: zulu-fallback
+```
+### Installing AdoptOpenJDK 8-openj9-jre from adoptopenjdk-fallback:
+```yaml
+- name: Install AdoptOpenJDK
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: adoptopenjdk
+      transport: adoptopenjdk-fallback
+      java_package: jre
+      adoptopenjdk_impl: openj9
+      java_major_version: 8
 ```
 License
 -------

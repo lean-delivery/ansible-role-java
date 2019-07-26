@@ -13,8 +13,7 @@
       regex_findall('(https://download[\.\w]+/java/GA/jdk' +
       java_major_version|string +
       '[.\d]+/[\d\w]+/' +
-      java_major_version|string +
-      '/GPL/openjdk-' +
+      '[.\d]+/GPL/openjdk-' +
       java_major_version|string +
       '[\d._]+windows-x64_bin[\w\d.]+)')
       }}

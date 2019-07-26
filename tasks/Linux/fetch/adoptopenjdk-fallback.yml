@@ -1,0 +1,48 @@
+---
+- name: 'Fetch download page'
+  uri:
+    url: "{{ adoptopenjdk_api_page }}\
+      info/releases/\
+      openjdk{{ java_major_version }}\
+      ?openjdk_impl={{ adoptopenjdk_impl }}\
+      &os=linux&arch=x64\
+      &release=latest\
+      &type={{ java_package }}&heap_size=normal"
+    return_content: true
+    follow_redirects: all
+  register: download_page
+
+- name: 'Find release url'
+  set_fact:
+    release_url: >-
+      {{ download_page['content'] |
+      regex_findall('(https://github.com/AdoptOpenJDK/.*\.tar.gz[.sha256.txt]*)')
+      }}
+
+- name: 'Exit if AdoptOpenJDK version is not found'
+  fail:
+    msg: 'AdoptOpenJDK version {{ java_major_version }} not found'
+  when: release_url[0] is not defined
+
+- name: 'Fetch artifact checksum file {{ release_url[1] }}'
+  uri:
+    url: '{{ release_url[1] }}'
+    return_content: true
+  register: artifact_checksum_file
+
+- name: 'Get artifact checksum from file {{ release_url[1] }}'
+  set_fact:
+    artifact_checksum: >-
+      {{ artifact_checksum_file['content'] |
+      regex_search('([^\s]+)')
+      }}
+
+- name: 'Download artifact from {{ release_url[0] }}'
+  get_url:
+    url: '{{ release_url[0] }}'
+    dest: '{{ download_path }}'
+    checksum: 'sha256:{{ artifact_checksum }}'
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded
