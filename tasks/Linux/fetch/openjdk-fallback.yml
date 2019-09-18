@@ -1,14 +1,28 @@
 ---
 - name: 'Fetch root page {{ openjdk_root_page }}'
   uri:
-    url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
+    url: '{{ openjdk_root_page }}'
     return_content: true
   register: root_page
+
+- name: Find GA release version
+  set_fact:
+    java_major_version: >-
+      {{ root_page['content']
+        | regex_findall('Ready for use:.*>JDK ([\d]+)<')
+        | first
+      }}
+
+- name: 'Fetch GA release page'
+  uri:
+    url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
+    return_content: true
+  register: ga_release_page
 
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ root_page['content']
+      {{ ga_release_page['content']
         | regex_findall('(https://download[\.\w]+/java/GA/jdk'
           + java_major_version|string + '[.\d]+/[\d\w]+/'
           + '[.\d]+/GPL/openjdk-'
