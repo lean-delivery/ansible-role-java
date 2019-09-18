@@ -7,6 +7,30 @@
   debug:
     var: java_distribution
 
+- name: debug java_folder_ext_transport
+  debug:
+    var: java_folder_ext_transport
+
+- name: debug java_package
+  debug:
+    var: java_package
+
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
+- name: debug java_minor_version
+  debug:
+    var: java_minor_version
+
+- name: debug java_os
+  debug:
+    var: java_os
+
+- name: debug java_arch
+  debug:
+    var: java_arch
+
 - name: debug java_path
   debug:
     var: java_path
