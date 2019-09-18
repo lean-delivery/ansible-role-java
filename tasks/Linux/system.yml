@@ -3,7 +3,7 @@
   block:
     - name: Install requirements
       package:
-        name: '{{ requirements }}'
+        name: '{{ java_package_requirements }}'
         state: present
       register: installed_packages
       until: installed_packages is succeeded

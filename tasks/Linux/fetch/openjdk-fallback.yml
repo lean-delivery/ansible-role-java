@@ -19,6 +19,10 @@
     return_content: true
   register: ga_release_page
 
+- name: Out ga_release_page
+  debug:
+    var: ga_release_page
+
 - name: Find release url
   set_fact:
     release_url: >-
@@ -28,6 +32,10 @@
           + '[.\d]+/GPL/openjdk-'
           + java_major_version|string + '[\d._]+linux-x64_bin[\w\d.]+)')
       }}
+
+- name: Out release_url
+  debug:
+    var: release_url
 
 - name: Exit if OpenJDK version is not General-Availability Release
   fail:

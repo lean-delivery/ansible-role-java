@@ -1,5 +1,5 @@
 ---
-requirements:
+java_package_requirements:
   - unzip
   - rsync
 
