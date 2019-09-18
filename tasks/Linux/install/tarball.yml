@@ -1,4 +1,12 @@
 ---
+- name: debug ansible_os_family
+  debug:
+    var: ansible_os_family
+
+- name: debug java_distribution
+  debug:
+    var: java_distribution
+
 - name: debug java_path
   debug:
     var: java_path

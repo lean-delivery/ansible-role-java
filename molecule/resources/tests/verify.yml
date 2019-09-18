@@ -1,6 +1,4 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   tasks:
@@ -12,9 +10,9 @@
       command: java -version
       register: java_ver_cmd
 
-    - name: Debug java ver
-      debug:
-        var: java_ver_cmd
+    # - name: Debug java ver
+    #   debug:
+    #     var: java_ver_cmd
 
     - name: Assert that java ver is present
       assert:
