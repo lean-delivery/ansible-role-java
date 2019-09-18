@@ -7,7 +7,7 @@
 
 - name: Find GA release version
   set_fact:
-    java_major_version: >-
+    ga_release_ver: >-
       {{ root_page['content']
         | regex_findall('Ready for use:.*>JDK ([\d]+)<')
         | first
@@ -24,7 +24,7 @@
     release_url: >-
       {{ ga_release_page['content']
         | regex_findall('(https://download[\.\w]+/java/GA/jdk'
-          + java_major_version|string + '[.\d]+/[\d\w]+/'
+          + java_major_version|string + '[.\d]*/[\d\w]+/'
           + '[.\d]+/GPL/openjdk-'
           + java_major_version|string + '[\d._]+linux-x64_bin[\w\d.]+)')
       }}

@@ -72,7 +72,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: true
+  log: false
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
