@@ -1,6 +1,6 @@
 ---
 - name: Include common prepare
-  import_playbook: provisioning/AWS/prepare.yml
+  import_playbook: ../resources/provisioning/AWS/prepare.yml
 
 - name: Prepare RHEL
   hosts: rhel_family
