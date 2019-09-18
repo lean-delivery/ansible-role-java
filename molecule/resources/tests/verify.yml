@@ -10,10 +10,10 @@
       command: java -version
       register: java_ver_cmd
 
-    # - name: Debug java ver
-    #   debug:
-    #     var: java_ver_cmd
+    - name: Debug java ver
+      debug:
+        var: java_ver_cmd
 
-    - name: Assert that java ver is present
-      assert:
-        that: "'Java(TM) SE Runtime Environment' in java_ver_cmd.stderr"
+    # - name: Assert that java ver is present
+    #   assert:
+    #     that: "'Java(TM) SE Runtime Environment' in java_ver_cmd.stderr"
