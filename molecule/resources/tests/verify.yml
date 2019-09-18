@@ -16,4 +16,4 @@
 
     - name: Assert that java ver is present
       assert:
-        that: "'Runtime Environment (build {{ java_major_version }}' in java_ver_cmd.stderr"
+        that: "'Runtime Environment (build' in java_ver_cmd.stderr"
