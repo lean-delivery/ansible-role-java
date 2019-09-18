@@ -17,7 +17,7 @@
         - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
-      ignore_errors: true
+      # ignore_errors: true
 
     - name: Find java_folder
       find:

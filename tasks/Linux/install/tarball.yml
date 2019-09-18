@@ -7,6 +7,10 @@
   debug:
     var: java_distribution
 
+- name: debug java_artifact_basename
+  debug:
+    var: java_artifact_basename
+
 - name: debug java_folder_ext_transport
   debug:
     var: java_folder_ext_transport
