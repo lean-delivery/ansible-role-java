@@ -7,6 +7,10 @@
   debug:
     var: java_folder
 
+- name: debug parts
+  debug:
+    var: parts
+
 - name: Mkdir for java installation
   file:
     path: '{{ java_path }}/{{ java_folder }}'
