@@ -5,6 +5,10 @@
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
+    - name: out facts
+      debug:
+        var: ansible_facts
+
     - name: 'Enable EPEL repository'
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\

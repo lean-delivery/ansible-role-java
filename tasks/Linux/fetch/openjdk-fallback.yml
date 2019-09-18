@@ -7,21 +7,21 @@
 
 - name: Find GA release version
   set_fact:
-    ga_release_ver: >-
+    java_major_version: >-
       {{ root_page['content']
         | regex_findall('Ready for use:.*>JDK ([\d]+)<')
         | first
       }}
+
+- name: Out java_major_version
+  debug:
+    var: java_major_version
 
 - name: 'Fetch GA release page'
   uri:
     url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
     return_content: true
   register: ga_release_page
-
-- name: Out ga_release_page
-  debug:
-    var: ga_release_page
 
 - name: Find release url
   set_fact:
