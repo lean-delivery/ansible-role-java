@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-openjdk-12
+  - name: test-aws-centos7-openjdk-ga
     image: ami-9887c6e7
     platform: centos7
     instance_type: m5a.large
@@ -25,7 +25,7 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-centos6-openjdk-12
+  - name: test-aws-centos6-openjdk-ga
     image: ami-1585c46a
     platform: centos6
     instance_type: m4.large
@@ -40,7 +40,7 @@ platforms:
     groups:
      - rhel_family
 
-  - name: test-aws-ubuntu18-openjdk-12
+  - name: test-aws-ubuntu18-openjdk-ga
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: m5a.large
@@ -55,7 +55,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Debian9-openjdk-12
+  - name: test-aws-Debian9-openjdk-ga
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: m5a.large
@@ -70,7 +70,7 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Amazon-openjdk-12
+  - name: test-aws-Amazon-openjdk-ga
     image: ami-035b3c7efe6d061d5
     platform: amazon
     instance_type: m5.large
@@ -85,7 +85,7 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-Amazon2-openjdk-12
+  - name: test-aws-Amazon2-openjdk-ga
     image: ami-0b898040803850657
     platform: amazon2
     instance_type: m5.large
@@ -114,7 +114,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-openjdk-12
+  name: cloud-aws-openjdk-ga
 verifier:
   name: ansible
   lint:
