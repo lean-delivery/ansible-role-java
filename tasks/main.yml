@@ -24,6 +24,14 @@
     - transport != 'repositories'
     - java_binary_type != 'chocolatey'
 
+- name: Debug java_folder
+  debug:
+    var: java_folder
+
+- name: Debug parts
+  debug:
+    var: parts
+
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
