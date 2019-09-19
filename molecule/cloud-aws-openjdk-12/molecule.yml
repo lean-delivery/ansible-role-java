@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-openjdk-12-repo
+  - name: test-aws-centos7-openjdk-12-tb
     image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
@@ -44,7 +44,7 @@ platforms:
       - web
       - tarball
 
-  - name: test-aws-ubuntu18-openjdk-12-repo
+  - name: test-aws-ubuntu18-openjdk-12-tb
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: m5.large
