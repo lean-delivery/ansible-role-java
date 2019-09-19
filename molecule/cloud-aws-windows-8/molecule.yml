@@ -4,7 +4,7 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: delegated
+  name: ec2
 lint:
   name: yamllint
   options:
@@ -42,11 +42,10 @@ platforms:
 provisioner:
   name: ansible
   log: false
-  connection_options:
-    ansible_connection: winrm
   inventory:
     group_vars:
       windows:
+        ansible_connection: winrm
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
@@ -64,11 +63,9 @@ provisioner:
         java_unlimited_policy_enabled: true
   playbooks:
     create: ../resources/provisioning/WINRM/create.yml
-    prepare: ../cloud-aws-windows-8/prepare.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/WINRM/destroy.yml
   config_options:
-    ssh_connection:
-      control_path: "/var/ans/%%h"
     defaults:
       callback_whitelist: profile_tasks,timer
   lint:
@@ -76,6 +73,6 @@ provisioner:
 scenario:
   name: cloud-aws-windows-8
 verifier:
-  name: testinfra
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

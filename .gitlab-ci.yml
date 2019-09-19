@@ -60,7 +60,7 @@ Docker java-on-defaults:
   tags:
     - aws
 
-.AWS java-8 Windows:
+AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
