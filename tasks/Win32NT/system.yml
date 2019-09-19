@@ -12,8 +12,8 @@
     paths: '{{ java_path }}'
     recurse: false
     file_type: directory
-    patterns: jdk-13
-    # patterns: '{{ java_folder }}'
+    # patterns: jdk-13
+    patterns: '{{ java_folder }}'
     use_regex: true
   register: java_dir
 
@@ -23,9 +23,9 @@
 #     recurse: true
 #   register: java_dirs
 
-- name: Debug java_path
+- name: Debug java_folder
   debug:
-    var: java_path
+    var: java_folder
 
 # - name: Debug java_dirs
 #   debug:
