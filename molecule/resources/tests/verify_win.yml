@@ -4,15 +4,15 @@
   hosts: windows
   tasks:
 
-    - name: Check filebeat version
+    - name: Check java version
       win_command: java -version
       register: java_ver_cmd
       changed_when: false
 
-    - name: Debug filebeat version
+    - name: Debug java version
       debug:
         var: java_ver_cmd
 
-    - name: Assert that filebeat package is installed
+    - name: Assert that java is working
       assert:
         that: "'Runtime Environment' in java_ver_cmd.stderr"
