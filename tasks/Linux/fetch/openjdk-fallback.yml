@@ -17,7 +17,7 @@
   debug:
     var: java_major_version
 
-- name: 'Fetch GA release page'
+- name: Fetch GA release page
   uri:
     url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
     return_content: true
