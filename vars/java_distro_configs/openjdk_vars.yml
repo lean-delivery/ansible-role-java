@@ -11,5 +11,10 @@ choco_java_package: 'openjdk{{ java_package_suffix }}'
 
 choco_path: 'C:\Program Files\OpenJDK'
 
+java_folder_ext_transport: >-
+  {{ (java_minor_version == '*')
+      | ternary(java_package + '-'  + java_major_version|string,
+                java_folder_ext_transport) }}
+
 java_folder: >-
   {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
