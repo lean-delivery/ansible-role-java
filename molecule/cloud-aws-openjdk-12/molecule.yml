@@ -24,7 +24,8 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - repositories
+      - web
+      - tarball
 
   - name: test-aws-centos6-openjdk-12-tarball
     image: ami-1585c46a
@@ -39,9 +40,9 @@ platforms:
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
-     - web
-     - tarball
+      - rhel_family
+      - web
+      - tarball
 
   - name: test-aws-ubuntu18-openjdk-12-repo
     image: ami-012fd5eb46f56731f
@@ -57,7 +58,8 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - repositories
+      - web
+      - tarball
 
 provisioner:
   name: ansible
@@ -73,11 +75,6 @@ provisioner:
       tarball:
         java_distribution: openjdk
         java_tarball_install: true
-      repositories:
-        java_distribution: openjdk
-        java_major_version: 12
-        transport: repositories
-        java_tarball_install: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
