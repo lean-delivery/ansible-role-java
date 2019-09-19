@@ -1,0 +1,18 @@
+---
+# This is an example playbook to execute Ansible tests.
+- name: Verify
+  hosts: windows
+  tasks:
+
+    - name: Check filebeat version
+      win_command: java -version
+      register: java_ver_cmd
+      changed_when: false
+
+    - name: Debug filebeat version
+      debug:
+        var: java_ver_cmd
+
+    - name: Assert that filebeat package is installed
+      assert:
+        that: "'Runtime Environment' in java_ver_cmd.stderr"

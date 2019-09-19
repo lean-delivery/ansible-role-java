@@ -5,7 +5,6 @@
     dest: >-
       {{ download_path }}\{{ (fallback_oracle_security_policy_artifacts[java_major_version|int]
         | urlsplit('path')).split('/')[-1] }}
-    mode: 0755
     headers:
       Cookie: 'oraclelicense=accept-securebackup-cookie'
     force: false
