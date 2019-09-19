@@ -1,16 +1,4 @@
 ---
-- name: debug java_path
-  debug:
-    var: java_path
-
-- name: debug java_artifact
-  debug:
-    var: java_artifact
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
 - name: Mkdir for java installation
   win_file:
     path: '{{ java_path }}'

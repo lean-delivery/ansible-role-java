@@ -10,6 +10,19 @@
 - name: Find java_folder
   win_find:
     paths: '{{ java_path }}'
+    recurse: true
+    file_type: directory
+    # patterns: '{{ java_folder }}'
+    # use_regex: true
+  register: java_dirs
+
+- name: debug java_path
+  debug:
+    var: java_dirs
+
+- name: Find java_folder
+  win_find:
+    paths: '{{ java_path }}'
     recurse: false
     file_type: directory
     patterns: '{{ java_folder }}'
