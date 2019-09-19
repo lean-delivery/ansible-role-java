@@ -12,9 +12,9 @@
     paths: '{{ java_path }}'
     recurse: false
     file_type: directory
-    patterns: jdk
+    patterns: jdk*
     # patterns: '{{ java_folder }}'
-    use_regex: false
+    use_regex: true
   register: java_dir
 
 # - name: Find java_folders
