@@ -62,9 +62,9 @@ provisioner:
         java_unlimited_policy_transport: oracle-fallback
         java_unlimited_policy_enabled: true
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
+    create: ../resources/provisioning/AWS/create.yml
     prepare: prepare.yml
-    destroy: ../resources/provisioning/WINRM/destroy.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
