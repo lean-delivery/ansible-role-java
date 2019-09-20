@@ -7,6 +7,10 @@
   loop_control:
     loop_var: distribution
 
+- name: Debug java_distribution
+  debug:
+    var: java_distribution
+
 - name: Set base variables based on java distribution
   include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
 

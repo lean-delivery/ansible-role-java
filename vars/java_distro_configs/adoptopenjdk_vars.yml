@@ -21,6 +21,7 @@ adoptopenjdk_folder: >-
 
 java_folder: >-
   {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary('adoptopenjdk*', 'adoptopenjdk_folder') }}
+
   # {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, adoptopenjdk_folder) }}
 
 jdk_package: >-

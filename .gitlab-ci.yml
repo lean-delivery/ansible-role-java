@@ -105,7 +105,7 @@ AWS openjdk-8:
   tags:
     - aws
 
-AWS openjdk-11:
+.AWS openjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -132,7 +132,7 @@ AWS openjdk-ga:
   tags:
     - aws
 
-AWS openjdk-ga Windows:
+.AWS openjdk-ga Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
