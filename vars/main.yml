@@ -11,7 +11,7 @@ java_artifact: '{{ (file_downloaded|default({})).dest | default(omit) }}'
 java_artifact_basename: '{{ java_artifact | basename }}'
 
 java_full_version: >-
-  {{ (java_major_version ~ '.' ~ java_minor_version) | default(java_major_version) }}
+  {{ (java_major_version ~ '.' ~ java_minor_version) | default(java_major_version|string) }}
 
 # Urls for java security policy
 fallback_oracle_security_policy_artifacts:
