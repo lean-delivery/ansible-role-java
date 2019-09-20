@@ -17,6 +17,14 @@
   register: package_install
   until: package_install is succeeded
 
+- name: Populate package facts
+  package_facts:
+    manager: auto
+
 - name: Debug package_install
   debug:
     var: package_install
+
+- name: Debug ansible_facts.packages
+  debug:
+    var: ansible_facts.packages
