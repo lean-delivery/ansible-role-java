@@ -27,3 +27,7 @@
     cache_valid_time: 3600
   register: package_install
   until: package_install is succeeded
+
+- name: Debug package_install
+  debug:
+    var: package_install
