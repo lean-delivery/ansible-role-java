@@ -10,6 +10,9 @@ download_default_path: /tmp
 java_artifact: '{{ (file_downloaded|default({})).dest | default(omit) }}'
 java_artifact_basename: '{{ java_artifact | basename }}'
 
+java_full_version: >-
+  {{ (java_major_version ~ '.' ~ java_minor_version) | default(java_major_version) }}
+
 # Urls for java security policy
 fallback_oracle_security_policy_artifacts:
   6: http://download.oracle.com/otn-pub/java/jce_policy/6/jce_policy-6.zip

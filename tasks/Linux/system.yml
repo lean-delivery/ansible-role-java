@@ -27,9 +27,9 @@
       debug:
         var: java_major_version
 
-    - name: debug java_package
+    - name: debug java_full_version
       debug:
-        var: java_package
+        var: java_full_version
 
     - name: debug java_folder_ext_transport
       debug:
