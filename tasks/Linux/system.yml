@@ -43,6 +43,10 @@
       debug:
         var: ansible_system
 
+    - name: debug cond
+      debug:
+        msg: "{{ (not java_tarball_install | bool and (ansible_system == 'Linux')) }}"
+
     - name: Find java_folder
       find:
         paths: '{{ java_path }}'
