@@ -19,6 +19,18 @@
         loop_var: install_task
       # ignore_errors: true
 
+    - name: debug adoptopenjdk_impl
+      debug:
+        var: adoptopenjdk_impl
+
+    - name: debug java_major_version
+      debug:
+        var: java_major_version
+
+    - name: debug java_folder_repo_transport
+      debug:
+        var: java_folder_repo_transport
+
     - name: Find java_folder
       find:
         paths: '{{ java_path }}'

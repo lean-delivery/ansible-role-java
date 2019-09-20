@@ -25,7 +25,7 @@ platforms:
       - adoptopenjdk
       - hotspot
       - jdk
-      - adoptopenjdk-fallback
+      - adoptopenjdk_fallback
 
   - name: test-aws-windows2019-adoptopenjdk-tarball-12
     aws_image_id: ami-0477b9335a5a75438
@@ -42,7 +42,7 @@ platforms:
       - adoptopenjdk
       - openj9
       - jre
-      - adoptopenjdk-fallback
+      - adoptopenjdk_fallback
 
   - name: test-aws-windows2016-adoptopenjdk-chocolatey-12
     aws_image_id: ami-00a20f508263efd30
@@ -96,7 +96,7 @@ provisioner:
         adoptopenjdk_impl: openj9
       hotspot:
         adoptopenjdk_impl: hotspot
-      adoptopenjdk-fallback:
+      adoptopenjdk_fallback:
         transport: adoptopenjdk-fallback
       chocolatey:
         transport: chocolatey

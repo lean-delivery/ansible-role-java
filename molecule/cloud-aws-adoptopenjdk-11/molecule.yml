@@ -27,7 +27,7 @@ platforms:
       - adoptopenjdk
       - hotspot
       - jre
-      - adoptopenjdk-fallback
+      - adoptopenjdk_fallback
 
   - name: test-aws-ubuntu18-adoptopenjdk-openj9-jdk-tarball-11
     image: ami-012fd5eb46f56731f
@@ -46,7 +46,7 @@ platforms:
       - adoptopenjdk
       - openj9
       - jdk
-      - adoptopenjdk-fallback
+      - adoptopenjdk_fallback
 
   - name: test-aws-Debian9-adoptopenjdk-hotspot-jdk-repositories-11
     image: ami-003f19e0e687de1cd
@@ -122,7 +122,7 @@ provisioner:
         adoptopenjdk_impl: openj9
       hotspot:
         adoptopenjdk_impl: hotspot
-      adoptopenjdk-fallback:
+      adoptopenjdk_fallback:
         transport: adoptopenjdk-fallback
       repositories:
         transport: repositories
