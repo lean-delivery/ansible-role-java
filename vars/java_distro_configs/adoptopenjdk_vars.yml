@@ -17,7 +17,7 @@ adoptopenjdk_choco_folder: >-
   {{'jdk[-]*' + java_major_version|string + '.*' + java_jre_regex_suffix|string}}
 
 adoptopenjdk_folder: >-
-  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport) }}
+  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport|default('')) }}
 
 jdk_package: >-
   {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
