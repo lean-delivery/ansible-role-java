@@ -63,11 +63,3 @@
   delay: 5
   until: file_downloaded is succeeded
   when: ansible_version.full is version('2.8.0', '>=')
-
-- name: Out java_minor_version
-  debug:
-    var: java_minor_version
-
-- name: Out java_folder
-  debug:
-    var: java_folder

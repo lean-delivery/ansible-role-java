@@ -7,10 +7,6 @@
   loop_control:
     loop_var: distribution
 
-- name: Debug java_distribution
-  debug:
-    var: java_distribution
-
 - name: Set base variables based on java distribution
   include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
 
@@ -27,26 +23,6 @@
   when:
     - transport != 'repositories'
     - java_binary_type != 'chocolatey'
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug java_minor_version
-  debug:
-    var: java_minor_version
-
-- name: debug java_full_version
-  debug:
-    var: java_full_version
-
-- name: Debug java_folder
-  debug:
-    var: java_folder
-
-- name: Debug parts
-  debug:
-    var: parts
 
 - name: Choose platform based task
   include_tasks: '{{ platform }}'

@@ -17,47 +17,6 @@
         - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
-      # ignore_errors: true
-
-    - name: debug java_package
-      debug:
-        var: java_package
-
-    - name: debug java_major_version
-      debug:
-        var: java_major_version
-
-    - name: debug java_minor_version
-      debug:
-        var: java_minor_version
-
-    - name: debug java_full_version
-      debug:
-        var: java_full_version
-
-    - name: debug java_folder_ext_transport
-      debug:
-        var: java_folder_ext_transport
-
-    - name: debug java_folder_repo_transport
-      debug:
-        var: java_folder_repo_transport
-
-    - name: debug java_folder
-      debug:
-        var: java_folder
-
-    - name: debug java_tarball_install
-      debug:
-        var: java_tarball_install
-
-    - name: debug ansible_system
-      debug:
-        var: ansible_system
-
-    - name: debug cond
-      debug:
-        msg: "{{ (not java_tarball_install | bool and (ansible_system == 'Linux')) }}"
 
     - name: Find java_folder
       find:

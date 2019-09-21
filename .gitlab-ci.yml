@@ -133,6 +133,8 @@ AWS openjdk-ga:
     - aws
 
 AWS openjdk-ga Windows:
+  image:
+    name: leandelivery/docker-ansible-ci:ansible-2.7
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -160,8 +162,6 @@ AWS java-12:
     - aws
 
 AWS java-12 Windows:
-  image:
-    name: leandelivery/docker-ansible-ci:ansible-2.7
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
