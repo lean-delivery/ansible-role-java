@@ -104,8 +104,8 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
         ansible_connection: winrm
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
-    destroy: ../resources/provisioning/WINRM/destroy.yml
+    create: ../resources/provisioning/AWS/create.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify_win.yml
   config_options:
     defaults:

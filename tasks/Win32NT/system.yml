@@ -17,19 +17,19 @@
     use_regex: true
   register: java_dir
 
-# - name: Find java_folders
-#   win_find:
-#     paths: '{{ java_path }}'
-#     recurse: true
-#   register: java_dirs
+- name: Find java_folders
+  win_find:
+    paths: '{{ java_path }}'
+    recurse: true
+  register: java_dirs
 
 - name: Debug java_folder
   debug:
     var: java_folder
 
-# - name: Debug java_dirs
-#   debug:
-#     var: java_dirs
+- name: Debug java_dirs
+  debug:
+    var: java_dirs
 
 - name: Debug java_dir
   debug:

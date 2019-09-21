@@ -19,9 +19,9 @@
         loop_var: install_task
       # ignore_errors: true
 
-    - name: debug adoptopenjdk_impl
+    - name: debug java_package
       debug:
-        var: adoptopenjdk_impl
+        var: java_package
 
     - name: debug java_major_version
       debug:
