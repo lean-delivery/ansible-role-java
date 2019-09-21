@@ -68,7 +68,7 @@ platforms:
       - repositories
 
   - name: test-aws-amazon2-adoptopenjdk-openj9-jre-repositories-8
-    image: ami-9887c6e7
+    image: ami-0b898040803850657
     platform: amazon2
     instance_type: m5.large
     region: us-east-1
@@ -78,7 +78,7 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: centos
+    ssh_user: ec2-user
     groups:
       - rhel_family
       - adoptopenjdk

@@ -49,16 +49,25 @@ Requirements
       - EL 7: repositories, tarball
       - Ubuntu bionic: repositories, tarball
       - Debian stretch: repositories, tarball
+      - Windows: tarball
    - 11
       - EL 6: tarball
       - EL 7: repositories, tarball
       - Ubuntu bionic: repositories, tarball
       - Debian stretch: tarball
+      - Windows: tarball
    - 12
+      - EL 6: tarball
+      - EL 7: tarball
+      - Ubuntu bionic: tarball
+      - Debian stretch: tarball
+      - Windows: tarball
+   - 13
       - EL 6: tarball, openjdk-fallback
       - EL 7: tarball, openjdk-fallback
       - Ubuntu bionic: tarball, openjdk-fallback
       - Debian stretch: tarball, openjdk-fallback
+      - Windows: tarball, openjdk-fallback
  - **Supported oracle java version**:
    - 7
    - 8
@@ -83,6 +92,8 @@ Requirements
      - trusty
    - Debian
      - stretch
+   - Amazon Linux
+   - Amazon Linux 2
    - EL
      - 6
      - 7
