@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
 
-  - name: test-aws-windows2016-openjdk-12-chocolatey
+  - name: test-aws-windows2016-openjdk-13-chocolatey
     aws_image_id: ami-0a125a00b5b736e77
     platform: windows2016core
     aws_region: us-east-1
@@ -25,7 +25,7 @@ platforms:
       - windows
       - chocolatey
 
-  - name: test-aws-windows2019-openjdk-12-chocolatey
+  - name: test-aws-windows2019-openjdk-13-chocolatey
     aws_image_id: ami-03ad37b4adab50a4c
     platform: windows2019core
     aws_region: us-east-1

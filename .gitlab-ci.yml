@@ -26,14 +26,14 @@ Lint:
   tags:
     - aws
 
-.Docker java-on-defaults:
+Docker java-on-defaults:
   stage: deployment test
   script:
   - molecule test -s default
   tags:
   - aws
 
-.AWS java-6:
+AWS java-6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -42,7 +42,7 @@ Lint:
   tags:
     - aws
 
-.AWS java-7:
+AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -51,7 +51,7 @@ Lint:
   tags:
     - aws
 
-.AWS java-8:
+AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -213,7 +213,7 @@ AWS sapjvm-8 Windows:
   tags:
     - aws
 
-.EPC java-8:
+EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

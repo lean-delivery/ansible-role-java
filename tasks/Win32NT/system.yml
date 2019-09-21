@@ -12,7 +12,6 @@
     paths: '{{ java_path }}'
     recurse: false
     file_type: directory
-    # patterns: jdk-13
     patterns: '{{ java_folder }}'
     use_regex: true
   register: java_dir
@@ -22,18 +21,6 @@
     paths: '{{ java_path }}'
     recurse: true
   register: java_dirs
-
-- name: Debug java_folder
-  debug:
-    var: java_folder
-
-- name: Debug java_dirs
-  debug:
-    var: java_dirs
-
-- name: Debug java_dir
-  debug:
-    var: java_dir
 
 - name: Set actual java directory
   set_fact:
