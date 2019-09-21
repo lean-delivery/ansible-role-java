@@ -27,6 +27,10 @@
       debug:
         var: java_major_version
 
+    - name: debug java_minor_version
+      debug:
+        var: java_minor_version
+
     - name: debug java_full_version
       debug:
         var: java_full_version
