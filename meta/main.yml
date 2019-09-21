@@ -20,6 +20,10 @@ galaxy_info:
       versions:
         - "6"
         - "7"
+    - name: "Amazon"
+      versions:
+        - "2017.12"
+        - "Candidate"
     - name: "Windows"
       versions:
         - "all"

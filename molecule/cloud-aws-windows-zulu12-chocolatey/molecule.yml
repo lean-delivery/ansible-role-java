@@ -15,7 +15,7 @@ platforms:
     aws_image_id: ami-0a125a00b5b736e77
     platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
@@ -29,7 +29,7 @@ platforms:
     aws_image_id: ami-03ad37b4adab50a4c
     platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:

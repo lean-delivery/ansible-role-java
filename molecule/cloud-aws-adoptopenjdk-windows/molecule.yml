@@ -44,39 +44,39 @@ platforms:
       - jre
       - adoptopenjdk_fallback
 
-  # - name: test-aws-windows2016-adoptopenjdk-chocolatey-12
-  #   aws_image_id: ami-00a20f508263efd30
-  #   platform: windows2016core
-  #   aws_region: us-east-1
-  #   instance_type: m5.large
-  #   assign_public_ip: false
-  #   spot_price: 0.14
-  #   aws_sec_group:
-  #     - default
-  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
-  #   groups:
-  #     - windows
-  #     - adoptopenjdk
-  #     - hotspot
-  #     - jdk
-  #     - chocolatey
+  - name: test-aws-windows2016-adoptopenjdk-chocolatey-12
+    aws_image_id: ami-00a20f508263efd30
+    platform: windows2016core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: true
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-314c223d
+    groups:
+      - windows
+      - adoptopenjdk
+      - hotspot
+      - jdk
+      - chocolatey
 
-  # - name: test-aws-windows2019-adoptopenjdk-chocolatey-12
-  #   aws_image_id: ami-0477b9335a5a75438
-  #   platform: windows2019core
-  #   aws_region: us-east-1
-  #   instance_type: m5.large
-  #   assign_public_ip: false
-  #   spot_price: 0.14
-  #   aws_sec_group:
-  #     - default
-  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
-  #   groups:
-  #     - windows
-  #     - adoptopenjdk
-  #     - openj9
-  #     - jre
-  #     - chocolatey
+  - name: test-aws-windows2019-adoptopenjdk-chocolatey-12
+    aws_image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-314c223d
+    groups:
+      - windows
+      - adoptopenjdk
+      - openj9
+      - jre
+      - chocolatey
 
 provisioner:
   name: ansible

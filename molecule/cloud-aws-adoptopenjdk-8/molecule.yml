@@ -67,10 +67,10 @@ platforms:
       - jdk
       - repositories
 
-  - name: test-aws-centos7-adoptopenjdk-openj9-jre-repositories-8
+  - name: test-aws-amazon2-adoptopenjdk-openj9-jre-repositories-8
     image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5a.large
+    platform: amazon2
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
