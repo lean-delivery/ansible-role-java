@@ -56,7 +56,7 @@ provisioner:
         java_distribution: openjdk
         transport: chocolatey
         java_major_version: 11
-        java_minor_version: 0.2
+        java_minor_version: 0.4
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml

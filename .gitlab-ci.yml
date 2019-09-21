@@ -69,7 +69,7 @@ AWS java-8 Windows:
   tags:
     - aws
 
-AWS openjdk-11 Windows chocolatey:
+.AWS openjdk-11 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -78,12 +78,12 @@ AWS openjdk-11 Windows chocolatey:
   tags:
     - aws
 
-AWS openjdk-12 Windows chocolatey:
+AWS openjdk-13 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-windows-openjdk12-chocolatey
+    - molecule test -s cloud-aws-windows-openjdk13-chocolatey
   tags:
     - aws
 
@@ -168,7 +168,7 @@ AWS java-12 Windows:
   tags:
     - aws
 
-.AWS sapjvm-8:
+AWS sapjvm-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -177,7 +177,7 @@ AWS java-12 Windows:
   tags:
     - aws
 
-.AWS sapjvm-8 Windows:
+AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
