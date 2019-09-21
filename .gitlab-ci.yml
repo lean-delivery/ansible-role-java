@@ -60,7 +60,7 @@ Lint:
   tags:
     - aws
 
-.AWS java-8 Windows:
+AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -96,7 +96,7 @@ AWS java-11:
   tags:
     - aws
 
-.AWS openjdk-8:
+AWS openjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -114,7 +114,7 @@ AWS java-11:
   tags:
     - aws
 
-.AWS openjdk-12:
+AWS openjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -159,7 +159,7 @@ AWS java-12:
   tags:
     - aws
 
-.AWS java-12 Windows:
+AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -222,7 +222,7 @@ AWS java-12:
   tags:
     - delegated
 
-.AWS adoptopenjdk-8:
+AWS adoptopenjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -231,7 +231,7 @@ AWS java-12:
   tags:
     - aws
 
-.AWS adoptopenjdk-11:
+AWS adoptopenjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -240,7 +240,7 @@ AWS java-12:
   tags:
     - aws
 
-.AWS adoptopenjdk-12:
+AWS adoptopenjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -249,7 +249,7 @@ AWS java-12:
   tags:
     - aws
 
-.AWS adoptopenjdk Windows:
+AWS adoptopenjdk Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
