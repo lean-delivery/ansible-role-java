@@ -1,7 +1,7 @@
 ---
 parts: >-
   {{ java_artifact_basename
-    | regex_findall('^OpenJDK[0-9]*[A-Z-]*([jdkre]+)[-_](x64)_(Linux|linux|windows)_[hotspot|openj9]*[-_]([0-9]+)(\.[0-9.]*)[_-a-z]+\.[t|z].+')
+    | regex_findall('^OpenJDK[0-9]*[A-Z-]*([jdkre]+)[-_](x64)_(Linux|linux|windows)_[hotspot|openj9]*[-_]([0-9]+)\.([0-9\.]*)[_\-\S]+\.[t|z].+')
     | first | list }}
 
 java_package_suffix: >-

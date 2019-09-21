@@ -1,6 +1,6 @@
 ---
 java_package: '{{ parts[0] | default("jdk") }}'
-java_major_version: '{{ parts[1] }}'
+java_major_version: '{{ (java_distribution == "adoptopenjdk") | ternary(parts[3], parts[1]) }}'
 java_minor_version: '{{ (java_distribution == "adoptopenjdk") | ternary(parts[4], parts[2]) }}'
 java_full_version: >-
   {{ ( parts[2] | length == 0) and (parts[2] is defined)
