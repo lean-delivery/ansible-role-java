@@ -66,7 +66,7 @@ platforms:
     platform: windows2019core
     aws_region: us-east-1
     instance_type: m5a.large
-    assign_public_ip: false
+    assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
       - default
