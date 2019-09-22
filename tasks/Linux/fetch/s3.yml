@@ -3,7 +3,7 @@
   aws_s3:
     bucket: '{{ transport_s3_bucket }}'
     object: '{{ transport_s3_path }}'
-    dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+    dest: '{{ java_download_path }}/{{ transport_s3_path | basename }}'
     aws_access_key: '{{ transport_s3_aws_access_key }}'
     aws_secret_key: '{{ transport_s3_aws_secret_key }}'
     mode: get
@@ -15,4 +15,4 @@
 - name: Set downloaded artifact vars
   set_fact:
     file_downloaded:
-      dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+      dest: '{{ java_download_path }}/{{ transport_s3_path | basename }}'

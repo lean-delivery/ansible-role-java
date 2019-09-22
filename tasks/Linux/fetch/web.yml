@@ -2,7 +2,7 @@
 - name: Download artifact from web
   get_url:
     url: '{{ transport_web }}'
-    dest: '{{ download_path }}'
+    dest: '{{ java_download_path }}'
   register: file_downloaded
   retries: 5
   delay: 2

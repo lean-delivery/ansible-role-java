@@ -30,7 +30,7 @@ java_arch: 'x64'
 java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_default_path) }}"
 
 # local download path
-download_path: '{{ download_default_path }}'
+java_download_path: '{{ java_download_default_path }}'
 
 # Custom artifact source transport
 java_tarball_install: "{{ transport != 'repositories' }}"

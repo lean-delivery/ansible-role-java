@@ -4,13 +4,13 @@
   gather_facts: true
   vars:
     transport_s3_bucket: java-molecule-s3-test
-    download_path: /tmp
+    java_download_path: /tmp
   tasks:
     - name: Download artifact from s3
       aws_s3:
         bucket: '{{ transport_s3_bucket }}'
         object: '{{ item }}'
-        dest: '{{ download_path }}/{{ item | basename }}'
+        dest: '{{ java_download_path }}/{{ item | basename }}'
         mode: get
         overwrite: different
       retries: 5

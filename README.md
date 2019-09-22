@@ -151,7 +151,7 @@ Requirements
       - Debian: `/usr/lib/jvm`
       - Windows: `C:\Program Files\Java`
 
-  - `download_path`: Local folder for downloading artifacts
+  - `java_download_path`: Local folder for downloading artifacts
 
     Linux default: `/tmp`
 
