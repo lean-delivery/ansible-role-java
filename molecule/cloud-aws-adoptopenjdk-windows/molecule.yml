@@ -80,12 +80,12 @@ platforms:
 
 provisioner:
   name: ansible
-  log: true
+  log: false
   inventory:
     group_vars:
       adoptopenjdk:
         java_distribution: adoptopenjdk
-        # java_major_version: 12
+        java_major_version: 12
       jdk:
         java_package: jdk
       jre:
