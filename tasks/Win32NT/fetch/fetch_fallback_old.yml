@@ -11,22 +11,6 @@
     checksum_algorithm: '{{ checksum_alg }}'
   register: artifact
 
-- name: debug artifact_url
-  debug:
-    var: artifact_url
-
-- name: debug artifact_basename
-  debug:
-    var: artifact_basename
-
-- name: debug artifact
-  debug:
-    var: artifact
-
-- name: debug artifact_checksum
-  debug:
-    var: artifact_checksum
-
 - name: Download with checksum validation
   include_tasks: fetch_checksum.yml
   when: |
@@ -40,15 +24,3 @@
   set_fact:
     file_downloaded:
       dest: '{{ artifact.stat.path }}'
-
-- name: debug artifact
-  debug:
-    var: artifact
-
-- name: debug file_downloaded
-  debug:
-    var: file_downloaded
-
-- name: debug java_artifact
-  debug:
-    var: java_artifact

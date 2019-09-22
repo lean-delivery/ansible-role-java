@@ -4,22 +4,6 @@
     path: '{{ java_path }}'
     state: directory
 
-- name: debug java_full_version
-  debug:
-    var: java_full_version
-
-- name: debug java_artifact
-  debug:
-    var: java_artifact
-
-- name: debug java_path
-  debug:
-    var: java_path
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
 - name: 'Install java {{ java_full_version }}'
   win_unzip:
     src: '{{ java_artifact }}'

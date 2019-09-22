@@ -14,7 +14,7 @@
           + '[\d.]+-windows-x64.zip)')
       }}
 
-- name: 'Download artifact '
+- name: Download sapjvm artifact
   win_get_url:
     url: '{{ sapjvm_root_page }}/{{ release_url[0] }}'
     headers:

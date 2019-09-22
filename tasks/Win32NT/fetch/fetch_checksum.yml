@@ -11,7 +11,3 @@
     get_checksum: true
     checksum_algorithm: '{{ checksum_alg }}'
   register: artifact
-
-- name: debug artifact
-  debug:
-    var: artifact
