@@ -1,5 +1,5 @@
 ---
-- name: 'Fetch download page'
+- name: Fetch download page
   win_uri:
     url: "{{ adoptopenjdk_api_page }}\
       info/releases/\
@@ -12,14 +12,14 @@
     follow_redirects: all
   register: download_page
 
-- name: 'Find release url'
+- name: Find release url
   set_fact:
     release_url: >-
       {{ download_page['content'] |
       regex_findall('(https://github.com/AdoptOpenJDK/.*\.zip[.sha256.txt]*)')
       }}
 
-- name: 'Exit if AdobtOpenJDK version is not found'
+- name: Exit if AdobtOpenJDK version is not found
   fail:
     msg: 'AdoptOpenJDK version {{ java_major_version }} not found'
   when: release_url[0] is not defined
@@ -32,33 +32,25 @@
 
 - name: 'Get artifact checksum from file {{ release_url[1] }}'
   set_fact:
-    artifact_checksum: >-
-      {{ artifact_checksum_file['content'] |
-      regex_search('([^\s]+)')
-      }}
+    artifact_checksum:
+      content: >-
+        {{ artifact_checksum_file['content'] |
+          regex_search('([^\s]+)')
+        }}
 
-- name: 'Set artifact basename'
-  set_fact:
-    artifact_url: '{{ release_url[0] }}'
-    artifact_basename: "{{ (release_url[0] | urlsplit('path')).split('/')[-1] }}"
-
-- name: 'Get {{ checksum_alg }} checksum of file'
-  win_stat:
-    path: '{{ download_path }}\{{ artifact_basename }}'
-    get_checksum: true
-    checksum_algorithm: '{{ checksum_alg }}'
-  register: artifact
-
-- name: 'Download with checksum validation'
-  include_tasks: fetch_checksum.yml
-  when: |
-    not artifact.stat.exists | bool
-    or artifact.stat.checksum != artifact_checksum
+- name: 'Download artifact from {{ release_url[0] }}'
+  win_get_url:
+    url: '{{ release_url[0] }}'
+    dest: '{{ java_download_path }}'
+    force: true
+    checksum: '{{ artifact_checksum.content }}'
+    checksum_algorithm: sha256
+  register: file_downloaded
   retries: 20
   delay: 5
-  until: artifact.stat.checksum == artifact_checksum
+  until: file_downloaded is succeeded
+  when: ansible_version.full is version('2.8.0', '>=')
 
-- name: 'Set downloaded artifact vars'
-  set_fact:
-    file_downloaded:
-      dest: '{{ artifact.stat.path }}'
+- name: Old fetch (Ansible < 2.8)
+  include_tasks: fetch_fallback_old.yml
+  when: ansible_version.full is version('2.8.0', '<')

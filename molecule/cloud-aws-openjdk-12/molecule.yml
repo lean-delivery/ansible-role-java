@@ -10,10 +10,10 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-openjdk-12
+  - name: test-aws-centos7-openjdk-12-tb
     image: ami-9887c6e7
     platform: centos7
-    instance_type: m5a.large
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -24,8 +24,10 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - web
+      - tarball
 
-  - name: test-aws-centos6-openjdk-12
+  - name: test-aws-centos6-openjdk-12-tarball
     image: ami-1585c46a
     platform: centos6
     instance_type: m4.large
@@ -38,12 +40,14 @@ platforms:
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
+      - rhel_family
+      - web
+      - tarball
 
-  - name: test-aws-ubuntu18-openjdk-12
+  - name: test-aws-ubuntu18-openjdk-12-tb
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: m5a.large
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -54,21 +58,8 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-
-  - name: test-aws-Debian9-openjdk-12
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: m5a.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
+      - web
+      - tarball
 
 provisioner:
   name: ansible
@@ -76,18 +67,24 @@ provisioner:
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      web:
+        transport: web
+        transport_web: "https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz"
+      tarball:
+        java_distribution: openjdk
+        java_tarball_install: true
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify.yml
   lint:
     name: ansible-lint
 scenario:
   name: cloud-aws-openjdk-12
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

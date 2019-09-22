@@ -2,7 +2,7 @@
 - name: Download security policy artifact from Oracle OTN
   get_url:
     url: '{{ fallback_oracle_security_policy_artifacts[java_major_version|int] }}'
-    dest: '{{ download_path }}'
+    dest: '{{ java_download_path }}'
     mode: 0755
     headers:
       Cookie: >-

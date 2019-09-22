@@ -3,7 +3,7 @@
   block:
     - name: Install requirements
       package:
-        name: '{{ requirements }}'
+        name: '{{ java_package_requirements }}'
         state: present
       register: installed_packages
       until: installed_packages is succeeded
@@ -17,7 +17,6 @@
         - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
-      ignore_errors: true
 
     - name: Find java_folder
       find:

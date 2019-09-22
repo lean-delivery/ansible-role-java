@@ -6,31 +6,45 @@
 
 - name: Install java from tarball
   block:
-  - name: Mkdir for java installation
-    win_file:
-      path: '{{ java_path }}\{{ java_folder }}'
-      state: directory
+    - name: Mkdir for java installation
+      win_file:
+        path: '{{ java_path }}\{{ java_folder }}'
+        state: directory
 
-  - name: Create temporary directory
-    win_tempfile:
-      state: directory
-    register: temp_dir_path
+    - name: Create temporary directory
+      win_tempfile:
+        state: directory
+      register: temp_dir_path
 
-  - name: Unarchive to temporary directory
-    win_unzip:
-      src: '{{ java_artifact }}'
-      dest: '{{ temp_dir_path }}'
+    - name: Unarchive to temporary directory
+      win_unzip:
+        src: '{{ java_artifact }}'
+        dest: '{{ temp_dir_path }}'
 
-  - name: Find java_folder in temp
-    win_find:
-      paths: '{{ temp_dir_path }}'
-      recurse: false
-      file_type: directory
-    register: java_temp_folder
+    - name: Find java_folder in temp
+      win_find:
+        paths: '{{ temp_dir_path }}'
+        recurse: false
+        file_type: directory
+      register: java_temp_folder
 
-  - name: Copy from temporary directory
-    win_copy:
-      src: '{{ java_temp_folder.files | map(attribute="path") | list | last }}\'
-      dest: '{{ java_path }}\{{ java_folder }}'
-      remote_src: true
+    - name: Copy from temporary directory
+      win_copy:
+        src: '{{ java_temp_folder.files | map(attribute="path") | list | last }}\'
+        dest: '{{ java_path }}\{{ java_folder }}'
+        remote_src: true
+
+    - name: Check choco
+      win_chocolatey:
+        name: chocolatey
+        state: present
+
+    # https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/76137f42711e1014839a8273b0e91070.html
+    - name: 'Install vcredist package prior to using SAP JVM'
+      win_chocolatey:
+        name: vcredist2013
+      register: choco_install
+      retries: 15
+      delay: 5
+      until: choco_install is succeeded
   when: not java_folder_bin.stat.exists

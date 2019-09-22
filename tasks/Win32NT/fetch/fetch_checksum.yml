@@ -2,12 +2,12 @@
 - name: 'Download artifact from {{ artifact_url }}'
   win_get_url:
     url: '{{ artifact_url }}'
-    dest: '{{ download_path }}\{{ artifact_basename }}'
+    dest: '{{ java_download_path }}\{{ artifact_basename }}'
     force: true
 
 - name: 'Get {{ checksum_alg }} checksum of file'
   win_stat:
-    path: '{{ download_path }}\{{ artifact_basename }}'
+    path: '{{ java_download_path }}\{{ artifact_basename }}'
     get_checksum: true
     checksum_algorithm: '{{ checksum_alg }}'
   register: artifact

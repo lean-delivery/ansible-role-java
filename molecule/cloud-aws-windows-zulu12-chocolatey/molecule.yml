@@ -4,7 +4,7 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: delegated
+  name: ec2
 lint:
   name: yamllint
   options:
@@ -15,7 +15,7 @@ platforms:
     aws_image_id: ami-0a125a00b5b736e77
     platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
@@ -29,7 +29,7 @@ platforms:
     aws_image_id: ami-03ad37b4adab50a4c
     platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
@@ -42,11 +42,13 @@ platforms:
 provisioner:
   name: ansible
   log: false
-  connection_options:
-    ansible_connection: winrm
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
       windows:
+        ansible_connection: winrm
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
@@ -55,18 +57,14 @@ provisioner:
         transport: chocolatey
         java_major_version: 12
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
-    destroy: ../resources/provisioning/WINRM/destroy.yml
-  config_options:
-    ssh_connection:
-      control_path: "/var/ans/%%h"
-    defaults:
-      callback_whitelist: profile_tasks,timer
+    create: ../resources/provisioning/AWS/create.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify_win.yml
   lint:
     name: ansible-lint
 scenario:
   name: cloud-aws-windows-zulu12-chocolatey
 verifier:
-  name: testinfra
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

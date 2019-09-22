@@ -39,13 +39,13 @@
   vars:
     transport_s3_bucket: java-molecule-s3-test
     transport_s3_path: /java/adoptopenjdk/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
-    download_path: /tmp
+    java_download_path: /tmp
   tasks:
     - name: Download artifact from s3
       aws_s3:
         bucket: '{{ transport_s3_bucket }}'
         object: '{{ transport_s3_path }}'
-        dest: '{{ download_path }}/{{ transport_s3_path | basename }}'
+        dest: '{{ java_download_path }}/{{ transport_s3_path | basename }}'
         mode: get
         overwrite: different
       retries: 5

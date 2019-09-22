@@ -1,16 +1,34 @@
 ---
 - name: 'Fetch root page {{ openjdk_root_page }}'
   uri:
-    url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
+    url: '{{ openjdk_root_page }}'
     return_content: true
   register: root_page
+
+- name: Find GA release version
+  set_fact:
+    java_major_version: >-
+      {{ root_page['content']
+        | regex_findall('Ready for use:.*>JDK ([\d]+)<')
+        | first
+      }}
+
+- name: Out java_major_version
+  debug:
+    var: java_major_version
+
+- name: Fetch GA release page
+  uri:
+    url: '{{ openjdk_root_page }}/{{ java_major_version }}/'
+    return_content: true
+  register: ga_release_page
 
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ root_page['content']
+      {{ ga_release_page['content']
         | regex_findall('(https://download[\.\w]+/java/GA/jdk'
-          + java_major_version|string + '[.\d]+/[\d\w]+/'
+          + java_major_version|string + '[.\d]*/[\d\w]+/'
           + '[.\d]+/GPL/openjdk-'
           + java_major_version|string + '[\d._]+linux-x64_bin[\w\d.]+)')
       }}
@@ -29,7 +47,7 @@
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
     url: '{{ release_url[0] }}'
-    dest: '{{ download_path }}'
+    dest: '{{ java_download_path }}'
     checksum: 'sha256:{{ artifact_checksum.content }}'
   register: file_downloaded
   retries: 20

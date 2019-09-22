@@ -42,6 +42,7 @@ provisioner:
     create: ../resources/provisioning/EPC/create.yml
     prepare: ../resources/provisioning/EPC/prepare.yml
     destroy: ../resources/provisioning/EPC/destroy.yml
+    verify: ../resources/tests/verify.yml
   config_options:
     ssh_connection:
       control_path: "/var/ans/%%h"
@@ -54,9 +55,6 @@ provisioner:
 scenario:
   name: cloud-epc-delegated
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

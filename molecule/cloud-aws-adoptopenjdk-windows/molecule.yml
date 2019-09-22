@@ -4,7 +4,7 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: delegated
+  name: ec2
 lint:
   name: yamllint
   options:
@@ -25,7 +25,7 @@ platforms:
       - adoptopenjdk
       - hotspot
       - jdk
-      - adoptopenjdk-fallback
+      - adoptopenjdk_fallback
 
   - name: test-aws-windows2019-adoptopenjdk-tarball-12
     aws_image_id: ami-0477b9335a5a75438
@@ -42,18 +42,18 @@ platforms:
       - adoptopenjdk
       - openj9
       - jre
-      - adoptopenjdk-fallback
+      - adoptopenjdk_fallback
 
   - name: test-aws-windows2016-adoptopenjdk-chocolatey-12
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
     instance_type: m5a.large
-    assign_public_ip: false
+    assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - adoptopenjdk
@@ -66,11 +66,11 @@ platforms:
     platform: windows2019core
     aws_region: us-east-1
     instance_type: m5a.large
-    assign_public_ip: false
+    assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - adoptopenjdk
@@ -81,8 +81,6 @@ platforms:
 provisioner:
   name: ansible
   log: false
-  connection_options:
-    ansible_connection: winrm
   inventory:
     group_vars:
       adoptopenjdk:
@@ -96,7 +94,7 @@ provisioner:
         adoptopenjdk_impl: openj9
       hotspot:
         adoptopenjdk_impl: hotspot
-      adoptopenjdk-fallback:
+      adoptopenjdk_fallback:
         transport: adoptopenjdk-fallback
       chocolatey:
         transport: chocolatey
@@ -104,12 +102,12 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
+        ansible_connection: winrm
   playbooks:
-    create: ../resources/provisioning/WINRM/create.yml
-    destroy: ../resources/provisioning/WINRM/destroy.yml
+    create: ../resources/provisioning/AWS/create.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify_win.yml
   config_options:
-    ssh_connection:
-      control_path: "/var/ans/%%h"
     defaults:
       callback_whitelist: profile_tasks,timer
   lint:
@@ -117,6 +115,6 @@ provisioner:
 scenario:
   name: cloud-aws-adoptopenjdk-windows
 verifier:
-  name: testinfra
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

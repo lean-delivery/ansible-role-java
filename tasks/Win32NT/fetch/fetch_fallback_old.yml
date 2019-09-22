@@ -1,0 +1,26 @@
+---
+- name: Set artifact basename
+  set_fact:
+    artifact_url: '{{ release_url[0] }}'
+    artifact_basename: "{{ (release_url[0] | urlsplit('path')).split('/')[-1] }}"
+
+- name: 'Get {{ checksum_alg }} checksum of file'
+  win_stat:
+    path: '{{ java_download_path }}\{{ artifact_basename }}'
+    get_checksum: true
+    checksum_algorithm: '{{ checksum_alg }}'
+  register: artifact
+
+- name: Download with checksum validation
+  include_tasks: fetch_checksum.yml
+  when: |
+    not artifact.stat.exists | bool
+    or artifact.stat.checksum != artifact_checksum.content
+  retries: 15
+  delay: 2
+  until: artifact.stat.checksum == artifact_checksum.content
+
+- name: Set downloaded artifact vars
+  set_fact:
+    file_downloaded:
+      dest: '{{ artifact.stat.path }}'

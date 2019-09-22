@@ -2,7 +2,7 @@
 - name: Copy artifact to destination
   win_copy:
     src: '{{ transport_local }}'
-    dest: '{{ download_path }}\'
+    dest: '{{ java_download_path }}\'
   register: file_downloaded
   retries: 5
   delay: 2

@@ -3,7 +3,7 @@
   win_get_url:
     url: '{{ transport_web }}'
     dest: >-
-      {{ download_path }}\{{ (transport_web | urlsplit('path')).split('/')[-1] }}
+      {{ java_download_path }}\{{ (transport_web | urlsplit('path')).split('/')[-1] }}
     force: false
   register: file_downloaded
   retries: 5
