@@ -11,6 +11,18 @@
     checksum_algorithm: '{{ checksum_alg }}'
   register: artifact
 
+- name: debug artifact_url
+  debug:
+    var: artifact_url
+
+- name: debug artifact_basename
+  debug:
+    var: artifact_basename
+
+- name: debug artifact
+  debug:
+    var: artifact
+
 - name: Download with checksum validation
   include_tasks: fetch_checksum.yml
   when: |
