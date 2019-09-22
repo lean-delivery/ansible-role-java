@@ -32,10 +32,11 @@
 
 - name: 'Get artifact checksum from file {{ release_url[1] }}'
   set_fact:
-    artifact_checksum: >-
-      {{ artifact_checksum_file['content'] |
-      regex_search('([^\s]+)')
-      }}
+    artifact_checksum:
+      content: >-
+        {{ artifact_checksum_file['content'] |
+          regex_search('([^\s]+)')
+        }}
 
 # - name: 'Set artifact basename'
 #   set_fact:

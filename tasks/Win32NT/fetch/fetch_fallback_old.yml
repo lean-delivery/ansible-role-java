@@ -14,7 +14,7 @@
 - name: Download with checksum validation
   include_tasks: fetch_checksum.yml
   when: |
-    not artifact.stat.exists
+    not artifact.stat.exists | bool
     or artifact.stat.checksum != artifact_checksum.content
   retries: 15
   delay: 2
