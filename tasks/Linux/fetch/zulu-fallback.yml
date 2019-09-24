@@ -19,6 +19,11 @@
     checksum: >-
       {{ (root_page.content | from_json).md5_hash }}
 
+- name: Exit if Zulu version is not found
+  fail:
+    msg: 'Zulu version {{ java_major_version }} not found'
+  when: release_url is not defined
+
 - name: 'Download artifact from {{ release_url }}'
   get_url:
     url: '{{ release_url }}'
