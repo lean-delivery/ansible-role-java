@@ -186,7 +186,7 @@ AWS zulu-12:
   tags:
     - aws
 
-.AWS zulu-12 Windows:
+AWS zulu-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
