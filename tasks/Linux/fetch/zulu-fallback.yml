@@ -13,7 +13,7 @@
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ (root_page.content  | from_json).url }}
+      {{ (root_page.content | from_json).url }}
 
 - name: Find checksum
   set_fact:

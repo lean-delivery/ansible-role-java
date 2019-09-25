@@ -187,6 +187,7 @@ AWS zulu-12:
     - aws
 
 AWS zulu-12 Windows:
+  image: leandelivery/docker-ansible-ci:ansible-2.7
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
