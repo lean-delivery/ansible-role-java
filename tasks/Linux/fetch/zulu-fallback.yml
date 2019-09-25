@@ -4,7 +4,8 @@
     url: "{{ zulu_api_page }}\
       /bundles/latest/\
       ?version={{ java_major_version }}\
-      &ext=tar.gz&os=linux&arch=x64"
+      &ext=tar.gz&os=linux&\
+      arch={{ (java_arch == 'x64') | ternary('x64', 'x86') }}"
     return_content: true
     follow_redirects: all
   register: root_page
