@@ -1,48 +1,44 @@
 ---
-  - name: 'Fetch root page {{ zulu_root_page }}'
-    win_uri:
-      url: '{{ zulu_root_page }}'
-      return_content: true
-    register: root_page
+- name: 'Fetch download page'
+  win_uri:
+    url: "{{ zulu_api_page }}\
+      /bundles/latest/\
+      ?version={{ java_major_version }}\
+      &ext=zip&os=win&\
+      arch={{ (java_arch == 'x64') | ternary('x64', 'x86') }}"
+    return_content: true
+    follow_redirects: all
+  register: root_page
 
-  - name: Find release url
-    set_fact:
-      release_url: >-
-        {{ root_page['content']
-          | regex_findall('(https://cdn.azul.com/zulu/bin/zulu'
-            + java_major_version|string
-            + '.+' + java_package + '.+-win_x64.zip)')
-        }}
+- name: Find release url and checksum
+  set_fact:
+    release_url: >-
+      {{ [(root_page.content | from_json).url] + [(root_page.content | from_json).md5_hash] }}
 
-  - name: Find checksum
-    set_fact:
-      checksum: >-
-        {{ root_page['content']
-          | regex_findall('Checksum \(MD5\): ([a-z0-9]+).+[\n\w\s<>=":/.-]+' + release_url[0])
-        }}
+- name: 'Get artifact checksum {{ release_url[1] }}'
+  set_fact:
+    artifact_checksum:
+      content: >-
+        {{ release_url[1] }}
 
-  - name: Set artifact basename
-    set_fact:
-      artifact_url: '{{ release_url[0] }}'
-      artifact_basename: "{{ (release_url[0] | urlsplit('path')).split('/')[-1] }}"
+- name: Exit if Zulu version is not found
+  fail:
+    msg: 'Zulu version {{ java_major_version }} not found'
+  when: release_url is not defined
 
-  - name: 'Get {{ checksum_alg }} checksum of file'
-    win_stat:
-      path: '{{ java_download_path }}\{{ artifact_basename }}'
-      get_checksum: true
-      checksum_algorithm: '{{ checksum_alg }}'
-    register: artifact
+- name: 'Download artifact from {{ release_url[0] }}'
+  win_get_url:
+    url: '{{ release_url }}'
+    dest: '{{ java_download_path }}'
+    force: true
+    checksum: '{{ artifact_checksum.content }}'
+    checksum_algorithm: '{{ checksum_alg }}'
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded
+  when: ansible_version.full is version('2.8.0', '>=')
 
-  - name: Download with checksum validation
-    include_tasks: fetch_checksum.yml
-    when: |
-      not artifact.stat.exists | bool
-      or artifact.stat.checksum != checksum[0]
-    retries: 15
-    delay: 2
-    until: artifact.stat.checksum == checksum[0]
-
-  - name: Set downloaded artifact vars
-    set_fact:
-      file_downloaded:
-        dest: '{{ artifact.stat.path }}'
+- name: Old fetch (Ansible < 2.8)
+  include_tasks: fetch_fallback_old.yml
+  when: ansible_version.full is version('2.8.0', '<')

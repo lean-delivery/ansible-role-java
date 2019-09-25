@@ -1,32 +1,36 @@
 ---
-  - name: 'Fetch root page {{ zulu_root_page }}'
-    uri:
-      url: '{{ zulu_root_page }}'
-      return_content: true
-    register: root_page
+- name: 'Fetch download page'
+  uri:
+    url: "{{ zulu_api_page }}\
+      /bundles/latest/\
+      ?version={{ java_major_version }}\
+      &ext=tar.gz&os=linux&\
+      arch={{ (java_arch == 'x64') | ternary('x64', 'x86') }}"
+    return_content: true
+    follow_redirects: all
+  register: root_page
 
-  - name: Find release url
-    set_fact:
-      release_url: >-
-        {{ root_page['content']
-          | regex_findall('(https://cdn.azul.com/zulu/bin/zulu'
-            + java_major_version|string
-            + '.+' + java_package + '.+-linux_x64.tar.gz)')
-        }}
+- name: Find release url
+  set_fact:
+    release_url: >-
+      {{ (root_page.content | from_json).url }}
 
-  - name: Find checksum
-    set_fact:
-      checksum: >-
-        {{ root_page['content']
-          | regex_findall('Checksum \(MD5\): ([a-z0-9]+).+[\n\w\s<>=":/.-]+' + release_url[0])
-        }}
+- name: Find checksum
+  set_fact:
+    checksum: >-
+      {{ (root_page.content | from_json).md5_hash }}
 
-  - name: 'Download artifact from {{ release_url[0] }}'
-    get_url:
-      url: '{{ release_url[0] }}'
-      dest: '{{ java_download_path }}'
-      checksum: 'md5:{{ checksum[0] }}'
-    register: file_downloaded
-    retries: 20
-    delay: 5
-    until: file_downloaded is succeeded
+- name: Exit if Zulu version is not found
+  fail:
+    msg: 'Zulu version {{ java_major_version }} not found'
+  when: release_url is not defined
+
+- name: 'Download artifact from {{ release_url }}'
+  get_url:
+    url: '{{ release_url }}'
+    dest: '{{ java_download_path }}'
+    checksum: 'md5:{{ checksum }}'
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded
