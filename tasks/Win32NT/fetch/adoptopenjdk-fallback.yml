@@ -5,7 +5,8 @@
       info/releases/\
       openjdk{{ java_major_version }}\
       ?openjdk_impl={{ adoptopenjdk_impl }}\
-      &os=windows&arch=x64\
+      &os=windows&\
+      arch={{ (java_arch == 'x64') | ternary('x64', 'x32') }}\
       &release=latest\
       &type={{ java_package }}&heap_size=normal"
     return_content: true
@@ -15,9 +16,8 @@
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ download_page['content'] |
-      regex_findall('(https://github.com/AdoptOpenJDK/.*\.zip[.sha256.txt]*)')
-      }}
+      {{ (download_page.content | from_json).binaries | map(attribute='binary_link') | list +
+        (download_page.content | from_json).binaries | map(attribute='checksum_link') | list }}
 
 - name: Exit if AdobtOpenJDK version is not found
   fail:

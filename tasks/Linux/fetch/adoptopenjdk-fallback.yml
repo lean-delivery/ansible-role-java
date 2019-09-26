@@ -1,5 +1,5 @@
 ---
-- name: 'Fetch download page'
+- name: Fetch download page
   uri:
     url: "{{ adoptopenjdk_api_page }}\
       info/releases/\
@@ -15,11 +15,10 @@
 - name: 'Find release url'
   set_fact:
     release_url: >-
-      {{ download_page['content'] |
-      regex_findall('(https://github.com/AdoptOpenJDK/.*\.tar.gz[.sha256.txt]*)')
-      }}
+      {{ (download_page.content | from_json).binaries | map(attribute='binary_link') | list +
+        (download_page.content | from_json).binaries | map(attribute='checksum_link') | list }}
 
-- name: 'Exit if AdoptOpenJDK version is not found'
+- name: Exit if AdoptOpenJDK version is not found
   fail:
     msg: 'AdoptOpenJDK version {{ java_major_version }} not found'
   when: release_url[0] is not defined
