@@ -204,7 +204,7 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
-### Installing OpenJDK 12 from openjdk-fallback (default role behaviour):
+### Installing OpenJDK 13 from openjdk-fallback (default role behaviour):
 ```yaml
 - name: Install openjdk java
   hosts: all

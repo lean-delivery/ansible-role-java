@@ -19,7 +19,7 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - zulu
@@ -33,7 +33,7 @@ platforms:
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - zulu
