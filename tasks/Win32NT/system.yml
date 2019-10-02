@@ -16,12 +16,6 @@
     use_regex: true
   register: java_dir
 
-- name: Find java_folders
-  win_find:
-    paths: '{{ java_path }}'
-    recurse: true
-  register: java_dirs
-
 - name: Set actual java directory
   set_fact:
     java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
