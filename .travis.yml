@@ -1,10 +1,10 @@
 ---
-dist: xenial
+dist: bionic
 sudo: required
 
 language: python
 python:
-  - "2.7"
+  - "3.7"
 
 services:
   - docker
@@ -13,8 +13,8 @@ before_install:
   - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
 
 install:
-  - pip install --upgrade ansible==2.8.* docker molecule==2.22
-  - pip install git+https://github.com/ansible/ansible-lint.git
+  - pip3 install --upgrade ansible==2.8.* docker molecule==2.22
+  - pip3 install git+https://github.com/ansible/ansible-lint.git
   - ansible --version
   - ansible-lint --version
 
