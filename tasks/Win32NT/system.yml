@@ -7,15 +7,6 @@
   loop_control:
     loop_var: install_task
 
-- name: Find java_folder
-  win_find:
-    paths: '{{ java_path }}'
-    recurse: false
-    file_type: directory
-    patterns: '{{ java_folder }}'
-    use_regex: true
-  register: java_dir
-
 - name: Find java_folders
   win_find:
     paths: '{{ java_path }}'
@@ -37,6 +28,19 @@
 - name: debug java_folder
   debug:
     var: java_folder
+
+- name: debug java_dirs
+  debug:
+    var: java_dirs
+
+- name: Find java_folder
+  win_find:
+    paths: '{{ java_path }}'
+    recurse: false
+    file_type: directory
+    patterns: '{{ java_folder }}'
+    use_regex: true
+  register: java_dir
 
 - name: Set actual java directory
   set_fact:
