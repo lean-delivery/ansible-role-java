@@ -16,6 +16,28 @@
     use_regex: true
   register: java_dir
 
+- name: Find java_folders
+  win_find:
+    paths: '{{ java_path }}'
+    recurse: true
+  register: java_dirs
+
+- name: debug choco_java_package
+  debug:
+    var: choco_java_package
+
+- name: debug adoptopenjdk_choco_folder
+  debug:
+    var: adoptopenjdk_choco_folder
+
+- name: debug adoptopenjdk_folder
+  debug:
+    var: adoptopenjdk_folder
+
+- name: debug java_folder
+  debug:
+    var: java_folder
+
 - name: Set actual java directory
   set_fact:
     java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
