@@ -1,10 +1,11 @@
 ---
 parts: >-
   {{ java_artifact_basename
-    | regex_findall('^OpenJDK[0-9]*[A-Z\-]*([jdkre]+)[\-_](x64)'
-    ~ '_(Linux|linux|windows)_[hotspot|openj9]*[\-_]'
-    ~ '([0-9]+)[\.|u]([0-9\.]*)[_\-\S]+\.[t|z].+')
-    | first | list }}
+    | regex_findall('^OpenJ[DKRE]{1,2}[0-9]+U[\-]*([jdkre]+)'
+    ~ '[\-_](x64)_(Linux|linux|windows)_(hotspot|openj9)'
+    ~ '_([0-9]{1,2})[u_\.]{1}([^_]+)?(_\S+)?\.[t|z][\.argzip]+')
+    | first
+    | list }}
 
 java_package_suffix: >-
   {{ (java_major_version == 12) | ternary('', java_major_version) }}
@@ -23,7 +24,7 @@ adoptopenjdk_folder: >-
 
 jdk_package: >-
   {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
-                  + (java_package == 'jre') | ternary('-' + java_package, '') }}
+                  + ((java_package == 'jre') | ternary('-' + java_package, '')) }}
 
 java_folder_repo_transport: >-
   {{ 'adoptopenjdk-' ~ java_major_version|string ~ '-' ~ adoptopenjdk_impl|string

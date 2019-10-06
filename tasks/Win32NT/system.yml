@@ -1,4 +1,16 @@
 ---
+- name: debug adoptopenjdk_folder
+  debug:
+    var: adoptopenjdk_folder
+
+- name: debug java_folder_ext_transport
+  debug:
+    var: java_folder_ext_transport
+
+- name: debug java_folder
+  debug:
+    var: java_folder
+
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: '{{ install_task }}'
   with_first_found:
