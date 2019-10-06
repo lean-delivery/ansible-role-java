@@ -17,7 +17,7 @@ java_jre_regex_suffix: >-
   {{ (java_package == 'jdk') | ternary('[^-jre]$', '[jre]') }}
 
 adoptopenjdk_choco_folder: >-
-  {{'jdk[-]*' + java_major_version|string + '.*' + java_jre_regex_suffix|string}}
+  {{'jdk[-]*' + java_major_version|string + '.*' }}
 
 adoptopenjdk_folder: >-
   {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport|default('')) }}
