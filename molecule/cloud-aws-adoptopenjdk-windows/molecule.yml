@@ -14,7 +14,7 @@ platforms:
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
@@ -31,7 +31,7 @@ platforms:
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
@@ -48,7 +48,7 @@ platforms:
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
@@ -65,7 +65,7 @@ platforms:
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:

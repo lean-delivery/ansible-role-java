@@ -85,6 +85,7 @@ Requirements
    - 8
    - 11
    - 12
+   - 13
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -107,6 +108,8 @@ Requirements
      - `sapjvm`
      - `zulu`
      - `adoptopenjdk`
+
+        **Notice**: this variable is mandatory in case of installing other distribution than 'openjdk'.
 
   - `java_package` Java package type.
 
