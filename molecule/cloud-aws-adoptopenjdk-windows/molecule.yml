@@ -10,11 +10,11 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-adoptopenjdk-tarball-12
+  - name: test-aws-windows2016-adoptopenjdk-tarball-13
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
@@ -27,11 +27,11 @@ platforms:
       - jdk
       - adoptopenjdk_fallback
 
-  - name: test-aws-windows2019-adoptopenjdk-tarball-12
+  - name: test-aws-windows2019-adoptopenjdk-tarball-13
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: false
     spot_price: 0.14
     aws_sec_group:
@@ -44,11 +44,11 @@ platforms:
       - jre
       - adoptopenjdk_fallback
 
-  - name: test-aws-windows2016-adoptopenjdk-chocolatey-12
+  - name: test-aws-windows2016-adoptopenjdk-chocolatey-13
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
@@ -61,11 +61,11 @@ platforms:
       - jdk
       - chocolatey
 
-  - name: test-aws-windows2019-adoptopenjdk-chocolatey-12
+  - name: test-aws-windows2019-adoptopenjdk-chocolatey-13
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
-    instance_type: m5a.large
+    instance_type: m5.large
     assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
@@ -85,7 +85,7 @@ provisioner:
     group_vars:
       adoptopenjdk:
         java_distribution: adoptopenjdk
-        java_major_version: 12
+        java_major_version: 13
       jdk:
         java_package: jdk
       jre:
