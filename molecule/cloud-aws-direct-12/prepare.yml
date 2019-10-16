@@ -27,21 +27,21 @@
   hosts: rhel_family
   tasks:
 
-    - name: debug ansible_distribution
-      debug:
-        var: ansible_distribution
-
-    - name: debug ansible_distribution_release
-      debug:
-        var: ansible_distribution_release
-
-    - name: Enable EPEL repository
-      yum:
-        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
-          {{ ansible_distribution_major_version }}.noarch.rpm"
-        state: 'present'
-      register: status
-      until: status is succeeded
+    - block:
+        - name: Enable EPEL repository
+          yum:
+            name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+              {{ ansible_distribution_major_version }}.noarch.rpm"
+            state: 'present'
+          register: status
+          until: status is succeeded
+      rescue:
+        - name: Enable default EPEL repository
+          yum:
+            name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            state: 'present'
+          register: status
+          until: status is succeeded
       become: true
 
 - name: Prepare host to S3 transport
