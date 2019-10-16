@@ -69,7 +69,7 @@ Docker java-on-defaults:
   tags:
     - aws
 
-AWS openjdk-13 Windows chocolatey:
+.AWS openjdk-13 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -214,7 +214,7 @@ AWS java-12:
   tags:
     - delegated
 
-AWS adoptopenjdk-8:
+.AWS adoptopenjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

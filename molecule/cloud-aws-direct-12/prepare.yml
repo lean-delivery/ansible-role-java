@@ -35,7 +35,9 @@
       rescue:
         - name: Install pip3 package
           package:
-            name: python3-pip
+            name:
+              - python3-pip
+              - python-pip
             state: present
           register: status
           until: status is succeeded
