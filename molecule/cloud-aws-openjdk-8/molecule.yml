@@ -24,6 +24,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - repositories
 
   - name: test-aws-centos7-openjdk-8-repo
     image: ami-9887c6e7

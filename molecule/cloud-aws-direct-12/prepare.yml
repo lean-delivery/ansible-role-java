@@ -18,12 +18,20 @@
   hosts: s3
   gather_facts: true
   tasks:
-    - name: Install pip package
-      package:
-        name: python-pip
-        state: present
-      register: status
-      until: status is succeeded
+    - block:
+        - name: Install pip package
+          package:
+            name: python-pip
+            state: present
+          register: status
+          until: status is succeeded
+      rescue:
+        - name: Install pip3 package
+          package:
+            name: python3-pip
+            state: present
+          register: status
+          until: status is succeeded
       become: true
 
     - name: Install boto module
