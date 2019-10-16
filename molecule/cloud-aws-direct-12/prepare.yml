@@ -2,6 +2,27 @@
 - name: Include common prepare
   import_playbook: ../resources/provisioning/AWS/prepare.yml
 
+- name: Prepare Debian
+  hosts: debian_family
+  tasks:
+
+    - name: Add universe repository for bionic
+      apt_repository:
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution_release == 'bionic'
+      become: true
+
+    - name: Install pip package
+      package:
+        name:
+          - python-pip
+          - python-setuptools
+        state: present
+      register: status
+      until: status is succeeded
+      become: true
+
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
@@ -17,14 +38,7 @@
 
 - name: Prepare host to S3 transport
   hosts: s3
-  gather_facts: true
   tasks:
-    - name: Add universe repository for bionic
-      apt_repository:
-        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
-        state: present
-      when: ansible_distribution_release == 'bionic'
-      become: true
 
     - block:
         - name: Install pip package
@@ -46,7 +60,7 @@
     - name: Install boto module
       pip:
         name:
-          # - pip
+          - pip
           - botocore
           - boto
           - boto3
