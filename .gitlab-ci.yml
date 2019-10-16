@@ -26,7 +26,7 @@ Lint:
   tags:
     - aws
 
-Docker java-on-defaults:
+.Docker java-on-defaults:
   stage: deployment test
   script:
   - molecule test -s default
@@ -87,7 +87,7 @@ Docker java-on-defaults:
   tags:
     - aws
 
-AWS openjdk-8:
+.AWS openjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test

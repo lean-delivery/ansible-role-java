@@ -1,28 +1,10 @@
 ---
-- name: Prepare Ubuntu / Debian
-  hosts: debian_family
-  gather_facts: false
-  tasks:
-    - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt install -y python-minimal)
-      become: true
-      changed_when: false
-      register: update_result
-      retries: 10
-      delay: 5
-      until: update_result.rc == 0
+- name: Include common prepare
+  import_playbook: ../resources/provisioning/AWS/prepare.yml
 
 - name: Prepare RHEL
   hosts: rhel_family
-  gather_facts: false
   tasks:
-    - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
-      become: true
-      changed_when: false
-
-    - name: gather facts
-      setup:
 
     - name: 'Enable EPEL repository'
       yum:
@@ -37,13 +19,30 @@
   hosts: s3
   gather_facts: true
   tasks:
-    - name: 'Install pip package'
-      package:
-        name: python-pip
+    - name: Add universe repository for bionic
+      apt_repository:
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
         state: present
-      register: status
-      until: status is succeeded
+      when: ansible_distribution_release == 'bionic'
       become: true
+
+    - block:
+        - name: Install pip package
+          package:
+            name: python-pip
+            state: present
+          register: status
+          until: status is succeeded
+      rescue:
+        - name: Install pip3 package
+          package:
+            name:
+              - python3-pip
+            state: present
+          register: status
+          until: status is succeeded
+      become: true
+
 
     - name: 'Install boto module'
       pip:

@@ -37,7 +37,6 @@
           package:
             name:
               - python3-pip
-              - python-pip
             state: present
           register: status
           until: status is succeeded
