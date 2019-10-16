@@ -1,6 +1,24 @@
 ---
-- name: Include common prepare
-  import_playbook: ../resources/provisioning/AWS/prepare.yml
+# - name: Include common prepare
+#   import_playbook: ../resources/provisioning/AWS/prepare.yml
+
+- name: Prepare Ubuntu / Debian
+  hosts: debian_family
+  gather_facts: false
+  tasks:
+
+    - name: Install python for Ansible
+      raw: (test -e /usr/bin/python) || (apt install -y python-minimal)
+      become: true
+      # changed_when: "'installed' in update_result.stdout"
+      register: update_result
+      retries: 10
+      delay: 5
+      until: update_result.rc == 0
+    
+    - name: debug update_result
+      debug:
+        var: update_result
 
 - name: Prepare Debian
   hosts: debian_family
@@ -13,10 +31,10 @@
       when: ansible_distribution_release == 'bionic'
       become: true
 
-    - name: Install pip package
-      package:
+    - name: Install python packages
+      apt:
         name:
-          - python-minimal
+          # - python-minimal
           - python-setuptools
         state: present
       register: status
@@ -65,15 +83,24 @@
           until: status is succeeded
       become: true
 
+    - name: Upgrade pip
+      pip:
+        name:
+          - pip
+        state: present
+        extra_args: --upgrade
+      register: status
+      until: status is succeeded
+      become: true
+
     - name: Install boto module
       pip:
         name:
-          # - pip
           - botocore
           - boto
           - boto3
         state: present
-        extra_args: --upgrade
+        # extra_args: --upgrade
       register: status
       until: status is succeeded
       become: true
