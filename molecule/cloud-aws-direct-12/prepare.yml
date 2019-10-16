@@ -83,15 +83,15 @@
           until: status is succeeded
       become: true
 
-    - name: Upgrade pip
-      pip:
-        name:
-          - pip
-        state: present
-        extra_args: --upgrade
-      register: status
-      until: status is succeeded
-      become: true
+    # - name: Upgrade pip
+    #   pip:
+    #     name:
+    #       - pip
+    #     state: present
+    #     extra_args: --upgrade
+    #   register: status
+    #   until: status is succeeded
+    #   become: true
 
     - name: Install boto module
       pip:
