@@ -114,7 +114,7 @@ Lint:
   tags:
     - aws
 
-.AWS openjdk-ga:
+AWS openjdk-ga:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
