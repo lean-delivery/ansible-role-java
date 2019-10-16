@@ -23,6 +23,7 @@
         repo: deb http://archive.ubuntu.com/ubuntu bionic universe
         state: present
       when: ansible_distribution_release == 'bionic'
+      become: true
 
     - block:
         - name: Install pip package

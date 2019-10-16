@@ -223,7 +223,7 @@ AWS adoptopenjdk-8:
   tags:
     - aws
 
-AWS adoptopenjdk-11:
+.AWS adoptopenjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -241,7 +241,7 @@ AWS adoptopenjdk-12:
   tags:
     - aws
 
-AWS adoptopenjdk Windows:
+.AWS adoptopenjdk Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
