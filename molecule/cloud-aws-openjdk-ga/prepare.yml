@@ -1,0 +1,25 @@
+---
+- name: Include common prepare
+  import_playbook: ../resources/provisioning/AWS/prepare.yml
+
+- name: Prepare RHEL
+  hosts: rhel_family
+  tasks:
+
+    - name: Enable EPEL repository
+      yum:
+        name: epel-release
+        state: present
+      register: status
+      until: status is succeeded
+      become: true
+
+    - name: Install archivers
+      yum:
+        name:
+          - tar
+          - unzip
+        state: present
+      register: status
+      until: status is succeeded
+      become: true

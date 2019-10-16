@@ -232,7 +232,7 @@ AWS java-12:
   tags:
     - aws
 
-AWS adoptopenjdk-12:
+.AWS adoptopenjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
