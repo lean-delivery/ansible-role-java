@@ -16,7 +16,7 @@
     - name: Install pip package
       package:
         name:
-          - python-pip
+          - python-minimal
           - python-setuptools
         state: present
       register: status

@@ -1,6 +1,7 @@
 ---
 java_package_requirements:
   - unzip
+  - tar
   - rsync
 
 # Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
