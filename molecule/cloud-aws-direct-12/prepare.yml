@@ -27,6 +27,14 @@
   hosts: rhel_family
   tasks:
 
+    - name: debug ansible_distribution
+      debug:
+        var: ansible_distribution
+
+    - name: debug ansible_distribution_release
+      debug:
+        var: ansible_distribution_release
+
     - name: Enable EPEL repository
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\

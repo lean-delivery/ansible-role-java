@@ -85,35 +85,35 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Amazon-openjdk-ga
-    image: ami-035b3c7efe6d061d5
-    platform: amazon
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
+  # - name: test-aws-Amazon-openjdk-ga
+  #   image: ami-035b3c7efe6d061d5
+  #   platform: amazon
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
 
-  - name: test-aws-Amazon2-openjdk-ga
-    image: ami-0b898040803850657
-    platform: amazon2
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
+  # - name: test-aws-Amazon2-openjdk-ga
+  #   image: ami-0b898040803850657
+  #   platform: amazon2
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
 
 provisioner:
   name: ansible
