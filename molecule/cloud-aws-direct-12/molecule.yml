@@ -10,40 +10,40 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos8-oracle_java-12-s3-rpm
-    image: ami-0ed2ad9dc845b42b6
-    platform: centos8
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - s3
-      - package
+  # - name: test-aws-centos8-oracle_java-12-s3-rpm
+  #   image: ami-0ed2ad9dc845b42b6
+  #   platform: centos8
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - package
 
-  - name: test-aws-centos7-oracle_java-12-s3-rpm
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: m5.large
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - s3
-      - package
+  # - name: test-aws-centos7-oracle_java-12-s3-rpm
+  #   image: ami-9887c6e7
+  #   platform: centos7
+  #   instance_type: m5.large
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - package
 
   - name: test-aws-ubuntu18-oracle_java-12-s3-deb
     image: ami-012fd5eb46f56731f
@@ -81,41 +81,41 @@ platforms:
       - s3
       - tarball
 
-  - name: test-aws-Amazon-oracle_java-12
-    image: ami-035b3c7efe6d061d5
-    platform: amazon
-    instance_type: m5.large
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
-      - s3
-      - package
+  # - name: test-aws-Amazon-oracle_java-12
+  #   image: ami-035b3c7efe6d061d5
+  #   platform: amazon
+  #   instance_type: m5.large
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - package
 
-  - name: test-aws-Amazon2-oracle_java-12
-    image: ami-0b898040803850657
-    platform: amazon2
-    instance_type: m5.large
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
-      - s3
-      - tarball
+  # - name: test-aws-Amazon2-oracle_java-12
+  #   image: ami-0b898040803850657
+  #   platform: amazon2
+  #   instance_type: m5.large
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - tarball
 
 provisioner:
   name: ansible

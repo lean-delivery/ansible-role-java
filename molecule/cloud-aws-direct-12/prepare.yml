@@ -68,7 +68,7 @@
     - name: Install boto module
       pip:
         name:
-          - pip
+          # - pip
           - botocore
           - boto
           - boto3
