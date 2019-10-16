@@ -100,6 +100,7 @@
           - boto
           - boto3
         state: present
+        executable: pip
         # extra_args: --upgrade
       register: status
       until: status is succeeded
