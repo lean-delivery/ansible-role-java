@@ -14,6 +14,7 @@ platforms:
     image: ami-0ed2ad9dc845b42b6
     platform: centos8
     instance_type: m5.large
+    profile_name: epmldi-instance-profile
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -141,7 +142,6 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-        ansible_python_interpreter: /usr/bin/python3
       centos:
         epel_path: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
               {{ ansible_distribution_major_version }}.noarch.rpm"
