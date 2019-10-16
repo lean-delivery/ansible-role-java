@@ -1,22 +1,10 @@
 ---
-- name: Set parse variables based on java distribution
-  include_vars: java_parts.yml
-
-- name: Perform install from artifacts
+- name: Perform install from repositories
   block:
-    - name: Install requirements
-      package:
-        name: '{{ java_package_requirements }}'
-        state: present
-      register: installed_packages
-      until: installed_packages is succeeded
-      when: transport != 'repositories'
-
-    - name: 'Perform {{ java_binary_type }} install'
+    - name: 'Perform repo install'
       include_tasks: '{{ install_task }}'
       with_first_found:
-        - 'install/{{ java_distribution }}_{{ java_binary_type }}.yml'
-        - 'install/{{ java_binary_type }}.yml'
+        - 'install/{{ ansible_os_family }}_{{ java_distribution }}.yml'
         - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
