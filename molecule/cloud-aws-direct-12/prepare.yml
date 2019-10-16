@@ -24,44 +24,42 @@
 
 - name: Prepare RHEL
   hosts: rhel_family
+  vars:
+    epel_path: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+              {{ ansible_distribution_major_version }}.noarch.rpm"
   tasks:
 
     - block:
         - name: Enable EPEL repository
           yum:
-            name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
-              {{ ansible_distribution_major_version }}.noarch.rpm"
-            state: 'present'
-          register: status
-          until: status is succeeded
-      rescue:
-        - name: Enable default EPEL repository
-          yum:
-            name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-            state: 'present'
+            name: '{{ epel_path }}'
+            state: present
           register: status
           until: status is succeeded
       become: true
 
 - name: Prepare host to S3 transport
   hosts: s3
+  vars:
+    pip_executable: pip
+    python_executable: python
   tasks:
 
     - block:
         - name: Install pip package
           package:
-            name: python-pip
+            name: '{{ python_executable }}-pip'
             state: present
           register: status
           until: status is succeeded
-      rescue:
-        - name: Install pip3 package
-          package:
-            name:
-              - python3-pip
-            state: present
-          register: status
-          until: status is succeeded
+      # rescue:
+      #   - name: Install pip3 package
+      #     package:
+      #       name:
+      #         - python3-pip
+      #       state: present
+      #     register: status
+      #     until: status is succeeded
       become: true
 
     - name: Install boto module
@@ -71,7 +69,7 @@
           - boto
           - boto3
         state: present
-        executable: pip
+        executable: '{{ pip_executable }}'
       register: status
       until: status is succeeded
       become: true
