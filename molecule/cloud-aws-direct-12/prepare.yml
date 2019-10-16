@@ -15,7 +15,7 @@
       retries: 10
       delay: 5
       until: update_result.rc == 0
-    
+
     - name: debug update_result
       debug:
         var: update_result
