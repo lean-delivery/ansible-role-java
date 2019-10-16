@@ -2,23 +2,23 @@
 # - name: Include common prepare
 #   import_playbook: ../resources/provisioning/AWS/prepare.yml
 
-- name: Prepare Ubuntu / Debian
-  hosts: debian_family
-  gather_facts: false
-  tasks:
+# - name: Prepare Ubuntu / Debian
+#   hosts: debian_family
+#   gather_facts: false
+#   tasks:
 
-    - name: Install python for Ansible
-      raw: (test -e /usr/bin/python) || (apt install -y python-minimal)
-      become: true
-      # changed_when: "'installed' in update_result.stdout"
-      register: update_result
-      retries: 10
-      delay: 5
-      until: update_result.rc == 0
+#     - name: Install python for Ansible
+#       raw: (test -e /usr/bin/python) || (apt install -y python-minimal)
+#       become: true
+#       # changed_when: "'installed' in update_result.stdout"
+#       register: update_result
+#       retries: 10
+#       delay: 5
+#       until: update_result.rc == 0
 
-    - name: debug update_result
-      debug:
-        var: update_result
+#     - name: debug update_result
+#       debug:
+#         var: update_result
 
 - name: Prepare Debian
   hosts: debian_family
