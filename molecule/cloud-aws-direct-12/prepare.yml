@@ -38,22 +38,12 @@
 - name: Prepare host to S3 transport
   hosts: s3
   tasks:
-
-    - block:
-        - name: Install pip package
-          package:
-            name: '{{ python_executable }}-pip'
-            state: present
-          register: status
-          until: status is succeeded
-      # rescue:
-      #   - name: Install pip3 package
-      #     package:
-      #       name:
-      #         - python3-pip
-      #       state: present
-      #     register: status
-      #     until: status is succeeded
+    - name: Install pip package
+      package:
+        name: '{{ python_executable }}-pip'
+        state: present
+      register: status
+      until: status is succeeded
       become: true
 
     - name: Install boto module
