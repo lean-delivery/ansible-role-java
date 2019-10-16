@@ -27,6 +27,7 @@ platforms:
       - s3
       - package
       - pip3
+      - centos
 
   - name: test-aws-centos7-oracle_java-12-s3-rpm
     image: ami-9887c6e7
@@ -45,6 +46,8 @@ platforms:
       - rhel_family
       - s3
       - package
+      - pip2
+      - centos
 
   - name: test-aws-ubuntu18-oracle_java-12-s3-deb
     image: ami-012fd5eb46f56731f
@@ -82,6 +85,7 @@ platforms:
       - debian_family
       - s3
       - tarball
+      - pip2
 
   - name: test-aws-Amazon-oracle_java-12
     image: ami-035b3c7efe6d061d5
@@ -101,6 +105,7 @@ platforms:
       - s3
       - package
       - amazon
+      - pip2
 
   - name: test-aws-Amazon2-oracle_java-12
     image: ami-0b898040803850657
@@ -120,6 +125,7 @@ platforms:
       - s3
       - tarball
       - amazon
+      - pip2
 
 provisioner:
   name: ansible
@@ -129,9 +135,15 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
+      pip2:
+        pip_executable: pip
+        python_executable: python
       pip3:
         pip_executable: pip3
         python_executable: python3
+      centos:
+        epel_path: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+              {{ ansible_distribution_major_version }}.noarch.rpm"
       amazon:
         epel_path: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
       s3:
