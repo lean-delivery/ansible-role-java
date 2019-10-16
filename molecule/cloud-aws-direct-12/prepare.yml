@@ -54,6 +54,7 @@
           - boto3
         state: present
         executable: '{{ pip_executable }}'
+        extra_args: --upgrade
       register: status
       until: status is succeeded
       become: true
