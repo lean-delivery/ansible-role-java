@@ -79,7 +79,7 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: ubuntu
+    ssh_user: admin
     groups:
       - debian_family
       - local
