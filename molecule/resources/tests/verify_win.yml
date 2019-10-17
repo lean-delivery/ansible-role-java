@@ -1,5 +1,4 @@
 ---
-# This is an example playbook to execute Ansible tests.
 - name: Verify
   hosts: windows
   tasks:

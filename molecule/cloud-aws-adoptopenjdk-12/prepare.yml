@@ -2,11 +2,31 @@
 - name: Include common prepare
   import_playbook: ../resources/provisioning/AWS/prepare.yml
 
+- name: Prepare Debian
+  hosts: debian_family
+  tasks:
+
+    - name: Add universe repository for bionic
+      apt_repository:
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution_release == 'bionic'
+      become: true
+
+    - name: Install python packages
+      apt:
+        name:
+          - python-setuptools
+        state: present
+      register: status
+      until: status is succeeded
+      become: true
+
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
 
-    - name: 'Enable EPEL repository'
+    - name: Enable EPEL repository
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
           {{ ansible_distribution_major_version }}.noarch.rpm"
@@ -17,41 +37,24 @@
 
 - name: Prepare host to S3 transport
   hosts: s3
-  gather_facts: true
   tasks:
-    - name: Add universe repository for bionic
-      apt_repository:
-        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+
+    - name: Install pip package
+      package:
+        name: '{{ python_executable }}-pip'
         state: present
-      when: ansible_distribution_release == 'bionic'
+      register: status
+      until: status is succeeded
       become: true
 
-    - block:
-        - name: Install pip package
-          package:
-            name: python-pip
-            state: present
-          register: status
-          until: status is succeeded
-      rescue:
-        - name: Install pip3 package
-          package:
-            name:
-              - python3-pip
-            state: present
-          register: status
-          until: status is succeeded
-      become: true
-
-
-    - name: 'Install boto module'
+    - name: Install boto module
       pip:
         name:
-          - 'pip'
-          - 'botocore'
-          - 'boto'
-          - 'boto3'
+          - botocore
+          - boto
+          - boto3
         state: present
+        executable: '{{ pip_executable }}'
         extra_args: --upgrade
       register: status
       until: status is succeeded
@@ -59,7 +62,6 @@
 
 - name: Prepare host to S3 transport
   hosts: localhost
-  gather_facts: true
   vars:
     transport_s3_bucket: java-molecule-s3-test
     transport_s3_path: /java/adoptopenjdk/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz

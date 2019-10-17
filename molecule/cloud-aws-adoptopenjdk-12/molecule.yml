@@ -28,6 +28,7 @@ platforms:
       - hotspot
       - jre
       - repositories
+      - pip3
 
   - name: test-aws-centos7-adoptopenjdk-openj9-jdk-tarball-12
     image: ami-9887c6e7
@@ -47,6 +48,7 @@ platforms:
       - openj9
       - jdk
       - adoptopenjdk_fallback
+      - pip2
 
   - name: test-aws-Debian9-adoptopenjdk-openj9-jre-tarball-12
     image: ami-003f19e0e687de1cd
@@ -66,6 +68,7 @@ platforms:
       - openj9
       - jre
       - adoptopenjdk_fallback
+      - pip2
 
   - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jdk-repositories-12
     image: ami-012fd5eb46f56731f
@@ -85,6 +88,7 @@ platforms:
       - hotspot
       - jdk
       - repositories
+      - pip3
 
   - name: test-aws-Debian9-adoptopenjdk-hotspot-jre-repositories-12
     image: ami-003f19e0e687de1cd
@@ -104,6 +108,7 @@ platforms:
       - hotspot
       - jre
       - repositories
+      - pip2
 
   - name: test-aws-Debian9-adoptopenjdk-s3-12
     image: ami-003f19e0e687de1cd
@@ -122,6 +127,7 @@ platforms:
       - debian_family
       - adoptopenjdk
       - s3
+      - pip2
 
 provisioner:
   name: ansible
@@ -131,6 +137,13 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
+      pip2:
+        pip_executable: pip
+        python_executable: python
+      pip3:
+        pip_executable: pip3
+        python_executable: python3
+        ansible_python_interpreter: /usr/bin/python3
       adoptopenjdk:
         java_distribution: adoptopenjdk
         java_major_version: 12

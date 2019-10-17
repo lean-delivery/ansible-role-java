@@ -36,6 +36,7 @@ galaxy_info:
     - "java"
     - "oracle"
     - "jdk"
+    - "jre"
     - "openjdk"
     - "adoptopenjdk"
     - "zulu"

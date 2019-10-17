@@ -67,9 +67,9 @@ platforms:
       - jdk
       - repositories
 
-  - name: test-aws-centos7-adoptopenjdk-openj9-jre-repositories-11
-    image: ami-9887c6e7
-    platform: centos7
+  - name: test-aws-centos8-adoptopenjdk-openj9-jre-repositories-11
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
