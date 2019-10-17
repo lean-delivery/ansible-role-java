@@ -1,0 +1,25 @@
+---
+- name: Add apt-key for AdoptOpenJDK
+  apt_key:
+    url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    state: present
+  register: package_install
+  until: package_install is succeeded
+
+- name: Add repository for AdoptOpenJDK
+  apt_repository:
+    repo: 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ bionic main'
+    filename: adoptopenjdk
+    state: present
+    codename: trusty
+    update_cache: true
+
+- name: Install java packages
+  apt:
+    deb: '{{ java_artifact | default(omit) }}'
+    name: '{{ (jdk_package if transport == "repositories") | default(omit) }}'
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  register: package_install
+  until: package_install is succeeded

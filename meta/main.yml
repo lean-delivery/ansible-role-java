@@ -19,6 +19,7 @@ galaxy_info:
       versions:
         - "6"
         - "7"
+        - "8"
     - name: "Amazon"
       versions:
         - "2017.12"
@@ -35,7 +36,10 @@ galaxy_info:
     - "java"
     - "oracle"
     - "jdk"
+    - "jre"
     - "openjdk"
+    - "adoptopenjdk"
+    - "zulu"
     - "sapjvm"
     - "windows"
 

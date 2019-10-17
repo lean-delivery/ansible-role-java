@@ -1,0 +1,44 @@
+---
+- name: Find java_folder
+  find:
+    paths: '{{ java_path }}'
+    recurse: false
+    file_type: directory
+    patterns: '{{ java_folder }}'
+    use_regex: true
+  register: java_dir
+
+- name: Set actual java directory
+  set_fact:
+    java_folder: "{{ java_dir.files | map(attribute='path') | list | last | basename }}"
+
+- name: Put java profile
+  template:
+    src: java.sh.j2
+    dest: /etc/profile.d/java.sh
+    owner: root
+    group: root
+    mode: 0555
+
+- name: Check for java binaries existence
+  stat:
+    path: '{{ java_path }}/{{ java_folder }}/bin/{{ binary }}'
+  register: java_binary_collection
+  loop:
+    - java
+    - javac
+    - jar
+    - keytool
+  loop_control:
+    loop_var: binary
+
+- name: Update alternatives
+  alternatives:
+    name: '{{ java_item.binary }}'
+    path: '{{ java_path }}/{{ java_folder }}/bin/{{ java_item.binary }}'
+    link: '/usr/bin/{{ java_item.binary }}'
+    priority: 100
+  when: java_item.stat.exists | bool
+  loop: '{{ java_binary_collection.results }}'
+  loop_control:
+    loop_var: java_item

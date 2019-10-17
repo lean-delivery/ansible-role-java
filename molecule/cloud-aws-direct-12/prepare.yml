@@ -2,25 +2,45 @@
 - name: Include common prepare
   import_playbook: ../resources/provisioning/AWS/prepare.yml
 
-- name: Prepare RHEL
-  hosts: rhel_family
+- name: Prepare Debian
+  hosts: debian_family
   tasks:
 
-    - name: Enable EPEL repository
-      yum:
-        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    - name: Add universe repository for bionic
+      apt_repository:
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution_release == 'bionic'
+      become: true
+
+    - name: Install python packages
+      apt:
+        name:
+          - python-setuptools
         state: present
       register: status
       until: status is succeeded
       become: true
 
+- name: Prepare RHEL
+  hosts: rhel_family
+  tasks:
+
+    - block:
+        - name: Enable EPEL repository
+          yum:
+            name: '{{ epel_path }}'
+            state: present
+          register: status
+          until: status is succeeded
+      become: true
+
 - name: Prepare host to S3 transport
   hosts: s3
-  gather_facts: true
   tasks:
     - name: Install pip package
       package:
-        name: python-pip
+        name: '{{ python_executable }}-pip'
         state: present
       register: status
       until: status is succeeded
@@ -29,11 +49,11 @@
     - name: Install boto module
       pip:
         name:
-          - pip
           - botocore
           - boto
           - boto3
         state: present
+        executable: '{{ pip_executable }}'
         extra_args: --upgrade
       register: status
       until: status is succeeded

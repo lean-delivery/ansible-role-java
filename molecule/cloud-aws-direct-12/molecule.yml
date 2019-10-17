@@ -10,6 +10,26 @@ lint:
   options:
     config-file: .yamllint
 platforms:
+  - name: test-aws-centos8-oracle_java-12-s3-rpm
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: m5.large
+    profile_name: epmldi-instance-profile
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - s3
+      - package
+      - pip3
+      - centos
+
   - name: test-aws-centos7-oracle_java-12-s3-rpm
     image: ami-9887c6e7
     platform: centos7
@@ -27,6 +47,8 @@ platforms:
       - rhel_family
       - s3
       - package
+      - pip2
+      - centos
 
   - name: test-aws-ubuntu18-oracle_java-12-s3-deb
     image: ami-012fd5eb46f56731f
@@ -45,6 +67,7 @@ platforms:
       - debian_family
       - s3
       - package
+      - pip3
 
   - name: test-aws-Debian9-oracle_java-12-s3-tb
     image: ami-003f19e0e687de1cd
@@ -63,6 +86,7 @@ platforms:
       - debian_family
       - s3
       - tarball
+      - pip2
 
   - name: test-aws-Amazon-oracle_java-12
     image: ami-035b3c7efe6d061d5
@@ -81,6 +105,8 @@ platforms:
       - rhel_family
       - s3
       - package
+      - amazon
+      - pip2
 
   - name: test-aws-Amazon2-oracle_java-12
     image: ami-0b898040803850657
@@ -99,6 +125,8 @@ platforms:
       - rhel_family
       - s3
       - tarball
+      - amazon
+      - pip2
 
 provisioner:
   name: ansible
@@ -108,6 +136,18 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
+      pip2:
+        pip_executable: pip
+        python_executable: python
+      pip3:
+        pip_executable: pip3
+        python_executable: python3
+        ansible_python_interpreter: /usr/bin/python3
+      centos:
+        epel_path: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
+              {{ ansible_distribution_major_version }}.noarch.rpm"
+      amazon:
+        epel_path: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test

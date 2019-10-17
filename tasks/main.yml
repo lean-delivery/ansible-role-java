@@ -18,15 +18,11 @@
   loop_control:
     loop_var: transport_driver
 
-- name: Set parse variables based on java distribution
-  include_vars: java_parts.yml
-  when:
-    - transport != 'repositories'
-    - java_binary_type != 'chocolatey'
-
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
+    - '{{ ansible_system }}/system_{{ transport }}.yml'
+    - '{{ ansible_system }}/system_{{ java_binary_type }}.yml'
     - '{{ ansible_system }}/system.yml'
     - not-supported.yml
   loop_control:

@@ -1,0 +1,14 @@
+---
+- name: Perform install from repositories
+  block:
+    - name: 'Perform repo install'
+      include_tasks: '{{ install_task }}'
+      with_first_found:
+        - 'install/{{ ansible_os_family }}_{{ java_distribution }}.yml'
+        - 'install/{{ ansible_os_family }}.yml'
+      loop_control:
+        loop_var: install_task
+
+    - name: Finalize binary paths
+      include_tasks: finalize_paths.yml
+  become: true

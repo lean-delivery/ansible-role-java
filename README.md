@@ -47,6 +47,7 @@ Requirements
    - 8
       - EL 6: repositories, tarball
       - EL 7: repositories, tarball
+      - EL 8: repositories, tarball
       - Ubuntu bionic: repositories, tarball
       - Debian stretch: repositories, tarball
       - Windows: tarball
@@ -59,12 +60,14 @@ Requirements
    - 12
       - EL 6: tarball
       - EL 7: tarball
+      - EL 8: tarball
       - Ubuntu bionic: tarball
       - Debian stretch: tarball
       - Windows: tarball
    - 13
       - EL 6: tarball, openjdk-fallback
       - EL 7: tarball, openjdk-fallback
+      - EL 8: tarball, openjdk-fallback
       - Ubuntu bionic: tarball, openjdk-fallback
       - Debian stretch: tarball, openjdk-fallback
       - Windows: tarball, openjdk-fallback
@@ -98,6 +101,7 @@ Requirements
    - EL
      - 6
      - 7
+     - 8
    - Windows
      - all
 
