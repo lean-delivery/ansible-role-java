@@ -1,0 +1,26 @@
+---
+- name: Find java_folder
+  win_find:
+    paths: '{{ java_path }}'
+    recurse: false
+    file_type: directory
+    patterns: '{{ java_folder }}'
+    use_regex: true
+  register: java_dir
+
+- name: Set actual java directory
+  set_fact:
+    java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
+
+- name: Set java environment variable
+  win_environment:
+    name: JAVA_HOME
+    state: present
+    value: '{{ java_act_path }}'
+    level: machine
+
+- name: Ensure that 'JAVA_HOME\bin' present in 'Path' variable
+  win_path:
+    elements: '{{ java_act_path }}\bin'
+    state: present
+    scope: machine
