@@ -84,6 +84,7 @@ platforms:
 
   - name: test-aws-ubuntu18-sapmachine-s3-10
     image: ami-012fd5eb46f56731f
+    profile_name: epmldi-instance-profile
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
@@ -116,9 +117,15 @@ provisioner:
         java_package: jre
       sapmachine_fallback:
         transport: sapmachine-fallback
+      s3:
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_path: /java/sapmachine/sapmachine-jdk-10.0.2.13_linux-x64_bin.tar.gz
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../cloud-aws-sapmachine-10/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:
