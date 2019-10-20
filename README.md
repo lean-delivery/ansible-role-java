@@ -35,6 +35,12 @@ This Ansible role has the following features for:
 - Install JDK, JRE
 - Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3, chocolatey.
 
+
+**SapMachine**
+
+- Install JDK, JRE
+- Additional opportunity to install from sapmachine-fallback, web, local source, s3.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -89,6 +95,11 @@ Requirements
    - 11
    - 12
    - 13
+ - **Supported SapMachine version**:
+   - 10
+   - 11
+   - 12
+   - 13
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -112,6 +123,7 @@ Requirements
      - `sapjvm`
      - `zulu`
      - `adoptopenjdk`
+     - `sapmachine`
 
         **Notice**: this variable is mandatory in case of installing other distribution than 'openjdk'.
 
@@ -121,7 +133,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only),`sapmachine-fallback`(SapMachine only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -132,6 +144,7 @@ Requirements
       - `sapjvm-fallback` fetching artifact from SAP site.
       - `zulu-fallback` fetching artifact from AZUL site.
       - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
+      - `sapmachine-fallback` fetching artifact from SapMachine site.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
@@ -317,6 +330,18 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_package: jre
       adoptopenjdk_impl: openj9
       java_major_version: 8
+```
+### Installing SapMachine sapmachine-jre-10 from sapmachine-fallback:
+```yaml
+- name: Install SapMachine
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: sapmachine
+      transport: sapmachine-fallback
+      java_package: jre
+      java_major_version: 10
 ```
 License
 -------
