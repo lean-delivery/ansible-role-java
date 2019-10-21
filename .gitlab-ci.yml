@@ -285,3 +285,10 @@ AWS sapmachine-13:
     - molecule test -s cloud-aws-sapmachine-13
   tags:
     - aws
+
+AWS sapmachine-windows:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapmachine-windows

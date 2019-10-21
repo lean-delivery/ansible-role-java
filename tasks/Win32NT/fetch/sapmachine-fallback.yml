@@ -1,0 +1,40 @@
+---
+- name: 'Fetch version page'
+  win_uri:
+    url: 'https://sap.github.io/SapMachine/latest/{{ java_major_version }}'
+    return_content: true
+    follow_redirects: all
+  register: version_page
+
+- name: Find release version
+  set_fact:
+    full_version: >-
+      {{ version_page.content | regex_findall('(1.*[.|-]\d)') +
+          version_page.content | regex_findall('(1.*[.|\d]\d)') }}
+
+- name: 'Fetch artifact checksum file'
+  win_uri:
+    url: "{{ sapmachine_root_page }}{{ java_distribution }}-{{ full_version[0] }}/\
+      {{ java_distribution }}-{{ java_package }}-{{ full_version[-1] | replace('%2B','.') }}\
+      _windows-x64_bin.sha256.txt"
+    return_content: true
+  register: artifact_checksum_file
+
+- name: Find artifact checksum
+  set_fact:
+    artifact_checksum: >-
+      {{ artifact_checksum_file.content | regex_search('(^\w*)') }}
+
+- name: 'Download artifact'
+  win_get_url:
+    url: "{{ sapmachine_root_page }}{{ java_distribution }}-{{ full_version[0] }}/\
+      {{ java_distribution }}-{{ java_package }}-{{ full_version[-1] | replace('%2B','.') }}\
+      _windows-x64_bin.zip"
+    dest: '{{ java_download_path }}'
+    force: true
+    checksum: '{{ artifact_checksum }}'
+    checksum_algorithm: sha256
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded
