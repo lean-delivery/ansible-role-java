@@ -292,3 +292,5 @@ AWS sapmachine-windows:
   stage: deployment test
   script:
     - molecule test -s cloud-aws-sapmachine-windows
+  tags:
+    - aws
