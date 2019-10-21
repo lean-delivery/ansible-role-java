@@ -110,7 +110,7 @@ provisioner:
     group_vars:
       sapmachine:
         java_distribution: sapmachine
-        java_major_version: 12
+        java_major_version: 13
       jdk:
         java_package: jdk
       jre:
