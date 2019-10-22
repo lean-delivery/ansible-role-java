@@ -1,5 +1,5 @@
 ---
-java_package: '{{ parts[0] | default("jdk") }}'
+java_package: '{{ (java_distribution == "dragonwell8") | ternary("jdk", parts[0]) | default("jdk") }}'
 java_major_version: '{{ (java_distribution == "adoptopenjdk") | ternary(parts[4], parts[1]) }}'
 java_minor_version: '{{ (java_distribution == "adoptopenjdk") | ternary(parts[5], parts[2]) }}'
 java_os: '{{ parts[3] }}'

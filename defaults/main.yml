@@ -5,11 +5,13 @@
 #  - sapjvm
 #  - zulu
 #  - adoptopenjdk (not supported 9/10)
+#  - alibaba_dragonwell
 java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
 # AdoptOpenJDK supported jdk/jre
+# Alibaba Dragonwell supported jdk only
 java_package: jdk
 
 # AdoptOpenJDK Implementation (hotspot/openj9)
@@ -46,6 +48,7 @@ transport: openjdk-fallback
 # - "adoptopenjdk-fallback" Install from artifact downloaded from adoptopenjdk site
 # - "sapjvm-fallback" Install from artifact downloaded from SAP site
 # - "zulu-fallback" Install from artifact downloaded from AZUL site
+# - "dragonwell-fallback" Install from artifact downloaded from GitHub site
 
 transport_web: '{{ transport_web_default }}'
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"

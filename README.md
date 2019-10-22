@@ -35,6 +35,13 @@ This Ansible role has the following features for:
 - Install JDK, JRE
 - Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3, chocolatey.
 
+**Alibaba Dragonwell 8 JDK**
+
+- Install JDK
+- Alibaba Dragonwell 8 corresponds to OpenJDK 8 and is compatible with the Java SE Standard
+- Linux/x86_64 platform only
+- Additional opportunity to install from dragonwell8-fallback, repositories, web, local source, s3.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -89,6 +96,8 @@ Requirements
    - 11
    - 12
    - 13
+ - **Supported Alibaba Dragonwell version**:
+   - 8
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -112,6 +121,7 @@ Requirements
      - `sapjvm`
      - `zulu`
      - `adoptopenjdk`
+     - `dragonwell8`
 
         **Notice**: this variable is mandatory in case of installing other distribution than 'openjdk'.
 
@@ -121,7 +131,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only), `zulu-fallback`(ZULU only), `dragonwell8-fallback`(Alibaba Dragonwell only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -132,6 +142,7 @@ Requirements
       - `sapjvm-fallback` fetching artifact from SAP site.
       - `zulu-fallback` fetching artifact from AZUL site.
       - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
+      - `dragonwell8-fallback` fetching artifact from GitHub.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
@@ -316,6 +327,17 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: adoptopenjdk-fallback
       java_package: jre
       adoptopenjdk_impl: openj9
+      java_major_version: 8
+```
+### Installing Alibaba Dragonwell 8 from dragonwell8-fallback:
+```yaml
+- name: Install Alibaba Dragonwell8
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: dragonwell8
+      transport: dragonwell8-fallback
       java_major_version: 8
 ```
 License
