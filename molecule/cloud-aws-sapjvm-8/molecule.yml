@@ -95,7 +95,7 @@ provisioner:
 scenario:
   name: cloud-aws-sapjvm-8
 verifier:
-  name: testinfra
+  name: ansible
   options:
     verbose: true
   directory: ../resources/tests/
