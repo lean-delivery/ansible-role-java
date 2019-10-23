@@ -1,0 +1,20 @@
+---
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^.*(j[dkre]{2})-([0-9]+)\.?([0-9.]+)?[-_]([a-z]+)-(x64|i586).*')
+    | first | list }}
+
+java_package_suffix: >-
+  {{ (java_major_version == 11) | ternary(java_major_version, '') }}
+
+choco_java_package: 'openjdk{{ java_package_suffix }}'
+
+choco_path: 'C:\Program Files\OpenJDK'
+
+java_folder_ext_transport: >-
+  {{ ((java_minor_version | default('') | string).find('*') != -1)
+      | ternary(java_package + '-'  + java_major_version|string,
+                java_def_folder_ext_transport) }}
+
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}

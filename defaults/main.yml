@@ -5,19 +5,21 @@
 #  - sapjvm
 #  - zulu
 #  - adoptopenjdk (not supported 9/10)
-#  - alibaba_dragonwell
+#  - sapmachine (suported only 10/11/12/13)
+#  - alibaba_dragonwell (8 only)
 java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
 # AdoptOpenJDK supported jdk/jre
+# SapMachine supported jdk/jre
 # Alibaba Dragonwell supported jdk only
 java_package: jdk
 
 # AdoptOpenJDK Implementation (hotspot/openj9)
 adoptopenjdk_impl: hotspot
 
-# OpenJDK Redhat: 8 (packages) /  11 (package for centos7, tarball for all other) / 12 (tarball)
+# OpenJDK Redhat: 8 (packages) / 11 (package for centos7, tarball for all other) / 12 (tarball)
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
 # Oracle java: 8 (jre/server-jre/jdk) / 11 (jdk)
 java_major_version: 12
@@ -48,6 +50,7 @@ transport: openjdk-fallback
 # - "adoptopenjdk-fallback" Install from artifact downloaded from adoptopenjdk site
 # - "sapjvm-fallback" Install from artifact downloaded from SAP site
 # - "zulu-fallback" Install from artifact downloaded from AZUL site
+# - "sapmachine-fallback" Install from artifact downloaded from SapMachine site
 # - "dragonwell-fallback" Install from artifact downloaded from GitHub site
 
 transport_web: '{{ transport_web_default }}'

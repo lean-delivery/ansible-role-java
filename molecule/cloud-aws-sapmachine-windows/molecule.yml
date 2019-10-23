@@ -1,0 +1,155 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-aws-windows2016-sapmachine-tarball-11
+    aws_image_id: ami-00a20f508263efd30
+    platform: windows2016core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapmachine
+      - jdk
+      - sapmachine_fallback
+      - ver11
+
+  - name: test-aws-windows2019-sapmachine-tarball-11
+    aws_image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapmachine
+      - jre
+      - sapmachine_fallback
+      - ver11
+
+  - name: test-aws-windows2016-sapmachine-tarball-12
+    aws_image_id: ami-00a20f508263efd30
+    platform: windows2016core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapmachine
+      - jdk
+      - sapmachine_fallback
+      - ver12
+
+  - name: test-aws-windows2019-sapmachine-tarball-12
+    aws_image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapmachine
+      - jre
+      - sapmachine_fallback
+      - ver12
+
+  - name: test-aws-windows2016-sapmachine-tarball-13
+    aws_image_id: ami-00a20f508263efd30
+    platform: windows2016core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapmachine
+      - jdk
+      - sapmachine_fallback
+      - ver11
+
+  - name: test-aws-windows2019-sapmachine-tarball-13
+    aws_image_id: ami-0477b9335a5a75438
+    platform: windows2019core
+    aws_region: us-east-1
+    instance_type: m5.large
+    assign_public_ip: false
+    spot_price: 0.14
+    aws_sec_group:
+      - default
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    groups:
+      - windows
+      - sapmachine
+      - jre
+      - sapmachine_fallback
+      - ver13
+
+provisioner:
+  name: ansible
+  log: false
+  inventory:
+    group_vars:
+      sapmachine:
+        java_distribution: sapmachine
+      ver11:
+        java_major_version: 11
+      ver12:
+        java_major_version: 12
+      ver13:
+        java_major_version: 13
+      jdk:
+        java_package: jdk
+      jre:
+        java_package: jre
+      sapmachine_fallback:
+        transport: sapmachine-fallback
+      chocolatey:
+        transport: chocolatey
+      windows:
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
+        ansible_winrm_transport: credssp
+        ansible_winrm_server_cert_validation: ignore
+        ansible_connection: winrm
+  playbooks:
+    create: ../resources/provisioning/AWS/create.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify_win.yml
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-aws-sapmachine-windows
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
