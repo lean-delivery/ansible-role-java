@@ -25,6 +25,7 @@ platforms:
     groups:
       - rhel_family
       - sapjvm
+      - rhel8
 
   - name: test-aws-centos7-sapjvm-8
     image: ami-9887c6e7
