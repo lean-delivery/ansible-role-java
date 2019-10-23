@@ -40,7 +40,7 @@ This Ansible role has the following features for:
 - Install JDK
 - Alibaba Dragonwell 8 corresponds to OpenJDK 8 and is compatible with the Java SE Standard
 - Linux/x86_64 platform only
-- Additional opportunity to install from dragonwell8-fallback, repositories, web, local source, s3.
+- Additional opportunity to install from dragonwell8-fallback, web, local source, s3.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
