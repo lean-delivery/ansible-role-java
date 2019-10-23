@@ -97,9 +97,6 @@ provisioner:
 scenario:
   name: cloud-aws-sapjvm-8
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint
