@@ -96,8 +96,5 @@ scenario:
   name: cloud-aws-dragonwell8
 verifier:
   name: ansible
-  options:
-    verbose: true
-  directory: ../resources/tests/
   lint:
     name: ansible-lint
