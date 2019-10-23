@@ -41,6 +41,7 @@ galaxy_info:
     - "adoptopenjdk"
     - "zulu"
     - "sapjvm"
+    - "sapmachine"
     - "windows"
 
 dependencies: []

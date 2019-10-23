@@ -25,6 +25,7 @@ platforms:
     groups:
       - rhel_family
       - sapjvm
+      - rhel8
 
   - name: test-aws-centos7-sapjvm-8
     image: ami-9887c6e7
@@ -88,16 +89,14 @@ provisioner:
         java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify.yml
   lint:
     name: ansible-lint
 scenario:
   name: cloud-aws-sapjvm-8
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint
