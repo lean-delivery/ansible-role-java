@@ -122,6 +122,7 @@ AWS openjdk-12:
     variables:
       - $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA == "test/gitlab-ci-conditional-jobs"
 
+
 #AWS openjdk-ga:
 #  variables:
 #    AWS_REGION: us-east-1
