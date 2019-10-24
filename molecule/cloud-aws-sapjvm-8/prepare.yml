@@ -1,0 +1,15 @@
+---
+- name: Include common prepare
+  import_playbook: ../resources/provisioning/AWS/prepare.yml
+
+- name: Prepare RHEL
+  hosts: rhel8
+  tasks:
+
+    - name: Install libnsl
+      yum:
+        name: libnsl
+        state: present
+      register: status
+      until: status is succeeded
+      become: true

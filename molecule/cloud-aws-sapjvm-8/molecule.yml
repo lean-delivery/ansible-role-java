@@ -10,23 +10,23 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-# Disabled because of issue on Centos8
-# Todo: uncomment after dependency fix
-#  - name: test-aws-centos8-sapjvm-8
-#    image: ami-0ed2ad9dc845b42b6
-#    platform: centos8
-#    instance_type: m5.large
-#    region: us-east-1
-#    vpc_subnet_id: subnet-0f2b9cd66faea38af
-#    assign_public_ip: false
-#    spot_price: 0.04
-#    security_group_name:
-#      - default
-#    wait_timeout: 1800
-#    ssh_user: centos
-#    groups:
-#      - rhel_family
-#      - sapjvm
+
+  - name: test-aws-centos8-sapjvm-8
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - sapjvm
+      - rhel8
 
   - name: test-aws-centos7-sapjvm-8
     image: ami-9887c6e7
@@ -90,7 +90,7 @@ provisioner:
         java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:
