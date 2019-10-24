@@ -60,15 +60,14 @@ Docker java-on-defaults:
 #  tags:
 #    - aws
 #
-AWS java-8 Windows:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-windows-8
-  tags:
-    - aws
-    - run_job
+#AWS java-8 Windows:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-windows-8
+#  tags:
+#    - aws
 #
 #AWS openjdk-13 Windows chocolatey:
 #  variables:
@@ -97,17 +96,20 @@ AWS openjdk-8:
   tags:
     - aws
   only:
-    - run_job
-#
-#AWS openjdk-11:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-openjdk-11
-#  tags:
-#    - aws
-#
+    - external_pull_requests
+
+AWS openjdk-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-11
+  tags:
+    - aws
+  only:
+    variables:
+      - $CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA == "master"
+
 #.AWS openjdk-12:
 #  variables:
 #    AWS_REGION: us-east-1
