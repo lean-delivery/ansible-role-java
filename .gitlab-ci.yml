@@ -69,8 +69,6 @@ AWS java-8 Windows:
   tags:
     - aws
     - run_job
-  only:
-    - run_job
 #
 #AWS openjdk-13 Windows chocolatey:
 #  variables:
