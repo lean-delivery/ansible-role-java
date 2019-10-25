@@ -27,6 +27,7 @@ platforms:
       - sapmachine
       - jdk
       - sapmachine_fallback
+      - pip2
 
   - name: test-aws-centos8-sapmachine-jre-tarball-10
     image: ami-0ed2ad9dc845b42b6
@@ -45,6 +46,7 @@ platforms:
       - sapmachine
       - jre
       - sapmachine_fallback
+      - pip3
 
   - name: test-aws-Debian9-sapmachine-jre-tarball-10
     image: ami-003f19e0e687de1cd
@@ -63,10 +65,11 @@ platforms:
       - sapmachine
       - jre
       - sapmachine_fallback
+      - pip2
 
-  - name: test-aws-ubuntu18-sapmachine-jdk-tarball-10
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
+  - name: test-aws-amazon2-sapmachine-jdk-tarball-10
+    image: ami-0b898040803850657
+    platform: amazon2
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
@@ -75,12 +78,13 @@ platforms:
     security_group_name:
       - default
     wait_timeout: 1800
-    ssh_user: ubuntu
+    ssh_user: ec2-user
     groups:
-      - debian_family
+      - amazon_family
       - sapmachine
       - jdk
       - sapmachine_fallback
+      - pip2
 
   - name: test-aws-ubuntu18-sapmachine-s3-10
     image: ami-012fd5eb46f56731f
@@ -99,6 +103,7 @@ platforms:
       - debian_family
       - sapmachine
       - s3
+      - pip3
 
 provisioner:
   name: ansible
@@ -123,6 +128,13 @@ provisioner:
         transport_s3_path: /java/sapmachine/sapmachine-jdk-10.0.2.13_linux-x64_bin.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+      pip2:
+        pip_executable: pip
+        python_executable: python
+      pip3:
+        pip_executable: pip3
+        python_executable: python3
+        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../cloud-aws-sapmachine-10/prepare.yml

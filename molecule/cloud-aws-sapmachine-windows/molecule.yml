@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-sapmachine-tarball-11
+  - name: test-aws-windows2016-sapmachine-tarball-13
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -25,7 +25,7 @@ platforms:
       - sapmachine
       - jdk
       - sapmachine_fallback
-      - ver11
+      - ver13
 
   - name: test-aws-windows2019-sapmachine-tarball-11
     aws_image_id: ami-0477b9335a5a75438
@@ -44,73 +44,21 @@ platforms:
       - sapmachine_fallback
       - ver11
 
-  - name: test-aws-windows2016-sapmachine-tarball-12
-    aws_image_id: ami-00a20f508263efd30
-    platform: windows2016core
-    aws_region: us-east-1
-    instance_type: m5.large
-    assign_public_ip: false
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    groups:
-      - windows
-      - sapmachine
-      - jdk
-      - sapmachine_fallback
-      - ver12
-
-  - name: test-aws-windows2019-sapmachine-tarball-12
+  - name: test-aws-windows2019-sapmachine-chocolatey-13
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
     instance_type: m5.large
-    assign_public_ip: false
+    assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - sapmachine
-      - jre
-      - sapmachine_fallback
-      - ver12
-
-  - name: test-aws-windows2016-sapmachine-tarball-13
-    aws_image_id: ami-00a20f508263efd30
-    platform: windows2016core
-    aws_region: us-east-1
-    instance_type: m5.large
-    assign_public_ip: false
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    groups:
-      - windows
-      - sapmachine
-      - jdk
-      - sapmachine_fallback
-      - ver11
-
-  - name: test-aws-windows2019-sapmachine-tarball-13
-    aws_image_id: ami-0477b9335a5a75438
-    platform: windows2019core
-    aws_region: us-east-1
-    instance_type: m5.large
-    assign_public_ip: false
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    groups:
-      - windows
-      - sapmachine
-      - jre
-      - sapmachine_fallback
       - ver13
+      - chocolatey
 
 provisioner:
   name: ansible
@@ -121,14 +69,9 @@ provisioner:
         java_distribution: sapmachine
       ver11:
         java_major_version: 11
-      ver12:
-        java_major_version: 12
+        java_minor_version: 0.3
       ver13:
         java_major_version: 13
-      jdk:
-        java_package: jdk
-      jre:
-        java_package: jre
       sapmachine_fallback:
         transport: sapmachine-fallback
       chocolatey:
