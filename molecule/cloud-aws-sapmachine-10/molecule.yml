@@ -88,7 +88,6 @@ platforms:
 
   - name: test-aws-ubuntu18-sapmachine-local-10
     image: ami-012fd5eb46f56731f
-    profile_name: epmldi-instance-profile
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1

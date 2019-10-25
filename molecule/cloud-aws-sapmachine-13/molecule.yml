@@ -89,6 +89,7 @@ platforms:
   - name: test-aws-amazon2-sapmachine-s3-13
     image: ami-0b898040803850657
     platform: amazon2
+    profile_name: epmldi-instance-profile
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
