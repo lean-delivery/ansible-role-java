@@ -45,19 +45,25 @@
       become: true
 
 - name: Prepare host to S3 transport
-  hosts: localhost
-  gather_facts: true
-  vars:
-    transport_s3_bucket: java-molecule-s3-test
-    transport_s3_path: /java/sapmachine/sapmachine-jdk-13.0.1_linux-x64_bin.tar.gz
-    java_download_path: /tmp
+  hosts: s3
   tasks:
-    - name: Download artifact from s3
-      aws_s3:
-        bucket: '{{ transport_s3_bucket }}'
-        object: '{{ transport_s3_path }}'
-        dest: '{{ java_download_path }}/{{ transport_s3_path | basename }}'
-        mode: get
-        overwrite: different
-      retries: 5
-      delay: 2
+    - name: Install pip package
+      package:
+        name: '{{ python_executable }}-pip'
+        state: present
+      register: status
+      until: status is succeeded
+      become: true
+
+    - name: Install boto module
+      pip:
+        name:
+          - botocore
+          - boto
+          - boto3
+        state: present
+        executable: '{{ pip_executable }}'
+        extra_args: --upgrade
+      register: status
+      until: status is succeeded
+      become: true

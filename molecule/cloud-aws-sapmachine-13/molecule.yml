@@ -86,7 +86,7 @@ platforms:
       - sapmachine_fallback
       - pip3
 
-  - name: test-aws-amazon2-sapmachine-local-13
+  - name: test-aws-amazon2-sapmachine-s3-13
     image: ami-0b898040803850657
     platform: amazon2
     instance_type: m5.large
@@ -101,7 +101,7 @@ platforms:
     groups:
       - amazon_family
       - sapmachine
-      - local
+      - s3
       - pip2
 
 provisioner:
@@ -121,9 +121,12 @@ provisioner:
         java_package: jre
       sapmachine_fallback:
         transport: sapmachine-fallback
-      local:
-        transport: local
-        transport_local: /tmp/sapmachine-jdk-13.0.1_linux-x64_bin.tar.gz
+      s3:
+        transport: s3
+        transport_s3_bucket: java-molecule-s3-test
+        transport_s3_path: /java/sapmachine/sapmachine-jdk-13.0.1_linux-x64_bin.tar.gz
+        transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+        transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
       pip2:
         pip_executable: pip
         python_executable: python
