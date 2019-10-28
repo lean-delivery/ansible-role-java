@@ -5,8 +5,8 @@ parts: >-
     | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
     | first | list }}
 
+# todo: fix for Corretto 11
 java_folder: >-
   {{ (java_major_version|int <= 8)
       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
-                'java-'  + java_full_version|string + '-amazon-corretto')
-  }}
+                'java-'  + java_full_version|string + '-amazon-corretto') }}
