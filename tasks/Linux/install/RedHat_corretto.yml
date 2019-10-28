@@ -1,0 +1,11 @@
+---
+# Installing from repo on Amazon Linux 2
+- name: Install Corretto 11
+  yum:
+    name: '{{ jdk_package }}'
+    state: present
+  when:
+    - ansible_distribution == "Amazon"
+    - ansible_distribution_version == 2
+  register: package_install
+  until: package_install is succeeded

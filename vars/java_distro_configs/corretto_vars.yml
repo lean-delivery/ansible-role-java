@@ -5,8 +5,21 @@ parts: >-
     | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
     | first | list }}
 
-# todo: fix for Corretto 11
 java_folder: >-
   {{ (java_major_version|int <= 8)
       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
-                'java-'  + java_full_version|string + '-amazon-corretto') }}
+      'java-'  + java_major_version|string + '-amazon-corretto') }}
+
+# Allow to install Amazon Corretto 8 as JRE
+# https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
+corretto8_package: >-
+  "{{ (java_package == 'jdk')
+    | ternary('java-1.8.0-amazon-corretto-devel',
+    'java-1.8.0-amazon-corretto') }}"
+
+# Amazon Corretto 11 has a 'headless' variant available. This variant omits runtime dependencies that are typically
+# associated with GUI applications such as X11 and ALSA and is worth considering for server-oriented workloads.
+# https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
+corretto11_package: "java-11-amazon-corretto-headless"
+
+jdk_package: "{{ (java_major_version|int = 8)| ternary(corretto8_package, corretto11_package) }}"
