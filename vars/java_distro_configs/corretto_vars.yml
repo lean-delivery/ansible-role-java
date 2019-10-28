@@ -1,0 +1,12 @@
+---
+# todo: refactor later!
+parts: >-
+  {{ java_artifact_basename
+    | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
+    | first | list }}
+
+java_folder: >-
+  {{ (java_major_version|int <= 8)
+      | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
+                'java-'  + java_full_version|string + '-amazon-corretto')
+  }}

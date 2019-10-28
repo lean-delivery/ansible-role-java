@@ -4,6 +4,7 @@ sapjvm_root_page: https://tools.hana.ondemand.com
 adoptopenjdk_api_page: https://api.adoptopenjdk.net/v2/
 zulu_api_page: https://zulu.api.azul.com/api/v1/
 sapmachine_root_page: https://github.com/SAP/SapMachine/releases/download/
+corretto_root_page: "https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.html"
 
 # vars file for java
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz

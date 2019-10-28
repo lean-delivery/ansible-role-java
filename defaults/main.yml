@@ -6,12 +6,15 @@
 #  - zulu
 #  - adoptopenjdk (not supported 9/10)
 #  - sapmachine (suported only 10/11/12/13)
+#  - Amazon Corretto (supported only 8/11)
 java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk
 # Oracle java supported jre/server-jre/jdk
 # AdoptOpenJDK supported jdk/jre
 # SapMachine supported jdk/jre
+# Amazon Corretto 8 supported jdk/jre, jre only for Windows and Amazon Linux2
+# Amazon Corretto 11 supported only jdk
 java_package: jdk
 
 # AdoptOpenJDK Implementation (hotspot/openj9)
@@ -49,6 +52,7 @@ transport: openjdk-fallback
 # - "sapjvm-fallback" Install from artifact downloaded from SAP site
 # - "zulu-fallback" Install from artifact downloaded from AZUL site
 # - "sapmachine-fallback" Install from artifact downloaded from SapMachine site
+# - "corretto-fallback" Install from artifact downloaded from AWS Amazon site
 
 transport_web: '{{ transport_web_default }}'
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"

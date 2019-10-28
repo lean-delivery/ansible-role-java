@@ -1,0 +1,44 @@
+---
+- name: Check requested major version for Corretto
+  fail:
+    msg: "Supported versions of Amazon Corretto only 8 and 11"
+  when:
+    - java_major_version != 8
+    - java_major_version != 11
+
+- name: Check requested architecture for Corretto
+  fail:
+    msg: "Amazon Corretto currently supports x64 platform only"
+  when: java_arch != "x64"
+
+- name: 'Fetch root page {{ corretto_root_page }}'
+  uri:
+    url: '{{ corretto_root_page }}'
+    return_content: true
+  register: root_page
+
+- name: Prepare filename to download Debian family
+  set_fact:
+    filename: >-
+      https://[\w.]+/[\d.]+/java-[\d.]+-amazon-corretto-jdk_{{ java_major_version|string }}[\d.-]+_amd64\.deb
+  when: ansible_os_family == "Debian"
+
+- name: Prepare filename to download RedHat family
+  set_fact:
+    filename: >-
+      https://[\w.]+/{{ java_major_version|string }}[\d.]+/java-[\d.]+-amazon-corretto-devel-[\w._-]+\.x86_64\.rpm
+  when: ansible_os_family == "RedHat"
+
+- name: Find release url
+  set_fact:
+    release_url: "{{ root_page['content'] | regex_findall('(' + filename + ')') }}"
+
+- name: 'Download artifact from {{ release_url[0] }}'
+  get_url:
+    url: '{{ release_url[0] }}'
+    dest: '{{ java_download_path }}'
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded
+

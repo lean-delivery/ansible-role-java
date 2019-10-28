@@ -1,0 +1,8 @@
+---
+- name: Before install the JDK on Debian family
+  apt:
+    name: java-common
+    update_cache: yes
+
+- name: Install java packages
+  include_tasks: Debian.yml
