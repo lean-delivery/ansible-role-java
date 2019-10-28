@@ -41,4 +41,3 @@
   retries: 20
   delay: 5
   until: file_downloaded is succeeded
-
