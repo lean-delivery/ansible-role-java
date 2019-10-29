@@ -19,6 +19,7 @@
     url: '{{ release_page }}'
     status_code: [200, 404]
     return_content: true
+    headers: {"user-agent": "Mozilla/5.0"}
   register: artifact_page
 
 - name: Exit if SapMachine version is wrong
