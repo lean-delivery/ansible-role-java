@@ -96,13 +96,7 @@ Requirements
    - 12
    - 13
 - **Supported SapMachine version**:
-   - 10
-      - EL 7: sapmachine-fallback
-      - EL 8: sapmachine-fallback
-      - Ubuntu bionic: sapmachine-fallback
-      - Debian stretch: sapmachine-fallback
-      - Windows: NOT SUPPORTED
-   - 11
+    - 11
       - EL 7: sapmachine-fallback
       - EL 8: sapmachine-fallback
       - Ubuntu bionic: sapmachine-fallback

@@ -250,16 +250,7 @@ AWS adoptopenjdk Windows:
   tags:
     - aws
 
-AWS sapmachine-10:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-sapmachine-10
-  tags:
-    - aws
-
-.AWS sapmachine-11:
+AWS sapmachine-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
