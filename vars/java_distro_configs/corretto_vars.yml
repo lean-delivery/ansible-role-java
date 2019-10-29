@@ -22,4 +22,4 @@ corretto8_package: >-
 # https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
 corretto11_package: "java-11-amazon-corretto-headless"
 
-jdk_package: "{{ (java_major_version|int = 8)| ternary(corretto8_package, corretto11_package) }}"
+jdk_package: "{{ (java_major_version|int == 8) | ternary(corretto8_package, corretto11_package) }}"
