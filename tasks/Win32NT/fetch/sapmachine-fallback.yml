@@ -5,45 +5,42 @@
       win_uri:
         url: 'https://sap.github.io/SapMachine/latest/{{ java_major_version }}/'
         return_content: true
-        status_code: 200,404
+        status_code: [200, 404]
       register: version_page
 
     - name: Find release version
       set_fact:
         release_version: >-
           {{ version_page.content | regex_search('(1.*[.|-]\d)') }}
-
-    - name: Split release page
-      set_fact:
-        release_page: >-
-          {{ sapmachine_root_page|string + 'tag/sapmachine-' + release_version|string }}
   when: java_minor_version == '*'
 
 - name: 'Fetch artifact page'
   win_uri:
     url: '{{ release_page }}'
-    status_code: 200,404
+    status_code: [200, 404]
     return_content: true
+    body_format: json
   register: artifact_page
-
-- name: Find artifact links
-  set_fact:
-    artifact_links: >-
-      {{ artifact_page.content | regex_findall('(' + java_distribution|string + '-.*\/'
-          + java_distribution|string + '-' + java_package|string + '-.*_windows-'
-              + java_arch|string + '_bin.[sha256.txt|zip]+)') }}
 
 - name: Exit if SapMachine version is wrong
   fail:
     msg: >-
       {{ 'SapMachine version ' + java_major_version|string
               + (java_minor_version == '*') | ternary('', '.' + java_minor_version|string)
-                + '_'+ java_arch|string + ' is wrong' }}
-  when: artifact_links[0] is not defined
+                  + '_' + java_arch|string + ' for Windows is not supported!' }}
+  when: artifact_page.status == 404
+
+- name: Get artifact link
+  set_fact:
+    artifact_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".zip'].browser_download_url\") }}"
+
+- name: Get checksum link
+  set_fact:
+    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".sha256.txt'].browser_download_url\") }}"
 
 - name: 'Fetch artifact checksum file'
   win_uri:
-    url: '{{ download_url }}{{ artifact_links[0] }}'
+    url: '{{ checksum_link[0] }}'
     return_content: true
   register: artifact_checksum_file
 
@@ -54,7 +51,7 @@
 
 - name: 'Download artifact'
   win_get_url:
-    url: '{{ download_url }}{{ artifact_links[1] }}'
+    url: '{{ artifact_link[0] }}'
     dest: '{{ java_download_path }}'
     checksum: '{{ artifact_checksum }}'
     checksum_algorithm: sha256
