@@ -19,7 +19,6 @@
     url: '{{ release_page }}'
     status_code: [200, 404]
     return_content: true
-    body: json
   register: artifact_page
 
 - name: Exit if SapMachine version is wrong
