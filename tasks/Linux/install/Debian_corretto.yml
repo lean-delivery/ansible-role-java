@@ -1,4 +1,11 @@
 ---
+- name: Check requested major version for Corretto
+  fail:
+    msg: "Supported versions of Amazon Corretto only 8 and 11"
+  when:
+    - java_major_version|int != 8
+    - java_major_version|int != 11
+
 - name: Before install the JDK on Debian family
   apt:
     name: java-common
