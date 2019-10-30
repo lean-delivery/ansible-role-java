@@ -1,5 +1,4 @@
 ---
-# Installing from repo on Amazon Linux 2
 - name: Check requested major version for Corretto
   fail:
     msg: "Supported versions of Amazon Corretto only 8 and 11"
@@ -7,23 +6,26 @@
     - java_major_version|int != 8
     - java_major_version|int != 11
 
-- name: Check if Amazon Linux 2
-  fail:
-    msg: "You can use Yum Package Manager only on Amazon Linux 2"
-  when:
-    - ansible_distribution != "Amazon"
-    - ansible_distribution_version != "2"
+# We're handling two cases:
+# 1. Install downloaded package on RedHat/CentOS
+# 2. Install on Amazon Linux 2 from repo
 
+# Case 2. Installing on Amazon Linux 2 from repo
 # Amazon Corretto 8 specific
 # https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
-- name: Enable the yum repository in Amazon Linux 2
-  shell: amazon-linux-extras enable corretto8
-  when: java_major_version|int == 8
+- name: Prepare Amazon Linux 2 for Corretto 8
+  block:
+    - name: Enable the yum repository in Amazon Linux 2
+      shell: amazon-linux-extras enable corretto8
 
-# Amazon Corretto 8 specific
-- name: Clean repo metadata
-  shell: yum clean metadata
-  when: java_major_version|int == 8
+    - name: Clean repo metadata
+      shell: yum clean metadata
+  when:
+    - transport == "repositories"
+    - ansible_distribution == "Amazon"
+    - ansible_distribution_version == "2"
+    - java_major_version|int == 8
 
+# Install in any case via Yum
 - name: 'Install Corretto {{ java_major_version }}'
   include_tasks: RedHat.yml
