@@ -25,16 +25,9 @@
   shell: yum clean metadata
   when: java_major_version|int == 8
 
-# Amazon Corretto 8 specific
-# Somehow java-1.8.0-amazon-corretto-devel package can't be installed via Ansible yum module
-- name: 'Install Corretto {{ java_major_version }}'
-  shell: "yum install {{ jdk_package }} -y"
-  when: java_major_version|int == 8
-
 - name: 'Install Corretto {{ java_major_version }}'
   yum:
     name: '{{ jdk_package }}'
     state: present
-  when: java_major_version|int == 11
   register: package_install
   until: package_install is succeeded

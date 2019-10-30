@@ -13,9 +13,9 @@ java_folder: >-
 # Allow to install Amazon Corretto 8 as JRE
 # https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
 corretto8_package: >-
-  "{{ (java_package == 'jdk')
+  {{ (java_package == 'jdk')
     | ternary('java-1.8.0-amazon-corretto-devel',
-    'java-1.8.0-amazon-corretto') }}"
+    'java-1.8.0-amazon-corretto') }}
 
 # Amazon Corretto 11 has a 'headless' variant available. This variant omits runtime dependencies that are typically
 # associated with GUI applications such as X11 and ALSA and is worth considering for server-oriented workloads.
