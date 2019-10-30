@@ -26,8 +26,4 @@
   when: java_major_version|int == 8
 
 - name: 'Install Corretto {{ java_major_version }}'
-  yum:
-    name: '{{ jdk_package }}'
-    state: present
-  register: package_install
-  until: package_install is succeeded
+  include_tasks: RedHat.yml
