@@ -1,7 +1,7 @@
 ---
-- name: Converge
-  hosts: all
-  pre_tasks:
+- name: Test blob
+  hosts: localhost
+  tasks:
     - name: get java artifact
       azure_rm_storageblob:
         resource_group: epm-ldi
@@ -9,5 +9,8 @@
         container: oracle-java
         blob: jdk-8u45-windows-x64.exe
         dest: /tmp/jdk-8u45-windows-x64.exe
+
+- name: Converge
+  hosts: all
   roles:
     - role: ansible-role-java
