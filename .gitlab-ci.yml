@@ -26,14 +26,14 @@ Lint:
   tags:
     - lint
 
-Docker java-on-defaults:
+.Docker java-on-defaults:
   stage: deployment test
   script:
   - molecule test -s default
   tags:
   - aws
 
-AWS java-6:
+.AWS java-6:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -51,7 +51,7 @@ AWS java-6:
   tags:
     - aws
 
-AWS java-8:
+.AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -69,14 +69,14 @@ AWS java-8:
   tags:
     - aws
 
-.AZURE java-8 Windows:
+AZURE java-8 Windows:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-windows-8
   tags:
     - azure
 
-AWS openjdk-13 Windows chocolatey:
+.AWS openjdk-13 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -94,7 +94,7 @@ AWS openjdk-13 Windows chocolatey:
   tags:
     - aws
 
-AWS openjdk-8:
+.AWS openjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -103,7 +103,7 @@ AWS openjdk-8:
   tags:
     - aws
 
-AWS openjdk-11:
+.AWS openjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -121,7 +121,7 @@ AWS openjdk-11:
   tags:
     - aws
 
-AWS openjdk-ga:
+.AWS openjdk-ga:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -148,7 +148,7 @@ AWS openjdk-ga:
   tags:
     - aws
 
-AWS java-12:
+.AWS java-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -166,7 +166,7 @@ AWS java-12:
   tags:
     - aws
 
-AWS sapjvm-8:
+.AWS sapjvm-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -221,7 +221,7 @@ AWS sapjvm-8:
   tags:
     - delegated
 
-AWS adoptopenjdk-8:
+.AWS adoptopenjdk-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -230,7 +230,7 @@ AWS adoptopenjdk-8:
   tags:
     - aws
 
-AWS adoptopenjdk-11:
+.AWS adoptopenjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -239,7 +239,7 @@ AWS adoptopenjdk-11:
   tags:
     - aws
 
-AWS adoptopenjdk-12:
+.AWS adoptopenjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -257,7 +257,7 @@ AWS adoptopenjdk-12:
   tags:
     - aws
 
-AWS sapmachine-11:
+.AWS sapmachine-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -275,7 +275,7 @@ AWS sapmachine-11:
   tags:
     - aws
 
-AWS sapmachine-13:
+.AWS sapmachine-13:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
