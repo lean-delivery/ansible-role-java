@@ -24,7 +24,7 @@ Lint:
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
-    - aws
+    - lint
 
 Docker java-on-defaults:
   stage: deployment test
@@ -60,7 +60,7 @@ AWS java-8:
   tags:
     - aws
 
-AWS java-8 Windows:
+.AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -68,6 +68,13 @@ AWS java-8 Windows:
     - molecule test -s cloud-aws-windows-8
   tags:
     - aws
+
+.AZURE java-8 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-8
+  tags:
+    - azure
 
 AWS openjdk-13 Windows chocolatey:
   variables:
@@ -123,7 +130,7 @@ AWS openjdk-ga:
   tags:
     - aws
 
-AWS openjdk-ga Windows:
+.AWS openjdk-ga Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -150,7 +157,7 @@ AWS java-12:
   tags:
     - aws
 
-AWS java-12 Windows:
+.AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -168,7 +175,7 @@ AWS sapjvm-8:
   tags:
     - aws
 
-AWS sapjvm-8 Windows:
+.AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -196,7 +203,7 @@ AWS sapjvm-8 Windows:
   tags:
     - aws
 
-AWS zulu-12 Windows chocolatey:
+.AWS zulu-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -205,7 +212,7 @@ AWS zulu-12 Windows chocolatey:
   tags:
     - aws
 
-EPC java-8:
+.EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -241,7 +248,7 @@ AWS adoptopenjdk-12:
   tags:
     - aws
 
-AWS adoptopenjdk Windows:
+.AWS adoptopenjdk Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -277,7 +284,7 @@ AWS sapmachine-13:
   tags:
     - aws
 
-AWS sapmachine-windows:
+.AWS sapmachine-windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
