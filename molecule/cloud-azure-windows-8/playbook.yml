@@ -21,7 +21,7 @@
             "sku": {
               "tier": "Standard",
               "capacity": 1,
-              "name": "Standard_D1_v2"
+              "name": "Standard_D2s_v3"
             },
             "properties": {
               "overprovision": true,
@@ -30,13 +30,12 @@
               },
               "virtualMachineProfile": {
                 "priority":"Low",
-                "eviction_policy": "delete",
                 "storageProfile": {
                   "imageReference": {
-                    "sku": "windows2016",
-                    "publisher": "microsoft-ads",
+                    "sku": "18.04-LTS",
+                    "publisher": "Canonical",
                     "version": "latest",
-                    "offer": "windows-data-science-vm"
+                    "offer": "UbuntuServer"
                   },
                   "osDisk": {
                     "caching": "ReadWrite",
@@ -76,11 +75,6 @@
                   ]
                 }
               }
-            },
-            "plan": {
-              "publisher": "microsoft-ads",
-              "product": "windows-data-science-vm",
-              "name": "windows2016"
             },
             "location": "northeurope"
           }
