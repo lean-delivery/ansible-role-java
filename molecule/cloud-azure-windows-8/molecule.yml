@@ -10,8 +10,8 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-azure-Windows2016-oracle_java-8-web
-    platform: windows2016core
+  - name: test-azure-ubuntu18-javaa
+    platform: ubuntu18
     vm_size: Standard_D2s_v3
     az_location: northeurope
     az_resource_group_name: epm-ldi
@@ -19,19 +19,30 @@ platforms:
     az_subnet_name: epm-ldi-northeurope-subnet
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
-      - windows
-      - web
+      - debian_family
 
-  - name: test-azure-Windows2019-javaa
-    platform: windows2019core
-    vm_size: Standard_D2s_v3
-    az_location: northeurope
-    az_resource_group_name: epm-ldi
-    az_virtual_network_name: epm-ldi-northeurope-vnet
-    az_subnet_name: epm-ldi-northeurope-subnet
-    az_network_security_group: epm-ldi-northeurope-sg
-    groups:
-      - windows
+  # - name: test-azure-Windows2016-oracle_java-8-web
+  #   platform: windows2016core
+  #   vm_size: Standard_D2s_v3
+  #   az_location: northeurope
+  #   az_resource_group_name: epm-ldi
+  #   az_virtual_network_name: epm-ldi-northeurope-vnet
+  #   az_subnet_name: epm-ldi-northeurope-subnet
+  #   az_network_security_group: epm-ldi-northeurope-sg
+  #   groups:
+  #     - windows
+  #     - web
+
+  # - name: test-azure-Windows2019-javaa
+  #   platform: windows2019core
+  #   vm_size: Standard_D2s_v3
+  #   az_location: northeurope
+  #   az_resource_group_name: epm-ldi
+  #   az_virtual_network_name: epm-ldi-northeurope-vnet
+  #   az_subnet_name: epm-ldi-northeurope-subnet
+  #   az_network_security_group: epm-ldi-northeurope-sg
+  #   groups:
+  #     - windows
 provisioner:
   name: ansible
   log: true

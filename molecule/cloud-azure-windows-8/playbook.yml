@@ -54,13 +54,13 @@
                 "networkProfile": {
                   "networkInterfaceConfigurations": [
                     {
-                      "name": "{vmss-name}",
+                      "name": "epm-ldi-northeurope-vnet",
                       "properties": {
                         "primary": true,
                         "enableIPForwarding": true,
                         "ipConfigurations": [
                           {
-                            "name": "epm-ldi-northeurope-vnet",
+                            "name": "epm-ldi-northeurope-subnet",
                             "properties": {
                               "subnet": {
                                 "id": "/subscriptions/0cfbdd57-0340-4c6d-a3f0-91c618995c6e/resourceGroups/epm-ldi/providers/Microsoft.Network/virtualNetworks/epm-ldi-northeurope-vnet"
