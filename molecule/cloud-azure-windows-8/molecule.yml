@@ -53,7 +53,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-direct
+  name: cloud-azure-windows-8
 verifier:
   name: ansible
   lint:
