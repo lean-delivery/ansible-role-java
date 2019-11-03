@@ -10,7 +10,82 @@
         blob: jdk-8u45-windows-x64.exe
         dest: /tmp/jdk-8u45-windows-x64.exe
 
-- name: Converge
-  hosts: all
-  roles:
-    - role: ansible-role-java
+    - name: Create scale set
+      azure_rm_resource:
+        resource_group: epm-ldi
+        provider: compute
+        resource_type: virtualmachinescalesets
+        resource_name: myVmss
+        body: >-
+          {
+            "sku": {
+              "tier": "Standard",
+              "capacity": 1,
+              "name": "Standard_D1_v2"
+            },
+            "properties": {
+              "overprovision": true,
+              "upgradePolicy": {
+                "mode": "Automatic"
+              },
+              "virtualMachineProfile": {
+                "priority":"Low",
+                "eviction_policy": "delete",
+                "storageProfile": {
+                  "imageReference": {
+                    "sku": "windows2016",
+                    "publisher": "microsoft-ads",
+                    "version": "latest",
+                    "offer": "windows-data-science-vm"
+                  },
+                  "osDisk": {
+                    "caching": "ReadWrite",
+                    "managedDisk": {
+                      "storageAccountType": "Standard_LRS"
+                    },
+                    "createOption": "FromImage"
+                  }
+                },
+                "osProfile": {
+                  "computerNamePrefix": "epmldi",
+                  "adminUsername": "vm-admin",
+                  "adminPassword": "$P@$Sw0rd_cool"
+                },
+                "networkProfile": {
+                  "networkInterfaceConfigurations": [
+                    {
+                      "name": "{vmss-name}",
+                      "properties": {
+                        "primary": true,
+                        "enableIPForwarding": true,
+                        "ipConfigurations": [
+                          {
+                            "name": "epm-ldi-northeurope-vnet",
+                            "properties": {
+                              "subnet": {
+                                "id": "/subscriptions/0cfbdd57-0340-4c6d-a3f0-91c618995c6e/resourceGroups/epm-ldi/providers/Microsoft.Network/virtualNetworks/epm-ldi-northeurope-vnet"
+                              },
+                              "networkSecurityGroup": {
+                                "id": "/subscriptions/0cfbdd57-0340-4c6d-a3f0-91c618995c6e/resourceGroups/epm-ldi/providers/Microsoft.Network/networkSecurityGroups/epm-ldi-northeurope-sg"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "plan": {
+              "publisher": "microsoft-ads",
+              "product": "windows-data-science-vm",
+              "name": "windows2016"
+            },
+            "location": "northeurope"
+          }
+
+# - name: Converge
+#   hosts: all
+  # roles:
+  #   - role: ansible-role-java
