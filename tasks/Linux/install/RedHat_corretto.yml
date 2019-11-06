@@ -16,10 +16,10 @@
 - name: Prepare Amazon Linux 2 for Corretto 8
   block:
     - name: Enable the yum repository in Amazon Linux 2
-      shell: amazon-linux-extras enable corretto8
+      command: warn=no amazon-linux-extras enable corretto8
 
     - name: Clean repo metadata
-      shell: yum clean metadata
+      command: warn=no yum clean metadata
   when:
     - transport == "repositories"
     - ansible_distribution == "Amazon"

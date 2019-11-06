@@ -9,7 +9,9 @@
 - name: Before install the JDK on Debian family
   apt:
     name: java-common
-    update_cache: yes
+    update_cache: True
+  register: package_install
+  until: package_install is succeeded
 
 - name: Install java packages
   include_tasks: Debian.yml
