@@ -9,7 +9,7 @@
 - name: Before install the JDK on Debian family
   apt:
     name: java-common
-    update_cache: True
+    update_cache: true
   register: package_install
   until: package_install is succeeded
 
