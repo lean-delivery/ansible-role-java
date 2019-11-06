@@ -41,6 +41,13 @@ This Ansible role has the following features for:
 - Install JDK, JRE
 - Additional opportunity to install from sapmachine-fallback, web, local source, s3.
 
+**Amazon Corretto**
+
+- Install JDK 8 and 11 
+- Install JRE 8 (Amazon Linux 2, Windows only)
+- Linux x64 platform only
+- Additional opportunity to install from corretto-fallback, web, local source, s3.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -100,6 +107,9 @@ Requirements
    - 11
    - 12
    - 13
+ - **Supported Amazon Corretto version**:
+   - 8
+   - 11
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -124,6 +134,7 @@ Requirements
      - `zulu`
      - `adoptopenjdk`
      - `sapmachine`
+     - `corretto`
 
         **Notice**: this variable is mandatory in case of installing other distribution than 'openjdk'.
 
@@ -133,7 +144,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only),`sapmachine-fallback`(SapMachine only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only),`sapmachine-fallback`(SapMachine only), `zulu-fallback`(ZULU only), `corretto-fallback`(Amazon Corretto only)`local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -145,6 +156,7 @@ Requirements
       - `zulu-fallback` fetching artifact from AZUL site.
       - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
       - `sapmachine-fallback` fetching artifact from SapMachine site.
+      - `corretto-fallback` fetching artifact from aws.amazon.com site.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
@@ -343,6 +355,18 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_package: jre
       java_major_version: 10
 ```
+### Installing Amazon Corretto JDK 8 from corretto-fallback:
+```yaml
+- name: Install Amazon Corretto
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: corretto
+      transport: corretto-fallback
+      java_major_version: 8
+```
+
 License
 -------
 
