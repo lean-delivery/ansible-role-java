@@ -1,11 +1,4 @@
 ---
-- name: Check requested major version for Corretto
-  fail:
-    msg: "Supported versions of Amazon Corretto only 8 and 11"
-  when:
-    - java_major_version|int != 8
-    - java_major_version|int != 11
-
 # Install downloaded rpm file on RedHat/CentOS
 - name: 'Install Corretto {{ java_major_version }} on {{ ansible_distribution }}'
   include_tasks: RedHat.yml
