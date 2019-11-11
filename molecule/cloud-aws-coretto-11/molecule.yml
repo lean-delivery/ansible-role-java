@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-corretto-jdk-tarball-11
+  - name: test-aws-centos7-corretto-jdk-fallback-11
     image: ami-9887c6e7
     platform: centos7
     instance_type: t3.micro
@@ -27,7 +27,7 @@ platforms:
       - corretto
       - corretto_fallback
 
-  - name: test-aws-centos8-corretto-jdk-tarball-11
+  - name: test-aws-centos8-corretto-jdk-fallback-11
     image: ami-0ed2ad9dc845b42b6
     platform: centos8
     instance_type: t3.micro
@@ -44,7 +44,7 @@ platforms:
       - corretto
       - corretto_fallback
 
-  - name: test-aws-Debian9-corretto-jdk-tarball-11
+  - name: test-aws-Debian9-corretto-jdk-fallback-11
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.micro
@@ -61,7 +61,7 @@ platforms:
       - corretto
       - corretto_fallback
 
-  - name: test-aws-ubuntu18-corretto-jdk-tarball-11
+  - name: test-aws-ubuntu18-corretto-jdk-fallback-11
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: t3.micro
