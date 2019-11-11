@@ -44,4 +44,4 @@
 
 - name: Set java_binary_type = package
   set_fact:
-    java_binary_type: package
+    java_binary_type: package-manually
