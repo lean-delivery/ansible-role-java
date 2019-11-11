@@ -41,3 +41,7 @@
   retries: 20
   delay: 5
   until: file_downloaded is succeeded
+
+- name: Set java_binary_type = package
+  set_fact:
+    java_binary_type: package

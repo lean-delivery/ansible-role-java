@@ -1,0 +1,26 @@
+---
+- name: Check requested major version for Corretto
+  fail:
+    msg: "Supported versions of Amazon Corretto only 8 and 11"
+  when:
+    - java_major_version|int != 8
+    - java_major_version|int != 11
+
+# Install downloaded rpm file on RedHat/CentOS
+- name: 'Install Corretto {{ java_major_version }} on {{ ansible_distribution }}'
+  include_tasks: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+# Install downloaded deb file on Debian/Ubuntu
+- name: 'Install Corretto {{ java_major_version }} on {{ ansible_distribution }}'
+  block:
+    - name: Before install the JDK on Debian family
+      apt:
+        name: java-common
+        update_cache: true
+      register: package_install
+      until: package_install is succeeded
+
+    - name: Install java packages
+      include_tasks: Debian.yml
+  when: ansible_os_family == "Debian"

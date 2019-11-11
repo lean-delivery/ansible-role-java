@@ -6,11 +6,7 @@
     - java_major_version|int != 8
     - java_major_version|int != 11
 
-# We're handling two cases:
-# 1. Install downloaded package on RedHat/CentOS
-# 2. Install on Amazon Linux 2 from repo
-
-# Case 2. Installing on Amazon Linux 2 from repo
+# Installing on Amazon Linux 2 from repo
 # Amazon Corretto 8 specific
 # https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
 - name: Prepare Amazon Linux 2 for Corretto 8
