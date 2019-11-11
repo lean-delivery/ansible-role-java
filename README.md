@@ -156,7 +156,7 @@ Requirements
       - `zulu-fallback` fetching artifact from AZUL site.
       - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
       - `sapmachine-fallback` fetching artifact from SapMachine site.
-      - `corretto-fallback` fetching artifact from aws.amazon.com site.
+      - `corretto-fallback` fetching artifact (RPM or Debian package) from aws.amazon.com site.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
