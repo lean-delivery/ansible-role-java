@@ -2,7 +2,7 @@
 - name: Generate SAS link
   hosts: localhost
   gather_facts: true
-  ansible_connection: local
+  connection: local
   vars:
     az_resource_group_name: epm-ldi
     az_storage_account_name: storage11490
