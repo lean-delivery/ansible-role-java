@@ -10,9 +10,13 @@
     java_download_path: /tmp
     az_file_name: jdk-8u45-windows-x64.exe
   tasks:
-    - name: Debug ansible_date_time
-      debug:
-        var: ansible_date_time.iso8601_micro
+    - name: Set expiration period
+      set_fact:
+        sas_time_start: '{{ ansible_date_time.iso8601_micro }}'
+        sas_time_expire: >-
+          {{ ('%Y-%m-%dT%H:%M:%S'
+            | strftime(ansible_date_time.epoch|int + 300))
+            ~ (ansible_date_time.iso8601_micro | splitext)[1] }}
 
     - name: Generate access signature
       azure_rm_resource:
@@ -27,7 +31,8 @@
           canonicalizedResource: '/blob/{{ az_storage_account_name }}/{{ az_container_name }}/{{ az_file_name }}'
           signedResource: b
           signedPermission: r
-          signedExpiry: '2019-11-13T20:52:48.8457197Z'
+          signedStart: '{{ sas_time_start }}'
+          signedExpiry: '{{ sas_time_expire }}'
       register: storage_sig
       changed_when: false
 

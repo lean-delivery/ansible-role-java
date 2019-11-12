@@ -11,17 +11,17 @@ lint:
     config-file: .yamllint
 platforms:
 
-  # - name: test-azure-Windows2016-oracle_java-8-web
-  #   platform: windows2016core
-  #   vm_size: Standard_D2s_v3
-  #   az_location: northeurope
-  #   az_resource_group_name: epm-ldi
-  #   az_virtual_network_name: epm-ldi-northeurope-vnet
-  #   az_subnet_name: epm-ldi-northeurope-subnet
-  #   az_network_security_group: epm-ldi-northeurope-sg
-  #   groups:
-  #     - windows
-  #     - web
+  - name: test-azure-Windows2016-oracle_java-8-web
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - web
 
   - name: test-azure-Windows2019-oracle_java-8-s3-local
     platform: windows2019core
@@ -56,7 +56,9 @@ provisioner:
         java_distribution: oracle_java
         transport: web
         java_tarball_install: false
-        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-8u45-windows-x64.exe"
+        transport_web: "https://storage11490.blob.core.windows.net/\
+                        oracle-java/jdk-8u45-windows-x64.exe?\
+                        {{ hostvars['localhost']['storage_sig']['response']['serviceSasToken'] }}"
         java_unlimited_policy_transport: oracle-fallback
         java_unlimited_policy_enabled: true
   playbooks:
