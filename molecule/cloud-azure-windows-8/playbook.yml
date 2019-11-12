@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  pre_task:
+  pre_tasks:
     - name: debug sas link
       debug:
         var: hostvars['localhost']['storage_sig']
