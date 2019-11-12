@@ -253,7 +253,7 @@ AZURE adoptopenjdk Windows:
   script:
     - molecule test -s cloud-azure-adoptopenjdk-windows
   tags:
-    - aws
+    - azure
 
 .AWS adoptopenjdk Windows:
   variables:
