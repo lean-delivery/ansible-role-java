@@ -24,6 +24,7 @@
           signedPermission: r
           signedExpiry: '2019-11-13T20:52:48.8457197Z'
       register: storage_sig
+      changed_when: false
 
 - name: Converge
   hosts: all
