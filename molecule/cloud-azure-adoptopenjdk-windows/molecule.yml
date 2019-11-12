@@ -72,7 +72,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: false
+  log: true
   inventory:
     group_vars:
       adoptopenjdk:

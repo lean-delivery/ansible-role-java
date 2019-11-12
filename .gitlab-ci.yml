@@ -69,7 +69,7 @@ Lint:
   tags:
     - aws
 
-AZURE java-8 Windows:
+.AZURE java-8 Windows:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-windows-8
