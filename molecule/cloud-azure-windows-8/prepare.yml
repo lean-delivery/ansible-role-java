@@ -30,5 +30,5 @@
           canonicalizedResource: '/blob/{{ az_storage_account_name }}/{{ az_container_name }}/{{ az_file_name }}'
           signedResource: b
           signedPermission: r
-          signedExpiry: 2019-11-13T19:32:48.8457197Z
+          signedExpiry: 2019-11-13T20:52:48.8457197Z
       register: storage_sig
