@@ -10,16 +10,6 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-azure-ubuntu18-javaa
-    platform: ubuntu18
-    vm_size: Standard_D2s_v3
-    az_location: northeurope
-    az_resource_group_name: epm-ldi
-    az_virtual_network_name: epm-ldi-northeurope-vnet
-    az_subnet_name: epm-ldi-northeurope-subnet
-    az_network_security_group: epm-ldi-northeurope-sg
-    groups:
-      - debian_family
 
   # - name: test-azure-Windows2016-oracle_java-8-web
   #   platform: windows2016core
@@ -33,16 +23,17 @@ platforms:
   #     - windows
   #     - web
 
-  # - name: test-azure-Windows2019-javaa
-  #   platform: windows2019core
-  #   vm_size: Standard_D2s_v3
-  #   az_location: northeurope
-  #   az_resource_group_name: epm-ldi
-  #   az_virtual_network_name: epm-ldi-northeurope-vnet
-  #   az_subnet_name: epm-ldi-northeurope-subnet
-  #   az_network_security_group: epm-ldi-northeurope-sg
-  #   groups:
-  #     - windows
+  - name: test-azure-Windows2019-oracle_java-8-s3-local
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - local
 provisioner:
   name: ansible
   log: true
@@ -56,11 +47,23 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
+      local:
+        java_distribution: oracle_java
+        transport: local
+        java_tarball_install: false
+        transport_local: /tmp/jdk-8u202-windows-x64.exe
+      web:
+        java_distribution: oracle_java
+        transport: web
+        java_tarball_install: false
+        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-8u45-windows-x64.exe"
+        java_unlimited_policy_transport: oracle-fallback
+        java_unlimited_policy_enabled: true
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
-    prepare: ../resources/provisioning/AZURE/prepare.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
-    verify: ../resources/tests/verify.yml
+    verify: ../resources/tests/verify_win.yml
   lint:
     name: ansible-lint
 scenario:
