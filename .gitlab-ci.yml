@@ -248,6 +248,13 @@ AZURE java-8 Windows:
   tags:
     - aws
 
+AZURE adoptopenjdk Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-adoptopenjdk-windows
+  tags:
+    - aws
+
 .AWS adoptopenjdk Windows:
   variables:
     AWS_REGION: us-east-1
