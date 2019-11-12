@@ -25,7 +25,7 @@
               /resourceGroups/{{ az_resource_group_name }}/providers/\
               Microsoft.Storage/storageAccounts/\
               {{ az_storage_account_name }}/ListServiceSas/"
-        api_version: 2019-06-01
+        api_version: '2019-06-01'
         body:
           canonicalizedResource: '/blob/{{ az_storage_account_name }}/{{ az_container_name }}/{{ az_file_name }}'
           signedResource: b
