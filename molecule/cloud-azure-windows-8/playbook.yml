@@ -1,7 +1,8 @@
 ---
 - name: Generate SAS link
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
+  ansible_connection: local
   vars:
     az_resource_group_name: epm-ldi
     az_storage_account_name: storage11490
@@ -9,6 +10,10 @@
     java_download_path: /tmp
     az_file_name: jdk-8u45-windows-x64.exe
   tasks:
+    - name: Debug ansible_date_time
+      debug:
+        var: ansible_date_time.iso8601_micro
+
     - name: Generate access signature
       azure_rm_resource:
         resource_group: '{{ az_resource_group_name }}'
@@ -32,7 +37,7 @@
     - name: debug sas link
       debug:
         var: hostvars['localhost']['storage_sig']
-  # roles:
-  #   - role: ansible-role-java
-  #     java_major_version: 8
-  #     java_path: C:\Temp\Java
+  roles:
+    - role: ansible-role-java
+      java_major_version: 8
+      java_path: C:\Temp\Java
