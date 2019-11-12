@@ -16,19 +16,3 @@
         container: '{{ az_container_name }}'
         blob: jdk-8u202-windows-x64.exe
         dest: '{{ java_download_path }}/jdk-8u202-windows-x64.exe'
-
-    - name: Generate access signature
-      azure_rm_resource:
-        resource_group: '{{ az_resource_group_name }}'
-        method: POST
-        url: "/subscriptions/{{ lookup('env','AZURE_SUBSCRIPTION_ID') }}\
-              /resourceGroups/{{ az_resource_group_name }}/providers/\
-              Microsoft.Storage/storageAccounts/\
-              {{ az_storage_account_name }}/ListServiceSas/"
-        api_version: '2019-06-01'
-        body:
-          canonicalizedResource: '/blob/{{ az_storage_account_name }}/{{ az_container_name }}/{{ az_file_name }}'
-          signedResource: b
-          signedPermission: r
-          signedExpiry: '2019-11-13T20:52:48.8457197Z'
-      register: storage_sig
