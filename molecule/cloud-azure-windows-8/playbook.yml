@@ -1,6 +1,10 @@
 ---
 - name: Converge
   hosts: all
+  pre_task:
+    - name: debug sas link
+      debug:
+        var: hostvars['localhost']['storage_sig']
   roles:
     - role: ansible-role-java
       java_major_version: 8
