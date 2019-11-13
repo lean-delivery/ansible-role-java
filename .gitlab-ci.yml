@@ -146,6 +146,13 @@ AZURE openjdk-13 Windows chocolatey:
   tags:
     - aws
 
+AZURE openjdk-ga Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-openjdk-windows-ga
+  tags:
+    - azure
+
 .AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
@@ -255,7 +262,7 @@ AZURE openjdk-13 Windows chocolatey:
   tags:
     - aws
 
-AZURE adoptopenjdk Windows:
+.AZURE adoptopenjdk Windows:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-adoptopenjdk-windows
