@@ -85,6 +85,13 @@ Lint:
   tags:
     - aws
 
+AZURE openjdk-13 Windows chocolatey:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-openjdk13-chocolatey
+  tags:
+    - azure
+
 .AWS java-11:
   variables:
     AWS_REGION: us-east-1
