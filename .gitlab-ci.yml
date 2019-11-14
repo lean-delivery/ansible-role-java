@@ -85,7 +85,7 @@ Lint:
   tags:
     - aws
 
-AZURE openjdk-13 Windows chocolatey:
+.AZURE openjdk-13 Windows chocolatey:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-windows-openjdk13-chocolatey
@@ -162,6 +162,13 @@ AZURE openjdk-ga Windows:
   tags:
     - aws
 
+AZURE java-11 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-11
+  tags:
+    - azure
+
 .AWS java-12:
   variables:
     AWS_REGION: us-east-1
@@ -179,6 +186,13 @@ AZURE openjdk-ga Windows:
     - molecule test -s cloud-aws-windows-12
   tags:
     - aws
+
+AZURE java-12 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-12
+  tags:
+    - azure
 
 .AWS sapjvm-8:
   variables:
