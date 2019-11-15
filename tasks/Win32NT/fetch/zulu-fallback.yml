@@ -1,5 +1,5 @@
 ---
-- name: 'Fetch download page'
+- name: Fetch download page
   win_uri:
     url: "{{ zulu_api_page }}\
       /bundles/latest/\
@@ -10,40 +10,19 @@
     follow_redirects: all
   register: root_page
 
-- name: Find release url and checksum
+- name: Set artifact checksum and url
   set_fact:
-    release_url: >-
-      {{ [(root_page.content | from_json).url] + [(root_page.content | from_json).md5_hash] }}
+    artifact_url: >-
+      {{ (root_page.content | from_json).url }}
+    artifact_checksum: >-
+      {{ (root_page.content | from_json).md5_hash }}
 
-- name: 'Get artifact checksum {{ release_url[1] }}'
-  set_fact:
-    artifact_checksum:
-      content: >-
-        {{ release_url[1] }}
-
-- name: Exit if Zulu version is not found
-  fail:
-    msg: 'Zulu version {{ java_major_version }} not found'
-  when: release_url is not defined
-
-- name: debug release_url
-  debug:
-    var: release_url
-
-- name: debug artifact_checksum
-  debug:
-    var: artifact_checksum
-
-- name: debug checksum_alg
-  debug:
-    var: checksum_alg
-
-- name: 'Download artifact from {{ release_url[0] }}'
+- name: 'Download artifact from {{ artifact_url }}'
   win_get_url:
-    url: '{{ release_url[0] }}'
+    url: '{{ artifact_url }}'
     dest: '{{ java_download_path }}'
     force: true
-    checksum: '{{ artifact_checksum.content }}'
+    checksum: '{{ artifact_checksum }}'
     checksum_algorithm: '{{ checksum_alg }}'
   register: file_downloaded
   retries: 20
