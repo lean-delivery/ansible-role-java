@@ -247,6 +247,20 @@ AZURE sapjvm-8 Windows:
   tags:
     - aws
 
+AZURE zulu-12 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-zulu-12
+  tags:
+    - azure
+
+AZURE zulu-12 Windows chocolatey:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-zulu12-chocolatey
+  tags:
+    - azure
+
 .EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
