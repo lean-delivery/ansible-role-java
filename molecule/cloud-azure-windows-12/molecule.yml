@@ -10,10 +10,10 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-
-  - name: test-azure-Windows2016-oracle_java-8-web
+  - name: test-azure-windows2016-oracle_java-12-zip
     platform: windows2016core
     vm_size: Standard_D2s_v3
+    assign_public_ip: false
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
@@ -21,11 +21,12 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - web
+      - zip
 
-  - name: test-azure-Windows2019-oracle_java-8-s3-local
+  - name: test-azure-windows2019-oracle_java-12-exe
     platform: windows2019core
     vm_size: Standard_D2s_v3
+    assign_public_ip: false
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
@@ -33,43 +34,42 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - local
+      - exe
+
 provisioner:
   name: ansible
-  log: true
+  log: false
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
       windows:
-        ansible_connection: winrm
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
-      local:
+        ansible_connection: winrm
+      zip:
         java_distribution: oracle_java
+        java_tarball_install: true
         transport: local
-        java_tarball_install: false
-        transport_local: /tmp/jdk-8u202-windows-x64.exe
-      web:
+        transport_local: /tmp/jdk-12.0.1_windows-x64_bin.zip
+      exe:
         java_distribution: oracle_java
         transport: web
         java_tarball_install: false
         transport_web: "https://storage11490.blob.core.windows.net/\
-                        oracle-java/jdk-8u45-windows-x64.exe?\
+                        oracle-java/jdk-12.0.1_windows-x64_bin.exe?\
                         {{ hostvars['localhost']['storage_sig']['response']['serviceSasToken'] }}"
-        java_unlimited_policy_transport: oracle-fallback
-        java_unlimited_policy_enabled: true
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
-    prepare: prepare.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
+    prepare: prepare.yml
     verify: ../resources/tests/verify_win.yml
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-windows-8
+  name: cloud-azure-windows-12
 verifier:
   name: ansible
   lint:

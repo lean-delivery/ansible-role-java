@@ -4,16 +4,16 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: azure
+  name: ec2
 lint:
   name: yamllint
   options:
     config-file: .yamllint
 platforms:
-
-  - name: test-azure-Windows2016-oracle_java-8-web
+  - name: test-azure-windows2016-zulu-12
     platform: windows2016core
     vm_size: Standard_D2s_v3
+    assign_public_ip: false
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
@@ -21,11 +21,12 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - web
+      - zulu
 
-  - name: test-azure-Windows2019-oracle_java-8-s3-local
+  - name: test-azure-windows2019-zulu-12
     platform: windows2019core
     vm_size: Standard_D2s_v3
+    assign_public_ip: false
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
@@ -33,7 +34,8 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - local
+      - zulu
+
 provisioner:
   name: ansible
   log: true
@@ -47,29 +49,17 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
-      local:
-        java_distribution: oracle_java
-        transport: local
-        java_tarball_install: false
-        transport_local: /tmp/jdk-8u202-windows-x64.exe
-      web:
-        java_distribution: oracle_java
-        transport: web
-        java_tarball_install: false
-        transport_web: "https://storage11490.blob.core.windows.net/\
-                        oracle-java/jdk-8u45-windows-x64.exe?\
-                        {{ hostvars['localhost']['storage_sig']['response']['serviceSasToken'] }}"
-        java_unlimited_policy_transport: oracle-fallback
-        java_unlimited_policy_enabled: true
+      zulu:
+        java_distribution: zulu
+        transport: zulu-fallback
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
-    prepare: prepare.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
     verify: ../resources/tests/verify_win.yml
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-windows-8
+  name: cloud-azure-windows-zulu-12
 verifier:
   name: ansible
   lint:

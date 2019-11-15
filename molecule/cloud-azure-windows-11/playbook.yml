@@ -8,7 +8,7 @@
     az_storage_account_name: storage11490
     az_container_name: oracle-java
     java_download_path: /tmp
-    az_file_name: jdk-8u45-windows-x64.exe
+    az_file_name: jdk-11.0.3_windows-x64_bin.exe
   tasks:
     - name: Set expiration period
       set_fact:
@@ -26,7 +26,6 @@
               /resourceGroups/{{ az_resource_group_name }}/providers/\
               Microsoft.Storage/storageAccounts/\
               {{ az_storage_account_name }}/ListServiceSas/"
-        api_version: '2019-06-01'
         body:
           canonicalizedResource: '/blob/{{ az_storage_account_name }}/{{ az_container_name }}/{{ az_file_name }}'
           signedResource: b
@@ -40,5 +39,4 @@
   hosts: all
   roles:
     - role: ansible-role-java
-      java_major_version: 8
       java_path: C:\Temp\Java
