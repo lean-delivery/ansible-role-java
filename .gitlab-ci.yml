@@ -350,7 +350,7 @@ AZURE zulu-12 Windows:
   tags:
     - aws
 
-AZURE sapmachine-windows:
+.AZURE sapmachine-windows:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-sapmachine-windows

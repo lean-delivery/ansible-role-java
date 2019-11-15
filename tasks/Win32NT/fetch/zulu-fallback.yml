@@ -26,9 +26,21 @@
     msg: 'Zulu version {{ java_major_version }} not found'
   when: release_url is not defined
 
+- name: debug release_url
+  debug:
+    var: release_url
+
+- name: debug artifact_checksum
+  debug:
+    var: artifact_checksum
+
+- name: debug checksum_alg
+  debug:
+    var: checksum_alg
+
 - name: 'Download artifact from {{ release_url[0] }}'
   win_get_url:
-    url: '{{ release_url }}'
+    url: '{{ release_url[0] }}'
     dest: '{{ java_download_path }}'
     force: true
     checksum: '{{ artifact_checksum.content }}'
