@@ -255,7 +255,7 @@ AZURE zulu-12 Windows:
   tags:
     - azure
 
-AZURE zulu-12 Windows chocolatey:
+.AZURE zulu-12 Windows chocolatey:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-windows-zulu12-chocolatey
