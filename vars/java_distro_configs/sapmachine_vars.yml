@@ -4,17 +4,17 @@ parts: >-
     | regex_findall('^.*(j[dkre]{2})-([0-9]+)\.?([0-9.]+)?[-_]([a-z]+)-(x64|i586).*')
     | first | list }}
 
-java_package_suffix: >-
-  {{ (java_major_version == 11) | ternary(java_major_version, '') }}
+choco_java_package: 'sapmachine{{ java_major_version }}'
 
-choco_java_package: 'openjdk{{ java_package_suffix }}'
+choco_path: 'C:\Program Files\SapMachine'
 
-choco_path: 'C:\Program Files\OpenJDK'
+java_folder: '{{ java_major_version }}'
 
-java_folder_ext_transport: >-
-  {{ ((java_minor_version | default('') | string).find('*') != -1)
-      | ternary(java_package + '-'  + java_major_version|string,
-                java_def_folder_ext_transport) }}
+release_page: >-
+  {{ sapmachine_api_page|string + java_distribution|string + '-'
+      + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string) }}
 
-java_folder: >-
-  {{ (not java_tarball_install | bool and (ansible_system == 'Linux')) | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
+release_name: >-
+  {{ java_distribution|string + '-' + java_package|string + '-'
+  + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string)
+        + '_' + (ansible_system == 'Win32NT') | ternary('windows', ansible_system|lower ) + '-' + java_arch|string + '_bin' }}

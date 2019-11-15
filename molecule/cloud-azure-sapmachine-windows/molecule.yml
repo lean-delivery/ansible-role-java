@@ -4,22 +4,21 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: ec2
+  name: azure
 lint:
   name: yamllint
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-sapmachine-tarball-13
-    aws_image_id: ami-00a20f508263efd30
+  - name: test-azure-windows2016-sapmachine-tarball-13
     platform: windows2016core
-    aws_region: us-east-1
-    instance_type: m5.large
+    vm_size: Standard_D2s_v3
     assign_public_ip: false
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
       - sapmachine
@@ -27,16 +26,15 @@ platforms:
       - sapmachine_fallback
       - ver13
 
-  - name: test-aws-windows2019-sapmachine-tarball-11
-    aws_image_id: ami-0477b9335a5a75438
+  - name: test-azure-windows2019-sapmachine-tarball-11
     platform: windows2019core
-    aws_region: us-east-1
-    instance_type: m5.large
+    vm_size: Standard_D2s_v3
     assign_public_ip: false
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
       - sapmachine
@@ -44,16 +42,15 @@ platforms:
       - sapmachine_fallback
       - ver11
 
-  - name: test-aws-windows2019-sapmachine-chocolatey-13
-    aws_image_id: ami-0477b9335a5a75438
+  - name: test-azure-windows2019-sapmachine-chocolatey-13
     platform: windows2019core
-    aws_region: us-east-1
-    instance_type: m5.large
+    vm_size: Standard_D2s_v3
     assign_public_ip: true
-    spot_price: 0.14
-    aws_sec_group:
-      - default
-    vpc_subnet_id: subnet-314c223d
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
       - sapmachine
@@ -82,8 +79,8 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
         ansible_connection: winrm
   playbooks:
-    create: ../resources/provisioning/AWS/create.yml
-    destroy: ../resources/provisioning/AWS/destroy.yml
+    create: ../resources/provisioning/AZURE/create.yml
+    destroy: ../resources/provisioning/AZURE/destroy.yml
     verify: ../resources/tests/verify_win.yml
   config_options:
     defaults:
@@ -91,7 +88,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-sapmachine-windows
+  name: cloud-azure-sapmachine-windows
 verifier:
   name: ansible
   lint:

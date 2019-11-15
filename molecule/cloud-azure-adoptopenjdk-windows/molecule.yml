@@ -1,0 +1,112 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: azure
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-azure-windows2016-adoptopenjdk-tarball-13
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - adoptopenjdk
+      - hotspot
+      - jdk
+      - adoptopenjdk_fallback
+
+  - name: test-azure-windows2019-adoptopenjdk-tarball-13
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - adoptopenjdk
+      - openj9
+      - jre
+      - adoptopenjdk_fallback
+
+  - name: test-azure-windows2016-adoptopenjdk-chocolatey-13
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - adoptopenjdk
+      - hotspot
+      - jdk
+      - chocolatey
+
+  - name: test-azure-windows2019-adoptopenjdk-chocolatey-13
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - adoptopenjdk
+      - openj9
+      - jre
+      - chocolatey
+
+provisioner:
+  name: ansible
+  log: true
+  inventory:
+    group_vars:
+      adoptopenjdk:
+        java_distribution: adoptopenjdk
+        java_major_version: 13
+      jdk:
+        java_package: jdk
+      jre:
+        java_package: jre
+      openj9:
+        adoptopenjdk_impl: openj9
+      hotspot:
+        adoptopenjdk_impl: hotspot
+      adoptopenjdk_fallback:
+        transport: adoptopenjdk-fallback
+      chocolatey:
+        transport: chocolatey
+      windows:
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
+        ansible_winrm_transport: credssp
+        ansible_winrm_server_cert_validation: ignore
+        ansible_connection: winrm
+  playbooks:
+    create: ../resources/provisioning/AZURE/create.yml
+    destroy: ../resources/provisioning/AZURE/destroy.yml
+    verify: ../resources/tests/verify_win.yml
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-azure-adoptopenjdk-windows
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

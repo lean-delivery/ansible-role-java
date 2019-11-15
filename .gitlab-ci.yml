@@ -24,7 +24,7 @@ Lint:
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
-    - aws
+    - lint
 
 Docker java-on-defaults:
   stage: deployment test
@@ -42,7 +42,7 @@ AWS java-6:
   tags:
     - aws
 
-.AWS java-7:
+AWS java-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -60,7 +60,8 @@ AWS java-8:
   tags:
     - aws
 
-AWS java-8 Windows:
+# Windows tests are preferrably run in Azure
+.AWS java-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -69,7 +70,15 @@ AWS java-8 Windows:
   tags:
     - aws
 
-AWS openjdk-13 Windows chocolatey:
+AZURE java-8 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-8
+  tags:
+    - azure
+
+# Windows tests are preferrably run in Azure
+.AWS openjdk-13 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -78,7 +87,15 @@ AWS openjdk-13 Windows chocolatey:
   tags:
     - aws
 
-.AWS java-11:
+# Windows tests are preferrably run in Azure
+.AZURE openjdk-13 Windows chocolatey:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-openjdk13-chocolatey
+  tags:
+    - azure
+
+AWS java-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -96,7 +113,7 @@ AWS openjdk-8:
   tags:
     - aws
 
-AWS openjdk-11:
+.AWS openjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -105,7 +122,7 @@ AWS openjdk-11:
   tags:
     - aws
 
-.AWS openjdk-12:
+AWS openjdk-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -123,7 +140,8 @@ AWS openjdk-ga:
   tags:
     - aws
 
-AWS openjdk-ga Windows:
+# Windows tests are preferrably run in Azure
+.AWS openjdk-ga Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -132,6 +150,14 @@ AWS openjdk-ga Windows:
   tags:
     - aws
 
+AZURE openjdk-ga Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-openjdk-windows-ga
+  tags:
+    - azure
+
+# Windows tests are preferrably run in Azure
 .AWS java-11 Windows:
   variables:
     AWS_REGION: us-east-1
@@ -140,6 +166,13 @@ AWS openjdk-ga Windows:
     - molecule test -s cloud-aws-windows-11
   tags:
     - aws
+
+AZURE java-11 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-11
+  tags:
+    - azure
 
 AWS java-12:
   variables:
@@ -150,7 +183,8 @@ AWS java-12:
   tags:
     - aws
 
-AWS java-12 Windows:
+# Windows tests are preferrably run in Azure
+.AWS java-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -158,6 +192,13 @@ AWS java-12 Windows:
     - molecule test -s cloud-aws-windows-12
   tags:
     - aws
+
+AZURE java-12 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-12
+  tags:
+    - azure
 
 AWS sapjvm-8:
   variables:
@@ -168,7 +209,8 @@ AWS sapjvm-8:
   tags:
     - aws
 
-AWS sapjvm-8 Windows:
+# Windows tests are preferrably run in Azure
+.AWS sapjvm-8 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -176,6 +218,13 @@ AWS sapjvm-8 Windows:
     - molecule test -s cloud-aws-windows-sapjvm-8
   tags:
     - aws
+
+AZURE sapjvm-8 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-sapjvm-8
+  tags:
+    - azure
 
 AWS zulu-12:
   variables:
@@ -186,8 +235,8 @@ AWS zulu-12:
   tags:
     - aws
 
-AWS zulu-12 Windows:
-  image: leandelivery/docker-ansible-ci:ansible-2.7
+# Windows tests are preferrably run in Azure
+.AWS zulu-12 Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -196,7 +245,8 @@ AWS zulu-12 Windows:
   tags:
     - aws
 
-AWS zulu-12 Windows chocolatey:
+# Windows tests are preferrably run in Azure
+.AWS zulu-12 Windows chocolatey:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -205,7 +255,21 @@ AWS zulu-12 Windows chocolatey:
   tags:
     - aws
 
-EPC java-8:
+AZURE zulu-12 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-zulu-12
+  tags:
+    - azure
+
+AZURE zulu-12 Windows chocolatey:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-zulu12-chocolatey
+  tags:
+    - azure
+
+.EPC java-8:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -223,7 +287,7 @@ AWS adoptopenjdk-8:
   tags:
     - aws
 
-AWS adoptopenjdk-11:
+.AWS adoptopenjdk-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -241,7 +305,15 @@ AWS adoptopenjdk-12:
   tags:
     - aws
 
-AWS adoptopenjdk Windows:
+AZURE adoptopenjdk Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-adoptopenjdk-windows
+  tags:
+    - azure
+
+# Windows tests are preferrably run in Azure
+.AWS adoptopenjdk Windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -250,16 +322,7 @@ AWS adoptopenjdk Windows:
   tags:
     - aws
 
-AWS sapmachine-10:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-sapmachine-10
-  tags:
-    - aws
-
-.AWS sapmachine-11:
+AWS sapmachine-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -268,7 +331,7 @@ AWS sapmachine-10:
   tags:
     - aws
 
-.AWS sapmachine-12:
+AWS sapmachine-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -286,7 +349,8 @@ AWS sapmachine-13:
   tags:
     - aws
 
-AWS sapmachine-windows:
+# Windows tests are preferrably run in Azure
+.AWS sapmachine-windows:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -294,3 +358,10 @@ AWS sapmachine-windows:
     - molecule test -s cloud-aws-sapmachine-windows
   tags:
     - aws
+
+AZURE sapmachine-windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-sapmachine-windows
+  tags:
+    - azure

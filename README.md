@@ -39,7 +39,7 @@ This Ansible role has the following features for:
 **SapMachine**
 
 - Install JDK, JRE
-- Additional opportunity to install from sapmachine-fallback, web, local source, s3.
+- Additional opportunity to install from sapmachine-fallback, web, local source, chocolatey (only latest version), s3.
 
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
@@ -95,11 +95,25 @@ Requirements
    - 11
    - 12
    - 13
- - **Supported SapMachine version**:
-   - 10
-   - 11
+- **Supported SapMachine version**:
+    - 11
+      - EL 7: sapmachine-fallback
+      - EL 8: sapmachine-fallback
+      - Ubuntu bionic: sapmachine-fallback
+      - Debian stretch: sapmachine-fallback
+      - Windows: chocolatey (only latest version, don't support java_minor_version variables), sapmachine-fallback
    - 12
+      - EL 7: tarball
+      - EL 8: tarball
+      - Ubuntu bionic: tarball
+      - Debian stretch: tarball
+      - Windows: tarball
    - 13
+      - EL 7: sapmachine-fallback
+      - EL 8: sapmachine-fallback
+      - Ubuntu bionic: sapmachine-fallback
+      - Debian stretch: sapmachine-fallback
+      - Windows: chocolatey (only latest version, don't support java_minor_version variables), sapmachine-fallback
  - **Supported OS**:
    - Ubuntu
      - bionic

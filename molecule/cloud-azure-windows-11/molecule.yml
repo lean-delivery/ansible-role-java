@@ -1,0 +1,76 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: azure
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-azure-windows2019-oracle_java-11-zip
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - zip
+
+  - name: test-azure-windows2016-oracle_java-11-exe
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - exe
+
+provisioner:
+  name: ansible
+  log: false
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      windows:
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
+        ansible_winrm_transport: credssp
+        ansible_winrm_server_cert_validation: ignore
+        ansible_connection: winrm
+      zip:
+        java_distribution: oracle_java
+        java_tarball_install: true
+        transport: local
+        transport_local: /tmp/jdk-11.0.3_windows-x64_bin.zip
+      exe:
+        java_distribution: oracle_java
+        transport: web
+        java_tarball_install: false
+        transport_web: "https://storage11490.blob.core.windows.net/\
+                        oracle-java/jdk-11.0.3_windows-x64_bin.exe?\
+                        {{ hostvars['localhost']['storage_sig']['response']['serviceSasToken'] }}"
+  playbooks:
+    create: ../resources/provisioning/AZURE/create.yml
+    destroy: ../resources/provisioning/AZURE/destroy.yml
+    prepare: prepare.yml
+    verify: ../resources/tests/verify_win.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-azure-windows-11
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
