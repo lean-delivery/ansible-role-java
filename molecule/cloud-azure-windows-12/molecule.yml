@@ -13,7 +13,7 @@ platforms:
   - name: test-azure-windows2016-oracle_java-12-zip
     platform: windows2016core
     vm_size: Standard_D2s_v3
-    assign_public_ip: true
+    assign_public_ip: false
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
@@ -26,7 +26,7 @@ platforms:
   - name: test-azure-windows2019-oracle_java-12-exe
     platform: windows2019core
     vm_size: Standard_D2s_v3
-    assign_public_ip: true
+    assign_public_ip: false
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet

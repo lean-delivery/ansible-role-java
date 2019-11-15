@@ -146,7 +146,7 @@ Lint:
   tags:
     - aws
 
-AZURE openjdk-ga Windows:
+.AZURE openjdk-ga Windows:
   stage: deployment test
   script:
     - molecule test -s cloud-azure-openjdk-windows-ga
@@ -211,6 +211,13 @@ AZURE java-12 Windows:
     - molecule test -s cloud-aws-windows-sapjvm-8
   tags:
     - aws
+
+AZURE sapjvm-8 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-sapjvm-8
+  tags:
+    - azure
 
 .AWS zulu-12:
   variables:
