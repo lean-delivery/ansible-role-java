@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
 
-  - name: test-aws-windows2016-openjdk-13-chocolatey
+  - name: test-azure-windows2016-openjdk-13-chocolatey
     platform: windows2016core
     vm_size: Standard_D2s_v3
     assign_public_ip: true
@@ -24,7 +24,7 @@ platforms:
       - windows
       - chocolatey
 
-  - name: test-aws-windows2019-openjdk-13-chocolatey
+  - name: test-azure-windows2019-openjdk-13-chocolatey
     platform: windows2019core
     vm_size: Standard_D2s_v3
     assign_public_ip: true

@@ -23,7 +23,7 @@ platforms:
       - windows
       - sapjvm
 
-  - name: test-aws-windows2019-sapjvm-8
+  - name: test-azure-windows2019-sapjvm-8
     platform: windows2019core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -60,7 +60,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-windows-sapjvm-8
+  name: cloud-azure-windows-sapjvm-8
 verifier:
   name: ansible
   lint:
