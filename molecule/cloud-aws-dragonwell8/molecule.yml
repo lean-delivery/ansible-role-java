@@ -15,8 +15,8 @@ platforms:
     platform: centos8
     instance_type: t3.medium
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -31,8 +31,8 @@ platforms:
     platform: centos7
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -47,8 +47,8 @@ platforms:
     platform: ubuntu18
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -63,8 +63,8 @@ platforms:
     platform: debian9
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default

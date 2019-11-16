@@ -15,7 +15,7 @@ platforms:
     platform: centos7
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
     spot_price: 0.04
     security_group_name:
@@ -34,7 +34,7 @@ platforms:
     platform: centos8
     instance_type: t3.medium
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
     spot_price: 0.04
     security_group_name:
@@ -53,7 +53,7 @@ platforms:
     platform: debian9
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
     spot_price: 0.04
     security_group_name:
@@ -72,7 +72,7 @@ platforms:
     platform: ubuntu18
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
     spot_price: 0.04
     security_group_name:
@@ -92,7 +92,7 @@ platforms:
     profile_name: epmldi-instance-profile
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
     spot_price: 0.04
     security_group_name:
