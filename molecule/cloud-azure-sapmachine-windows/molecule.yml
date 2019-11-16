@@ -13,7 +13,7 @@ platforms:
   - name: test-azure-windows2016-sapmachine-tarball-13
     platform: windows2016core
     vm_size: Standard_D2s_v3
-    assign_public_ip: false
+    assign_public_ip: true
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
@@ -29,7 +29,7 @@ platforms:
   - name: test-azure-windows2019-sapmachine-tarball-11
     platform: windows2019core
     vm_size: Standard_D2s_v3
-    assign_public_ip: false
+    assign_public_ip: true
     az_location: northeurope
     az_resource_group_name: epm-ldi
     az_virtual_network_name: epm-ldi-northeurope-vnet
