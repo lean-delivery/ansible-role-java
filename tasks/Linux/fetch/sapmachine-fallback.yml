@@ -1,22 +1,46 @@
 ---
-- name: 'Fetch version page'
-  uri:
-    url: 'https://sap.github.io/SapMachine/latest/{{ java_major_version }}'
-    return_content: true
-    follow_redirects: all
-  register: version_page
+- name: 'Prepare for latest minor version'
+  block:
+    - name: 'Fetch version page'
+      uri:
+        url: 'https://sap.github.io/SapMachine/latest/{{ java_major_version }}/'
+        return_content: true
+        status_code: [200, 404]
+      register: version_page
 
-- name: Find release version
+    - name: Find release version
+      set_fact:
+        release_version: >-
+          {{ version_page.content | regex_search('(1.*[.|-]\d)') }}
+  when: java_minor_version == '*'
+
+- name: 'Fetch artifact page'
+  uri:
+    url: '{{ release_page }}'
+    status_code: [200, 404]
+    return_content: true
+    body_format: json
+  register: artifact_page
+
+- name: Exit if SapMachine version is wrong
+  fail:
+    msg: >-
+      {{ 'SapMachine version ' + java_major_version|string
+              + (java_minor_version == '*') | ternary('', '.' + java_minor_version|string)
+                  + '_' + java_arch|string + ' for Linux is not supported!' }}
+  when: artifact_page.status == 404
+
+- name: Get artifact link
   set_fact:
-    full_version: >-
-      {{ version_page.content | regex_findall('(1.*[.|-]\d)') +
-          version_page.content | regex_findall('(1.*[.|\d]\d)') }}
+    artifact_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".tar.gz'].browser_download_url\") }}"
+
+- name: Get checksum link
+  set_fact:
+    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".sha256.txt'].browser_download_url\") }}"
 
 - name: 'Fetch artifact checksum file'
   uri:
-    url: "{{ sapmachine_root_page }}{{ java_distribution }}-{{ full_version[0] }}/\
-      {{ java_distribution }}-{{ java_package }}-{{ full_version[-1] | replace('%2B','.') }}\
-      _linux-x64_bin.sha256.txt"
+    url: '{{ checksum_link[0] }}'
     return_content: true
   register: artifact_checksum_file
 
@@ -27,9 +51,7 @@
 
 - name: 'Download artifact'
   get_url:
-    url: "{{ sapmachine_root_page }}{{ java_distribution }}-{{ full_version[0] }}/\
-      {{ java_distribution }}-{{ java_package }}-{{ full_version[-1] | replace('%2B','.') }}\
-      _linux-x64_bin.tar.gz"
+    url: '{{ artifact_link[0] }}'
     dest: '{{ java_download_path }}'
     checksum: 'sha256:{{ artifact_checksum }}'
   register: file_downloaded

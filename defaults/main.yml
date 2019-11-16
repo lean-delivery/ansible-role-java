@@ -5,8 +5,8 @@
 #  - sapjvm
 #  - zulu
 #  - adoptopenjdk (not supported 9/10)
-#  - sapmachine (suported only 10/11/12/13)
 #  - alibaba_dragonwell (8 only)
+#  - sapmachine
 java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk

@@ -1,0 +1,18 @@
+---
+- name: Prepare host to S3 transport
+  hosts: localhost
+  gather_facts: false
+  vars:
+    az_resource_group_name: epm-ldi
+    az_storage_account_name: storage11490
+    az_container_name: oracle-java
+    java_download_path: /tmp
+    az_file_name: jdk-8u45-windows-x64.exe
+  tasks:
+    - name: Download artifact from Storage Blob
+      azure_rm_storageblob:
+        resource_group: '{{ az_resource_group_name }}'
+        storage_account_name: '{{ az_storage_account_name }}'
+        container: '{{ az_container_name }}'
+        blob: jdk-8u202-windows-x64.exe
+        dest: '{{ java_download_path }}/jdk-8u202-windows-x64.exe'

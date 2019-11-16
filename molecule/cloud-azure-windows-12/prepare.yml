@@ -1,0 +1,19 @@
+---
+- name: Prepare host to S3 transport
+  hosts: localhost
+  gather_facts: false
+  vars:
+    az_resource_group_name: epm-ldi
+    az_storage_account_name: storage11490
+    az_container_name: oracle-java
+    java_download_path: /tmp
+  tasks:
+    - name: Download artifact from Storage Blob
+      azure_rm_storageblob:
+        resource_group: '{{ az_resource_group_name }}'
+        storage_account_name: '{{ az_storage_account_name }}'
+        container: '{{ az_container_name }}'
+        blob: '{{ item }}'
+        dest: '{{ java_download_path }}/{{ item }}'
+      loop:
+        - jdk-12.0.1_windows-x64_bin.zip
