@@ -10,13 +10,13 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-openjdk-11-repo
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: t3.micro
+  - name: test-aws-centos8-dragonwell8
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: t3.medium
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -24,32 +24,31 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - repositories
+      - dragonwell8
 
-  - name: test-aws-centos6-openjdk-11-tarball
-    image: ami-1585c46a
-    platform: centos6
-    instance_type: t2.medium
+  - name: test-aws-centos7-dragonwell8
+    image: ami-9887c6e7
+    platform: centos7
+    instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.05
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
     security_group_name:
       - default
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
-     - web
-     - tarball
+      - rhel_family
+      - dragonwell8
 
-  - name: test-aws-ubuntu18-openjdk-11-repo
+  - name: test-aws-ubuntu18-dragonwell8
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
     spot_price: 0.04
     security_group_name:
       - default
@@ -57,7 +56,23 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - repositories
+      - dragonwell8
+
+  - name: test-aws-Debian9-dragonwell8
+    image: ami-003f19e0e687de1cd
+    platform: debian9
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - dragonwell8
 
 provisioner:
   name: ansible
@@ -67,17 +82,10 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
-      web:
-        transport: web
-        transport_web: "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
-      tarball:
-        java_distribution: openjdk
-        java_tarball_install: true
-      repositories:
-        java_distribution: openjdk
-        java_major_version: 11
-        transport: repositories
-        java_tarball_install: false
+      dragonwell8:
+        java_distribution: dragonwell8
+        transport: dragonwell8-fallback
+        java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/provisioning/AWS/prepare.yml
@@ -86,7 +94,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-openjdk-11
+  name: cloud-aws-dragonwell8
 verifier:
   name: ansible
   lint:

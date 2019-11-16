@@ -1,0 +1,49 @@
+---
+- name: Check requested major version for Alibaba Dragonwell
+  fail:
+    msg: "Alibaba Dragonwell corresponds to OpenJDK 8 only"
+  when: java_major_version != 8
+
+- name: Check requested architecture for Alibaba Dragonwell
+  fail:
+    msg: "Alibaba Dragonwell JDK currently supports Linux/x86_64 platform only"
+  when: java_arch != "x64"
+
+- name: Prepare GitHub API release tag
+  set_fact:
+    sub_uri: >-
+      {{ ((java_minor_version != '*')
+        | ternary('tags/v{{ java_major_version }}.{{ java_minor_version }}-GA', 'latest')) }}
+
+- name: Fetch Dragonwell version by tag
+  uri:
+    url: "{{ github_api_page }}/repos/alibaba/dragonwell8/releases/{{ sub_uri }}"
+    return_content: true
+    body_format: json
+    status_code: [200, 404] # Not found case we are handling below
+  register: response
+
+- name: Exit if Dragonwell version is not found
+  fail:
+    msg: 'Dragonwell version {{ java_major_version }}.{{ java_minor_version }} not found'
+  when: response.status == 404
+
+# Transform Release name to Asset name
+# Release name sample: Alibaba Dragonwell 8.1.1-GA
+# Asset name sample: Alibaba_Dragonwell_8.1.1-GA_Linux_x64.tar.gz
+- name: Prepare release asset name
+  set_fact:
+    asset_name: "{{ (response.json.name | regex_replace(' ', '_')) + '_Linux_x64.tar.gz' }}"
+
+- name: Get release URL
+  set_fact:
+    release_url: "{{ response.json | json_query(\"assets[?name=='\" + asset_name + \"'].browser_download_url\") }}"
+
+- name: Download artifact from {{ release_url[0] }}
+  get_url:
+    url: '{{ release_url[0] }}'
+    dest: '{{ java_download_path }}'
+  register: file_downloaded
+  retries: 20
+  delay: 5
+  until: file_downloaded is succeeded

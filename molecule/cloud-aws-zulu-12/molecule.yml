@@ -13,7 +13,7 @@ platforms:
   - name: test-aws-centos7-zulu-12
     image: ami-9887c6e7
     platform: centos7
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
@@ -29,7 +29,7 @@ platforms:
   - name: test-aws-ubuntu18-zulu-12
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-314c223d
     assign_public_ip: true
@@ -45,7 +45,7 @@ platforms:
   - name: test-aws-Debian9-zulu-12
     image: ami-003f19e0e687de1cd
     platform: debian9
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-314c223d
     assign_public_ip: true

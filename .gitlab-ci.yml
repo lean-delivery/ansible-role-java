@@ -359,6 +359,15 @@ AWS sapmachine-13:
   tags:
     - aws
 
+AWS Alibaba Dragonwell8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-dragonwell8
+  tags:
+    - aws
+
 AZURE sapmachine-windows:
   stage: deployment test
   script:

@@ -15,11 +15,11 @@ platforms:
     platform: windows2016core
     aws_region: us-east-1
     instance_type: m5.large
-    assign_public_ip: false
+    assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - sapmachine
@@ -32,11 +32,11 @@ platforms:
     platform: windows2019core
     aws_region: us-east-1
     instance_type: m5.large
-    assign_public_ip: false
+    assign_public_ip: true
     spot_price: 0.14
     aws_sec_group:
       - default
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-314c223d
     groups:
       - windows
       - sapmachine

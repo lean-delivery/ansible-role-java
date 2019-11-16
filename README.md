@@ -41,6 +41,13 @@ This Ansible role has the following features for:
 - Install JDK, JRE
 - Additional opportunity to install from sapmachine-fallback, web, local source, chocolatey (only latest version), s3.
 
+**Alibaba Dragonwell 8 JDK**
+
+- Install JDK
+- Alibaba Dragonwell 8 corresponds to OpenJDK 8 and is compatible with the Java SE Standard
+- Linux/x86_64 platform only
+- Additional opportunity to install from dragonwell8-fallback, web, local source, s3.
+
 DISCLAIMER: usage of any version of this role implies you have accepted the
 [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
@@ -114,6 +121,9 @@ Requirements
       - Ubuntu bionic: sapmachine-fallback
       - Debian stretch: sapmachine-fallback
       - Windows: chocolatey (only latest version, don't support java_minor_version variables), sapmachine-fallback
+ - **Supported Alibaba Dragonwell version**:
+   - 8.0.0
+   - 8.1.1
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -138,6 +148,7 @@ Requirements
      - `zulu`
      - `adoptopenjdk`
      - `sapmachine`
+     - `dragonwell8`
 
         **Notice**: this variable is mandatory in case of installing other distribution than 'openjdk'.
 
@@ -147,7 +158,7 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only),`sapmachine-fallback`(SapMachine only), `zulu-fallback`(ZULU only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only),`sapmachine-fallback`(SapMachine only), `zulu-fallback`(ZULU only), `dragonwell8-fallback`(Alibaba Dragonwell only), `local`, `web` or `s3` for more predictable result.
 
     Available:
       - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
@@ -159,6 +170,7 @@ Requirements
       - `zulu-fallback` fetching artifact from AZUL site.
       - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
       - `sapmachine-fallback` fetching artifact from SapMachine site.
+      - `dragonwell8-fallback` fetching artifact from GitHub.
       - `openjdk-fallback` fetching artifact from jdk.java.net.
          This is default value for `transport` variable
 
@@ -345,6 +357,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       adoptopenjdk_impl: openj9
       java_major_version: 8
 ```
+
 ### Installing SapMachine sapmachine-jre-10 from sapmachine-fallback:
 ```yaml
 - name: Install SapMachine
@@ -356,6 +369,17 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: sapmachine-fallback
       java_package: jre
       java_major_version: 10
+```
+### Installing Alibaba Dragonwell 8 from dragonwell8-fallback:
+```yaml
+- name: Install Alibaba Dragonwell8
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: dragonwell8
+      transport: dragonwell8-fallback
+      java_major_version: 8
 ```
 License
 -------
