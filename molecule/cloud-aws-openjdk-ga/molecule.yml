@@ -13,7 +13,7 @@ platforms:
   - name: test-aws-centos8-openjdk-ga
     image: ami-0ed2ad9dc845b42b6
     platform: centos8
-    instance_type: m5.large
+    instance_type: t3.medium
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -28,7 +28,7 @@ platforms:
   - name: test-aws-centos7-openjdk-ga
     image: ami-9887c6e7
     platform: centos7
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -58,7 +58,7 @@ platforms:
   - name: test-aws-ubuntu18-openjdk-ga
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -73,7 +73,7 @@ platforms:
   - name: test-aws-Debian9-openjdk-ga
     image: ami-003f19e0e687de1cd
     platform: debian9
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -88,7 +88,7 @@ platforms:
   - name: test-aws-Amazon-openjdk-ga
     image: ami-035b3c7efe6d061d5
     platform: amazon
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -103,7 +103,7 @@ platforms:
   - name: test-aws-Amazon2-openjdk-ga
     image: ami-0b898040803850657
     platform: amazon2
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false

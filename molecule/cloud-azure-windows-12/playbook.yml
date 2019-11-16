@@ -15,7 +15,7 @@
         sas_time_start: '{{ ansible_date_time.iso8601_micro }}'
         sas_time_expire: >-
           {{ ('%Y-%m-%dT%H:%M:%S'
-            | strftime(ansible_date_time.epoch|int + 60))
+            | strftime(ansible_date_time.epoch|int + 120))
             ~ (ansible_date_time.iso8601_micro | splitext)[1] }}
 
     - name: Generate access signature
