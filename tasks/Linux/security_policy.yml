@@ -16,7 +16,7 @@
     - name: Unzip patch file
       unarchive:
         src: '{{ security_policy_java_artifact }}'
-        dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security'
+        dest: '{{ security_patch_path }}'
         remote_src: true
         owner: root
         group: root
@@ -26,7 +26,7 @@
       copy:
         src: "{{ java_path }}/{{ java_folder }}/jre/lib/security/\
           {{ security_patch_folders[java_major_version|int] }}/{{ policy_item }}"
-        dest: '{{ java_path }}/{{ java_folder }}/jre/lib/security/'
+        dest: '{{ security_patch_path }}/'
         remote_src: true
         directory_mode: true
         owner: root
@@ -43,7 +43,7 @@
 
 - name: Apply setting
   replace:
-    path: '{{ java_path }}/{{ java_folder }}/jre/lib/security/java.security'
+    path: '{{ security_patch_path }}/java.security'
     regexp: '#crypto.policy=unlimited'
     replace: 'crypto.policy=unlimited'
   when: java_major_version | int < 9
