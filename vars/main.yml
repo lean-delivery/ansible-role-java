@@ -30,6 +30,13 @@ security_patch_folders:
   7: UnlimitedJCEPolicy
   8: UnlimitedJCEPolicyJDK8
 
+# security policy path
+security_patch_path: >-
+  {{ (java_package|string == 'jdk')
+      | ternary(java_path + '/' + java_folder + '/jre/lib/security',
+                java_path + '/' + java_folder + '/lib/security')
+  }}
+
 java_folder_ext_transport: '{{ java_def_folder_ext_transport }}'
 
 java_def_folder_ext_transport: >-
