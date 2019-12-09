@@ -44,7 +44,7 @@ This Ansible role has the following features for:
 **Amazon Corretto**
 
 - Install JDK 8 and 11 
-- Install JRE 8 (Amazon Linux 2, Windows only)
+- Install JRE 8 (Amazon Linux 2 only)
 - Linux x64 platform only
 - Additional opportunity to install from corretto-fallback, web, local source, s3.
 
