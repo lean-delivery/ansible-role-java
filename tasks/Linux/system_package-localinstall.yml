@@ -1,0 +1,14 @@
+---
+- name: 'Perform package localinstall'
+  block:
+    - name: 'Perform {{ java_distribution }} package localinstall'
+      include_tasks: '{{ install_task }}'
+      with_first_found:
+        - 'install/{{ java_distribution }}_{{ java_binary_type }}.yml'
+        - 'install/{{ java_binary_type }}.yml'
+      loop_control:
+        loop_var: install_task
+
+    - name: Finalize binary paths
+      include_tasks: finalize_paths.yml
+  become: true
