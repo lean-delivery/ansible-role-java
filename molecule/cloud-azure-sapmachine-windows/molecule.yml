@@ -41,7 +41,7 @@ platforms:
       - jre
       - sapmachine_fallback
       - ver11
-      -
+
 # todo: enable after fix!
 #  - name: test-azure-windows2019-sapmachine-chocolatey-13
 #    platform: windows2019core
