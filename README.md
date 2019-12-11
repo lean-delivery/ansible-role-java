@@ -366,6 +366,17 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: corretto-fallback
       java_major_version: 8
 ```
+### Installing Amazon Corretto JDK 11 from repo on Amazon Linux 2:
+```yaml
+- name: Install Amazon Corretto
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: corretto
+      transport: repositories
+      java_major_version: 11
+```
 
 License
 -------
