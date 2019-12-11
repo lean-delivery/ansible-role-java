@@ -5,7 +5,8 @@
 #  - sapjvm
 #  - zulu
 #  - adoptopenjdk (not supported 9/10)
-#  - sapmachine (suported only 10/11/12/13)
+#  - alibaba_dragonwell (8 only)
+#  - sapmachine
 #  - Amazon Corretto (supported only 8/11)
 java_distribution: openjdk
 
@@ -13,6 +14,7 @@ java_distribution: openjdk
 # Oracle java supported jre/server-jre/jdk
 # AdoptOpenJDK supported jdk/jre
 # SapMachine supported jdk/jre
+# Alibaba Dragonwell supported jdk only
 # Amazon Corretto 8 supported jdk/jre, jre only for Windows and Amazon Linux2
 # Amazon Corretto 11 supported only jdk
 java_package: jdk
@@ -52,6 +54,7 @@ transport: openjdk-fallback
 # - "sapjvm-fallback" Install from artifact downloaded from SAP site
 # - "zulu-fallback" Install from artifact downloaded from AZUL site
 # - "sapmachine-fallback" Install from artifact downloaded from SapMachine site
+# - "dragonwell-fallback" Install from artifact downloaded from GitHub site
 # - "corretto-fallback" Install from artifact downloaded from AWS Amazon site
 
 transport_web: '{{ transport_web_default }}'

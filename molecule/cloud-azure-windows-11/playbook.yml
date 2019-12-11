@@ -1,0 +1,42 @@
+---
+- name: Generate SAS link
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  vars:
+    az_resource_group_name: epm-ldi
+    az_storage_account_name: storage11490
+    az_container_name: oracle-java
+    java_download_path: /tmp
+    az_file_name: jdk-11.0.3_windows-x64_bin.exe
+  tasks:
+    - name: Set expiration period
+      set_fact:
+        sas_time_start: '{{ ansible_date_time.iso8601_micro }}'
+        sas_time_expire: >-
+          {{ ('%Y-%m-%dT%H:%M:%S'
+            | strftime(ansible_date_time.epoch|int + 60))
+            ~ (ansible_date_time.iso8601_micro | splitext)[1] }}
+
+    - name: Generate access signature
+      azure_rm_resource:
+        resource_group: '{{ az_resource_group_name }}'
+        method: POST
+        url: "/subscriptions/{{ lookup('env','AZURE_SUBSCRIPTION_ID') }}\
+              /resourceGroups/{{ az_resource_group_name }}/providers/\
+              Microsoft.Storage/storageAccounts/\
+              {{ az_storage_account_name }}/ListServiceSas/"
+        body:
+          canonicalizedResource: '/blob/{{ az_storage_account_name }}/{{ az_container_name }}/{{ az_file_name }}'
+          signedResource: b
+          signedPermission: r
+          signedStart: '{{ sas_time_start }}'
+          signedExpiry: '{{ sas_time_expire }}'
+      register: storage_sig
+      changed_when: false
+
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-java
+      java_path: C:\Temp\Java

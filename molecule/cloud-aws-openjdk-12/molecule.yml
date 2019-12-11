@@ -13,7 +13,7 @@ platforms:
   - name: test-aws-centos7-openjdk-12-tb
     image: ami-9887c6e7
     platform: centos7
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -30,7 +30,7 @@ platforms:
   - name: test-aws-centos6-openjdk-12-tarball
     image: ami-1585c46a
     platform: centos6
-    instance_type: m4.large
+    instance_type: t2.medium
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -47,7 +47,7 @@ platforms:
   - name: test-aws-ubuntu18-openjdk-12-tb
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false

@@ -1,0 +1,101 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-aws-centos8-dragonwell8
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: t3.medium
+    region: us-east-1
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - dragonwell8
+
+  - name: test-aws-centos7-dragonwell8
+    image: ami-9887c6e7
+    platform: centos7
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - dragonwell8
+
+  - name: test-aws-ubuntu18-dragonwell8
+    image: ami-012fd5eb46f56731f
+    platform: ubuntu18
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - dragonwell8
+
+  - name: test-aws-Debian9-dragonwell8
+    image: ami-003f19e0e687de1cd
+    platform: debian9
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - dragonwell8
+
+provisioner:
+  name: ansible
+  log: false
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      dragonwell8:
+        java_distribution: dragonwell8
+        transport: dragonwell8-fallback
+        java_major_version: 8
+  playbooks:
+    create: ../resources/provisioning/AWS/create.yml
+    prepare: ../resources/provisioning/AWS/prepare.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-aws-dragonwell8
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
