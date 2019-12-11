@@ -9,13 +9,13 @@
 # Installing on Amazon Linux 2 from repo
 # Amazon Corretto 8 specific
 # https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
-- name: Prepare Amazon Linux 2 for Corretto 8
-  block:
-    - name: Enable the yum repository in Amazon Linux 2
-      command: warn=no amazon-linux-extras enable corretto8
-
-    - name: Clean repo metadata
-      command: warn=no yum clean metadata
+# As we cannot use amazon-linux-extras with Ansible, we're adding Amazon corretto8 repo manually
+- name: Add Amazon yum repository for corretto8
+  yum_repository:
+    name: amazon-corretto8
+    description: Amazon Extras repo for corretto8
+    mirrorlist: http://amazonlinux.$awsregion.$awsdomain/$releasever/extras/corretto8/latest/$basearch/mirror.list
+    priority: 10
   when:
     - transport == "repositories"
     - ansible_distribution == "Amazon"
