@@ -31,5 +31,5 @@ java_tarball_install: false
 
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
 java_package_requirements: >-
-  {{ java_package_requirements + ['java-common'] if (ansible_os_family == 'Debian' and transport == 'corretto-fallback')
-    else java_package_requirements}}
+  {{ ((ansible_os_family == 'Debian') and (transport == 'corretto-fallback'))
+    | ternary(java_package_requirements + ['java-common'], java_package_requirements) }}
