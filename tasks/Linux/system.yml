@@ -6,7 +6,9 @@
   block:
     - name: Install requirements
       package:
-        name: '{{ java_package_requirements }}'
+        name: >-
+          {{ java_package_requirements
+            | union(java_extra_package_requirements) | unique }}
         state: present
       register: installed_packages
       until: installed_packages is succeeded

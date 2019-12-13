@@ -47,3 +47,7 @@ java_def_folder_ext_transport: >-
   }}
 
 java_folder: '{{ java_folder_ext_transport }}'
+
+# Override the value of the variable in java_distro_configs
+# for specific java distribution if needed
+java_extra_package_requirements: []
