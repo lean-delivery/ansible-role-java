@@ -32,4 +32,3 @@ java_tarball_install: false
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
 java_extra_package_requirements:
   - java-common
-
