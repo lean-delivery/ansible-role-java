@@ -30,5 +30,6 @@ jdk_package: "{{ (java_major_version|int == 8) | ternary(corretto8_package, corr
 java_tarball_install: false
 
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
-java_extra_package_requirements:
-  - java-common
+java_extra_package_requirements: >-
+  {{ ((ansible_os_family == 'Debian') and (transport == 'corretto-fallback'))
+     | ternary(['java-common'], omit) }}
