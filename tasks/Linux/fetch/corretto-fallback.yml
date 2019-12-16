@@ -17,12 +17,14 @@
     return_content: true
   register: root_page
 
+# we're downloading and installing package, not tarball!
 - name: Prepare filename to download Debian family
   set_fact:
     filename: >-
       https://[\w.]+/[\d.]+/java-[\d.]+-amazon-corretto-jdk_{{ java_major_version|string }}[\d.-]+_amd64\.deb
   when: ansible_os_family == "Debian"
 
+# we're downloading and installing package, not tarball!
 - name: Prepare filename to download RedHat family
   set_fact:
     filename: >-
