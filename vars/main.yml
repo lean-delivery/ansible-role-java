@@ -6,7 +6,7 @@ zulu_api_page: https://zulu.api.azul.com/api/v1/
 sapmachine_root_page: https://github.com/SAP/SapMachine/releases/download/
 github_api_page: https://api.github.com
 sapmachine_api_page: https://api.github.com/repos/SAP/SapMachine/releases/tags/
-corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.html
+corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.partial.html
 
 # vars file for java
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
