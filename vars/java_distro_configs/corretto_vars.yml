@@ -1,5 +1,8 @@
 ---
-# Variable must be evaluated in both cases: fallback install (RedHat and Debian) and repository install (Amazon Linux 2)
+# Variable must be evaluated in all supported cases:
+# 1. repository install from repo (Amazon Linux 2)
+# 2. fallback install from package (RedHat and Debian)
+# 3. web install from tarball (RedHat and Debian)
 jdk_package: "{{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}"
 
 # Case #1. Install from repository on Amazon Linux 2
@@ -16,23 +19,34 @@ corretto8_package: >-
 # https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
 corretto11_package: "java-11-amazon-corretto-headless"
 
-# Case #2. Install from downloaded package (RPM or DEB)
-# Parts are extracted from downloaded file name
-# `java_major_version` variable takes its value from parts in this case
-parts: >-
-  {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
+# Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
+parts: "{{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}"
+
+# Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
+# We need to know which file was downloaded
+parts_pattern: "{{ (transport == 'corretto-fallback') | ternary(parts_pattern_fallback, parts_pattern_web) }}"
 
 # Case #2. Install from downloaded package (RPM or DEB)
+# Parts are extracted from downloaded file name
 # We're extracting only `java_major_version` and `java_minor_version` parts
 # Downloaded package name samples:
 # java-1.8.0-amazon-corretto-devel-1.8.0_232.b09-1.x86_64.rpm | java-11-amazon-corretto-devel-11.0.5.10-1.x86_64.rpm
 # java-1.8.0-amazon-corretto-jdk_8.232.09-1_amd64.deb | java-11-amazon-corretto-jdk_11.0.5.10-1_amd64.deb
-parts_pattern: >-
+parts_pattern_fallback: >-
   {{ ((ansible_os_family == 'Debian') and (transport == 'corretto-fallback'))
     | ternary(
       '^java-(11|[0-9\.]+)-amazon-corretto-jdk_(11|8)([0-9b\.\-]+)',
       '^java-(11|[0-9\.]+)-amazon-corretto-devel-(11|[0-9\.]+)([0-9b\.\_\-]+)'
     ) }}
+
+# Case #3. Install from downloaded tarball
+# Parts are extracted from downloaded file name
+# We're extracting only all parts except `java_package`
+# File name sample: amazon-corretto-11.0.5.10.1-linux-x64.tar.gz
+parts_pattern_web: '^(amazon-corretto)-([0-9]+)\.([0-9\.]+)-(linux)-(x64)\.(tar\.gz)'
+
+# Tarball installation only if transport is `web`
+java_tarball_install: "{{ transport == 'web' }}"
 
 java_folder: >-
   {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
@@ -42,8 +56,6 @@ java_folder_repo_transport: >-
   {{ (java_major_version|int <= 8)
       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
       'java-'  + java_major_version|string + '-amazon-corretto') }}
-
-java_tarball_install: false
 
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
 java_extra_package_requirements: >-
