@@ -44,13 +44,13 @@
             ~'(devel|jdk)?[-_][\d\.\-_b]+(-linux-)?(amd64|x86_64|x64).' ~ java_package_type ~ ')'
             ~ '.*[\s\ntdp<>/]+'
             ~ 'code class="code">([a-f0-9]{32})</code></p>', multiline=true)
-        | first }}
+        | first | list }}
 
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
     url: '{{ release_url[0] }}'
     dest: '{{ java_download_path }}'
-    checksum: 'md5:{{ release_url[4] }}'
+    checksum: 'md5:{{ release_url[5] }}'
   register: file_downloaded
   retries: 20
   delay: 5

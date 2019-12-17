@@ -78,111 +78,111 @@ platforms:
       - corretto
       - corretto_fallback
 
-  - name: test-aws-centos7-corretto-web-8
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - corretto
-      - web
+  # - name: test-aws-centos7-corretto-web-8
+  #   image: ami-9887c6e7
+  #   platform: centos7
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.004
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - corretto
+  #     - web
 
-  - name: test-aws-centos8-corretto-jdk-web-8
-    image: ami-0ed2ad9dc845b42b6
-    platform: centos8
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - corretto
-      - web
+  # - name: test-aws-centos8-corretto-jdk-web-8
+  #   image: ami-0ed2ad9dc845b42b6
+  #   platform: centos8
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.004
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - corretto
+  #     - web
 
-  - name: test-aws-Debian9-corretto-jdk-web-8
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - corretto
-      - web
+  # - name: test-aws-Debian9-corretto-jdk-web-8
+  #   image: ami-003f19e0e687de1cd
+  #   platform: debian9
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.004
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - corretto
+  #     - web
 
-  - name: test-aws-ubuntu18-corretto-jdk-web-8
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - corretto
-      - web
+  # - name: test-aws-ubuntu18-corretto-jdk-web-8
+  #   image: ami-012fd5eb46f56731f
+  #   platform: ubuntu18
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.004
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
+  #     - corretto
+  #     - web
 
-  - name: test-aws-Amazon2-corretto-jdk-8
-    image: ami-0b898040803850657
-    platform: amazon2
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
-      - corretto
-      - jdk
-      - repositories
+  # - name: test-aws-Amazon2-corretto-jdk-8
+  #   image: ami-0b898040803850657
+  #   platform: amazon2
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.004
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
+  #     - corretto
+  #     - jdk
+  #     - repositories
 
-  - name: test-aws-Amazon2-corretto-jre-8
-    image: ami-0b898040803850657
-    platform: amazon2
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
-      - corretto
-      - jre
-      - repositories
+  # - name: test-aws-Amazon2-corretto-jre-8
+  #   image: ami-0b898040803850657
+  #   platform: amazon2
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.004
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
+  #     - corretto
+  #     - jre
+  #     - repositories
 
 provisioner:
   name: ansible
