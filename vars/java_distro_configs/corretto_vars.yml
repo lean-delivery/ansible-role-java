@@ -63,7 +63,7 @@ java_folder: >-
 
 #       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
 java_folder_repo_transport: >-
-  {{ (java_major_version|int = 8)
+  {{ (java_major_version|int == 8)
       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
       'java-'  + java_major_version|string + '-amazon-corretto') }}
 
