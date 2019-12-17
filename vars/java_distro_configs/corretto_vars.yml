@@ -32,11 +32,14 @@ parts_pattern: "{{ (transport == 'corretto-fallback') | ternary(parts_pattern_fa
 # Downloaded DEB package name samples:
 # java-1.8.0-amazon-corretto-jdk_8.232.09-1_amd64.deb | java-11-amazon-corretto-jdk_11.0.5.10-1_amd64.deb
 parts_pattern_fallback: >-
-  {{ ((transport == 'corretto-fallback') and (ansible_os_family == 'Debian'))
-    | ternary(
-      '^java-[0-9\.]+-amazon-corretto-jdk_(11|8)\.([0-9b\.\-]+)',
-      pattern_fallback_redhat
-    ) }}
+  '(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?(\d+)\.[\d\.\-_b]*(-linux-)?(amd64|x86_64|x64|arm64|aarch64)\.(deb|rpm|tar\.gz)'
+
+
+  # {{ ((transport == 'corretto-fallback') and (ansible_os_family == 'Debian'))
+  #   | ternary(
+  #     '^java-[0-9\.]+-amazon-corretto-jdk_(11|8)\.([0-9b\.\-]+)',
+  #     pattern_fallback_redhat
+  #   ) }}
 
 # Special handling for RedHat like systems
 # Downloaded RPM package name samples:
