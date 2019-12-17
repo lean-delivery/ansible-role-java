@@ -38,17 +38,19 @@
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ root_page['content'] | regex_findall('(https://[\w\.]+/'
-          ~ java_major_version ~ '.[\d\.]+/java-[\d\.]+-amazon-corretto-'
-          ~'(devel|jdk)[-_][\d\.\-_b]+(amd64|x86_64).' ~ java_package_type ~ ')'
-          ~ '.*[\s\ntdp<>/]+'
-          ~ 'code class="code">([a-f0-9]{32})</code></p>', multiline=true)
-        }}
+      {{ root_page['content']
+        | regex_findall('(https://[\w\.]+/'
+            ~ java_major_version ~ '.[\d\.]+/(java-[\d\.]+-)?amazon-corretto-?'
+            ~'(devel|jdk)?[-_][\d\.\-_b]+(-linux-)?(amd64|x86_64|x64).' ~ java_package_type ~ ')'
+            ~ '.*[\s\ntdp<>/]+'
+            ~ 'code class="code">([a-f0-9]{32})</code></p>', multiline=true)
+        | first }}
 
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
     url: '{{ release_url[0] }}'
     dest: '{{ java_download_path }}'
+    checksum: 'md5:{{ release_url[4] }}'
   register: file_downloaded
   retries: 20
   delay: 5
