@@ -7,6 +7,10 @@
   debug:
     var: java_folder
 
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
 - name: Find java_folder
   find:
     paths: '{{ java_path }}'
@@ -19,6 +23,10 @@
 - name: Set actual java directory
   set_fact:
     java_folder: "{{ java_dir.files | map(attribute='path') | list | last | basename }}"
+
+- name: debug java_folder after detect
+  debug:
+    var: java_folder
 
 - name: Put java profile
   template:
