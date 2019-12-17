@@ -52,9 +52,10 @@ java_folder: >-
   {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
   | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
 
+#       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
 java_folder_repo_transport: >-
   {{ (java_major_version|int <= 8)
-      | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
+      | ternary('java-1.' + java_major_version|string + '*',
       'java-'  + java_major_version|string + '-amazon-corretto') }}
 
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
