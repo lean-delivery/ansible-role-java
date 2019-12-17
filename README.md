@@ -415,6 +415,17 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: repositories
       java_major_version: 11
 ```
+### Installing Amazon Corretto JDK 11 on Ubuntu 18.04 from web:
+```yaml
+- name: Install Amazon Corretto
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: corretto
+      transport: web
+      transport_web: https://d3pxv6yz143wms.cloudfront.net/11.0.5.10.1/amazon-corretto-11.0.5.10.1-linux-x64.tar.gz
+```
 
 License
 -------
