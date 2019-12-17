@@ -2,7 +2,7 @@
 java_package_requirements:
   - unzip
   - rsync
-  
+
 java_package_type: deb
 jdk_package: >-
   {{ 'openjdk-' + java_major_version|string + '-' + java_package }}
