@@ -3,7 +3,10 @@
 # 1. repository install from repo (Amazon Linux 2)
 # 2. fallback install from package (RedHat and Debian)
 # 3. web install from tarball (RedHat and Debian)
-jdk_package: "{{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}"
+java_major_version: '{{ parts[2] }}'
+
+jdk_package: >-
+  {{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}
 
 # Case #1. Install from repository on Amazon Linux 2
 # Allow to install Amazon Corretto 8 as JRE
@@ -20,7 +23,8 @@ corretto8_package: >-
 corretto11_package: "java-11-amazon-corretto-headless"
 
 # Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
-parts: "{{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}"
+parts: >-
+  {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
 
 # Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
 # We need to know which file was downloaded
@@ -32,14 +36,16 @@ parts_pattern: "{{ (transport == 'corretto-fallback') | ternary(parts_pattern_fa
 # Downloaded DEB package name samples:
 # java-1.8.0-amazon-corretto-jdk_8.232.09-1_amd64.deb | java-11-amazon-corretto-jdk_11.0.5.10-1_amd64.deb
 parts_pattern_fallback: >-
-  '(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?(\d+)\.[\d\.\-_b]*(-linux-)?(amd64|x86_64|x64|arm64|aarch64)\.(deb|rpm|tar\.gz)'
+  {{ '(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
+      ~ '(\d+)\.[\d\.\-_b]*(-linux-)?(amd64|x86_64|x64|arm64|aarch64)'
+      ~ '\.(deb|rpm|tar\.gz)' }}
 
 
-  # {{ ((transport == 'corretto-fallback') and (ansible_os_family == 'Debian'))
-  #   | ternary(
-  #     '^java-[0-9\.]+-amazon-corretto-jdk_(11|8)\.([0-9b\.\-]+)',
-  #     pattern_fallback_redhat
-  #   ) }}
+# {{ ((transport == 'corretto-fallback') and (ansible_os_family == 'Debian'))
+#   | ternary(
+#     '^java-[0-9\.]+-amazon-corretto-jdk_(11|8)\.([0-9b\.\-]+)',
+#     pattern_fallback_redhat
+#   ) }}
 
 # Special handling for RedHat like systems
 # Downloaded RPM package name samples:
