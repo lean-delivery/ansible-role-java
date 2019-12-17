@@ -29,14 +29,23 @@ parts_pattern: "{{ (transport == 'corretto-fallback') | ternary(parts_pattern_fa
 # Case #2. Install from downloaded package (RPM or DEB)
 # Parts are extracted from downloaded file name
 # We're extracting only `java_major_version` and `java_minor_version` parts
-# Downloaded package name samples:
-# java-1.8.0-amazon-corretto-devel-1.8.0_232.b09-1.x86_64.rpm | java-11-amazon-corretto-devel-11.0.5.10-1.x86_64.rpm
+# Downloaded DEB package name samples:
 # java-1.8.0-amazon-corretto-jdk_8.232.09-1_amd64.deb | java-11-amazon-corretto-jdk_11.0.5.10-1_amd64.deb
 parts_pattern_fallback: >-
-  {{ ((ansible_os_family == 'Debian') and (transport == 'corretto-fallback'))
+  {{ ((transport == 'corretto-fallback') and (ansible_os_family == 'Debian'))
     | ternary(
-      '^java-(11|[0-9\.]+)-amazon-corretto-jdk_(11|8)([0-9b\.\-]+)',
-      '^java-(11|[0-9\.]+)-amazon-corretto-devel-(11|[0-9\.]+)([0-9b\.\_\-]+)'
+      '^java-[0-9\.]+-amazon-corretto-jdk_(11|8)\.([0-9b\.\-]+)',
+      pattern_fallback_redhat
+    ) }}
+
+# Special handling for RedHat like systems
+# Downloaded RPM package name samples:
+# java-1.8.0-amazon-corretto-devel-1.8.0_232.b09-1.x86_64.rpm | java-11-amazon-corretto-devel-11.0.5.10-1.x86_64.rpm
+pattern_fallback_redhat: >-
+  {{ (ansible_os_family == 'RedHat') and (java_major_version|string == 11)
+    | ternary(
+      '^java-[0-9\.]+-amazon-corretto-devel-(11)\.([0-9\.\-]+)\.x86_64\.rpm',
+      '^java-[0-9\.]+-amazon-corretto-devel-1\.(8)\.0_([0-9b\.\-]+)\.x86_64\.rpm'
     ) }}
 
 # Case #3. Install from downloaded tarball
@@ -54,8 +63,8 @@ java_folder: >-
 
 #       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
 java_folder_repo_transport: >-
-  {{ (java_major_version|int <= 8)
-      | ternary('java' ~ '*',
+  {{ (java_major_version|int = 8)
+      | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
       'java-'  + java_major_version|string + '-amazon-corretto') }}
 
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
