@@ -4,6 +4,8 @@ java_package_requirements:
   - tar
   - rsync
 
+java_package_type: rpm
+
 # Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
 # Define Centos arch specific for compatibility with oracle packages name
 openjdk_arch_rhel: '{{ (java_arch == "x64") | ternary("x86_64", "i686") }}'

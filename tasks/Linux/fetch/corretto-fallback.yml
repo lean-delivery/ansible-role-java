@@ -18,22 +18,32 @@
   register: root_page
 
 # we're downloading and installing package, not tarball!
-- name: Prepare filename to download Debian family
-  set_fact:
-    filename: >-
-      https://[\w.]+/[\d.]+/java-[\d.]+-amazon-corretto-jdk_{{ java_major_version|string }}[\d.-]+_amd64\.deb
-  when: ansible_os_family == "Debian"
+# - name: Prepare filename to download Debian family
+#   set_fact:
+#     filename: >-
+#       https://[\w.]+/[\d.]+/java-[\d.]+-amazon-corretto-jdk_{{ java_major_version|string }}[\d.-]+_amd64\.deb
+#   when: ansible_os_family == "Debian"
 
-# we're downloading and installing package, not tarball!
-- name: Prepare filename to download RedHat family
-  set_fact:
-    filename: >-
-      https://[\w.]+/{{ java_major_version|string }}[\d.]+/java-[\d.]+-amazon-corretto-devel-[\w._-]+\.x86_64\.rpm
-  when: ansible_os_family == "RedHat"
+# # we're downloading and installing package, not tarball!
+# - name: Prepare filename to download RedHat family
+#   set_fact:
+#     filename: >-
+#       https://[\w.]+/{{ java_major_version|string }}[\d.]+/java-[\d.]+-amazon-corretto-devel-[\w._-]+\.x86_64\.rpm
+#   when: ansible_os_family == "RedHat"
+
+# - name: Find release url
+#   set_fact:
+#     release_url: "{{ root_page['content'] | regex_findall('(' + filename + ')') }}"
 
 - name: Find release url
   set_fact:
-    release_url: "{{ root_page['content'] | regex_findall('(' + filename + ')') }}"
+    release_url: >-
+      {{ root_page['content'] | regex_findall('(https://[\w\.]+/'
+          ~ java_major_version ~ '.[\d\.]+/java-[\d\.]+-amazon-corretto-'
+          ~'(devel|jdk)[-_][\d\.\-_b]+(amd64|x86_64).' ~ java_package_type ~ ')'
+          ~ '.*[\s\ntdp<>/]+'
+          ~ 'code class="code">([a-f0-9]{32})</code></p>', multiline=true)
+        }}
 
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
