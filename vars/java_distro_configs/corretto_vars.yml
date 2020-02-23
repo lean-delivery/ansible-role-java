@@ -3,7 +3,7 @@
 # 1. repository install from repo (Amazon Linux 2)
 # 2. fallback install from package (RedHat and Debian)
 # 3. web install from tarball (RedHat and Debian)
-java_major_version: '{{ parts[2] }}'
+# java_major_version: '{{ parts[2] }}'
 
 jdk_package: >-
   {{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}
