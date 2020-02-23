@@ -11,6 +11,14 @@
   debug:
     var: java_major_version
 
+- name: debug java_tarball_install
+  debug:
+    var: java_tarball_install
+
+- name: debug condition
+  debug:
+    var: (not java_tarball_install | bool and (ansible_system == 'Linux'))
+
 - name: debug java_folder_repo_transport
   debug:
     var: java_folder_repo_transport
