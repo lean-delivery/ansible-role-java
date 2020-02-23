@@ -39,11 +39,13 @@
 #   set_fact:
 #     release_url: "{{ root_page['content'] | regex_findall('(' + filename + ')') }}"
 
-- name: debug vars
+- name: debug java_major_version
   debug:
-    var:
-      - java_major_version
-      - java_package_type
+    var: java_major_version
+
+- name: debug java_major_version
+  debug:
+    var: java_package_type
 
 - name: Find release url
   set_fact:
