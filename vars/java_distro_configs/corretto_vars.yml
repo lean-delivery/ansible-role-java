@@ -66,10 +66,9 @@ parts_pattern_web: '^(amazon-corretto)-([0-9]+)\.([0-9\.]+)-(linux)-(x64)\.(tar\
 # Tarball installation only if transport is `web`
 java_tarball_install: "{{ transport == 'web' }}"
 
-java_folder: java_folder_repo_transport
-
-# {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
-#   | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
+    | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
 
 #       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
 java_folder_repo_transport: >-
