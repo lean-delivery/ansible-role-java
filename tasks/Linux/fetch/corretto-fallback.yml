@@ -1,4 +1,8 @@
 ---
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
 - name: Check requested major version for Corretto
   fail:
     msg: "Supported versions of Amazon Corretto only 8 and 11"
