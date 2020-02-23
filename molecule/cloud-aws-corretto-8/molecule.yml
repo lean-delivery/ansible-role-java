@@ -43,6 +43,7 @@ platforms:
       - rhel_family
       - corretto
       - fallback
+      - centos8
 
   - name: test-aws-Debian9-corretto-jdk-fallback-8
     image: ami-003f19e0e687de1cd
@@ -111,6 +112,7 @@ platforms:
       - rhel_family
       - corretto
       - web
+      - centos8
 
   - name: test-aws-Debian9-corretto-jdk-web-8
     image: ami-003f19e0e687de1cd
@@ -210,6 +212,7 @@ provisioner:
           https://d3pxv6yz143wms.cloudfront.net/8.232.09.1/amazon-corretto-8.232.09.1-linux-x64.tar.gz
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:
