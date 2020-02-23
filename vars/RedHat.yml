@@ -1,8 +1,8 @@
 ---
 java_package_requirements:
-  - unzip
+  # - unzip
   - tar
-  - rsync
+  # - rsync
 
 java_package_type: rpm
 
