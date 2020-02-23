@@ -10,73 +10,73 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-corretto-jdk-fallback-8
-    image: ami-02eac2c0129f6376b
-    platform: centos7
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - corretto
-      - fallback
+  # - name: test-aws-centos7-corretto-jdk-fallback-8
+  #   image: ami-02eac2c0129f6376b
+  #   platform: centos7
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - corretto
+  #     - fallback
 
-  - name: test-aws-centos8-corretto-jdk-fallback-8
-    image: ami-0ed2ad9dc845b42b6
-    platform: centos8
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - corretto
-      - fallback
+  # - name: test-aws-centos8-corretto-jdk-fallback-8
+  #   image: ami-0ed2ad9dc845b42b6
+  #   platform: centos8
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - corretto
+  #     - fallback
 
-  - name: test-aws-Debian9-corretto-jdk-fallback-8
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - corretto
-      - fallback
+  # - name: test-aws-Debian9-corretto-jdk-fallback-8
+  #   image: ami-003f19e0e687de1cd
+  #   platform: debian9
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - corretto
+  #     - fallback
 
-  - name: test-aws-ubuntu18-corretto-jdk-fallback-8
-    image: ami-07ebfd5b3428b6f4d
-    platform: ubuntu18
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - corretto
-      - fallback
+  # - name: test-aws-ubuntu18-corretto-jdk-fallback-8
+  #   image: ami-07ebfd5b3428b6f4d
+  #   platform: ubuntu18
+  #   instance_type: t3.micro
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
+  #     - corretto
+  #     - fallback
 
   # - name: test-aws-centos7-corretto-web-8
   #   image: ami-9887c6e7
