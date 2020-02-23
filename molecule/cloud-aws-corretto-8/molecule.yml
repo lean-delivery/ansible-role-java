@@ -25,7 +25,7 @@ platforms:
     groups:
       - rhel_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   - name: test-aws-centos8-corretto-jdk-fallback-8
     image: ami-0ed2ad9dc845b42b6
@@ -42,7 +42,7 @@ platforms:
     groups:
       - rhel_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   - name: test-aws-Debian9-corretto-jdk-fallback-8
     image: ami-003f19e0e687de1cd
@@ -59,7 +59,7 @@ platforms:
     groups:
       - debian_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   - name: test-aws-ubuntu18-corretto-jdk-fallback-8
     image: ami-012fd5eb46f56731f
@@ -76,7 +76,7 @@ platforms:
     groups:
       - debian_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   # - name: test-aws-centos7-corretto-web-8
   #   image: ami-9887c6e7
@@ -201,15 +201,15 @@ provisioner:
         java_package: jre
       repositories:
         transport: repositories
-      corretto_fallback:
-        transport: corretto-fallback
+      fallback:
+        transport: fallback
       web:
         transport: web
         transport_web: >-
           https://d3pxv6yz143wms.cloudfront.net/8.232.09.1/amazon-corretto-8.232.09.1-linux-x64.tar.gz
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    # prepare: ../resources/provisioning/AWS/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:
