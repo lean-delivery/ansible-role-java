@@ -1,14 +1,10 @@
 ---
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-# - name: Check requested major version for Corretto
-#   fail:
-#     msg: "Supported versions of Amazon Corretto only 8 and 11"
-#   when:
-#     - java_major_version != 8
-#     - java_major_version != 11
+- name: Check requested major version for Corretto
+  fail:
+    msg: "Supported versions of Amazon Corretto only 8 and 11"
+  when:
+    - java_major_version != 8
+    - java_major_version != 11
 
 - name: Check requested architecture for Corretto
   fail:
@@ -39,14 +35,6 @@
 #   set_fact:
 #     release_url: "{{ root_page['content'] | regex_findall('(' + filename + ')') }}"
 
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug java_major_version
-  debug:
-    var: java_package_type
-
 - name: Find release url
   set_fact:
     release_url: >-
@@ -60,11 +48,12 @@
             ~ java_major_version ~'-(amd64|x86_64|x64)-linux-jdk\.' ~ java_package_type ~')')
           }}
 
-- name: 'Download artifact from {{ release_url[0] }}'
+- name: 'Download artifact from {{ release_url }}'
   get_url:
     url: '{{ release_url }}'
     dest: '{{ java_download_path }}'
-    checksum: 'md5:{{ release_checksum }}'
+    checksum: >-
+      md5:{{ lookup('url', release_checksum) }}
   register: file_downloaded
   retries: 20
   delay: 5
