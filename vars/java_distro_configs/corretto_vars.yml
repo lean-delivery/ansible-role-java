@@ -28,7 +28,7 @@ parts: >-
 
 # Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
 # We need to know which file was downloaded
-parts_pattern: "{{ (transport == 'corretto-fallback') | ternary(parts_pattern_fallback, parts_pattern_web) }}"
+parts_pattern: "{{ (transport == 'fallback') | ternary(parts_pattern_fallback, parts_pattern_web) }}"
 
 # Case #2. Install from downloaded package (RPM or DEB)
 # Parts are extracted from downloaded file name
@@ -78,5 +78,5 @@ java_folder_repo_transport: >-
 
 # Satisfy additional requirement for Amazon Corretto for Debian-based distributions
 java_extra_package_requirements: >-
-  {{ ((ansible_os_family == 'Debian') and (transport == 'corretto-fallback'))
+  {{ ((ansible_os_family == 'Debian') and (transport == 'fallback'))
      | ternary(['java-common'], []) }}
