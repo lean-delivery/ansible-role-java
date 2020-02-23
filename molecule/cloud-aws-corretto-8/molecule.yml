@@ -11,7 +11,7 @@ lint:
     config-file: .yamllint
 platforms:
   - name: test-aws-centos7-corretto-jdk-fallback-8
-    image: ami-9887c6e7
+    image: ami-02eac2c0129f6376b
     platform: centos7
     instance_type: t3.micro
     region: us-east-1
@@ -62,7 +62,7 @@ platforms:
       - fallback
 
   - name: test-aws-ubuntu18-corretto-jdk-fallback-8
-    image: ami-012fd5eb46f56731f
+    image: ami-07ebfd5b3428b6f4d
     platform: ubuntu18
     instance_type: t3.micro
     region: us-east-1
