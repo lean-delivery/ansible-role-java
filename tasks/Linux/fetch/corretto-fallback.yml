@@ -1,7 +1,7 @@
 ---
-# - name: debug java_major_version
-#   debug:
-#     var: java_major_version
+- name: debug java_major_version
+  debug:
+    var: java_major_version
 
 # - name: Check requested major version for Corretto
 #   fail:
@@ -38,6 +38,12 @@
 # - name: Find release url
 #   set_fact:
 #     release_url: "{{ root_page['content'] | regex_findall('(' + filename + ')') }}"
+
+- name: debug vars
+  debug:
+    var:
+      - java_major_version
+      - java_package_type
 
 - name: Find release url
   set_fact:
