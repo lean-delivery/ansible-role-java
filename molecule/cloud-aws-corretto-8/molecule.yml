@@ -188,7 +188,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: true
+  log: false
   config_options:
     defaults:
       forks: 30

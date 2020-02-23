@@ -25,7 +25,7 @@ platforms:
     groups:
       - rhel_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   - name: test-aws-centos8-corretto-jdk-fallback-11
     image: ami-0ed2ad9dc845b42b6
@@ -42,7 +42,8 @@ platforms:
     groups:
       - rhel_family
       - corretto
-      - corretto_fallback
+      - fallback
+      - centos8
 
   - name: test-aws-Debian9-corretto-jdk-fallback-11
     image: ami-003f19e0e687de1cd
@@ -59,7 +60,7 @@ platforms:
     groups:
       - debian_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   - name: test-aws-ubuntu18-corretto-jdk-fallback-11
     image: ami-012fd5eb46f56731f
@@ -76,7 +77,7 @@ platforms:
     groups:
       - debian_family
       - corretto
-      - corretto_fallback
+      - fallback
 
   - name: test-aws-centos7-corretto-web-11
     image: ami-9887c6e7
@@ -111,6 +112,7 @@ platforms:
       - rhel_family
       - corretto
       - web
+      - centos8
 
   - name: test-aws-Debian9-corretto-jdk-web-11
     image: ami-003f19e0e687de1cd
@@ -179,8 +181,8 @@ provisioner:
         java_package: jdk
       jre:
         java_package: jre
-      corretto_fallback:
-        transport: corretto-fallback
+      fallback:
+        transport: fallback
       web:
         transport: web
         transport_web: >-
@@ -189,7 +191,7 @@ provisioner:
         transport: repositories
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:
