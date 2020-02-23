@@ -2,9 +2,6 @@
 # - name: Set parse variables based on java distribution
 #   include_vars: java_parts.yml
 
-- name: Set base variables based on java distribution
-  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
-
 - name: Perform install from artifacts
   block:
     - name: Install requirements

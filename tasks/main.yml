@@ -19,6 +19,9 @@
   loop_control:
     loop_var: transport_driver
 
+- name: Set base variables based on java distribution
+  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
+
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
   with_first_found:
