@@ -204,14 +204,14 @@ Lint:
 #  tags:
 #    - azure
 
-AWS sapjvm-8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapjvm-8
- tags:
-   - aws
+# AWS sapjvm-8:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-sapjvm-8
+#  tags:
+#    - aws
 
 ## Windows tests are preferrably run in Azure
 #.AWS sapjvm-8 Windows:
