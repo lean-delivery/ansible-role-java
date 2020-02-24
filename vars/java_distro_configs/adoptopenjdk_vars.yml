@@ -23,8 +23,10 @@ java_jre_regex_suffix: >-
 adoptopenjdk_choco_folder: >-
   {{ java_package ~ '[-]*' ~ java_major_version|string ~ '.*' }}
 
+
+java_folder_ext_transport: ''
 adoptopenjdk_folder: >-
-  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport) | default('') }}
+  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport) }}
 
 jdk_package: >-
   {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
