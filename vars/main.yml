@@ -38,13 +38,14 @@ security_patch_path: >-
                 java_path + '/' + java_folder + '/lib/security')
   }}
 
-java_folder_ext_transport: '{{ java_def_folder_ext_transport }}'
-
 java_def_folder_ext_transport: >-
   {{ (java_major_version|int <= 8)
       | ternary(java_package + '1.' + java_major_version|string + '.0_' + java_minor_version|string|default(''),
                 java_package + '-'  + java_full_version|string|default(''))
   }}
+
+java_folder_ext_transport: >-
+  {{ java_def_folder_ext_transport | default('') }}
 
 java_folder: '{{ java_folder_ext_transport }}'
 
