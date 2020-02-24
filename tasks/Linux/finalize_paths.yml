@@ -27,6 +27,14 @@
   debug:
     var: java_folder_ext_transport
 
+- name: debug adoptopenjdk_folder
+  debug:
+    var: adoptopenjdk_folder
+
+- name: debug adoptopenjdk_choco_folder
+  debug:
+    var: adoptopenjdk_choco_folder
+
 - name: Find java_folder
   find:
     paths: '{{ java_path }}'
