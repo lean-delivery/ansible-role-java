@@ -26,21 +26,21 @@ Lint:
   tags:
     - lint
 
-Docker java-on-defaults:
- stage: deployment test
- script:
- - molecule test -s default
- tags:
- - aws
+# Docker java-on-defaults:
+#  stage: deployment test
+#  script:
+#  - molecule test -s default
+#  tags:
+#  - aws
 
-AWS java-6:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-direct-6
- tags:
-   - aws
+# AWS java-6:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-direct-6
+#  tags:
+#    - aws
 
 #AWS java-7:
 #  variables:
@@ -131,14 +131,14 @@ AWS openjdk-8:
 #  tags:
 #    - aws
 
-AWS openjdk-ga:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-ga
- tags:
-   - aws
+# AWS openjdk-ga:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-openjdk-ga
+#  tags:
+#    - aws
 
 ## Windows tests are preferrably run in Azure
 #.AWS openjdk-ga Windows:
@@ -375,20 +375,20 @@ AWS openjdk-ga:
 #  tags:
 #    - azure
 
-AWS corretto-8:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-corretto-8
-  tags:
-    - aws
+# AWS corretto-8:
+#   variables:
+#     AWS_REGION: us-east-1
+#   stage: deployment test
+#   script:
+#     - molecule test -s cloud-aws-corretto-8
+#   tags:
+#     - aws
 
-.AWS corretto-11:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-corretto-11
-  tags:
-    - aws
+# AWS corretto-11:
+#   variables:
+#     AWS_REGION: us-east-1
+#   stage: deployment test
+#   script:
+#     - molecule test -s cloud-aws-corretto-11
+#   tags:
+#     - aws
