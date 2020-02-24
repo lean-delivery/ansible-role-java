@@ -11,9 +11,6 @@ java_minor_version: '{{ parts[5] }}'
 java_os: '{{ parts[3] }}'
 java_arch: '{{ parts[1] }}'
 
-java_major_version: >-
-  {{ (java_major_version is defined) | ternary(java_major_version, parts[4]) }}
-
 java_package_suffix: >-
   {{ (java_major_version == 13) | ternary('', java_major_version) }}
 
