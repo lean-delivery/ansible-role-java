@@ -25,6 +25,7 @@ platforms:
     groups:
       - rhel_family
       - repositories
+      - centos8
 
   - name: test-aws-centos7-openjdk-8-repo
     image: ami-9887c6e7
@@ -105,7 +106,7 @@ provisioner:
         java_tarball_install: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:

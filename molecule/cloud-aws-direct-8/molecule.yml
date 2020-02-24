@@ -121,7 +121,7 @@ provisioner:
         transport_s3_path: /java/jdk-8u202-linux-x64.rpm
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../cloud-aws-direct-8/prepare.yml
+    prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:

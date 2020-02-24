@@ -1,7 +1,4 @@
 ---
-- name: Include common prepare
-  import_playbook: ../resources/provisioning/AWS/prepare.yml
-
 - name: Prepare Debian
   hosts: debian_family
   tasks:
