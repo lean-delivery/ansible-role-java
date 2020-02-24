@@ -1,4 +1,16 @@
 ---
+- name: debug file_downloaded
+  debug:
+    var: file_downloaded
+
+- name: debug java_artifact
+  debug:
+    var: java_artifact
+
+- name: debug jdk_package
+  debug:
+    var: jdk_package
+
 - name: Add repository for AdoptOpenJDK
   yum_repository:
     name: AdoptOpenJDK
