@@ -36,7 +36,7 @@ java_folder_repo_transport: >-
 
 java_folder: >-
   {{ (not java_tarball_install|bool and (ansible_system == 'Linux'))
-      | ternary(java_folder_repo_transport, adoptopenjdk_folder) }}
+      | ternary(java_folder_repo_transport, adoptopenjdk_folder|default('')) }}
 
 choco_java_package: 'adoptopenjdk'
 
