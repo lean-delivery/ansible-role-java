@@ -44,8 +44,7 @@ java_def_folder_ext_transport: >-
                 java_package + '-'  + java_full_version|string|default(''))
   }}
 
-java_folder_ext_transport: >-
-  {{ java_def_folder_ext_transport }}
+java_folder_ext_transport: '{{ java_def_folder_ext_transport }}'
 
 java_folder: '{{ java_folder_ext_transport }}'
 

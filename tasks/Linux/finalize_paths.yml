@@ -35,9 +35,9 @@
   debug:
     var: adoptopenjdk_choco_folder
 
-- name: debug adoptopenjdk_folder_ext_transport
+- name: debug aadoptopenjdk_folder_ext_transport
   debug:
-    var: adoptopenjdk_folder_ext_transport
+    var: aadoptopenjdk_folder_ext_transport
 
 - name: Find java_folder
   find:
