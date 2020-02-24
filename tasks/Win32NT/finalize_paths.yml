@@ -11,6 +11,14 @@
   debug:
     var: java_major_version
 
+- name: debug adoptopenjdk_folder
+  debug:
+    var: adoptopenjdk_folder
+
+- name: debug adoptopenjdk_choco_folder
+  debug:
+    var: adoptopenjdk_choco_folder
+
 - name: Find java_folder
   win_find:
     paths: '{{ java_path }}'
