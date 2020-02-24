@@ -155,7 +155,7 @@ provisioner:
       hotspot:
         adoptopenjdk_impl: hotspot
       adoptopenjdk_fallback:
-        transport: adoptopenjdk-fallback
+        transport: fallback
       repositories:
         transport: repositories
       s3:

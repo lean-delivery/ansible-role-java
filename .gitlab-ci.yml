@@ -309,12 +309,12 @@ AWS adoptopenjdk-12:
  tags:
    - aws
 
-AZURE adoptopenjdk Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-adoptopenjdk-windows
- tags:
-   - azure
+# AZURE adoptopenjdk Windows:
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-azure-adoptopenjdk-windows
+#  tags:
+#    - azure
 
 ## Windows tests are preferrably run in Azure
 #.AWS adoptopenjdk Windows:
