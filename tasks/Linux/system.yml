@@ -11,6 +11,8 @@
             | union(java_extra_package_requirements) | unique }}
         state: present
       register: installed_packages
+      retries: 10
+      delay: 5
       until: installed_packages is succeeded
       when: transport != 'repositories'
 
