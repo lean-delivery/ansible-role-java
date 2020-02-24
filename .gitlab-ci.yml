@@ -108,14 +108,14 @@ AWS java-11:
  tags:
    - aws
 
-AWS openjdk-8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-8
- tags:
-   - aws
+# AWS openjdk-8:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-openjdk-8
+#  tags:
+#    - aws
 
 .AWS openjdk-11:
  variables:
