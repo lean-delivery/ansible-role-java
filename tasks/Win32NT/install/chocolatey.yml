@@ -11,3 +11,7 @@
   retries: 15
   delay: 5
   until: choco_install is succeeded
+
+- name: debug choco_install
+  debug:
+    var: choco_install
