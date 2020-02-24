@@ -23,7 +23,7 @@ java_jre_regex_suffix: >-
 adoptopenjdk_choco_folder: >-
   {{ java_package ~ '[-]*' ~ java_major_version|string ~ '.*' }}
 
-aadoptopenjdk_folder_ext_transport: '{{ java_folder_ext_transport | default("") }}'
+aadoptopenjdk_folder_ext_transport: '{{ java_folder_ext_transport | default("ddd") }}'
 
 adoptopenjdk_folder: >-
   {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, aadoptopenjdk_folder_ext_transport) }}
