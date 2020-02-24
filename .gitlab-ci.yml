@@ -291,23 +291,23 @@ AWS adoptopenjdk-8:
  tags:
    - aws
 
-# AWS adoptopenjdk-11:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-adoptopenjdk-11
-#  tags:
-#    - aws
+AWS adoptopenjdk-11:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-adoptopenjdk-11
+ tags:
+   - aws
 
-# AWS adoptopenjdk-12:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-adoptopenjdk-12
-#  tags:
-#    - aws
+AWS adoptopenjdk-12:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-adoptopenjdk-12
+ tags:
+   - aws
 
 # AZURE adoptopenjdk Windows:
 #  stage: deployment test

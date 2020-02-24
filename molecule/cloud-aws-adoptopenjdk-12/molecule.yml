@@ -30,45 +30,45 @@ platforms:
       - repositories
       - pip3
 
-  # - name: test-aws-centos7-adoptopenjdk-openj9-jdk-tarball-12
-  #   image: ami-9887c6e7
-  #   platform: centos7
-  #   instance_type: t3.micro
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
-  #   assign_public_ip: false
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: centos
-  #   groups:
-  #     - rhel_family
-  #     - adoptopenjdk
-  #     - openj9
-  #     - jdk
-  #     - adoptopenjdk_fallback
-  #     - pip2
+  - name: test-aws-centos7-adoptopenjdk-openj9-jdk-tarball-12
+    image: ami-9887c6e7
+    platform: centos7
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - adoptopenjdk
+      - openj9
+      - jdk
+      - adoptopenjdk_fallback
+      - pip2
 
-  # - name: test-aws-Debian9-adoptopenjdk-openj9-jre-tarball-12
-  #   image: ami-003f19e0e687de1cd
-  #   platform: debian9
-  #   instance_type: t3.micro
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
-  #   assign_public_ip: false
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: admin
-  #   groups:
-  #     - debian_family
-  #     - adoptopenjdk
-  #     - openj9
-  #     - jre
-  #     - adoptopenjdk_fallback
-  #     - pip2
+  - name: test-aws-Debian9-adoptopenjdk-openj9-jre-tarball-12
+    image: ami-003f19e0e687de1cd
+    platform: debian9
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - adoptopenjdk
+      - openj9
+      - jre
+      - adoptopenjdk_fallback
+      - pip2
 
   - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jdk-repositories-12
     image: ami-012fd5eb46f56731f

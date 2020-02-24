@@ -45,7 +45,7 @@ java_def_folder_ext_transport: >-
   }}
 
 java_folder_ext_transport: >-
-  {{ java_def_folder_ext_transport | default('') }}
+  {{ java_def_folder_ext_transport }}
 
 java_folder: '{{ java_folder_ext_transport }}'
 
