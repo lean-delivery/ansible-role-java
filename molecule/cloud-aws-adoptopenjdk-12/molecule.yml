@@ -143,7 +143,6 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-        ansible_python_interpreter: /usr/bin/python3
       adoptopenjdk:
         java_distribution: adoptopenjdk
         java_major_version: 12

@@ -1,15 +1,19 @@
 ---
-- name: debug file_downloaded
+- name: debug java_package
   debug:
-    var: file_downloaded
-
-- name: debug java_artifact
-  debug:
-    var: java_artifact
+    var: java_package
 
 - name: debug jdk_package
   debug:
     var: jdk_package
+
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
+- name: debug adoptopenjdk_impl
+  debug:
+    var: adoptopenjdk_impl
 
 - name: Add repository for AdoptOpenJDK
   yum_repository:
