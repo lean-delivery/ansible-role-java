@@ -100,7 +100,6 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-        ansible_python_interpreter: /usr/bin/python3
       local:
         transport: local
         transport_local: /tmp/jdk-8u202-linux-x64.tar.gz
