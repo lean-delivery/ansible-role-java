@@ -223,12 +223,12 @@ AWS sapjvm-8:
 #  tags:
 #    - aws
 
-AZURE sapjvm-8 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-sapjvm-8
- tags:
-   - azure
+# AZURE sapjvm-8 Windows:
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-azure-windows-sapjvm-8
+#  tags:
+#    - azure
 
 #AWS zulu-12:
 #  variables:
@@ -281,41 +281,41 @@ AZURE sapjvm-8 Windows:
 #    - molecule test -s cloud-epc-delegated
 #  tags:
 #    - delegated
-#
-#AWS adoptopenjdk-8:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-adoptopenjdk-8
-#  tags:
-#    - aws
-#
-#.AWS adoptopenjdk-11:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-adoptopenjdk-11
-#  tags:
-#    - aws
-#
-#AWS adoptopenjdk-12:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-adoptopenjdk-12
-#  tags:
-#    - aws
-#
-#AZURE adoptopenjdk Windows:
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-azure-adoptopenjdk-windows
-#  tags:
-#    - azure
-#
+
+AWS adoptopenjdk-8:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-adoptopenjdk-8
+ tags:
+   - aws
+
+AWS adoptopenjdk-11:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-adoptopenjdk-11
+ tags:
+   - aws
+
+AWS adoptopenjdk-12:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-adoptopenjdk-12
+ tags:
+   - aws
+
+AZURE adoptopenjdk Windows:
+ stage: deployment test
+ script:
+   - molecule test -s cloud-azure-adoptopenjdk-windows
+ tags:
+   - azure
+
 ## Windows tests are preferrably run in Azure
 #.AWS adoptopenjdk Windows:
 #  variables:
@@ -379,20 +379,20 @@ AZURE sapjvm-8 Windows:
 #  tags:
 #    - azure
 
-AWS corretto-8:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-corretto-8
-  tags:
-    - aws
+# AWS corretto-8:
+#   variables:
+#     AWS_REGION: us-east-1
+#   stage: deployment test
+#   script:
+#     - molecule test -s cloud-aws-corretto-8
+#   tags:
+#     - aws
 
-AWS corretto-11:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-corretto-11
-  tags:
-    - aws
+# AWS corretto-11:
+#   variables:
+#     AWS_REGION: us-east-1
+#   stage: deployment test
+#   script:
+#     - molecule test -s cloud-aws-corretto-11
+#   tags:
+#     - aws

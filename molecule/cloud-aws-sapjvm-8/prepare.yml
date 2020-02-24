@@ -1,9 +1,9 @@
 ---
 - name: Include common prepare
-  import_playbook: ../resources/provisioning/AWS/prepare.yml
+  import_playbook: ../resources/prepare.yml
 
 - name: Prepare RHEL
-  hosts: rhel8
+  hosts: centos8
   tasks:
 
     - name: Install libnsl
