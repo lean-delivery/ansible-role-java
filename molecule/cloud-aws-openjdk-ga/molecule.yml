@@ -87,7 +87,7 @@ platforms:
       - debian_family
 
   - name: test-aws-Debian10-openjdk-ga
-    image: ami-003f19e0e687de1cd
+    image: ami-0dedf6a6502877301
     platform: debian10
     instance_type: t3.micro
     region: us-east-1

@@ -29,6 +29,7 @@
             name: '{{ epel_path }}'
             state: present
           register: status
+          retries: 10
           until: status is succeeded
       become: true
 
@@ -42,6 +43,7 @@
             | ternary('python3-pip', 'python-pip') }}
         state: present
       register: status
+      retries: 10
       until: status is succeeded
       become: true
 
@@ -52,7 +54,9 @@
           - boto
           - boto3
         state: present
-        executable: 'pip{{ ansible_facts.python.version.major }}'
+        executable: >-
+          {{ (ansible_facts.python.version.major|int ==3 )
+            | ternary('pip3', 'pip') }}
         extra_args: --upgrade
       register: status
       until: status is succeeded

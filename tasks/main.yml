@@ -32,6 +32,12 @@
   loop_control:
     loop_var: platform
 
+- name: Finalize binary paths
+  include_tasks: '{{ ansible_system }}finalize_paths.yml'
+  when: java_setup_path | bool
+  become: >-
+    {{ (ansible_system == 'Linux') | ternary(true, omit) }}
+
 - name: Apply security policy patch
   include_tasks: '{{ platform }}'
   with_first_found:
@@ -40,5 +46,6 @@
   loop_control:
     loop_var: platform
   when:
+    - java_setup_path
     - java_unlimited_policy_enabled
     - java_distribution == 'oracle_java'

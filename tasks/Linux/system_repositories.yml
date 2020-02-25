@@ -9,7 +9,4 @@
         - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
-
-    - name: Finalize binary paths
-      include_tasks: finalize_paths.yml
   become: true

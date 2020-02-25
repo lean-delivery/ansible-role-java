@@ -1,7 +1,6 @@
 ---
 - name: Prepare RHEL
   hosts: rhel_family
-  gather_facts: false
   tasks:
 
     - name: Enable EPEL repository
