@@ -33,7 +33,7 @@
     loop_var: platform
 
 - name: Finalize binary paths
-  include_tasks: '{{ ansible_system }}finalize_paths.yml'
+  include_tasks: '{{ ansible_system }}/finalize_paths.yml'
   when: java_setup_path | bool
 
 - name: Apply security policy patch
