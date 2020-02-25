@@ -23,7 +23,7 @@
     dest: '{{ java_download_path }}'
     force: true
     checksum: '{{ artifact_checksum }}'
-    checksum_algorithm: '{{ checksum_alg }}'
+    checksum_algorithm: md5
   register: file_downloaded
   retries: 20
   delay: 5

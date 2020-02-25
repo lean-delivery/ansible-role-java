@@ -11,13 +11,17 @@
   debug:
     var: java_major_version
 
-- name: debug adoptopenjdk_folder
+- name: debug java_minor_version
   debug:
-    var: adoptopenjdk_folder
+    var: java_minor_version
 
-- name: debug adoptopenjdk_choco_folder
+- name: debug zulu_folder
   debug:
-    var: adoptopenjdk_choco_folder
+    var: zulu_folder
+
+- name: debug java_folder_ext_transport
+  debug:
+    var: java_folder_ext_transport
 
 - name: Find java_folder
   win_find:

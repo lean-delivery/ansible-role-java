@@ -11,8 +11,6 @@ java_minor_version: '{{ parts[2] | default("*") }}'
 java_os: '{{ parts[3] }}'
 java_arch: '{{ parts[4] | default("x64") }}'
 
-checksum_alg: md5
-
 choco_java_package: 'zulu{{ java_major_version }}'
 
 java_folder_repo_transport: >-

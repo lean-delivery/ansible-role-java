@@ -326,32 +326,32 @@ AZURE zulu-12 Windows chocolatey:
 #  tags:
 #    - aws
 
-AWS sapmachine-11:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-11
- tags:
-   - aws
+# AWS sapmachine-11:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-sapmachine-11
+#  tags:
+#    - aws
 
-AWS sapmachine-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-12
- tags:
-   - aws
+# AWS sapmachine-12:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-sapmachine-12
+#  tags:
+#    - aws
 
-AWS sapmachine-13:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-13
- tags:
-   - aws
+# AWS sapmachine-13:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-sapmachine-13
+#  tags:
+#    - aws
 
 # Windows tests are preferrably run in Azure
 # .AWS sapmachine-windows:
@@ -372,12 +372,12 @@ AWS sapmachine-13:
 #  tags:
 #    - aws
 
-AZURE sapmachine-windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-sapmachine-windows
- tags:
-   - azure
+# AZURE sapmachine-windows:
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-azure-sapmachine-windows
+#  tags:
+#    - azure
 
 # AWS corretto-8:
 #   variables:
