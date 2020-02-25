@@ -266,21 +266,12 @@ Lint:
 #  tags:
 #    - azure
 
-AZURE zulu-12 Windows chocolatey:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-zulu12-chocolatey
- tags:
-   - azure
-
-#.EPC java-8:
-#  variables:
-#    EPC_REGION: EPAM-BY2
+# AZURE zulu-12 Windows chocolatey:
 #  stage: deployment test
 #  script:
-#    - molecule test -s cloud-epc-delegated
+#    - molecule test -s cloud-azure-windows-zulu12-chocolatey
 #  tags:
-#    - delegated
+#    - azure
 
 # AWS adoptopenjdk-8:
 #  variables:
@@ -363,14 +354,14 @@ AZURE zulu-12 Windows chocolatey:
 #  tags:
 #    - aws
 
-#AWS Alibaba Dragonwell8:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-dragonwell8
-#  tags:
-#    - aws
+AWS Alibaba Dragonwell8:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-dragonwell8
+ tags:
+   - aws
 
 # AZURE sapmachine-windows:
 #  stage: deployment test

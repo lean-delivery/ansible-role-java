@@ -25,6 +25,7 @@ platforms:
     groups:
       - rhel_family
       - dragonwell8
+      - centos8
 
   - name: test-aws-centos7-dragonwell8
     image: ami-9887c6e7
@@ -84,11 +85,11 @@ provisioner:
     group_vars:
       dragonwell8:
         java_distribution: dragonwell8
-        transport: dragonwell8-fallback
+        transport: fallback
         java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:
