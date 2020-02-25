@@ -2,7 +2,7 @@
 parts: >-
   {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^(zulu)([0-9]+)\.([0-9.]+)-.+-([a-z]+)[_.](x64|i686|amd64|x86_64)')
-    | first | list }}
+    | default([[]], true) | first | list }}
 
 java_package: >-
   {{ parts[0] | default('jdk') }}
@@ -18,6 +18,9 @@ java_folder_repo_transport: >-
       | default(omit) }}
 
 choco_path: 'C:\Program Files\Zulu'
+
+zulu_folder_ext_transport: >-
+  {{ (transport == 'chocolatey') | ternary('', java_folder_ext_transport) }}
 
 zulu_folder: >-
   {{ (transport == 'chocolatey') | ternary('zulu-'  + java_major_version|string, java_folder_ext_transport) }}

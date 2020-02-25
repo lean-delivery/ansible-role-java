@@ -177,13 +177,7 @@ Requirements
       - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11,12 or JRE 8)
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
-      - `sapjvm-fallback` fetching artifact from SAP site.
-      - `zulu-fallback` fetching artifact from AZUL site.
-      - `adoptopenjdk-fallback` fetching artifact from adoptopenjdk site.
-      - `sapmachine-fallback` fetching artifact from SapMachine site.
-      - `dragonwell8-fallback` fetching artifact from GitHub.
-      - `corretto-fallback` fetching artifact (RPM or Debian package) from aws.amazon.com site.
-      - `openjdk-fallback` fetching artifact from jdk.java.net.
+      - `fallback` fetching artifacts from official sites (available for distributions: openjdk, sapjvm, zulu, adoptopenjdk, sapmachine, dragonwell8, corretto).   
          This is default value for `transport` variable
 
         **Notice** using `s3` transport requires specific packages to be installed on target host:
