@@ -12,8 +12,9 @@
 
     - name: Install python packages
       apt:
-        name:
-          - python-setuptools
+        name: >-
+          {{ (ansible_facts.python.version.major|int == 3 )
+            | ternary('python3-setuptools', 'python-setuptools') }}
         state: present
       register: status
       until: status is succeeded

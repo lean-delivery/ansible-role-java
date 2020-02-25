@@ -1,4 +1,25 @@
 ---
+- name: Prepare Debian
+  hosts: debian_family
+  tasks:
+
+    - name: Add universe repository for bionic
+      apt_repository:
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution_release == 'bionic'
+      become: true
+
+    - name: Install python packages
+      apt:
+        name: >-
+          {{ (ansible_facts.python.version.major|int == 3 )
+            | ternary('python3-setuptools', 'python-setuptools') }}
+        state: present
+      register: status
+      until: status is succeeded
+      become: true
+
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
