@@ -16,7 +16,7 @@
 
 - name: 'Fetch artifact page'
   win_uri:
-    url: '{{ release_page }}'
+    url: '{{ java_sapmachine_release_page }}'
     status_code: [200, 404]
     return_content: true
     headers: {"user-agent": "Mozilla/5.0"}
