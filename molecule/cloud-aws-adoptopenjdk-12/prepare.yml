@@ -35,15 +35,27 @@
       until: status is succeeded
       become: true
 
+    - name: Add python-dnf
+      yum:
+        name: >-
+          {{ (ansible_facts.python.version.major|int ==3 )
+            | ternary('python3-dnf', 'python-dnf') }}
+        state: 'present'
+      register: status
+      retries: 10
+      delay: 5
+      until: status is succeeded
+      become: true
+
 - name: Prepare host to S3 transport
   hosts: s3
   tasks:
 
     - name: Install python packages
       package:
-        name:
-          - "{{ (ansible_facts.python.version.major|int ==3 ) | ternary('python3-pip', 'python-pip') }}"
-          - "{{ (ansible_facts.python.version.major|int ==3 ) | ternary('python3-dnf', 'python-dnf') }}"
+        name: >-
+          {{ (ansible_facts.python.version.major|int ==3 )
+            | ternary('python3-pip', 'python-pip') }}
         state: present
       register: status
       retries: 10

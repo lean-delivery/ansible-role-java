@@ -6,6 +6,10 @@ java_package_requirements:
 
 java_package_type: rpm
 
+
+rh_dist_repo_version: >-
+  {{ (ansible_distribution == 'Amazon') | ternary('7', ansible_distribution_major_version) }}
+
 # Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
 # Define Centos arch specific for compatibility with oracle packages name
 openjdk_arch_rhel: '{{ (java_arch == "x64") | ternary("x86_64", "i686") }}'
