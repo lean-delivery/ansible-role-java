@@ -3,8 +3,8 @@
   fail:
     msg: "Supported versions of Amazon Corretto only 8 and 11"
   when:
-    - java_major_version != 8
-    - java_major_version != 11
+    - java_major_version|int != 8
+    - java_major_version|int != 11
 
 - name: Check requested architecture for Corretto
   fail:
