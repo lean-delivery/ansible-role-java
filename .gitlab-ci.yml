@@ -46,7 +46,7 @@ AWS java-6:
  tags:
    - aws
 
-AWS java-7:
+.AWS java-7:
  variables:
    AWS_REGION: us-east-1
  stage: deployment test
@@ -126,7 +126,7 @@ AWS openjdk-11:
  tags:
    - aws
 
-AWS openjdk-12:
+.AWS openjdk-12:
  variables:
    AWS_REGION: us-east-1
  stage: deployment test

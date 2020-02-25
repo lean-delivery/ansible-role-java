@@ -1,12 +1,4 @@
 ---
-- name: debug file_downloaded
-  debug:
-    var: file_downloaded
-
-- name: debug java_artifact
-  debug:
-    var: java_artifact
-
 - name: Install java packages
   yum:
     name: '{{ (transport == "repositories") | ternary(jdk_package, java_artifact) }}'

@@ -39,13 +39,14 @@
   hosts: s3
   tasks:
 
-    - name: Install pip package
+    - name: Install python packages
       package:
-        name: >-
-          {{ (ansible_facts.python.version.major|int ==3 )
-            | ternary('python3-pip', 'python-pip') }}
+        name:
+          - "{{ (ansible_facts.python.version.major|int ==3 ) | ternary('python3-pip', 'python-pip') }}"
+          - "{{ (ansible_facts.python.version.major|int ==3 ) | ternary('python3-dnf', 'python-dnf') }}"
         state: present
       register: status
+      retries: 10
       until: status is succeeded
       become: true
 
@@ -59,5 +60,6 @@
         executable: 'pip{{ ansible_facts.python.version.major }}'
         extra_args: --upgrade
       register: status
+      retries: 10
       until: status is succeeded
       become: true
