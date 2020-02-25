@@ -11,13 +11,29 @@
   debug:
     var: java_major_version
 
+- name: debug java_minor_version
+  debug:
+    var: java_minor_version
+
+- name: debug java_full_version
+  debug:
+    var: java_full_version
+
+- name: debug java_artifact_basename
+  debug:
+    var: java_artifact_basename
+
+- name: debug parts
+  debug:
+    var: parts
+
 - name: debug java_tarball_install
   debug:
     var: java_tarball_install
 
-- name: debug condition
+- name: debug java_package
   debug:
-    var: (not java_tarball_install | bool and (ansible_system == 'Linux'))
+    var: java_package
 
 - name: debug java_folder_repo_transport
   debug:
