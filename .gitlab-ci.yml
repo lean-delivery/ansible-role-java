@@ -309,12 +309,12 @@ Lint:
 #  tags:
 #    - aws
 
-AZURE adoptopenjdk Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-adoptopenjdk-windows
- tags:
-   - azure
+# AZURE adoptopenjdk Windows:
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-azure-adoptopenjdk-windows
+#  tags:
+#    - azure
 
 ## Windows tests are preferrably run in Azure
 #.AWS adoptopenjdk Windows:
@@ -325,44 +325,44 @@ AZURE adoptopenjdk Windows:
 #    - molecule test -s cloud-aws-adoptopenjdk-windows
 #  tags:
 #    - aws
-#
-#AWS sapmachine-11:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-sapmachine-11
-#  tags:
-#    - aws
-#
-#AWS sapmachine-12:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-sapmachine-12
-#  tags:
-#    - aws
-#
-#AWS sapmachine-13:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-sapmachine-13
-#  tags:
-#    - aws
-#
-## Windows tests are preferrably run in Azure
-#.AWS sapmachine-windows:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-sapmachine-windows
-#  tags:
-#    - aws
-#
+
+AWS sapmachine-11:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-sapmachine-11
+ tags:
+   - aws
+
+AWS sapmachine-12:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-sapmachine-12
+ tags:
+   - aws
+
+AWS sapmachine-13:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-sapmachine-13
+ tags:
+   - aws
+
+# Windows tests are preferrably run in Azure
+.AWS sapmachine-windows:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-sapmachine-windows
+ tags:
+   - aws
+
 #AWS Alibaba Dragonwell8:
 #  variables:
 #    AWS_REGION: us-east-1
