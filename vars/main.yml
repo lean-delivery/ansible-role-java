@@ -6,6 +6,15 @@ zulu_api_page: https://zulu.api.azul.com/api/v1/
 sapmachine_root_page: https://github.com/SAP/SapMachine/releases/download/
 github_api_page: https://api.github.com
 sapmachine_api_page: https://api.github.com/repos/SAP/SapMachine/releases/tags/
+java_sapmachine_release_page: >-
+  {{ sapmachine_api_page|string + java_distribution|string + '-'
+      + (java_minor_version == '*') | ternary(release_version|default ('')|string,
+      java_major_version|string + '.' + java_minor_version|string) }}
+
+java_sapmachine_release_name: >-
+  {{ java_distribution|string + '-' + java_package|string + '-'
+  + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string)
+        + '_' + (ansible_system == 'Win32NT') | ternary('windows', ansible_system|lower ) + '-' + java_arch|string + '_bin' }}
 corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.partial.html
 
 # vars file for java

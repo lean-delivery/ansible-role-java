@@ -48,6 +48,7 @@ platforms:
       - jre
       - sapmachine_fallback
       - pip3
+      - centos8
 
   - name: test-aws-Debian9-sapmachine-jre-tarball-11
     image: ami-003f19e0e687de1cd
@@ -123,7 +124,7 @@ provisioner:
       jre:
         java_package: jre
       sapmachine_fallback:
-        transport: sapmachine-fallback
+        transport: fallback
       web:
         transport: web
         transport_web: >-
@@ -134,10 +135,9 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:

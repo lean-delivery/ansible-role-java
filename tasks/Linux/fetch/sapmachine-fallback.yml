@@ -16,7 +16,7 @@
 
 - name: 'Fetch artifact page'
   uri:
-    url: '{{ release_page }}'
+    url: '{{ java_sapmachine_release_page }}'
     status_code: [200, 404]
     return_content: true
     body_format: json
@@ -32,11 +32,11 @@
 
 - name: Get artifact link
   set_fact:
-    artifact_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".tar.gz'].browser_download_url\") }}"
+    artifact_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".tar.gz'].browser_download_url\") }}"
 
 - name: Get checksum link
   set_fact:
-    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".sha256.txt'].browser_download_url\") }}"
+    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".sha256.txt'].browser_download_url\") }}"
 
 - name: 'Fetch artifact checksum file'
   uri:

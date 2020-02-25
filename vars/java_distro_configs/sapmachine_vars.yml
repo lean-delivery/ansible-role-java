@@ -16,12 +16,3 @@ choco_java_package: 'sapmachine{{ java_major_version }}'
 choco_path: 'C:\Program Files\SapMachine'
 
 java_folder: '{{ java_major_version }}'
-
-release_page: >-
-  {{ sapmachine_api_page|string + java_distribution|string + '-'
-      + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string) }}
-
-release_name: >-
-  {{ java_distribution|string + '-' + java_package|string + '-'
-  + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string)
-        + '_' + (ansible_system == 'Win32NT') | ternary('windows', ansible_system|lower ) + '-' + java_arch|string + '_bin' }}

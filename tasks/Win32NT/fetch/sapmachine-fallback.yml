@@ -32,11 +32,11 @@
 
 - name: Get artifact link
   set_fact:
-    artifact_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".zip'].browser_download_url\") }}"
+    artifact_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".zip'].browser_download_url\") }}"
 
 - name: Get checksum link
   set_fact:
-    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + release_name + \".sha256.txt'].browser_download_url\") }}"
+    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".sha256.txt'].browser_download_url\") }}"
 
 - name: 'Fetch artifact checksum file'
   win_uri:

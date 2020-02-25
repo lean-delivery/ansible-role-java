@@ -120,7 +120,7 @@ provisioner:
       jre:
         java_package: jre
       sapmachine_fallback:
-        transport: sapmachine-fallback
+        transport: fallback
       local:
         transport: local
         transport_local: /tmp/sapmachine-jdk-12.0.2_linux-x64_bin.tar.gz
@@ -130,7 +130,6 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../cloud-aws-sapmachine-12/prepare.yml
