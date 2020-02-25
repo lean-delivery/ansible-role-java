@@ -81,7 +81,7 @@ provisioner:
     group_vars:
       adoptopenjdk:
         java_distribution: adoptopenjdk
-        java_major_version: 13
+        java_major_version: 11
       jdk:
         java_package: jdk
       jre:
@@ -91,7 +91,7 @@ provisioner:
       hotspot:
         adoptopenjdk_impl: hotspot
       adoptopenjdk_fallback:
-        transport: adoptopenjdk-fallback
+        transport: fallback
       chocolatey:
         transport: chocolatey
       windows:
