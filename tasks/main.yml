@@ -35,8 +35,6 @@
 - name: Finalize binary paths
   include_tasks: '{{ ansible_system }}finalize_paths.yml'
   when: java_setup_path | bool
-  become: >-
-    {{ (ansible_system == 'Linux') | ternary(true, omit) }}
 
 - name: Apply security policy patch
   include_tasks: '{{ platform }}'
