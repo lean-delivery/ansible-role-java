@@ -42,6 +42,7 @@
             | ternary('python3-pip', 'python-pip') }}
         state: present
       register: status
+      retries: 10
       until: status is succeeded
       become: true
 
