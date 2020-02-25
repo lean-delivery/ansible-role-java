@@ -230,14 +230,14 @@ Lint:
 #  tags:
 #    - azure
 
-AWS zulu-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-zulu-12
- tags:
-   - aws
+# AWS zulu-12:
+#  variables:
+#    AWS_REGION: us-east-1
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-aws-zulu-12
+#  tags:
+#    - aws
 
 ## Windows tests are preferrably run in Azure
 #.AWS zulu-12 Windows:
@@ -259,12 +259,12 @@ AWS zulu-12:
 #  tags:
 #    - aws
 
-AZURE zulu-12 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-zulu-12
- tags:
-   - azure
+# AZURE zulu-12 Windows:
+#  stage: deployment test
+#  script:
+#    - molecule test -s cloud-azure-windows-zulu-12
+#  tags:
+#    - azure
 
 AZURE zulu-12 Windows chocolatey:
  stage: deployment test

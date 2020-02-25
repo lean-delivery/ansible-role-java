@@ -15,6 +15,14 @@
   debug:
     var: java_minor_version
 
+- name: debug parts
+  debug:
+    var: parts
+
+- name: debug java_artifact_basename
+  debug:
+    var: java_artifact_basename
+
 - name: debug zulu_folder
   debug:
     var: zulu_folder

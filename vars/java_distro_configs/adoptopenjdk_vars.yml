@@ -24,11 +24,8 @@ java_jre_regex_suffix: >-
 adoptopenjdk_choco_folder: >-
   {{ java_package ~ '[-]*' ~ java_major_version|string ~ '.*' }}
 
-aadoptopenjdk_folder_ext_transport: >-
-  {{ java_def_folder_ext_transport if java_def_folder_ext_transport is defined else 'ddgf' }}
-
 adoptopenjdk_folder: >-
-  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, aadoptopenjdk_folder_ext_transport) }}
+  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_def_folder_ext_transport) }}
 
 jdk_package: >-
   {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
