@@ -86,6 +86,21 @@ platforms:
     groups:
       - debian_family
 
+  - name: test-aws-Debian10-openjdk-ga
+    image: ami-003f19e0e687de1cd
+    platform: debian10
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.05
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+
   - name: test-aws-Amazon-openjdk-ga
     image: ami-035b3c7efe6d061d5
     platform: amazon
@@ -118,7 +133,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: false
+  log: true
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
