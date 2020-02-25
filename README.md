@@ -342,7 +342,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
   roles:
     - role: lean_delivery.java
       java_distribution: sapjvm
-      transport: sapjvm-fallback
+      transport: fallback
       java_major_version: 8
 ```
 ### Installing ZULU 12 from zulu-fallback:
@@ -353,7 +353,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
   roles:
     - role: lean_delivery.java
       java_distribution: zulu
-      transport: zulu-fallback
+      transport: fallback
 ```
 ### Installing AdoptOpenJDK 8-openj9-jre from adoptopenjdk-fallback:
 ```yaml
@@ -363,7 +363,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
   roles:
     - role: lean_delivery.java
       java_distribution: adoptopenjdk
-      transport: adoptopenjdk-fallback
+      transport: fallback
       java_package: jre
       adoptopenjdk_impl: openj9
       java_major_version: 8
@@ -377,7 +377,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
   roles:
     - role: lean_delivery.java
       java_distribution: sapmachine
-      transport: sapmachine-fallback
+      transport: fallback
       java_package: jre
       java_major_version: 10
 ```
@@ -389,7 +389,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
   roles:
     - role: lean_delivery.java
       java_distribution: dragonwell8
-      transport: dragonwell8-fallback
+      transport: fallback
       java_major_version: 8
 ```
 ### Installing Amazon Corretto JDK 8 from corretto-fallback:
@@ -400,7 +400,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
   roles:
     - role: lean_delivery.java
       java_distribution: corretto
-      transport: corretto-fallback
+      transport: fallback
       java_major_version: 8
 ```
 ### Installing Amazon Corretto JDK 11 from repo on Amazon Linux 2:
