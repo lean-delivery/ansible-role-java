@@ -59,7 +59,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-windows-zulu-12
+  name: cloud-azure-windows-corretto-11
 verifier:
   name: ansible
   lint:
