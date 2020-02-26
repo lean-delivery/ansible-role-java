@@ -1,6 +1,6 @@
 ---
-- name: Set parse variables based on java distribution
-  include_vars: java_parts.yml
+# - name: Set parse variables based on java distribution
+#   include_vars: java_parts.yml
 
 - name: 'Perform {{ java_binary_type }} install'
   include_tasks: '{{ install_task }}'
