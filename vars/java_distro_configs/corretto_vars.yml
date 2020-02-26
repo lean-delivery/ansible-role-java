@@ -31,7 +31,7 @@ parts: >-
   {{ java_artifact_basename | default('undefined', true)
     | regex_findall('(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
       ~ '(\d+)[\d\.\-_b]*[-]*(linux|windows)?[-]*(amd64|x86_64|x64|arm64|aarch64)[-]*'
-      ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)') 
+      ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)')
       | default([[]], true) | first | list }}
 
 java_minor_version: '*'
@@ -39,7 +39,8 @@ java_minor_version: '*'
 # {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
 
 # Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
-# We need to know which file was downloaded 
+# We need to know which file was downloaded
+
 parts_pattern: >-
   {{ (transport == 'fallback') | ternary(parts_pattern_fallback, parts_pattern_web) }}
 
