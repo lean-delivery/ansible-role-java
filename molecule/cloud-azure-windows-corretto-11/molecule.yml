@@ -81,6 +81,7 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
       corretto:
         java_distribution: corretto
+        java_major_version: 11
         transport: fallback
       msi:
         java_tarball_install: false

@@ -1,13 +1,5 @@
 ---
 - name: Converge
   hosts: all
-  pre_tasks:
-    - name: debug java_tarball_install
-      debug:
-        var: java_tarball_install
-
-    - name: debug java_binary_type
-      debug:
-        var: java_binary_type
   roles:
     - role: ansible-role-java
