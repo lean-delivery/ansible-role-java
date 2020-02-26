@@ -3,7 +3,9 @@ java_package_requirements:
   - unzip
   - rsync
 
-java_package_type: deb
+java_package_type: >-
+  {{ java_tarball_install | ternary('tar.gz', 'deb') }}
+
 jdk_package: >-
   {{ 'openjdk-' + java_major_version|string + '-' + java_package }}
 

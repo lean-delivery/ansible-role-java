@@ -45,7 +45,7 @@ platforms:
       - fallback
       - centos8
 
-  - name: test-aws-Debian9-corretto-jdk-fallback-11
+  - name: test-aws-Debian9-corretto-jdk-fallback-11-tb
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.micro
@@ -61,6 +61,7 @@ platforms:
       - debian_family
       - corretto
       - fallback
+      - tarball
 
   - name: test-aws-ubuntu18-corretto-jdk-fallback-11
     image: ami-012fd5eb46f56731f
@@ -78,6 +79,7 @@ platforms:
       - debian_family
       - corretto
       - fallback
+      - package
 
   - name: test-aws-centos7-corretto-web-11
     image: ami-9887c6e7
@@ -183,7 +185,12 @@ provisioner:
         java_package: jre
       fallback:
         transport: fallback
+      package:
+        java_tarball_install: false
+      tarball:
+        java_tarball_install: true
       web:
+        java_tarball_install: true
         transport: web
         transport_web: >-
           https://d3pxv6yz143wms.cloudfront.net/11.0.5.10.1/amazon-corretto-11.0.5.10.1-linux-x64.tar.gz

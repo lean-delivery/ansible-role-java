@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-azure-windows2016-corretto-11
+  - name: test-azure-windows2016-corretto-11-fb-msi
     platform: windows2016core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -22,8 +22,9 @@ platforms:
     groups:
       - windows
       - corretto
+      - msi
 
-  - name: test-azure-windows2019-corretto-11
+  - name: test-azure-windows2019-corretto-11-fb-msi
     platform: windows2019core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -35,6 +36,35 @@ platforms:
     groups:
       - windows
       - corretto
+      - msi
+
+  - name: test-azure-windows2016-corretto-11-fb-tb
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - corretto
+      - tarball
+
+  - name: test-azure-windows2019-corretto-11-fb-tb
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - corretto
+      - tarball
 
 provisioner:
   name: ansible
@@ -49,9 +79,13 @@ provisioner:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
-      zulu:
+      corretto:
         java_distribution: corretto
         transport: fallback
+      msi:
+        java_tarball_install: false
+      tarball:
+        java_tarball_install: true
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml

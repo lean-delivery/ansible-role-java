@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-corretto-jdk-fallback-8
+  - name: test-aws-centos7-corretto-jdk-fallback-8-tb
     image: ami-02eac2c0129f6376b
     platform: centos7
     instance_type: t3.micro
@@ -26,6 +26,7 @@ platforms:
       - rhel_family
       - corretto
       - fallback
+      - tarball
 
   - name: test-aws-centos8-corretto-jdk-fallback-8
     image: ami-0ed2ad9dc845b42b6
@@ -44,6 +45,7 @@ platforms:
       - corretto
       - fallback
       - centos8
+      - package
 
   - name: test-aws-Debian9-corretto-jdk-fallback-8
     image: ami-003f19e0e687de1cd
@@ -61,6 +63,7 @@ platforms:
       - debian_family
       - corretto
       - fallback
+      - package
 
   - name: test-aws-ubuntu18-corretto-jdk-fallback-8
     image: ami-07ebfd5b3428b6f4d
@@ -78,6 +81,7 @@ platforms:
       - debian_family
       - corretto
       - fallback
+      - package
 
   - name: test-aws-centos7-corretto-web-8
     image: ami-9887c6e7
@@ -206,8 +210,13 @@ provisioner:
         transport: repositories
       fallback:
         transport: fallback
+      package:
+        java_tarball_install: false
+      tarball:
+        java_tarball_install: true
       web:
         transport: web
+        java_tarball_install: true
         transport_web: >-
           https://d3pxv6yz143wms.cloudfront.net/8.232.09.1/amazon-corretto-8.232.09.1-linux-x64.tar.gz
   playbooks:

@@ -4,7 +4,8 @@ java_package_requirements:
   - tar
   - rsync
 
-java_package_type: rpm
+java_package_type: >-
+  {{ java_tarball_install | ternary('tar.gz', 'rpm') }}
 
 
 rh_dist_repo_version: >-

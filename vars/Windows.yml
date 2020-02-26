@@ -4,7 +4,8 @@ java_product_id_ver:
   11: '{26A5A3EF-92DC-5243-ABF9-00B12A3DF649}'
   12: '{0D60E96D-0B74-55A5-ACA5-0F6786FDF256}'
 
-java_package_type: msi
+java_package_type: >-
+  {{ java_tarball_install | ternary('zip', 'msi') }}
 
 checksum_alg: sha256
 
