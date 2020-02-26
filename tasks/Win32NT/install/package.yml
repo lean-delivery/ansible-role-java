@@ -15,6 +15,10 @@
   debug:
     var: java_folder
 
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
 - name: debug java_minor_version
   debug:
     var: java_minor_version
