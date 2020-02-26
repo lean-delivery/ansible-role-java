@@ -72,10 +72,9 @@ pattern_fallback_redhat: >-
 parts_pattern_web: '^(amazon-corretto)-([0-9]+)\.([0-9\.]+)-(linux|windows)-(x64)\.(tar\.gz|zip)'
 
 java_path: '{{ java_default_corretto_path }}'
-java_folder: '{{ java_corretto_folder }}'
-
-  # {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
-  #   | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
+    | ternary(java_folder_repo_transport, java_corretto_folder) }}
 
 #       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
 java_folder_repo_transport: >-
