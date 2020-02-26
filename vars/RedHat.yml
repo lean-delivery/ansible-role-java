@@ -35,6 +35,7 @@ jdk_package: >-
 
 java_default_path: >-
   {{ (java_distribution in ['zulu', 'corretto']) | ternary('/usr/lib/jvm', '/usr/java') }}
+java_corretto_folder: '{{ java_folder_ext_transport }}'
 
 java_default_corretto_path: /usr/lib/jvm
 

@@ -5,6 +5,10 @@
 # 3. web install from tarball (RedHat and Debian)
 # java_major_version: '{{ parts[2] }}'
 
+java_product_id_ver:
+  8: '{4A03706F-666A-4037-7777-5F2748764D10}'
+  11: '{F8D0022C-B409-42FE-9124-CDE4F2F487E0}'
+
 jdk_package: >-
   {{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}
 
@@ -24,22 +28,31 @@ corretto11_package: "java-11-amazon-corretto-headless"
 
 # Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
 parts: >-
-  {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
+  {{ java_artifact_basename | default('undefined', true)
+    | regex_findall('(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
+      ~ '(\d+)[\d\.\-_b]*[-]*(linux|windows)?[-]*(amd64|x86_64|x64|arm64|aarch64)[-]*'
+      ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)') 
+      | default([[]], true) | first | list }}
+
+java_minor_version: '*'
+
+# {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
 
 # Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
-# We need to know which file was downloaded
+# We need to know which file was downloaded 
 parts_pattern: >-
   {{ (transport == 'fallback') | ternary(parts_pattern_fallback, parts_pattern_web) }}
 
 # Case #2. Install from downloaded package (RPM or DEB)
+# (java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?(\d+)[\d\.\-_b]*(-linux-|-windows-)?(amd64|x86_64|x64|arm64|aarch6)[-]*(linux|windows)?[-]*jdk\.(deb|rpm|tar\.gz|msi|zip)
 # Parts are extracted from downloaded file name
 # We're extracting only `java_major_version` and `java_minor_version` parts
 # Downloaded DEB package name samples:
 # java-1.8.0-amazon-corretto-jdk_8.232.09-1_amd64.deb | java-11-amazon-corretto-jdk_11.0.5.10-1_amd64.deb
-parts_pattern_fallback: >-
-  {{ '(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
-      ~ '(\d+)\.[\d\.\-_b]*(-linux-|-windows-)?(amd64|x86_64|x64|arm64|aarch64)'
-      ~ '\.(deb|rpm|tar\.gz)' }}
+# parts_pattern_fallback: >-
+#   {{ '(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
+#       ~ '(\d+)\.[\d\.\-_b]*(-linux-|-windows-)?(amd64|x86_64|x64|arm64|aarch64)'
+#       ~ '\.(deb|rpm|tar\.gz|msi|zip)' }}
 
 # Special handling for RedHat like systems
 # Downloaded RPM package name samples:
@@ -55,12 +68,13 @@ pattern_fallback_redhat: >-
 # Parts are extracted from downloaded file name
 # We're extracting only all parts except `java_package`
 # File name sample: amazon-corretto-11.0.5.10.1-linux-x64.tar.gz
-parts_pattern_web: '^(amazon-corretto)-([0-9]+)\.([0-9\.]+)-(linux)-(x64)\.(tar\.gz)'
+parts_pattern_web: '^(amazon-corretto)-([0-9]+)\.([0-9\.]+)-(linux|windows)-(x64)\.(tar\.gz|zip)'
 
 java_path: '{{ java_default_corretto_path }}'
-java_folder: >-
-  {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
-    | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
+java_folder: '{{ java_corretto_folder }}'
+
+  # {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
+  #   | ternary(java_folder_repo_transport, java_folder_ext_transport) }}
 
 #       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
 java_folder_repo_transport: >-

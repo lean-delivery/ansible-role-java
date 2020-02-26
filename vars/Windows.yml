@@ -19,3 +19,5 @@ java_default_path: >-
 java_default_corretto_path: C:\Program Files\Amazon Corretto
 
 java_artifact_basename: '{{ java_artifact | win_basename }}'
+java_corretto_folder: >-
+  {{ java_package ~ java_major_version }}
