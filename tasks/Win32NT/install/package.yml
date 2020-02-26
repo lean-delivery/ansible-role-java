@@ -3,9 +3,9 @@
   debug:
     var: java_artifact
 
-- name: debug java_path
+- name: debug java_product_id
   debug:
-    var: java_path
+    var: java_product_id
 
 - name: debug java_folder
   debug:
