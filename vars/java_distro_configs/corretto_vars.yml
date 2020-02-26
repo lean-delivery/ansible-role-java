@@ -34,6 +34,7 @@ parts: >-
       ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)')
       | default([[]], true) | first | list }}
 
+java_major_version: '{{ parts[2] }}'
 java_minor_version: '*'
 
 # {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
