@@ -16,4 +16,6 @@ java_download_default_path: '{{ ansible_env.TEMP }}'
 java_default_path: >-
   {{ (transport == 'chocolatey') | ternary(choco_path | default(omit), 'C:\Program Files\Java') }}
 
+java_default_corretto_path: C:\Program Files\Amazon Corretto
+
 java_artifact_basename: '{{ java_artifact | win_basename }}'

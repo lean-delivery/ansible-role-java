@@ -36,6 +36,8 @@ jdk_package: >-
 java_default_path: >-
   {{ (java_distribution in ['zulu', 'corretto']) | ternary('/usr/lib/jvm', '/usr/java') }}
 
+java_default_corretto_path: /usr/lib/jvm
+
 java_folder_repo_transport: >-
   {{ 'java-' + openjdk_package_rhel_versions
       + '-openjdk-.+' + openjdk_arch_rhel

@@ -370,23 +370,23 @@ Lint:
 #  tags:
 #    - azure
 
-# AWS corretto-8:
-#   variables:
-#     AWS_REGION: us-east-1
-#   stage: deployment test
-#   script:
-#     - molecule test -s cloud-aws-corretto-8
-#   tags:
-#     - aws
+AWS corretto-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-corretto-8
+  tags:
+    - aws
 
-# AWS corretto-11:
-#   variables:
-#     AWS_REGION: us-east-1
-#   stage: deployment test
-#   script:
-#     - molecule test -s cloud-aws-corretto-11
-#   tags:
-#     - aws
+AWS corretto-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-corretto-11
+  tags:
+    - aws
 
 AZURE corretto-11-windows:
  stage: deployment test

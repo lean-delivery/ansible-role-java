@@ -11,6 +11,8 @@ jdk_package: >-
 
 java_default_path: /usr/lib/jvm
 
+java_default_corretto_path: /usr/lib/jvm
+
 java_folder_repo_transport: >-
   {{ 'java-' + java_major_version|string + '-openjdk-*'
       | default(omit) }}
