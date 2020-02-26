@@ -43,20 +43,20 @@ platforms:
       - ver11
 
 # todo: enable after fix!
-#  - name: test-azure-windows2019-sapmachine-chocolatey-13
-#    platform: windows2019core
-#    vm_size: Standard_D2s_v3
-#    assign_public_ip: true
-#    az_location: northeurope
-#    az_resource_group_name: epm-ldi
-#    az_virtual_network_name: epm-ldi-northeurope-vnet
-#    az_subnet_name: epm-ldi-northeurope-subnet
-#    az_network_security_group: epm-ldi-northeurope-sg
-#    groups:
-#      - windows
-#      - sapmachine
-#      - ver13
-#      - chocolatey
+  - name: test-azure-windows2019-sapmachine-chocolatey-13
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: true
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - sapmachine
+      - ver13
+      - chocolatey
 
 provisioner:
   name: ansible
@@ -71,7 +71,7 @@ provisioner:
       ver13:
         java_major_version: 13
       sapmachine_fallback:
-        transport: sapmachine-fallback
+        transport: fallback
       chocolatey:
         transport: chocolatey
       windows:

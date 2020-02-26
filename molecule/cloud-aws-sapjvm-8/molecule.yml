@@ -86,7 +86,7 @@ provisioner:
     group_vars:
       sapjvm:
         java_distribution: sapjvm
-        transport: sapjvm-fallback
+        transport: fallback
         java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AWS/create.yml

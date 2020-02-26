@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-azure-windows2016-zulu-12
+  - name: test-azure-windows2016-corretto-11
     platform: windows2016core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -21,9 +21,9 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - zulu
+      - corretto
 
-  - name: test-azure-windows2019-zulu-12
+  - name: test-azure-windows2019-corretto-11
     platform: windows2019core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -34,7 +34,7 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - zulu
+      - corretto
 
 provisioner:
   name: ansible
@@ -50,7 +50,7 @@ provisioner:
         ansible_winrm_transport: credssp
         ansible_winrm_server_cert_validation: ignore
       zulu:
-        java_distribution: zulu
+        java_distribution: corretto
         transport: fallback
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml

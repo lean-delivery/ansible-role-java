@@ -3,6 +3,7 @@
   include_tasks: '{{ transport_driver }}'
   with_first_found:
     - 'fetch/security-fetch/security-fetch-{{ java_unlimited_policy_transport }}.yml'
+    - 'fetch/security-fetch/security-fetch-{{ java_distribution }}-{{ java_unlimited_policy_transport }}.yml'
     - 'fetch/unknown-transport.yml'
   loop_control:
     loop_var: transport_driver

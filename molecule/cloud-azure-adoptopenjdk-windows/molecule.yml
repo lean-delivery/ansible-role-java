@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-azure-windows2016-adoptopenjdk-tarball-13
+  - name: test-azure-windows2016-adoptopenjdk-tarball-11
     platform: windows2016core
     vm_size: Standard_D2s_v3
     az_location: northeurope
@@ -26,7 +26,7 @@ platforms:
       - jdk
       - adoptopenjdk_fallback
 
-  - name: test-azure-windows2019-adoptopenjdk-tarball-13
+  - name: test-azure-windows2019-adoptopenjdk-tarball-11
     platform: windows2019core
     vm_size: Standard_D2s_v3
     az_location: northeurope
@@ -81,7 +81,6 @@ provisioner:
     group_vars:
       adoptopenjdk:
         java_distribution: adoptopenjdk
-        java_major_version: 11
       jdk:
         java_package: jdk
       jre:
@@ -92,8 +91,10 @@ provisioner:
         adoptopenjdk_impl: hotspot
       adoptopenjdk_fallback:
         transport: fallback
+        java_major_version: 11
       chocolatey:
         transport: chocolatey
+        java_major_version: 13
       windows:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp

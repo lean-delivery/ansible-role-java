@@ -12,7 +12,7 @@
   when: java_arch != 'x64'
 
 - name: 'Fetch root page {{ corretto_root_page }}'
-  uri:
+  win_uri:
     url: '{{ corretto_root_page }}'
     return_content: true
   register: root_page
@@ -22,20 +22,21 @@
     release_url: >-
       {{ root_page['content']
         | regex_search('(https://corretto.aws/downloads/latest/amazon-corretto-'
-            ~ java_major_version ~ '-' ~ java_arch ~ '-linux-' ~ java_package ~'\.' ~ java_package_type ~')')
+            ~ java_major_version ~ '-' ~ java_arch ~ '-windows-' ~ java_package ~'\.' ~ java_package_type ~')')
           }}
     release_checksum: >-
       {{ root_page['content']
         | regex_search('(https://corretto.aws/downloads/latest_checksum/amazon-corretto-'
-            ~ java_major_version ~ '-' ~ java_arch ~ '-linux-' ~ java_package ~ '\.' ~ java_package_type ~')')
+            ~ java_major_version ~ '-' ~ java_arch ~ '-windows-' ~ java_package ~ '\.' ~ java_package_type ~')')
           }}
 
 - name: 'Download artifact from {{ release_url }}'
-  get_url:
+  win_get_url:
     url: '{{ release_url }}'
     dest: '{{ java_download_path }}'
     checksum: >-
-      md5:{{ lookup('url', release_checksum) }}
+      {{ lookup('url', release_checksum) }}
+    checksum_algorithm: md5
   register: file_downloaded
   retries: 20
   delay: 5
