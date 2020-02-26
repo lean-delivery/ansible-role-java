@@ -7,6 +7,10 @@
   debug:
     var: java_product_id
 
+- name: debug java_product_id_ver
+  debug:
+    var: java_product_id_ver
+
 - name: debug java_folder
   debug:
     var: java_folder
