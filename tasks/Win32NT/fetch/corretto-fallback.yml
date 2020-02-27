@@ -30,10 +30,6 @@
             ~ java_major_version ~ '-' ~ java_arch ~ '-windows-' ~ java_package ~ '\.' ~ java_package_type ~')')
           }}
 
-- name: debug release_url|split
-  debug:
-    var: (release_url|urlsplit).path|basename
-
 - name: 'Download artifact from {{ release_url }}'
   win_get_url:
     url: '{{ release_url }}'

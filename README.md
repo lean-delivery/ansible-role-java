@@ -85,12 +85,12 @@ Requirements
       - Debian stretch: tarball
       - Windows: tarball
    - 13
-      - EL 6: tarball, openjdk-fallback
-      - EL 7: tarball, openjdk-fallback
-      - EL 8: tarball, openjdk-fallback
-      - Ubuntu bionic: tarball, openjdk-fallback
-      - Debian stretch: tarball, openjdk-fallback
-      - Windows: tarball, openjdk-fallback
+      - EL 6: tarball, fallback
+      - EL 7: tarball, fallback
+      - EL 8: tarball, fallback
+      - Ubuntu bionic: tarball, fallback
+      - Debian stretch: tarball, fallback
+      - Windows: tarball, fallback
  - **Supported oracle java version**:
    - 7
    - 8
@@ -111,11 +111,11 @@ Requirements
    - 13
 - **Supported SapMachine version**:
     - 11
-      - EL 7: sapmachine-fallback
-      - EL 8: sapmachine-fallback
-      - Ubuntu bionic: sapmachine-fallback
-      - Debian stretch: sapmachine-fallback
-      - Windows: chocolatey (only latest version, don't support java_minor_version variables), sapmachine-fallback
+      - EL 7: fallback
+      - EL 8: fallback
+      - Ubuntu bionic: fallback
+      - Debian stretch: fallback
+      - Windows: chocolatey (only latest version, don't support java_minor_version variables), fallback
    - 12
       - EL 7: tarball
       - EL 8: tarball
@@ -123,11 +123,11 @@ Requirements
       - Debian stretch: tarball
       - Windows: tarball
    - 13
-      - EL 7: sapmachine-fallback
-      - EL 8: sapmachine-fallback
-      - Ubuntu bionic: sapmachine-fallback
-      - Debian stretch: sapmachine-fallback
-      - Windows: chocolatey (only latest version, don't support java_minor_version variables), sapmachine-fallback
+      - EL 7: fallback
+      - EL 8: fallback
+      - Ubuntu bionic: fallback
+      - Debian stretch: fallback
+      - Windows: chocolatey (only latest version, don't support java_minor_version variables), fallback
  - **Supported Alibaba Dragonwell version**:
    - 8.0.0
    - 8.1.1
@@ -178,7 +178,7 @@ Requirements
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
       - `fallback` fetching artifacts from official sites (available for distributions: openjdk, sapjvm, zulu, adoptopenjdk, sapmachine, dragonwell8, corretto).   
-         This is default value for `transport` variable
+         This is *default* value for `transport` variable
 
         **Notice** using `s3` transport requires specific packages to be installed on target host:
           - 'botocore'

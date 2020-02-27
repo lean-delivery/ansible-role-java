@@ -1,44 +1,6 @@
 ---
-- name: debug java_artifact
-  debug:
-    var: java_artifact
-
-- name: debug java_product_id
-  debug:
-    var: java_product_id
-
-- name: debug java_product_id_ver
-  debug:
-    var: java_product_id_ver
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug java_minor_version
-  debug:
-    var: java_minor_version
-
-- name: debug java_folder_ext_transport
-  debug:
-    var: java_folder_ext_transport
-
-- name: debug java_artifact_basename
-  debug:
-    var: java_artifact_basename
-
-- name: debug parts
-  debug:
-    var: parts
-
 - name: Install java packages
   win_package:
     path: '{{ java_artifact }}'
-    # product_id: '{{ java_product_id }}'
+    product_id: '{{ java_product_id }}'
     state: present
-    # arguments: '/s INSTALLDIR="{{ java_path }}\{{ java_folder }}"'
-    # creates_path: '{{ java_path }}\{{ java_folder }}'

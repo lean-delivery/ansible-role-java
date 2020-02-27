@@ -154,12 +154,12 @@ AWS openjdk-ga:
 #  tags:
 #    - aws
 
-# AZURE openjdk-ga Windows:
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-azure-openjdk-windows-ga
-#  tags:
-#    - azure
+AZURE openjdk-ga Windows:
+ stage: deployment test
+ script:
+   - molecule test -s cloud-azure-openjdk-windows-ga
+ tags:
+   - azure
 
 # # Windows tests are preferrably run in Azure
 # .AWS java-11 Windows:
