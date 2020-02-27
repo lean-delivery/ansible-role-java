@@ -117,14 +117,14 @@ AWS openjdk-8:
  tags:
    - aws
 
-# AWS openjdk-11:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-openjdk-11
-#  tags:
-#    - aws
+AWS openjdk-11:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-openjdk-11
+ tags:
+   - aws
 
 # .AWS openjdk-12:
 #  variables:
@@ -363,12 +363,12 @@ AWS openjdk-8:
 #  tags:
 #    - aws
 
-# AZURE sapmachine-windows:
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-azure-sapmachine-windows
-#  tags:
-#    - azure
+AZURE sapmachine-windows:
+ stage: deployment test
+ script:
+   - molecule test -s cloud-azure-sapmachine-windows
+ tags:
+   - azure
 
 # AWS corretto-8:
 #   variables:
