@@ -13,7 +13,7 @@ parts: >-
 
 
 java_product_id_ver:
-  8: '{4A03706F-666A-4037-7777-5F2748764D10}'
+  8: '{0D179FFA-5BD7-4775-83C2-7770EFF5D7EC}'
   11: '{F8D0022C-B409-42FE-9124-CDE4F2F487E0}'
 
 jdk_package: >-

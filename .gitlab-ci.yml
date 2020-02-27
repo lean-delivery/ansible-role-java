@@ -135,14 +135,14 @@ Lint:
 #  tags:
 #    - aws
 
-# AWS openjdk-ga:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-openjdk-ga
-#  tags:
-#    - aws
+AWS openjdk-ga:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-openjdk-ga
+ tags:
+   - aws
 
 # # Windows tests are preferrably run in Azure
 # .AWS openjdk-ga Windows:
@@ -273,14 +273,14 @@ Lint:
 #  tags:
 #    - azure
 
-# AWS adoptopenjdk-8:
-#  variables:
-#    AWS_REGION: us-east-1
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-aws-adoptopenjdk-8
-#  tags:
-#    - aws
+AWS adoptopenjdk-8:
+ variables:
+   AWS_REGION: us-east-1
+ stage: deployment test
+ script:
+   - molecule test -s cloud-aws-adoptopenjdk-8
+ tags:
+   - aws
 
 # AWS adoptopenjdk-11:
 #  variables:
