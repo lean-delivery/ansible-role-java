@@ -1,4 +1,28 @@
 ---
+- name: debug java_artifact
+  debug:
+    var: java_artifact
+
+- name: debug jdk_package
+  debug:
+    var: jdk_package
+
+- name: debug java_major_version
+  debug:
+    var: java_major_version
+
+- name: debug java_minor_version
+  debug:
+    var: java_minor_version
+
+- name: debug openjdk_package_rhel_spec
+  debug:
+    var: openjdk_package_rhel_spec
+
+- name: debug openjdk_package_rhel_versions
+  debug:
+    var: openjdk_package_rhel_versions
+
 - name: Install java packages
   yum:
     name: '{{ (transport == "repositories") | ternary(jdk_package, java_artifact) }}'
