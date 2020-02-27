@@ -4,6 +4,13 @@
 # 2. fallback install from package (RedHat and Debian)
 # 3. web install from tarball (RedHat and Debian)
 # java_major_version: '{{ parts[2] }}'
+parts: >-
+  {{ java_artifact_basename | default('undefined', true)
+    | regex_findall('(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
+      ~ '(\d+)[\d\.\-_b]*[-]*(linux|windows)?[-]*(amd64|x86_64|x64|arm64|aarch64)[-]*'
+      ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)')
+      | default([[]], true) | first | list }}
+
 
 java_product_id_ver:
   8: '{4A03706F-666A-4037-7777-5F2748764D10}'
@@ -26,16 +33,6 @@ corretto8_package: >-
 # https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
 corretto11_package: "java-11-amazon-corretto-headless"
 
-# Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
-parts: >-
-  {{ java_artifact_basename | default('undefined', true)
-    | regex_findall('(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
-      ~ '(\d+)[\d\.\-_b]*[-]*(linux|windows)?[-]*(amd64|x86_64|x64|arm64|aarch64)[-]*'
-      ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)')
-      | default([[]], true) | first | list }}
-
-# java_major_version: '{{ parts[2] }}'
-java_minor_version: '*'
 
 # {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
 
