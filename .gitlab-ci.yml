@@ -388,9 +388,9 @@ AWS corretto-11:
   tags:
     - aws
 
-AZURE corretto-11-windows:
+AZURE corretto-windows:
  stage: deployment test
  script:
-   - molecule test -s cloud-azure-windows-corretto-11
+   - molecule test -s cloud-azure-windows-corretto
  tags:
    - azure

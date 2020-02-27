@@ -23,6 +23,7 @@ platforms:
       - windows
       - corretto
       - msi
+      - java11
 
   - name: test-azure-windows2019-corretto-11-fb-msi
     platform: windows2019core
@@ -37,8 +38,9 @@ platforms:
       - windows
       - corretto
       - msi
+      - java11
 
-  - name: test-azure-windows2016-corretto-11-fb-tb
+  - name: test-azure-windows2016-corretto-8-fb-msi
     platform: windows2016core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -50,9 +52,10 @@ platforms:
     groups:
       - windows
       - corretto
-      - tarball
+      - msi
+      - java8
 
-  - name: test-azure-windows2019-corretto-11-fb-tb
+  - name: test-azure-windows2019-corretto-8-fb-msi
     platform: windows2019core
     vm_size: Standard_D2s_v3
     assign_public_ip: false
@@ -64,7 +67,8 @@ platforms:
     groups:
       - windows
       - corretto
-      - tarball
+      - msi
+      - java8
 
 provisioner:
   name: ansible
@@ -81,12 +85,13 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
       corretto:
         java_distribution: corretto
-        java_major_version: 11
         transport: fallback
       msi:
         java_tarball_install: false
-      tarball:
-        java_tarball_install: true
+      java8:
+        java_major_version: 8
+      java11:
+        java_major_version: 11
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
@@ -94,7 +99,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-windows-corretto-11
+  name: cloud-azure-windows-corretto
 verifier:
   name: ansible
   lint:
