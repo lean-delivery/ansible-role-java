@@ -50,7 +50,7 @@
 - name: 'Download artifact from {{ release_url[0] }}'
   win_get_url:
     url: '{{ release_url[0] }}'
-    dest: '{{ java_download_path }}'
+    dest: '{{ java_download_path }}\{{ (release_url[0]|urlsplit).path|basename }}'
     force: true
     checksum: '{{ artifact_checksum.content }}'
     checksum_algorithm: sha256
