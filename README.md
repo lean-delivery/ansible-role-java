@@ -20,6 +20,9 @@ This Ansible role has the following features for:
  - Install JRE, JDK, Server-JRE
  - Additional opportunity to install from s3, web, local source.
 
+**DISCLAIMER**: usage of any version of this role implies you have accepted the
+[Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
+
 **SAPJVM**
 
 - Install JDK
@@ -52,11 +55,7 @@ This Ansible role has the following features for:
 
 - Install JDK 8 and 11 
 - Install JRE 8 (Amazon Linux 2 only)
-- Linux x64 platform only
-- Additional opportunity to install from corretto-fallback, web, local source, s3.
-
-DISCLAIMER: usage of any version of this role implies you have accepted the
-[Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
+- Additional opportunity to install from fallback, web, local source, s3.
 
 
 Requirements
@@ -141,14 +140,17 @@ Requirements
      - trusty
    - Debian
      - stretch
+     - buster
    - Amazon Linux
    - Amazon Linux 2
-   - EL
+   - EL (RHEL/CentOS)
      - 6
      - 7
      - 8
    - Windows
-     - all
+     - 10
+     - 2016
+     - 2019
 
 ## Role Variables
   - `java_distribution` Java distribution type, one of:
@@ -169,12 +171,12 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `openjdk-fallback`(OpenJDK only), `repositories`(OpenJDK only), `sapjvm-fallback`(SAPJVM only), `adoptopenjdk-fallback`(AdoptOpenJDK only),`sapmachine-fallback`(SapMachine only), `zulu-fallback`(ZULU only), `dragonwell8-fallback`(Alibaba Dragonwell only), `corretto-fallback`(Amazon Corretto only), `local`, `web` or `s3` for more predictable result.
+  - `transport` Artifact source transport. Use `fallback` (OpenJDK, SAPJVM, AdoptOpenJDK, SapMachine, ZULU, Alibaba Dragonwell, Amazon Corretto distributions are supported), `repositories`(OpenJDK, AdoptOpenJDK, Amazon Corretto distributions are supported), `local`, `web` or `s3` according to your requirements.
 
     Available:
-      - `repositories` Installing OpenJDK java from system repositories (yum or apt, Linux only)
+      - `repositories` Installing java from system repositories (yum or apt, Linux only)
       - `web` Fetching artifact from custom web url
-      - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11,12 or JRE 8)
+      - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11, 12 or JRE 8, SapMachine, ZULU, AdoptOpenJDK)
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
       - `fallback` fetching artifacts from official sites (available for distributions: openjdk, sapjvm, zulu, adoptopenjdk, sapmachine, dragonwell8, corretto).   
@@ -237,6 +239,7 @@ Requirements
     default: `true`
 
 # Configure unlimited policy
+
   - `java_unlimited_policy_enabled` - to apply unlimited policy
 
     default: `false`
@@ -263,6 +266,7 @@ ansible-galaxy install lean_delivery.java
 Example Playbook
 ----------------
 ### Installing OpenJDK 13 from openjdk-fallback (default role behaviour):
+
 ```yaml
 - name: Install openjdk java
   hosts: all
@@ -272,6 +276,7 @@ Example Playbook
 ```
 
 ### Installing OpenJDK 8 from repositories:
+
 ```yaml
 - name: Install openjdk java
   hosts: all
@@ -283,6 +288,7 @@ Example Playbook
 ```
 
 ### Installing OpenJDK 11 from web:
+
 ```yaml
 - name: Install openjdk java
   hosts: all
@@ -296,6 +302,7 @@ Example Playbook
 ```
 
 ### Installing Oracle java 8 from local file:
+
 ```yaml
 - name: Install oracle java
   hosts: all
@@ -309,6 +316,7 @@ Example Playbook
 ### Installing Oracle java 8 from S3 bucket:
 Before install you should prepare host to use aws_s3 module
 https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
+
 ```yaml
 - name: Install java
   hosts: all
@@ -324,6 +332,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
 
 ```
 ### Installing OpenJDK 11.0.2 on Windows host with win_chocolatey:
+
 ```yaml
 - name: Install java
   hosts: windows
@@ -336,6 +345,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_minor_version: 0.2
 ```
 ### Installing SAPJVM 8 from sapjvm-fallback:
+
 ```yaml
 - name: Install sapjvm
   hosts: all
@@ -347,6 +357,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 8
 ```
 ### Installing ZULU 12 from zulu-fallback:
+
 ```yaml
 - name: Install zulu
   hosts: all
@@ -357,6 +368,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: fallback
 ```
 ### Installing AdoptOpenJDK 8-openj9-jre from adoptopenjdk-fallback:
+
 ```yaml
 - name: Install AdoptOpenJDK
   hosts: all
@@ -371,6 +383,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
 ```
 
 ### Installing SapMachine sapmachine-jre-10 from sapmachine-fallback:
+
 ```yaml
 - name: Install SapMachine
   hosts: all
@@ -383,6 +396,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 10
 ```
 ### Installing Alibaba Dragonwell 8 from dragonwell8-fallback:
+
 ```yaml
 - name: Install Alibaba Dragonwell8
   hosts: all
@@ -394,6 +408,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 8
 ```
 ### Installing Amazon Corretto JDK 8 from corretto-fallback:
+
 ```yaml
 - name: Install Amazon Corretto
   hosts: all
@@ -404,7 +419,9 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: fallback
       java_major_version: 8
 ```
+
 ### Installing Amazon Corretto JDK 11 from repo on Amazon Linux 2:
+
 ```yaml
 - name: Install Amazon Corretto
   hosts: all
@@ -415,7 +432,9 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: repositories
       java_major_version: 11
 ```
+
 ### Installing Amazon Corretto JDK 11 on Ubuntu 18.04 from web:
+
 ```yaml
 - name: Install Amazon Corretto
   hosts: all
