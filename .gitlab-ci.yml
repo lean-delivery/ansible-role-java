@@ -223,12 +223,12 @@ AWS openjdk-11:
 #  tags:
 #    - aws
 
-# AZURE sapjvm-8 Windows:
-#  stage: deployment test
-#  script:
-#    - molecule test -s cloud-azure-windows-sapjvm-8
-#  tags:
-#    - azure
+AZURE sapjvm-8 Windows:
+ stage: deployment test
+ script:
+   - molecule test -s cloud-azure-windows-sapjvm-8
+ tags:
+   - azure
 
 # AWS zulu-12:
 #  variables:

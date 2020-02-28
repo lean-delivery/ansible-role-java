@@ -1,16 +1,4 @@
 ---
-- name: debug java_artifact
-  debug:
-    var: java_artifact
-
-- name: debug jdk_package
-  debug:
-    var: jdk_package
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
 - name: Install java packages
   apt:
     deb: '{{ java_artifact | default(omit, true) }}'
@@ -20,3 +8,7 @@
     cache_valid_time: 3600
   register: package_install
   until: package_install is succeeded
+
+- debug:
+    msg: '{{ item.name }}'
+  loop: '{{ ethernet_facts }}'

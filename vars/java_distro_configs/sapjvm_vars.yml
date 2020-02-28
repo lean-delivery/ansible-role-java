@@ -1,8 +1,8 @@
 ---
 parts: >-
-  {{ java_artifact_basename
+  {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^(sapjvm)-([0-9]+)[u.]([0-9.]+)[-_]([a-z]+)-(x64|i586)')
-    | first | list }}
+    | default([[]], true) | first | list }}
 
 java_package: >-
   {{ parts[0] | default("jdk") }}
