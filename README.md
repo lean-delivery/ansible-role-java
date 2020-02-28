@@ -240,7 +240,8 @@ Requirements
   - `java_unlimited_policy_enabled` - to apply unlimited policy
 
     default: `false`
-  - `java_unlimited_policy_transport` Artifact source transport. Use `local`, `web` or `s3` for more predictable result.
+  - `java_unlimited_policy_transport` Artifact source transport. Use `fallback`, `local`, `web` or `s3` for more predictable result.   
+    defaule: `fallback`
 
     Available:
       - `web` Fetching artifact from custom web url
