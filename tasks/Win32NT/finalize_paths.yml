@@ -1,28 +1,4 @@
 ---
-- name: debug parts
-  debug:
-    var: parts
-
-- name: debug java_package
-  debug:
-    var: java_package
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug java_minor_version
-  debug:
-    var: java_minor_version
-
-- name: debug java_path
-  debug:
-    var: java_path
-
-- name: debug java_folder
-  debug:
-    var: java_folder
-
 - name: Find java_folder
   win_find:
     paths: '{{ java_path }}'
@@ -34,7 +10,8 @@
 
 - name: Set actual java directory
   set_fact:
-    java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
+    java_act_path: >-
+      {{ java_dir.files | map(attribute='path') | list | last }}
 
 - name: Set java environment variable
   win_environment:
