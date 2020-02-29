@@ -13,7 +13,8 @@ rh_dist_repo_version: >-
 
 jdk_package: >-
   {{ 'java-' + openjdk_package_rhel_versions|string
-             + '-' + openjdk_package_rhel_spec|string }}
+             + '-' + openjdk_package_rhel_spec|string
+             | default('') }}
 
 java_default_path: >-
   {{ (java_distribution in ['zulu', 'corretto']) | ternary('/usr/lib/jvm', '/usr/java') }}
