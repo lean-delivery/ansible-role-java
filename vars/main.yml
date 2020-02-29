@@ -1,21 +1,5 @@
 ---
-openjdk_root_page: https://jdk.java.net
-sapjvm_root_page: https://tools.hana.ondemand.com
-adoptopenjdk_api_page: https://api.adoptopenjdk.net/v2/
-zulu_api_page: https://zulu.api.azul.com/api/v1/
-sapmachine_root_page: https://github.com/SAP/SapMachine/releases/download/
 github_api_page: https://api.github.com
-sapmachine_api_page: https://api.github.com/repos/SAP/SapMachine/releases/tags/
-java_sapmachine_release_page: >-
-  {{ sapmachine_api_page|string + java_distribution|string + '-'
-      + (java_minor_version == '*') | ternary(release_version|default ('')|string,
-      java_major_version|string + '.' + java_minor_version|string) }}
-
-java_sapmachine_release_name: >-
-  {{ java_distribution|string + '-' + java_package|string + '-'
-  + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string)
-        + '_' + (ansible_system == 'Win32NT') | ternary('windows', ansible_system|lower ) + '-' + java_arch|string + '_bin' }}
-corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.partial.html
 
 # vars file for java
 transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
@@ -27,25 +11,6 @@ java_full_version: >-
   {{ ( java_minor_version | default('') | string | length )
       | ternary(java_major_version ~ '.' ~ java_minor_version,
                 java_major_version) }}
-
-# Urls for java security policy
-fallback_oracle_security_policy_artifacts:
-  6: http://download.oracle.com/otn-pub/java/jce_policy/6/jce_policy-6.zip
-  7: http://download.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip
-  8: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
-
-# patch archive subfolder
-security_patch_folders:
-  6: jce
-  7: UnlimitedJCEPolicy
-  8: UnlimitedJCEPolicyJDK8
-
-# security policy path
-security_patch_path: >-
-  {{ (java_package|string == 'jdk')
-      | ternary(java_path + '/' + java_folder + '/jre/lib/security',
-                java_path + '/' + java_folder + '/lib/security')
-  }}
 
 java_def_folder_ext_transport: >-
   {{ (java_major_version|int <= 8)

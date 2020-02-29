@@ -32,14 +32,15 @@
 - name: 'Get artifact checksum from file {{ release_url[1] }}'
   set_fact:
     artifact_checksum: >-
-      {{ artifact_checksum_file['content'] |
-      regex_search('([^\s]+)')
-      }}
+      {{ artifact_checksum_file['content']
+        | regex_search('([^\s]+)') }}
+    java_downloaded_file: >-
+      {{ (release_url[0]|urlsplit).path|basename }}
 
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
     url: '{{ release_url[0] }}'
-    dest: '{{ java_download_path }}'
+    dest: '{{ java_download_path }}/{{ java_downloaded_file }}'
     checksum: 'sha256:{{ artifact_checksum }}'
   register: file_downloaded
   retries: 20

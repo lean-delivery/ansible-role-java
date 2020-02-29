@@ -1,9 +1,6 @@
 ---
-# Variable must be evaluated in all supported cases:
-# 1. repository install from repo (Amazon Linux 2)
-# 2. fallback install from package (RedHat and Debian)
-# 3. web install from tarball (RedHat and Debian)
-# java_major_version: '{{ parts[2] }}'
+corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.partial.html
+
 parts: >-
   {{ java_artifact_basename | default('undefined', true)
     | regex_findall('(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'

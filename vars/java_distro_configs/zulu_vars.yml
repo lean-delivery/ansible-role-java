@@ -1,4 +1,5 @@
 ---
+zulu_api_page: https://zulu.api.azul.com/api/v1/
 parts: >-
   {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^(zulu)([0-9]+)\.([0-9.]+)-.+-([a-z]+)[_.](x64|i686|amd64|x86_64)')

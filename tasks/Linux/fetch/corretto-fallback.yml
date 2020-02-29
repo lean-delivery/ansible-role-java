@@ -33,7 +33,7 @@
 - name: 'Download artifact from {{ release_url }}'
   get_url:
     url: '{{ release_url }}'
-    dest: '{{ java_download_path }}'
+    dest: '{{ java_download_path }}/{{ (release_url|urlsplit).path|basename }}'
     checksum: >-
       md5:{{ lookup('url', release_checksum) }}
   register: file_downloaded

@@ -33,11 +33,13 @@
 # Asset name sample: Alibaba_Dragonwell_8.1.1-GA_Linux_x64.tar.gz
 - name: Prepare release asset name
   set_fact:
-    asset_name: "{{ (response.json.name | regex_replace(' ', '_')) + '_Linux_x64.tar.gz' }}"
+    asset_name: >-
+      {{ (response.json.name | regex_replace(' ', '_')) + '_Linux_x64.tar.gz' }}
 
 - name: Get release URL
   set_fact:
-    release_url: "{{ response.json | json_query(\"assets[?name=='\" + asset_name + \"'].browser_download_url\") }}"
+    release_url: >-
+      {{ response.json | json_query(\"assets[?name=='\" + asset_name + \"'].browser_download_url\") }}
 
 - name: Download artifact from {{ release_url[0] }}
   get_url:
