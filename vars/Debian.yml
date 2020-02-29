@@ -6,7 +6,7 @@ java_package_requirements:
 java_package_type: >-
   {{ java_tarball_install | ternary('tar.gz', 'deb') }}
 
-jdk_package: >-
+jdk_package_openjdk: >-
   {{ 'openjdk-' + java_major_version|string + '-' + java_package }}
 
 java_default_path: /usr/lib/jvm

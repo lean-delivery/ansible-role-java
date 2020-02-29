@@ -6,6 +6,7 @@ transport_web_default: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.
 java_download_default_path: /tmp
 java_artifact: '{{ (file_downloaded|default({})).dest | default("", true) }}'
 java_artifact_basename: '{{ java_artifact | basename | default("", true) }}'
+jdk_package: ''
 
 java_full_version: >-
   {{ ( java_minor_version | default('') | string | length )
