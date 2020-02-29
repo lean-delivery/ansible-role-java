@@ -30,17 +30,10 @@
                   + '_' + java_arch|string + ' for Linux is not supported!' }}
   when: artifact_page.status == 404
 
-- name: Get artifact link
+- name: Get artifact and checksum link
   set_fact:
-    release_url: >-
-      {{ artifact_page.json
-        | json_query("assets[?name=='\" + java_sapmachine_release_name + \".tar.gz'].browser_download_url") }}
-
-- name: Get checksum link
-  set_fact:
-    checksum_link: >-
-      {{ artifact_page.json
-        | json_query("assets[?name=='\" + java_sapmachine_release_name + \".sha256.txt'].browser_download_url") }}
+    release_url: "{{ artifact_page.json | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".tar.gz'].browser_download_url\") }}"
+    checksum_link: "{{ artifact_page.json | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".sha256.txt'].browser_download_url\") }}"
 
 - name: Fetch artifact checksum file
   uri:
