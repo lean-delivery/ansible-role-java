@@ -17,6 +17,24 @@ choco_java_package: 'openjdk{{ java_package_suffix }}'
 
 choco_path: 'C:\Program Files\OpenJDK'
 
+# Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
+# Define Centos arch specific for compatibility with oracle packages name
+openjdk_arch_rhel: '{{ (java_arch == "x64") | ternary("x86_64", "i686") }}'
+# java-11-openjdk.x86_64 is OpenJDK Runtime Environment
+# java-11-openjdk-devel.x86_64 : OpenJDK Development Environment 11
+# change variables for more compatibility jdk/jre
+openjdk_package_rhel_spec: >-
+  {{ (java_package == 'jdk')
+      | ternary('openjdk-devel.' + openjdk_arch_rhel,
+                      'openjdk.' + openjdk_arch_rhel)
+  }}
+# change java_major_version (if it 8) for rhel specific 1.8.0
+openjdk_package_rhel_versions: >-
+  {{ (java_major_version|int <= 8)
+      | ternary('1.' + java_major_version|string + '.0',
+                       java_major_version|string)
+  }}
+
 java_folder_ext_transport: >-
   {{ ((java_minor_version | default('') | string).find('*') != -1)
       | ternary(java_package + '-'  + java_major_version|string,

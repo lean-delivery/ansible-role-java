@@ -34,13 +34,13 @@
   set_fact:
     release_url: >-
       {{ artifact_page.json
-        | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".tar.gz'].browser_download_url\") }}
+        | json_query("assets[?name=='\" + java_sapmachine_release_name + \".tar.gz'].browser_download_url") }}
 
 - name: Get checksum link
   set_fact:
     checksum_link: >-
       {{ artifact_page.json
-        | json_query(\"assets[?name=='\" + java_sapmachine_release_name + \".sha256.txt'].browser_download_url\") }}
+        | json_query("assets[?name=='\" + java_sapmachine_release_name + \".sha256.txt'].browser_download_url") }}
 
 - name: Fetch artifact checksum file
   uri:
