@@ -5,14 +5,6 @@
     return_content: true
   register: root_page
 
-- name: debug root_page
-  debug:
-    var: root_page['content']
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
 - name: Find release url
   set_fact:
     release_url: >-
@@ -21,10 +13,6 @@
           + java_major_version|string
           + '[\d.]+-linux-x64.zip)')
       }}
-
-- name: debug root_page
-  debug:
-    var: root_page['content']
 
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
