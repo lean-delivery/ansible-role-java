@@ -17,7 +17,7 @@
 
 - name: Fetch Dragonwell version by tag
   uri:
-    url: "{{ github_api_page }}/repos/alibaba/dragonwell8/releases/{{ sub_uri }}"
+    url: '{{ github_api_page }}/repos/alibaba/dragonwell8/releases/{{ sub_uri }}'
     return_content: true
     body_format: json
     status_code: [200, 404] # Not found case we are handling below
@@ -28,22 +28,16 @@
     msg: 'Dragonwell version {{ java_major_version }}.{{ java_minor_version }} not found'
   when: response.status == 404
 
-# Transform Release name to Asset name
-# Release name sample: Alibaba Dragonwell 8.1.1-GA
-# Asset name sample: Alibaba_Dragonwell_8.1.1-GA_Linux_x64.tar.gz
-- name: Prepare release asset name
-  set_fact:
-    asset_name: >-
-      {{ (response.json.name | regex_replace(' ', '_')) + '_Linux_x64.tar.gz' }}
-
 - name: Get release URL
   set_fact:
     release_url: >-
-      {{ response.json | json_query(\"assets[?name=='\" + asset_name + \"'].browser_download_url\") }}
+      {{ response.json.assets
+          | selectattr('browser_download_url', 'match', '.*_Linux_x64\.tar\.gz')
+          | map(attribute='browser_download_url') | list | first }}
 
 - name: Download artifact from {{ release_url[0] }}
   get_url:
-    url: '{{ release_url[0] }}'
+    url: '{{ release_url }}'
     dest: '{{ java_download_path }}'
   register: file_downloaded
   retries: 20
