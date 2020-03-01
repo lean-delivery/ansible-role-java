@@ -1,4 +1,5 @@
 ---
+
 - name: Mkdir for java installation
   file:
     path: '{{ java_path }}/{{ java_folder }}'

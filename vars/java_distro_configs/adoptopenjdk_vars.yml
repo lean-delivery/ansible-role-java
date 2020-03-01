@@ -1,11 +1,17 @@
 ---
+adoptopenjdk_api_page: https://api.adoptopenjdk.net/v2/
 parts: >-
-  {{ java_artifact_basename
+  {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^OpenJ[DKRE]{1,2}[0-9]+U[\-]*([jdkre]+)'
     ~ '[\-_](x64)_(Linux|linux|windows)_(hotspot|openj9)'
     ~ '_([0-9]{1,2})[u_\.]{1}([^_]+)?(_\S+)?\.[t|z][\.argzip]+')
+    | default([[]], true)
     | first
     | list }}
+
+java_minor_version: '{{ parts[5] | default("*") }}'
+java_os: '{{ parts[3] }}'
+java_arch: '{{ parts[1] | default("x64") }}'
 
 java_package_suffix: >-
   {{ (java_major_version == 13) | ternary('', java_major_version) }}
@@ -20,7 +26,7 @@ adoptopenjdk_choco_folder: >-
   {{ java_package ~ '[-]*' ~ java_major_version|string ~ '.*' }}
 
 adoptopenjdk_folder: >-
-  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_folder_ext_transport|default('')) }}
+  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_def_folder_ext_transport) }}
 
 jdk_package: >-
   {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string

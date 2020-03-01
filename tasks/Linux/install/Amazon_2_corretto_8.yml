@@ -1,0 +1,15 @@
+---
+# Amazon Corretto 8 specific
+# Installing on Amazon Linux 2 from repo
+# https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
+# As we cannot use amazon-linux-extras with Ansible, we're adding Amazon corretto8 repo manually
+- name: Add Amazon yum repository for corretto8
+  yum_repository:
+    name: amazon-corretto8
+    description: Amazon Extras repo for corretto8
+    mirrorlist: http://amazonlinux.$awsregion.$awsdomain/$releasever/extras/corretto8/latest/$basearch/mirror.list
+    priority: 10
+
+# Install in any case via Yum
+- name: 'Install Corretto {{ java_major_version }}'
+  include_tasks: RedHat.yml

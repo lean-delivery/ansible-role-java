@@ -1,0 +1,234 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-aws-centos7-corretto-jdk-fallback-8-tb
+    image: ami-02eac2c0129f6376b
+    platform: centos7
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - corretto
+      - fallback
+      - tarball
+
+  - name: test-aws-centos8-corretto-jdk-fallback-8
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - corretto
+      - fallback
+      - centos8
+      - package
+
+  - name: test-aws-Debian9-corretto-jdk-fallback-8
+    image: ami-003f19e0e687de1cd
+    platform: debian9
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - corretto
+      - fallback
+      - package
+
+  - name: test-aws-ubuntu18-corretto-jdk-fallback-8
+    image: ami-07ebfd5b3428b6f4d
+    platform: ubuntu18
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - corretto
+      - fallback
+      - package
+
+  - name: test-aws-centos7-corretto-web-8
+    image: ami-9887c6e7
+    platform: centos7
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - corretto
+      - web
+
+  - name: test-aws-centos8-corretto-jdk-web-8
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - corretto
+      - web
+      - centos8
+
+  - name: test-aws-Debian9-corretto-jdk-web-8
+    image: ami-003f19e0e687de1cd
+    platform: debian9
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
+      - corretto
+      - web
+
+  - name: test-aws-ubuntu18-corretto-jdk-web-8
+    image: ami-012fd5eb46f56731f
+    platform: ubuntu18
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
+      - corretto
+      - web
+
+  - name: test-aws-Amazon2-corretto-jdk-8
+    image: ami-0b898040803850657
+    platform: amazon2
+    instance_type: t3.micro
+    profile_name: epmldi-instance-profile
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ec2-user
+    groups:
+      - rhel_family
+      - corretto
+      - jdk
+      - repositories
+
+  - name: test-aws-Amazon2-corretto-jre-8
+    image: ami-0b898040803850657
+    platform: amazon2
+    instance_type: t3.micro
+    profile_name: epmldi-instance-profile
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ec2-user
+    groups:
+      - rhel_family
+      - corretto
+      - jre
+      - repositories
+
+provisioner:
+  name: ansible
+  log: false
+  config_options:
+    defaults:
+      forks: 30
+      callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      corretto:
+        java_distribution: corretto
+        java_major_version: 8
+      jdk:
+        java_package: jdk
+      jre:
+        java_package: jre
+      repositories:
+        transport: repositories
+      fallback:
+        transport: fallback
+      package:
+        java_tarball_install: false
+      tarball:
+        java_tarball_install: true
+      web:
+        transport: web
+        java_tarball_install: true
+        transport_web: >-
+          https://d3pxv6yz143wms.cloudfront.net/8.232.09.1/amazon-corretto-8.232.09.1-linux-x64.tar.gz
+  playbooks:
+    create: ../resources/provisioning/AWS/create.yml
+    prepare: ../resources/prepare.yml
+    destroy: ../resources/provisioning/AWS/destroy.yml
+    verify: ../resources/tests/verify.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-aws-corretto-8
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

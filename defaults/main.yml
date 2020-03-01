@@ -7,6 +7,7 @@
 #  - adoptopenjdk (not supported 9/10)
 #  - alibaba_dragonwell (8 only)
 #  - sapmachine
+#  - Amazon Corretto (supported only 8/11)
 java_distribution: openjdk
 
 # OpenJDK tarball supported only jdk
@@ -14,6 +15,8 @@ java_distribution: openjdk
 # AdoptOpenJDK supported jdk/jre
 # SapMachine supported jdk/jre
 # Alibaba Dragonwell supported jdk only
+# Amazon Corretto 8 supported jdk/jre, jre only for Windows and Amazon Linux2
+# Amazon Corretto 11 supported only jdk
 java_package: jdk
 
 # AdoptOpenJDK Implementation (hotspot/openj9)
@@ -37,9 +40,11 @@ java_path: "{{ (transport == 'repositories') | ternary('/usr/lib/jvm', java_defa
 java_download_path: '{{ java_download_default_path }}'
 
 # Custom artifact source transport
-java_tarball_install: "{{ transport != 'repositories' }}"
-java_binary_type: "{{ java_tarball_install | ternary('tarball', 'package') }}"
-transport: openjdk-fallback
+java_tarball_install: >-
+  {{ transport != 'repositories' }}
+java_binary_type: >-
+  {{ java_tarball_install | ternary('tarball', 'package') }}
+transport: fallback
 # available are:
 # - "web" Fetching artifact from custom web uri (not supporting idempotent operation)
 # - "s3" Fetching artifact from s3 bucket
@@ -52,6 +57,7 @@ transport: openjdk-fallback
 # - "zulu-fallback" Install from artifact downloaded from AZUL site
 # - "sapmachine-fallback" Install from artifact downloaded from SapMachine site
 # - "dragonwell-fallback" Install from artifact downloaded from GitHub site
+# - "corretto-fallback" Install from artifact downloaded from AWS Amazon site
 
 transport_web: '{{ transport_web_default }}'
 transport_local: "/tmp/openjdk-11.0.2_linux-x64_bin.tar.gz"
@@ -60,6 +66,8 @@ transport_s3_bucket: s3_bucket
 transport_s3_path: /folder/jdk-8u172-linux-x64.tar.gz
 transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY') }}"
 transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_KEY') }}"
+
+java_setup_path: true
 
 # Configure unlimited security policy
 java_unlimited_policy_enabled: false

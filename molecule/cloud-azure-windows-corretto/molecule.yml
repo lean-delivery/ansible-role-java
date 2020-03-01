@@ -1,0 +1,106 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: ec2
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-azure-windows2016-corretto-11-fb-msi
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - corretto
+      - msi
+      - java11
+
+  - name: test-azure-windows2019-corretto-11-fb-msi
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - corretto
+      - msi
+      - java11
+
+  - name: test-azure-windows2016-corretto-8-fb-msi
+    platform: windows2016core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - corretto
+      - msi
+      - java8
+
+  - name: test-azure-windows2019-corretto-8-fb-msi
+    platform: windows2019core
+    vm_size: Standard_D2s_v3
+    assign_public_ip: false
+    az_location: northeurope
+    az_resource_group_name: epm-ldi
+    az_virtual_network_name: epm-ldi-northeurope-vnet
+    az_subnet_name: epm-ldi-northeurope-subnet
+    az_network_security_group: epm-ldi-northeurope-sg
+    groups:
+      - windows
+      - corretto
+      - msi
+      - java8
+
+provisioner:
+  name: ansible
+  log: true
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+  inventory:
+    group_vars:
+      windows:
+        ansible_connection: winrm
+        ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
+        ansible_winrm_transport: credssp
+        ansible_winrm_server_cert_validation: ignore
+      corretto:
+        java_distribution: corretto
+        transport: fallback
+      msi:
+        java_tarball_install: false
+      java8:
+        java_major_version: 8
+      java11:
+        java_major_version: 11
+  playbooks:
+    create: ../resources/provisioning/AZURE/create.yml
+    destroy: ../resources/provisioning/AZURE/destroy.yml
+    verify: ../resources/tests/verify_win.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: cloud-azure-windows-corretto
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

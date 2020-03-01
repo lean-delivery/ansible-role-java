@@ -13,6 +13,7 @@
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:
+    - '{{ ansible_system }}/fetch/{{ java_distribution }}-{{ transport }}.yml'
     - '{{ ansible_system }}/fetch/{{ transport }}.yml'
     - unknown-transport.yml
   loop_control:
@@ -28,6 +29,10 @@
   loop_control:
     loop_var: platform
 
+- name: Finalize binary paths
+  include_tasks: '{{ ansible_system }}/finalize_paths.yml'
+  when: java_setup_path | bool
+
 - name: Apply security policy patch
   include_tasks: '{{ platform }}'
   with_first_found:
@@ -36,5 +41,6 @@
   loop_control:
     loop_var: platform
   when:
+    - java_setup_path
     - java_unlimited_policy_enabled
     - java_distribution == 'oracle_java'

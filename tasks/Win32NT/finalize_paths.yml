@@ -10,7 +10,8 @@
 
 - name: Set actual java directory
   set_fact:
-    java_act_path: "{{ java_dir.files | map(attribute='path') | list | last }}"
+    java_act_path: >-
+      {{ java_dir.files | map(attribute='path') | list | last }}
 
 - name: Set java environment variable
   win_environment:

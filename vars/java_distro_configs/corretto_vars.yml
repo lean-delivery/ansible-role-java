@@ -1,0 +1,83 @@
+---
+corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.partial.html
+
+parts: >-
+  {{ java_artifact_basename | default('undefined', true)
+    | regex_findall('(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
+      ~ '(\d+)[\d\.\-_b]*[-]*(linux|windows)?[-]*(amd64|x86_64|x64|arm64|aarch64)[-]*'
+      ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)')
+      | default([[]], true) | first | list }}
+
+
+java_product_id_ver:
+  8: '{0D179FFA-5BD7-4775-83C2-7770EFF5D7EC}'
+  11: '{F8D0022C-B409-42FE-9124-CDE4F2F487E0}'
+
+jdk_package: >-
+  {{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}
+
+# Case #1. Install from repository on Amazon Linux 2
+# Allow to install Amazon Corretto 8 as JRE
+# https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/amazon-linux-install.html
+corretto8_package: >-
+  {{ (java_package == 'jdk')
+    | ternary('java-1.8.0-amazon-corretto-devel',
+    'java-1.8.0-amazon-corretto') }}
+
+# Case #1. Install from repository on Amazon Linux 2
+# Amazon Corretto 11 has a 'headless' variant available. This variant omits runtime dependencies that are typically
+# associated with GUI applications such as X11 and ALSA and is worth considering for server-oriented workloads.
+# https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
+corretto11_package: "java-11-amazon-corretto-headless"
+
+
+# {{ java_artifact_basename | regex_findall('(' + parts_pattern + ')') | first | list }}
+
+# Cases #2 and #3. Install from downloaded file either package (RPM or DEB) of tarball
+# We need to know which file was downloaded
+
+parts_pattern: >-
+  {{ (transport == 'fallback') | ternary(parts_pattern_fallback, parts_pattern_web) }}
+
+# Case #2. Install from downloaded package (RPM or DEB)
+# (java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?(\d+)[\d\.\-_b]*(-linux-|-windows-)?(amd64|x86_64|x64|arm64|aarch6)[-]*(linux|windows)?[-]*jdk\.(deb|rpm|tar\.gz|msi|zip)
+# Parts are extracted from downloaded file name
+# We're extracting only `java_major_version` and `java_minor_version` parts
+# Downloaded DEB package name samples:
+# java-1.8.0-amazon-corretto-jdk_8.232.09-1_amd64.deb | java-11-amazon-corretto-jdk_11.0.5.10-1_amd64.deb
+# parts_pattern_fallback: >-
+#   {{ '(java-[\d\.]+-)?amazon-corretto-?(devel-1\.|jdk_|devel-)?'
+#       ~ '(\d+)\.[\d\.\-_b]*(-linux-|-windows-)?(amd64|x86_64|x64|arm64|aarch64)'
+#       ~ '\.(deb|rpm|tar\.gz|msi|zip)' }}
+
+# Special handling for RedHat like systems
+# Downloaded RPM package name samples:
+# java-1.8.0-amazon-corretto-devel-1.8.0_232.b09-1.x86_64.rpm | java-11-amazon-corretto-devel-11.0.5.10-1.x86_64.rpm
+pattern_fallback_redhat: >-
+  {{ (ansible_os_family == 'RedHat') and (java_major_version|string == 11)
+    | ternary(
+      '^java-[0-9\.]+-amazon-corretto-devel-(11)\.([0-9\.\-]+)\.x86_64\.rpm',
+      '^java-[0-9\.]+-amazon-corretto-devel-1\.(8)\.0_([0-9b\.\-]+)\.x86_64\.rpm'
+    ) }}
+
+# Case #3. Install from downloaded tarball
+# Parts are extracted from downloaded file name
+# We're extracting only all parts except `java_package`
+# File name sample: amazon-corretto-11.0.5.10.1-linux-x64.tar.gz
+parts_pattern_web: '^(amazon-corretto)-([0-9]+)\.([0-9\.]+)-(linux|windows)-(x64)\.(tar\.gz|zip)'
+
+java_path: '{{ java_default_corretto_path }}'
+java_folder: >-
+  {{ (not java_tarball_install | bool and (ansible_system == 'Linux'))
+    | ternary(java_folder_repo_transport, java_corretto_folder) }}
+
+#       | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
+java_folder_repo_transport: >-
+  {{ (java_major_version|int == 8)
+      | ternary('java-1.' + java_major_version|string + '.0-amazon-corretto',
+      'java-'  + java_major_version|string + '-amazon-corretto') }}
+
+# Satisfy additional requirement for Amazon Corretto for Debian-based distributions
+java_extra_package_requirements: >-
+  {{ ((ansible_os_family == 'Debian') and (transport == 'fallback'))
+     | ternary(['java-common'], []) }}

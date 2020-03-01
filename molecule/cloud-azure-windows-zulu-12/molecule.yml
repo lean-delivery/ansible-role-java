@@ -51,7 +51,7 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
       zulu:
         java_distribution: zulu
-        transport: zulu-fallback
+        transport: fallback
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml

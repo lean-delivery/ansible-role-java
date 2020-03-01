@@ -23,13 +23,8 @@
     dest: '{{ java_download_path }}'
     force: true
     checksum: '{{ artifact_checksum }}'
-    checksum_algorithm: '{{ checksum_alg }}'
+    checksum_algorithm: md5
   register: file_downloaded
   retries: 20
   delay: 5
   until: file_downloaded is succeeded
-  when: ansible_version.full is version('2.8.0', '>=')
-
-- name: Old fetch (Ansible < 2.8)
-  include_tasks: fetch_fallback_old.yml
-  when: ansible_version.full is version('2.8.0', '<')

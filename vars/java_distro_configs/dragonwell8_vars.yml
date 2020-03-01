@@ -1,5 +1,11 @@
 ---
 parts: >-
-  {{ java_artifact_basename
+  {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^(Alibaba_Dragonwell)_(8)\.([0-9]\.[0-9])-GA_(Linux)_(x64)(\.tar\.gz)')
-    | first | list }}
+    | default([[]], true) | first | list }}
+
+java_package: jdk
+
+java_minor_version: '{{ parts[2] | default("*") }}'
+java_os: '{{ parts[3] }}'
+java_arch: '{{ parts[4] | default("x64") }}'

@@ -47,7 +47,7 @@
 - name: 'Download artifact from {{ release_url[0] }}'
   get_url:
     url: '{{ release_url[0] }}'
-    dest: '{{ java_download_path }}'
+    dest: '{{ java_download_path }}/{{ (release_url[0]|urlsplit).path|basename }}'
     checksum: 'sha256:{{ artifact_checksum.content }}'
   register: file_downloaded
   retries: 20

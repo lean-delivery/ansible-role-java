@@ -26,7 +26,7 @@ platforms:
     groups:
       - rhel_family
       - sapjvm
-      - rhel8
+      - centos8
 
   - name: test-aws-centos7-sapjvm-8
     image: ami-9887c6e7
@@ -86,7 +86,7 @@ provisioner:
     group_vars:
       sapjvm:
         java_distribution: sapjvm
-        transport: sapjvm-fallback
+        transport: fallback
         java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AWS/create.yml

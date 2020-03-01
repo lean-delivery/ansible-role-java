@@ -1,7 +1,17 @@
 ---
+- name: debug jdk_package
+  debug:
+    var: jdk_package
+
+- name: debug java_artifact
+  debug:
+    var: java_artifact
+
 - name: Install java packages
   yum:
     name: '{{ (transport == "repositories") | ternary(jdk_package, java_artifact) }}'
     state: present
   register: package_install
+  retries: 20
+  delay: 5
   until: package_install is succeeded

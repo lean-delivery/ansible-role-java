@@ -1,7 +1,4 @@
 ---
-- name: Include common prepare
-  import_playbook: ../resources/provisioning/AWS/prepare.yml
-
 - name: Prepare Debian
   hosts: debian_family
   tasks:
@@ -15,8 +12,9 @@
 
     - name: Install python packages
       apt:
-        name:
-          - python-setuptools
+        name: >-
+          {{ (ansible_facts.python.version.major|int == 3 )
+            | ternary('python3-setuptools', 'python-setuptools') }}
         state: present
       register: status
       until: status is succeeded
@@ -32,6 +30,20 @@
           {{ ansible_distribution_major_version }}.noarch.rpm"
         state: 'present'
       register: status
+      retries: 10
+      delay: 5
+      until: status is succeeded
+      become: true
+
+    - name: Add python-dnf
+      yum:
+        name: >-
+          {{ (ansible_facts.python.version.major|int ==3 )
+            | ternary('python3-dnf', 'python-dnf') }}
+        state: 'present'
+      register: status
+      retries: 10
+      delay: 5
       until: status is succeeded
       become: true
 

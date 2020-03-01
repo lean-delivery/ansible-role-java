@@ -1,14 +1,15 @@
 ---
-- name: Set parse variables based on java distribution
-  include_vars: java_parts.yml
-
 - name: Perform install from artifacts
   block:
     - name: Install requirements
       package:
-        name: '{{ java_package_requirements }}'
+        name: >-
+          {{ java_package_requirements
+            | union(java_extra_package_requirements) | unique }}
         state: present
       register: installed_packages
+      retries: 10
+      delay: 5
       until: installed_packages is succeeded
       when: transport != 'repositories'
 
@@ -20,7 +21,4 @@
         - 'install/{{ ansible_os_family }}.yml'
       loop_control:
         loop_var: install_task
-
-    - name: Finalize binary paths
-      include_tasks: finalize_paths.yml
   become: true

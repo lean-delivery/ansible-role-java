@@ -121,7 +121,7 @@ provisioner:
       jre:
         java_package: jre
       sapmachine_fallback:
-        transport: sapmachine-fallback
+        transport: fallback
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
@@ -134,7 +134,6 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-        ansible_python_interpreter: /usr/bin/python3
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../cloud-aws-sapmachine-13/prepare.yml

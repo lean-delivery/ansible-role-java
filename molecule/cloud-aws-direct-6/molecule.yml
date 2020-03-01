@@ -59,7 +59,7 @@ provisioner:
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
         java_unlimited_policy_enabled: true
-        java_unlimited_policy_transport: oracle-fallback
+        java_unlimited_policy_transport: fallback
 
       rpm:
         java_distribution: oracle_java
@@ -69,10 +69,9 @@ provisioner:
         transport: web
         transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.rpm"
         java_unlimited_policy_enabled: true
-        java_unlimited_policy_transport: oracle-fallback
+        java_unlimited_policy_transport: fallback
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
   lint:

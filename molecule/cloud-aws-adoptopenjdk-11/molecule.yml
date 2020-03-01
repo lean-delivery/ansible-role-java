@@ -108,6 +108,7 @@ provisioner:
   log: false
   config_options:
     defaults:
+      forks: 30
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
@@ -123,7 +124,7 @@ provisioner:
       hotspot:
         adoptopenjdk_impl: hotspot
       adoptopenjdk_fallback:
-        transport: adoptopenjdk-fallback
+        transport: fallback
       repositories:
         transport: repositories
       local:

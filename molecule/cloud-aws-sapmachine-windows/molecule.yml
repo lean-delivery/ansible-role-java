@@ -73,7 +73,7 @@ provisioner:
       ver13:
         java_major_version: 13
       sapmachine_fallback:
-        transport: sapmachine-fallback
+        transport: fallback
       chocolatey:
         transport: chocolatey
       windows:

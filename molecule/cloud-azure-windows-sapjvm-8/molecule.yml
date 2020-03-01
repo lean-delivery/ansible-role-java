@@ -51,7 +51,7 @@ provisioner:
         ansible_winrm_server_cert_validation: ignore
       sapjvm:
         java_distribution: sapjvm
-        transport: sapjvm-fallback
+        transport: fallback
         java_major_version: 8
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml

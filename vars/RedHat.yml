@@ -4,30 +4,22 @@ java_package_requirements:
   - tar
   - rsync
 
-# Variables for RHEL specific (example java-11-openjdk-devel.x86_64)
-# Define Centos arch specific for compatibility with oracle packages name
-openjdk_arch_rhel: '{{ (java_arch == "x64") | ternary("x86_64", "i686") }}'
-# java-11-openjdk.x86_64 is OpenJDK Runtime Environment
-# java-11-openjdk-devel.x86_64 : OpenJDK Development Environment 11
-# change variables for more compatibility jdk/jre
-openjdk_package_rhel_spec: >-
-  {{ (java_package == 'jdk')
-      | ternary('openjdk-devel.' + openjdk_arch_rhel,
-                      'openjdk.' + openjdk_arch_rhel)
-  }}
-# change java_major_version (if it 8) for rhel specific 1.8.0
-openjdk_package_rhel_versions: >-
-  {{ (java_major_version|int <= 8)
-      | ternary('1.' + java_major_version|string + '.0',
-                       java_major_version|string)
-  }}
+java_package_type: >-
+  {{ java_tarball_install | ternary('tar.gz', 'rpm') }}
 
-jdk_package: >-
+
+rh_dist_repo_version: >-
+  {{ (ansible_distribution == 'Amazon') | ternary('7', ansible_distribution_major_version) }}
+
+jdk_package_openjdk: >-
   {{ 'java-' + openjdk_package_rhel_versions|string
              + '-' + openjdk_package_rhel_spec|string }}
 
 java_default_path: >-
-  {{ (java_distribution == 'zulu') | ternary('/usr/lib/jvm', '/usr/java') }}
+  {{ (java_distribution in ['zulu', 'corretto']) | ternary('/usr/lib/jvm', '/usr/java') }}
+java_corretto_folder: '{{ java_folder_ext_transport }}'
+
+java_default_corretto_path: /usr/lib/jvm
 
 java_folder_repo_transport: >-
   {{ 'java-' + openjdk_package_rhel_versions

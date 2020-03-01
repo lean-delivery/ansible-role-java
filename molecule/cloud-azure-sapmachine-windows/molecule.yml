@@ -42,6 +42,7 @@ platforms:
       - sapmachine_fallback
       - ver11
 
+# todo: enable after fix!
   - name: test-azure-windows2019-sapmachine-chocolatey-13
     platform: windows2019core
     vm_size: Standard_D2s_v3
@@ -70,7 +71,7 @@ provisioner:
       ver13:
         java_major_version: 13
       sapmachine_fallback:
-        transport: sapmachine-fallback
+        transport: fallback
       chocolatey:
         transport: chocolatey
       windows:

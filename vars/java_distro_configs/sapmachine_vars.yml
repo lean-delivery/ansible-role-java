@@ -1,20 +1,31 @@
 ---
+sapmachine_root_page: https://github.com/SAP/SapMachine/releases/download/
+sapmachine_api_page: https://api.github.com/repos/SAP/SapMachine/releases/tags/
+
+java_sapmachine_release_page: >-
+  {{ sapmachine_api_page|string + java_distribution|string + '-'
+      + (java_minor_version == '*') | ternary(release_version|default ('')|string,
+      java_major_version|string + '.' + java_minor_version|string) }}
+
+java_sapmachine_release_name: >-
+  {{ java_distribution|string + '-' + java_package|string + '-'
+  + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string)
+        + '_' + (ansible_system == 'Win32NT') | ternary('windows', ansible_system|lower ) + '-' + java_arch|string + '_bin' }}
+
 parts: >-
-  {{ java_artifact_basename
+  {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^.*(j[dkre]{2})-([0-9]+)\.?([0-9.]+)?[-_]([a-z]+)-(x64|i586).*')
-    | first | list }}
+    | default([[]], true) | first | list }}
+
+java_package: >-
+  {{ parts[0] | default('jdk') }}
+
+java_minor_version: '{{ parts[2] | default("*") }}'
+java_os: '{{ parts[3] }}'
+java_arch: '{{ parts[4] | default("x64") }}'
 
 choco_java_package: 'sapmachine{{ java_major_version }}'
 
 choco_path: 'C:\Program Files\SapMachine'
 
-java_folder: '{{ java_major_version }}'
-
-release_page: >-
-  {{ sapmachine_api_page|string + java_distribution|string + '-'
-      + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string) }}
-
-release_name: >-
-  {{ java_distribution|string + '-' + java_package|string + '-'
-  + (java_minor_version == '*') | ternary(release_version|default ('')|string, java_major_version|string + '.' + java_minor_version|string)
-        + '_' + (ansible_system == 'Win32NT') | ternary('windows', ansible_system|lower ) + '-' + java_arch|string + '_bin' }}
+java_folder: '{{ java_package }}'

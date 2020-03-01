@@ -3,10 +3,16 @@ java_package_requirements:
   - unzip
   - rsync
 
-jdk_package: >-
+java_package_type: >-
+  {{ java_tarball_install | ternary('tar.gz', 'deb') }}
+
+jdk_package_openjdk: >-
   {{ 'openjdk-' + java_major_version|string + '-' + java_package }}
 
 java_default_path: /usr/lib/jvm
+
+java_default_corretto_path: /usr/lib/jvm
+java_corretto_folder: '{{ java_folder_ext_transport }}'
 
 java_folder_repo_transport: >-
   {{ 'java-' + java_major_version|string + '-openjdk-*'
