@@ -1,24 +1,4 @@
 ---
-- name: debug parts
-  debug:
-    var: parts
-
-- name: debug java_major_version
-  debug:
-    var: java_major_version
-
-- name: debug adoptopenjdk_impl
-  debug:
-    var: adoptopenjdk_impl
-
-- name: debug java_arch
-  debug:
-    var: java_arch
-
-- name: debug java_package
-  debug:
-    var: java_package
-
 - name: Fetch download page
   win_uri:
     url: "{{ adoptopenjdk_api_page }}\
