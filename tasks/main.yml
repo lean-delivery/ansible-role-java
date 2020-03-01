@@ -7,6 +7,9 @@
   loop_control:
     loop_var: distribution
 
+- name: Set base variables based on java distribution
+  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
+
 - name: 'Fetch oracle artifact with {{ transport }} transport'
   include_tasks: '{{ transport_driver }}'
   with_first_found:
@@ -15,9 +18,6 @@
     - unknown-transport.yml
   loop_control:
     loop_var: transport_driver
-
-- name: Set base variables based on java distribution
-  include_vars: 'java_distro_configs/{{ java_distribution }}_vars.yml'
 
 - name: Choose platform based task
   include_tasks: '{{ platform }}'
