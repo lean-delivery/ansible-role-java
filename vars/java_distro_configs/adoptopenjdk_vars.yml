@@ -11,7 +11,7 @@ parts: >-
 
 java_minor_version: '{{ parts[5] | default("*") }}'
 java_os: '{{ parts[3] }}'
-java_arch: '{{ parts[1] }}'
+java_arch: '{{ parts[1] | default("x64") }}'
 
 java_package_suffix: >-
   {{ (java_major_version == 13) | ternary('', java_major_version) }}
