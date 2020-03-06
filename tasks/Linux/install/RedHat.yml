@@ -7,6 +7,17 @@
   debug:
     var: java_artifact
 
+- name: Add Amazon yum repository for amazon-java-openjdk11
+  yum_repository:
+    name: amazon-java-openjdk11
+    description: Amazon Extras repo for java-openjdk11
+    mirrorlist: http://amazonlinux.$awsregion.$awsdomain/$releasever/extras/java-openjdk11/latest/$basearch/mirror.list
+    priority: 10
+  when:
+    - ansible_distribution == 'Amazon'
+    - java_distribution == 'openjdk'
+    - java_major_version is version('11', '==')
+
 - name: Install java packages
   yum:
     name: '{{ (transport == "repositories") | ternary(jdk_package, java_artifact) }}'
