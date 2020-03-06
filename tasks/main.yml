@@ -1,4 +1,11 @@
 ---
+
+- debug:
+    var: ansible_distribution
+
+- debug:
+    var: ansible_facts
+
 - name: Load a system variables file based on distribution or OS family
   include_vars: '{{ distribution }}'
   with_first_found:
