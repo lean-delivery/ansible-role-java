@@ -40,7 +40,7 @@
         name: '{{ java_item.binary }}'
         path: '{{ java_path }}/{{ java_folder }}/bin/{{ java_item.binary }}'
         link: '/usr/bin/{{ java_item.binary }}'
-        priority: 100
+        priority: '{{ java_alternative_priority }}'
       when: java_item.stat.exists | bool
       loop: '{{ java_binary_collection.results }}'
       loop_control:

@@ -238,6 +238,11 @@ Requirements
   - `java_setup_path` - to enable binary path setup. If `true` java binaries are added to system paths, profile is updated and alternatives are set. If set to `false` - no system settings updates will be done excepting performed by package scenarios.   
     default: `true`
 
+# Configure alternatives priority
+
+  - `java_alternative_priority` - priority configuration. Usefull if you need low priority setup.
+    default: 100
+
 # Configure unlimited policy
 
   - `java_unlimited_policy_enabled` - to apply unlimited policy
