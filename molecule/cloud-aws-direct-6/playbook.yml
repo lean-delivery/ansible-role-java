@@ -6,17 +6,21 @@
     transport_s3_bucket: java-molecule-s3-test
     java_download_path: /tmp
   tasks:
-    - name: Download artifact from s3
+    - name: Generate s3 link for rpm
       aws_s3:
         bucket: '{{ transport_s3_bucket }}'
         object: 'java/jdk-6u45-linux-x64.rpm'
         mode: geturl
-      register: s3_link
+      register: s3_link_rpm
       changed_when: false
 
-    - name: debug s3_link
-      debug:
-        var: s3_link
+    - name: Generate s3 link for tar.gz
+      aws_s3:
+        bucket: '{{ transport_s3_bucket }}'
+        object: 'java/jdk-6u45-linux-x64.tar.gz'
+        mode: geturl
+      register: s3_link_tar
+      changed_when: false
 
 - name: Converge
   hosts: all
