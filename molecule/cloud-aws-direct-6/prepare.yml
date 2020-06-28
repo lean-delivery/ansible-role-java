@@ -9,12 +9,10 @@
     - name: Download artifact from s3
       aws_s3:
         bucket: '{{ transport_s3_bucket }}'
-        object: '{{ item }}'
-        dest: '{{ java_download_path }}/{{ item | basename }}'
+        object: 'java/jdk-6u45-linux-x64.rpm'
+        dest: '{{ java_download_path }}/jdk-6u45-linux-x64.rpm'
         mode: geturl
       register: s3_link
-      loop:
-        - java/jdk-6u45-linux-x64.rpm
 
     - name: debug s3_link
       debug:
