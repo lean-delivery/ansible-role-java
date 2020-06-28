@@ -10,7 +10,7 @@
       aws_s3:
         bucket: '{{ transport_s3_bucket }}'
         object: 'java/jdk-6u45-linux-x64.rpm'
-        dest: '{{ java_download_path }}/jdk-6u45-linux-x64.rpm'
+        # dest: '{{ java_download_path }}/jdk-6u45-linux-x64.rpm'
         mode: geturl
       register: s3_link
 
