@@ -21,12 +21,12 @@
   set_fact:
     release_url: >-
       {{ 'https://corretto.aws/downloads/latest/amazon-corretto-'
-          ~ java_major_version ~ '-' ~ java_arch ~ '-linux-' ~ java_package ~'\.'
+          ~ java_major_version ~ '-' ~ java_arch ~ '-linux-' ~ java_package ~'.'
           ~ java_package_type
           }}
     release_checksum: >-
       {{ 'https://corretto.aws/downloads/latest_checksum/amazon-corretto-'
-          ~ java_major_version ~ '-' ~ java_arch ~ '-linux-' ~ java_package ~ '\.'
+          ~ java_major_version ~ '-' ~ java_arch ~ '-linux-' ~ java_package ~ '.'
           ~ java_package_type
           }}
 
