@@ -11,12 +11,6 @@
     msg: Amazon Corretto currently supports x64 platform only
   when: java_arch != 'x64'
 
-# - name: 'Fetch root page {{ corretto_root_page }}'
-#   uri:
-#     url: '{{ corretto_root_page }}'
-#     return_content: true
-#   register: root_page
-
 - name: Find release url
   set_fact:
     release_url: >-
