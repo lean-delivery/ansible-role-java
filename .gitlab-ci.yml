@@ -108,7 +108,7 @@ Lint:
  tags:
    - aws
 
-AWS openjdk-8:
+.AWS openjdk-8:
  variables:
    AWS_REGION: us-east-1
  stage: deployment test
@@ -117,7 +117,7 @@ AWS openjdk-8:
  tags:
    - aws
 
-AWS openjdk-11:
+.AWS openjdk-11:
  variables:
    AWS_REGION: us-east-1
  stage: deployment test
@@ -135,7 +135,7 @@ AWS openjdk-11:
  tags:
    - aws
 
-AWS openjdk-ga:
+.AWS openjdk-ga:
  variables:
    AWS_REGION: us-east-1
  stage: deployment test
@@ -154,7 +154,7 @@ AWS openjdk-ga:
  tags:
    - aws
 
-AZURE openjdk-ga Windows:
+.AZURE openjdk-ga Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-openjdk-windows-ga
@@ -171,7 +171,7 @@ AZURE openjdk-ga Windows:
  tags:
    - aws
 
-AZURE java-11 Windows:
+.AZURE java-11 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-11
@@ -223,7 +223,7 @@ AZURE java-11 Windows:
  tags:
    - aws
 
-AZURE sapjvm-8 Windows:
+.AZURE sapjvm-8 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-sapjvm-8
@@ -259,14 +259,14 @@ AZURE sapjvm-8 Windows:
  tags:
    - aws
 
-AZURE zulu-12 Windows:
+.AZURE zulu-12 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-zulu-12
  tags:
    - azure
 
-AZURE zulu-12 Windows chocolatey:
+.AZURE zulu-12 Windows chocolatey:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-zulu12-chocolatey
@@ -363,7 +363,7 @@ AZURE adoptopenjdk Windows:
  tags:
    - aws
 
-AZURE sapmachine-windows:
+.AZURE sapmachine-windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-sapmachine-windows
