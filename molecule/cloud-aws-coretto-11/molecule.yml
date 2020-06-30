@@ -168,6 +168,25 @@ platforms:
       - corretto
       - repositories
 
+  - name: test-aws-Amazon2-corretto-11-fb
+    image: ami-0b898040803850657
+    platform: amazon2
+    instance_type: t3.micro
+    profile_name: epmldi-instance-profile
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.004
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ec2-user
+    groups:
+      - rhel_family
+      - corretto
+      - fallback
+      - package
+
 provisioner:
   name: ansible
   log: false

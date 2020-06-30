@@ -1,5 +1,4 @@
 ---
-corretto_root_page: https://docs.aws.amazon.com/corretto/latest/corretto-{{ java_major_version }}-ug/downloads-list.partial.html
 
 parts: >-
   {{ java_artifact_basename | default('undefined', true)
@@ -7,6 +6,10 @@ parts: >-
       ~ '(\d+)[\d\.\-_b]*[-]*(linux|windows)?[-]*(amd64|x86_64|x64|arm64|aarch64)[-]*'
       ~ '(linux|windows)?[-]*.*\.(deb|rpm|tar\.gz|msi|zip)')
       | default([[]], true) | first | list }}
+
+corretto_linux_distro: >-
+  {{ (ansible_distribution == 'Amazon') and (ansible_distribution_version|string == 2)
+      | ternary('al2', 'linux') }}
 
 
 java_product_id_ver:
