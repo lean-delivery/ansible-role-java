@@ -370,7 +370,7 @@ AWS java-11:
  tags:
    - azure
 
-.AWS corretto-8:
+AWS corretto-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -379,7 +379,7 @@ AWS java-11:
   tags:
     - aws
 
-.AWS corretto-11:
+AWS corretto-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
