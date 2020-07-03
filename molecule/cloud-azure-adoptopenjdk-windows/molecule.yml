@@ -94,7 +94,7 @@ provisioner:
         java_major_version: 11
       chocolatey:
         transport: chocolatey
-        java_major_version: 13
+        java_major_version: 14
       windows:
         ansible_password: "{{ lookup('env', 'WINRM_ADMIN_PWD') | default('M0leCule123!', true) }}"
         ansible_winrm_transport: credssp
