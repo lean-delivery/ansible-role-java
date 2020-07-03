@@ -12,8 +12,8 @@ corretto_linux_distro: >-
 
 
 java_product_id_ver:
-  8: '{0D179FFA-5BD7-4775-83C2-7770EFF5D7EC}'
-  11: '{F8D0022C-B409-42FE-9124-CDE4F2F487E0}'
+  8: '{86C0B400-6A93-4979-8E5E-46152223B361}'
+  11: '{6B99B794-0612-4841-BC11-C09DEB8AA0C6}'
 
 jdk_package: >-
   {{ (java_major_version|int == 11) | ternary(corretto11_package, corretto8_package) }}
