@@ -30,7 +30,7 @@ Lint:
   tags:
     - lint
 
-Docker java-on-defaults:
+.Docker java-on-defaults:
  stage: deployment test
  script:
  - molecule test -s default
@@ -95,7 +95,7 @@ AZURE java-8 Windows:
 AZURE openjdk-13 Windows chocolatey:
  stage: deployment test
  script:
-   - molecule test -s cloud-azure-windows-openjdk13-chocolatey
+   - molecule test -s cloud-azure-windows-openjdk14-chocolatey
  tags:
    - azure
 
