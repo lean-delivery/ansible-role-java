@@ -53,7 +53,7 @@ provisioner:
       chocolatey:
         java_distribution: openjdk
         transport: chocolatey
-        java_major_version: 13
+        java_major_version: 14
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
@@ -61,7 +61,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-windows-openjdk13-chocolatey
+  name: cloud-azure-windows-openjdk14-chocolatey
 verifier:
   name: ansible
   lint:

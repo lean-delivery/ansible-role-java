@@ -60,7 +60,7 @@ provisioner:
                         oracle-java/jdk-8u45-windows-x64.exe?\
                         {{ hostvars['localhost']['storage_sig']['response']['serviceSasToken'] }}"
         java_unlimited_policy_transport: fallback
-        java_unlimited_policy_enabled: true
+        java_unlimited_policy_enabled: false
   playbooks:
     create: ../resources/provisioning/AZURE/create.yml
     prepare: prepare.yml
