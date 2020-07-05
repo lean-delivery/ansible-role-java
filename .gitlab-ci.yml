@@ -92,7 +92,7 @@ AZURE java-8 Windows:
    - aws
 
 # Windows tests are preferrably run in Azure
-AZURE openjdk-13 Windows chocolatey:
+AZURE openjdk-14 Windows chocolatey:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-openjdk14-chocolatey
