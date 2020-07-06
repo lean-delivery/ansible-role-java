@@ -1,4 +1,5 @@
 ---
+
 - name: Find java_folder
   win_find:
     paths: '{{ java_path }}'

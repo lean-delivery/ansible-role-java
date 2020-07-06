@@ -20,26 +20,26 @@
     loop_var: transport_driver
 
 - name: Choose platform based task
-  include_tasks: '{{ platform }}'
+  include_tasks: '{{ java_os_platform }}'
   with_first_found:
     - '{{ ansible_system }}/system_{{ transport }}.yml'
     - '{{ ansible_system }}/system_{{ java_binary_type }}.yml'
     - '{{ ansible_system }}/system.yml'
     - not-supported.yml
   loop_control:
-    loop_var: platform
+    loop_var: java_os_platform
 
 - name: Finalize binary paths
   include_tasks: '{{ ansible_system }}/finalize_paths.yml'
   when: java_setup_path | bool
 
 - name: Apply security policy patch
-  include_tasks: '{{ platform }}'
+  include_tasks: '{{ java_os_platform }}'
   with_first_found:
     - '{{ ansible_system }}/security_policy.yml'
     - not-supported.yml
   loop_control:
-    loop_var: platform
+    loop_var: java_os_platform
   when:
     - java_setup_path
     - java_unlimited_policy_enabled

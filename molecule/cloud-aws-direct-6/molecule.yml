@@ -57,7 +57,8 @@ provisioner:
         java_major_version: 6
         java_tarball_install: true
         transport: web
-        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.tar.gz"
+        transport_web: >-
+          {{ hostvars['localhost']['s3_link_tar']['url'] }}
         java_unlimited_policy_enabled: true
         java_unlimited_policy_transport: fallback
 
@@ -67,7 +68,8 @@ provisioner:
         java_major_version: 6
         java_tarball_install: false
         transport: web
-        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-6u45-linux-x64.rpm"
+        transport_web: >-
+          {{ hostvars['localhost']['s3_link_rpm']['url'] }}
         java_unlimited_policy_enabled: true
         java_unlimited_policy_transport: fallback
   playbooks:

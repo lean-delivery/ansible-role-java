@@ -73,7 +73,8 @@ provisioner:
     group_vars:
       web:
         transport: web
-        transport_web: "{{ lookup('env','STORAGE_AWS') }}/oracle-java/jdk-11.0.2_linux-x64_bin.tar.gz"
+        transport_web: >-
+          {{ hostvars['localhost']['s3_link_tar']['url'] }}
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test

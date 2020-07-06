@@ -30,7 +30,7 @@ Lint:
   tags:
     - lint
 
-Docker java-on-defaults:
+.Docker java-on-defaults:
  stage: deployment test
  script:
  - molecule test -s default
@@ -92,10 +92,10 @@ AZURE java-8 Windows:
    - aws
 
 # Windows tests are preferrably run in Azure
-AZURE openjdk-13 Windows chocolatey:
+AZURE openjdk-14 Windows chocolatey:
  stage: deployment test
  script:
-   - molecule test -s cloud-azure-windows-openjdk13-chocolatey
+   - molecule test -s cloud-azure-windows-openjdk14-chocolatey
  tags:
    - azure
 
@@ -178,7 +178,7 @@ AZURE java-11 Windows:
  tags:
    - azure
 
-AWS java-12:
+.AWS java-12:
  variables:
    AWS_REGION: us-east-1
  stage: deployment test
