@@ -2,21 +2,23 @@
 - name: Fetch download page
   uri:
     url: "{{ adoptopenjdk_api_page }}\
-      info/releases/\
-      openjdk{{ java_major_version }}\
-      ?openjdk_impl={{ adoptopenjdk_impl }}\
-      &os=linux&arch=x64\
-      &release=latest\
-      &type={{ java_package }}&heap_size=normal"
+      assets/feature_releases/{{ java_major_version }}/ga\
+      ?architecture={{ (java_arch == 'x64') | ternary('x64', 'x32') }}\
+      &heap_size=normal\
+      &image_type={{ java_package }}\
+      &jvm_impl={{ adoptopenjdk_impl }}\
+      &os=linux\
+      &project=jdk\
+      &vendor=adoptopenjdk"
     return_content: true
     follow_redirects: all
   register: download_page
 
-- name: 'Find release url'
+- name: "Find release url"
   set_fact:
     release_url: >-
-      {{ (download_page.content | from_json).binaries | map(attribute='binary_link') | list +
-        (download_page.content | from_json).binaries | map(attribute='checksum_link') | list }}
+      {{ (download_page.content | from_json)[0].binaries | map(attribute='package.link') | list +
+        (download_page.content | from_json)[0].binaries | map(attribute='package.checksum_link') | list }}
 
 - name: Exit if AdoptOpenJDK version is not found
   fail:
