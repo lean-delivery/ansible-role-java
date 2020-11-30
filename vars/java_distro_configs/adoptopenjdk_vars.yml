@@ -1,5 +1,5 @@
 ---
-adoptopenjdk_api_page: https://api.adoptopenjdk.net/v2/
+adoptopenjdk_api_page: https://api.adoptopenjdk.net/v3/
 parts: >-
   {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^OpenJ[DKRE]{1,2}[0-9]+U[\-]*([jdkre]+)'
