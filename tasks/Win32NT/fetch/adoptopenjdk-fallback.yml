@@ -17,8 +17,8 @@
 - name: Find release url
   set_fact:
     release_url: >-
-      {{ (download_page.content | from_json).binaries | map(attribute='package.binary_link') | list +
-        (download_page.content | from_json).binaries | map(attribute='package.checksum_link') | list }}
+      {{ (download_page.content | from_json)[0].binaries | map(attribute='package.link') | list +
+        (download_page.content | from_json)[0].binaries | map(attribute='package.checksum_link') | list }}
 
 - name: Exit if AdobtOpenJDK version is not found
   fail:
@@ -33,18 +33,16 @@
 
 - name: 'Get artifact checksum from file {{ release_url[1] }}'
   set_fact:
-    artifact_checksum:
-      content: >-
-        {{ artifact_checksum_file['content'] |
-          regex_search('([^\s]+)')
-        }}
+    artifact_checksum: >-
+      {{ artifact_checksum_file['content']
+        | regex_search('([^\s]+)') }}
 
 - name: 'Download artifact from {{ release_url[0] }}'
   win_get_url:
     url: '{{ release_url[0] }}'
     dest: '{{ java_download_path }}'
     force: true
-    checksum: '{{ artifact_checksum.content }}'
+    checksum: '{{ artifact_checksum }}'
     checksum_algorithm: sha256
   register: file_downloaded
   retries: 20
