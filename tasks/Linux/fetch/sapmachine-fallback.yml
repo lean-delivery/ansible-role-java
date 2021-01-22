@@ -11,7 +11,7 @@
     - name: Find release version
       set_fact:
         release_version: >-
-          {{ version_page.content | regex_search('(1.*[.|-]\d)') }}
+          {{ version_page.content | regex_search('(1.*[.|-]\d+)') }}
   when: java_minor_version == '*'
 
 - name: 'Fetch artifact page'
