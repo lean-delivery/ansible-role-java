@@ -10,7 +10,7 @@ lint: |
   yamllint -f colored -c .yamllint .
   ansible-lint -c .ansible-lint
 platforms:
-  - name: test-aws-centos7-oracle_java-6-rpm
+  - name: test-aws-centos7-oracle_java-7-rpm
     image: ami-9887c6e7
     platform: centos7
     instance_type: m5.large
