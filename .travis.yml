@@ -1,10 +1,6 @@
 ---
 os: linux
-dist: bionic
-
-language: python
-python:
-  - "3.8"
+dist: focal
 
 services:
   - docker
@@ -13,8 +9,7 @@ before_install:
   - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
 
 install:
-  - pip3 install --upgrade ansible==2.9.* docker molecule==2.22
-  - pip3 install --upgrade ansible-lint==4.2.0
+  - pip3 install --upgrade ansible==2.9.* docker molecule==3.* ansible-lint molecule-docker
   - ansible --version
   - ansible-lint --version
 
