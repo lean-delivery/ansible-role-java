@@ -22,19 +22,19 @@
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
-    - block:
-        - name: Install GPG key
-          rpm_key:
-            state: present
-            key: '{{ epel_gpg_path }}'
+    - name: Install GPG key
+      rpm_key:
+        state: present
+        key: '{{ epel_gpg_path }}'
+        become: true
 
-        - name: Enable EPEL repository
-          yum:
-            name: '{{ epel_path }}'
-            state: present
-          register: status
-          retries: 10
-          until: status is succeeded
+    - name: Enable EPEL repository
+      yum:
+        name: '{{ epel_path }}'
+        state: present
+      register: status
+      retries: 10
+      until: status is succeeded
       become: true
 
 - name: Prepare host to S3 transport
