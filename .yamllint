@@ -25,7 +25,7 @@ rules:
   indentation: disable
   key-duplicates: enable
   line-length:
-    max: 350
+    max: 150
     level: warning
   new-lines:
     type: unix
