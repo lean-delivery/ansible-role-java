@@ -1,8 +1,8 @@
 ---
 # Run all tests
-default:
-  image:
-    name: leandelivery/docker-ansible-ci:ansible-2.9
+# default:
+#   image:
+#     name: leandelivery/docker-ansible-ci:ansible-2.9
 
 stages:
   - lint
@@ -16,7 +16,7 @@ before_script:
   - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
 
 variables:
-  GET_SOURCES_ATTEMPTS: "5"
+  GET_SOURCES_ATTEMPTS: '5'
 
 Lint:
   stage: lint
@@ -28,349 +28,349 @@ Lint:
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
-    - lint
+    - aws
 
-.Docker java-on-defaults:
- stage: deployment test
- script:
- - molecule test -s default
- tags:
- - aws
+Docker java-on-defaults:
+  stage: deployment test
+  script:
+    - molecule test -s default
+  tags:
+    - aws
 
-AWS java-6:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-direct-6
- tags:
-   - aws
+.AWS java-6:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-6
+  tags:
+    - aws
 
 .AWS java-7:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-direct-7
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-7
+  tags:
+    - aws
 
-AWS java-8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-direct-8
- tags:
-   - aws
+.AWS java-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-8
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS java-8 Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-8
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-8
+  tags:
+    - aws
 
-AZURE java-8 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-8
- tags:
-   - azure
+.AZURE java-8 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-8
+  tags:
+    - azure
 
 # Windows tests are preferrably run in Azure
 .AWS openjdk-13 Windows chocolatey:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-openjdk13-chocolatey
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-openjdk13-chocolatey
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
-AZURE openjdk-14 Windows chocolatey:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-openjdk14-chocolatey
- tags:
-   - azure
+.AZURE openjdk-14 Windows chocolatey:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-openjdk14-chocolatey
+  tags:
+    - azure
 
-AWS java-11:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-direct-11
- tags:
-   - aws
+.AWS java-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-11
+  tags:
+    - aws
 
-AWS openjdk-8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-8
- tags:
-   - aws
+.AWS openjdk-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-8
+  tags:
+    - aws
 
-AWS openjdk-11:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-11
- tags:
-   - aws
+.AWS openjdk-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-11
+  tags:
+    - aws
 
 .AWS openjdk-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-12
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-12
+  tags:
+    - aws
 
-AWS openjdk-ga:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-ga
- tags:
-   - aws
+.AWS openjdk-ga:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-ga
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS openjdk-ga Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-openjdk-windows-ga
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-openjdk-windows-ga
+  tags:
+    - aws
 
-AZURE openjdk-ga Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-openjdk-windows-ga
- tags:
-   - azure
+.AZURE openjdk-ga Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-openjdk-windows-ga
+  tags:
+    - azure
 
 # Windows tests are preferrably run in Azure
 .AWS java-11 Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-11
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-11
+  tags:
+    - aws
 
-AZURE java-11 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-11
- tags:
-   - azure
+.AZURE java-11 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-11
+  tags:
+    - azure
 
 .AWS java-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-direct-12
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-12
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS java-12 Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-12
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-12
+  tags:
+    - aws
 
-AZURE java-12 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-12
- tags:
-   - azure
+.AZURE java-12 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-12
+  tags:
+    - azure
 
-AWS sapjvm-8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapjvm-8
- tags:
-   - aws
+.AWS sapjvm-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapjvm-8
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS sapjvm-8 Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-sapjvm-8
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-sapjvm-8
+  tags:
+    - aws
 
-AZURE sapjvm-8 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-sapjvm-8
- tags:
-   - azure
+.AZURE sapjvm-8 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-sapjvm-8
+  tags:
+    - azure
 
-AWS zulu-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-zulu-12
- tags:
-   - aws
+.AWS zulu-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-zulu-12
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS zulu-12 Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-zulu-12
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-zulu-12
+  tags:
+    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS zulu-12 Windows chocolatey:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-windows-zulu12-chocolatey
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-windows-zulu12-chocolatey
+  tags:
+    - aws
 
-AZURE zulu-12 Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-zulu-12
- tags:
-   - azure
+.AZURE zulu-12 Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-zulu-12
+  tags:
+    - azure
 
-AZURE zulu-12 Windows chocolatey:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-zulu12-chocolatey
- tags:
-   - azure
+.AZURE zulu-12 Windows chocolatey:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-zulu12-chocolatey
+  tags:
+    - azure
 
-AWS adoptopenjdk-8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-adoptopenjdk-8
- tags:
-   - aws
+.AWS adoptopenjdk-8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-8
+  tags:
+    - aws
 
-AWS adoptopenjdk-11:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-adoptopenjdk-11
- tags:
-   - aws
+.AWS adoptopenjdk-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-11
+  tags:
+    - aws
 
-AWS adoptopenjdk-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-adoptopenjdk-12
- tags:
-   - aws
+.AWS adoptopenjdk-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-12
+  tags:
+    - aws
 
-AZURE adoptopenjdk Windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-adoptopenjdk-windows
- tags:
-   - azure
+.AZURE adoptopenjdk Windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-adoptopenjdk-windows
+  tags:
+    - azure
 
 # Windows tests are preferrably run in Azure
 .AWS adoptopenjdk Windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-adoptopenjdk-windows
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-adoptopenjdk-windows
+  tags:
+    - aws
 
-AWS sapmachine-11:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-11
- tags:
-   - aws
+.AWS sapmachine-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapmachine-11
+  tags:
+    - aws
 
-AWS sapmachine-12:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-12
- tags:
-   - aws
+.AWS sapmachine-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapmachine-12
+  tags:
+    - aws
 
-AWS sapmachine-13:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-13
- tags:
-   - aws
+.AWS sapmachine-13:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapmachine-13
+  tags:
+    - aws
 
 #Windows tests are preferrably run in Azure
 .AWS sapmachine-windows:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-sapmachine-windows
- tags:
-   - aws
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-sapmachine-windows
+  tags:
+    - aws
 
-AWS Alibaba Dragonwell8:
- variables:
-   AWS_REGION: us-east-1
- stage: deployment test
- script:
-   - molecule test -s cloud-aws-dragonwell8
- tags:
-   - aws
+.AWS Alibaba Dragonwell8:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-dragonwell8
+  tags:
+    - aws
 
-AZURE sapmachine-windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-sapmachine-windows
- tags:
-   - azure
+.AZURE sapmachine-windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-sapmachine-windows
+  tags:
+    - azure
 
-AWS corretto-8:
+.AWS corretto-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -379,7 +379,7 @@ AWS corretto-8:
   tags:
     - aws
 
-AWS corretto-11:
+.AWS corretto-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -388,9 +388,9 @@ AWS corretto-11:
   tags:
     - aws
 
-AZURE corretto-windows:
- stage: deployment test
- script:
-   - molecule test -s cloud-azure-windows-corretto
- tags:
-   - azure
+.AZURE corretto-windows:
+  stage: deployment test
+  script:
+    - molecule test -s cloud-azure-windows-corretto
+  tags:
+    - azure
