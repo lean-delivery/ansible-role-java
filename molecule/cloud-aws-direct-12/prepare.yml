@@ -37,6 +37,13 @@
       until: status is succeeded
       become: true
 
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+        exclude: kernel*
+      become: true
+
 - name: Prepare host to S3 transport
   hosts: s3
   tasks:

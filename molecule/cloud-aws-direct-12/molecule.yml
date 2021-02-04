@@ -30,103 +30,99 @@ platforms:
       - pip3
       - centos
 
-  - name: test-aws-centos7-oracle_java-12-s3-rpm
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.06
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - s3
-      - package
-      - pip2
-      - centos
-
-  - name: test-aws-ubuntu18-oracle_java-12-s3-deb
-    image: ami-012fd5eb46f56731f
-    platform: ubuntu18
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.06
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-      - s3
-      - package
-      - pip3
-
-  - name: test-aws-Debian9-oracle_java-12-s3-tb
-    image: ami-003f19e0e687de1cd
-    platform: debian9
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.06
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: admin
-    groups:
-      - debian_family
-      - s3
-      - tarball
-      - pip2
-
-  - name: test-aws-Amazon-oracle_java-12
-    image: ami-035b3c7efe6d061d5
-    platform: amazon
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.06
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
-      - s3
-      - package
-      - amazon
-      - pip2
-
-  - name: test-aws-Amazon2-oracle_java-12
-    image: ami-0b898040803850657
-    platform: amazon2
-    instance_type: t3.micro
-    profile_name: epmldi-instance-profile
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.06
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: ec2-user
-    groups:
-      - rhel_family
-      - s3
-      - tarball
-      - amazon
-      - pip2
+  # - name: test-aws-centos7-oracle_java-12-s3-rpm
+  #   image: ami-9887c6e7
+  #   platform: centos7
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.06
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - package
+  #     - pip2
+  #     - centos
+  # - name: test-aws-ubuntu18-oracle_java-12-s3-deb
+  #   image: ami-012fd5eb46f56731f
+  #   platform: ubuntu18
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.06
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
+  #     - s3
+  #     - package
+  #     - pip3
+  # - name: test-aws-Debian9-oracle_java-12-s3-tb
+  #   image: ami-003f19e0e687de1cd
+  #   platform: debian9
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.06
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: admin
+  #   groups:
+  #     - debian_family
+  #     - s3
+  #     - tarball
+  #     - pip2
+  # - name: test-aws-Amazon-oracle_java-12
+  #   image: ami-035b3c7efe6d061d5
+  #   platform: amazon
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.06
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - package
+  #     - amazon
+  #     - pip2
+  # - name: test-aws-Amazon2-oracle_java-12
+  #   image: ami-0b898040803850657
+  #   platform: amazon2
+  #   instance_type: t3.micro
+  #   profile_name: epmldi-instance-profile
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   spot_price: 0.06
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: ec2-user
+  #   groups:
+  #     - rhel_family
+  #     - s3
+  #     - tarball
+  #     - amazon
+  #     - pip2
 
 provisioner:
   name: ansible
