@@ -1,19 +1,19 @@
 ---
 - name: Check requested major version for Alibaba Dragonwell
   fail:
-    msg: "Alibaba Dragonwell corresponds to OpenJDK 8 only"
+    msg: 'Alibaba Dragonwell corresponds to OpenJDK 8 only'
   when: java_major_version != 8
 
 - name: Check requested architecture for Alibaba Dragonwell
   fail:
-    msg: "Alibaba Dragonwell JDK currently supports Linux/x86_64 platform only"
+    msg: 'Alibaba Dragonwell JDK currently supports Linux/x86_64 platform only'
   when: java_arch != "x64"
 
 - name: Prepare GitHub API release tag
   set_fact:
     sub_uri: >-
       {{ ((java_minor_version != '*')
-        | ternary('tags/v{{ java_major_version }}.{{ java_minor_version }}-GA', 'latest')) }}
+        | ternary('tags/v' ~ java_major_version ~ '.' ~ java_minor_version ~ '-GA', 'latest')) }}
 
 - name: Fetch Dragonwell version by tag
   uri:
