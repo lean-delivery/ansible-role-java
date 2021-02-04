@@ -11,7 +11,7 @@ lint: |
   ansible-lint -c .ansible-lint
 platforms:
   - name: test-aws-centos8-oracle_java-12-s3-rpm
-    image: ami-0ed2ad9dc845b42b6
+    image: ami-015714373259627e0
     platform: centos8
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
