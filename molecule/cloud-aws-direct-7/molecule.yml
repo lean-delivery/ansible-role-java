@@ -5,36 +5,35 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  set -e
+  yamllint -f colored -c .yamllint .
+  ansible-lint -c .ansible-lint
 platforms:
-
   - name: test-aws-centos6-oracle_java-7-rpm
     image: ami-1585c46a
     platform: centos6
     instance_type: t2.medium
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.05
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
-     - rpm
+      - rhel_family
+      - rpm
 
   - name: test-aws-Debian9-oracle_java-7-tarball
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -46,9 +45,14 @@ platforms:
 provisioner:
   name: ansible
   log: false
+  env:
+    ANSIBLE_FILTER_PLUGINS: ../../filter_plugins/
   config_options:
     defaults:
+      forks: 30
       callback_whitelist: profile_tasks,timer
+    ssh_connection:
+      pipelining: true
   inventory:
     group_vars:
       tarball:
@@ -73,11 +77,7 @@ provisioner:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-direct-7
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
