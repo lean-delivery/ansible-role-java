@@ -10,10 +10,10 @@ lint: |
   yamllint -f colored -c .yamllint .
   ansible-lint -c .ansible-lint
 platforms:
-  - name: test-aws-centos6-oracle_java-7-rpm
-    image: ami-1585c46a
-    platform: centos6
-    instance_type: t2.medium
+  - name: test-aws-centos7-oracle_java-6-rpm
+    image: ami-9887c6e7
+    platform: centos7
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
