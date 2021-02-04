@@ -44,7 +44,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: false
+  log: true
   env:
     ANSIBLE_FILTER_PLUGINS: ../../filter_plugins/
   config_options:
