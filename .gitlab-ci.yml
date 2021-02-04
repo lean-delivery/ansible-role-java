@@ -9,6 +9,7 @@ stages:
   - deployment test
 
 before_script:
+  - pip3 install molecule-docker
   - rm -rf molecule/resources/provisioning
   - ansible --version
   - ansible-lint --version
