@@ -2,7 +2,6 @@
 - name: Prepare Debian
   hosts: debian_family
   tasks:
-
     - name: Add universe repository for bionic
       apt_repository:
         repo: deb http://archive.ubuntu.com/ubuntu bionic universe
@@ -23,7 +22,6 @@
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
-
     - block:
         - name: Enable EPEL repository
           yum:

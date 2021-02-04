@@ -5,10 +5,10 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  set -e
+  yamllint -f colored -c .yamllint .
+  ansible-lint -c .ansible-lint
 platforms:
   - name: test-aws-centos7-oracle_java-11-s3
     image: ami-9887c6e7
@@ -16,9 +16,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -34,9 +34,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -51,9 +51,9 @@ platforms:
     platform: debian9
     instance_type: t3.micro
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -65,10 +65,15 @@ platforms:
 
 provisioner:
   name: ansible
-  log: false
+  log: true
+  env:
+    ANSIBLE_FILTER_PLUGINS: ../../filter_plugins/
   config_options:
     defaults:
+      forks: 30
       callback_whitelist: profile_tasks,timer
+    ssh_connection:
+      pipelining: true
   inventory:
     group_vars:
       web:
@@ -96,11 +101,7 @@ provisioner:
     prepare: ../cloud-aws-direct-11/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-direct-11
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

@@ -5,10 +5,10 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  set -e
+  yamllint -f colored -c .yamllint .
+  ansible-lint -c .ansible-lint
 platforms:
   - name: test-aws-centos8-oracle_java-12-s3-rpm
     image: ami-0ed2ad9dc845b42b6
@@ -16,9 +16,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -36,9 +36,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -56,9 +56,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -75,9 +75,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -94,9 +94,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -114,9 +114,9 @@ platforms:
     instance_type: t3.micro
     profile_name: epmldi-instance-profile
     region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.06
     security_group_name:
       - default
     wait_timeout: 1800
@@ -130,10 +130,15 @@ platforms:
 
 provisioner:
   name: ansible
-  log: false
+  log: true
+  env:
+    ANSIBLE_FILTER_PLUGINS: ../../filter_plugins/
   config_options:
     defaults:
+      forks: 30
       callback_whitelist: profile_tasks,timer
+    ssh_connection:
+      pipelining: true
   inventory:
     group_vars:
       pip2:
@@ -144,7 +149,7 @@ provisioner:
         python_executable: python3
       centos:
         epel_path: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
-              {{ ansible_distribution_major_version }}.noarch.rpm"
+          {{ ansible_distribution_major_version }}.noarch.rpm"
       amazon:
         epel_path: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
       s3:
@@ -168,11 +173,7 @@ provisioner:
     prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-direct-12
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

@@ -55,12 +55,30 @@ Lint:
   tags:
     - aws
 
-AWS java-8:
+.AWS java-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-direct-8
+  tags:
+    - aws
+
+AWS java-11:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-11
+  tags:
+    - aws
+
+AWS java-12:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s cloud-aws-direct-12
   tags:
     - aws
 
@@ -98,15 +116,6 @@ AWS java-8:
     - molecule test -s cloud-azure-windows-openjdk14-chocolatey
   tags:
     - azure
-
-.AWS java-11:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-direct-11
-  tags:
-    - aws
 
 .AWS openjdk-8:
   variables:
@@ -177,15 +186,6 @@ AWS java-8:
     - molecule test -s cloud-azure-windows-11
   tags:
     - azure
-
-.AWS java-12:
-  variables:
-    AWS_REGION: us-east-1
-  stage: deployment test
-  script:
-    - molecule test -s cloud-aws-direct-12
-  tags:
-    - aws
 
 # Windows tests are preferrably run in Azure
 .AWS java-12 Windows:
