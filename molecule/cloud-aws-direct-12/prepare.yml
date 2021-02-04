@@ -26,7 +26,7 @@
       rpm_key:
         state: present
         key: '{{ epel_gpg_path }}'
-        become: true
+      become: true
 
     - name: Enable EPEL repository
       yum:
