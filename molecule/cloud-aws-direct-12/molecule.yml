@@ -150,8 +150,11 @@ provisioner:
       centos:
         epel_path: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
           {{ ansible_distribution_major_version }}.noarch.rpm"
+        epel_gpg_path: "'https://dl.fedoraproject.org/pub/epel/\
+          RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}'"
       amazon:
         epel_path: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        epel_gpg_path: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
