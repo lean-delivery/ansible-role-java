@@ -2,7 +2,6 @@
 - name: Prepare Debian
   hosts: debian_family
   tasks:
-
     - name: Add universe repository for bionic
       apt_repository:
         repo: deb http://archive.ubuntu.com/ubuntu bionic universe
@@ -23,11 +22,15 @@
 - name: Prepare RHEL
   hosts: rhel_family
   tasks:
+    - name: Install GPG key
+      rpm_key:
+        state: present
+        key: 'https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}'
 
     - name: Enable EPEL repository
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest\
-              -{{ ansible_distribution_major_version }}.noarch.rpm"
+          -{{ ansible_distribution_major_version }}.noarch.rpm"
         state: present
       register: status
       until: status is succeeded
