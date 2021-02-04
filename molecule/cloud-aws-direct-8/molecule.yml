@@ -26,7 +26,7 @@ platforms:
     groups:
       - rhel_family
       - s3
-      - package
+      - tarball
       - pip3
 
   - name: test-aws-centos7-oracle_java-8-s3
@@ -45,7 +45,7 @@ platforms:
     groups:
       - rhel_family
       - s3
-      - tarball
+      - package
       - pip2
 
   - name: test-aws-ubuntu18-oracle_java-8-s3

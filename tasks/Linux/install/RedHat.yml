@@ -9,17 +9,3 @@
   until: package_install is succeeded
   when:
     - ansible_distribution_major_version is version('8','<')
-
-# HACK:
-# Failed to validate GPG signature for jdk
-
-- name: Install java packages
-  dnf:
-    name: '{{ (transport == "repositories") | ternary(jdk_package, java_artifact) }}'
-    state: present
-  register: package_install
-  retries: 20
-  delay: 5
-  until: package_install is succeeded
-  when:
-    - ansible_distribution_major_version is version('8','>=')
