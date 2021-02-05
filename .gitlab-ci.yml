@@ -37,6 +37,7 @@ Lint:
   tags:
     - aws
 
+# Oracle Java
 .AWS java-6:
   variables:
     AWS_REGION: us-east-1
@@ -73,7 +74,7 @@ Lint:
   tags:
     - aws
 
-AWS java-12:
+.AWS java-12:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -370,7 +371,8 @@ AWS java-12:
   tags:
     - azure
 
-.AWS corretto-8:
+# Corretto
+AWS corretto-8:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -379,7 +381,7 @@ AWS java-12:
   tags:
     - aws
 
-.AWS corretto-11:
+AWS corretto-11:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
