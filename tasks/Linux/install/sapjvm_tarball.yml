@@ -9,6 +9,7 @@
   - name: Mkdir for java installation
     file:
       path: '{{ java_path }}/{{ java_folder }}'
+      mode: 0755
       state: directory
 
   - name: Create temporary directory

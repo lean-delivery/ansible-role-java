@@ -3,6 +3,7 @@
   copy:
     src: '{{ transport_local }}'
     dest: '{{ java_download_path }}'
+    mode: 0640
   register: file_downloaded
   retries: 5
   delay: 2
