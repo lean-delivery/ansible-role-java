@@ -21,7 +21,7 @@
 
 - name: Prepare RHEL
   hosts: rhel_family
-  tasks:yum
+  tasks:
     - name: install rpm key
       rpm_key:
         state: present
