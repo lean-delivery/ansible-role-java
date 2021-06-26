@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-azure-windows2016-zulu-12
     platform: windows2016core
@@ -56,11 +55,9 @@ provisioner:
     create: ../resources/provisioning/AZURE/create.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
     verify: ../resources/tests/verify_win.yml
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-azure-windows-zulu-12
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
+

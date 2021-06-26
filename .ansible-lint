@@ -1,5 +1,4 @@
 exclude_paths:
- - ./.travis.yml
  - ./molecule/
 rulesdir:
   - ~/ansible-lint-rules/rules/

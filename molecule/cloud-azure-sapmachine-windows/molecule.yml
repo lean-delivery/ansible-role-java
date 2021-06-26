@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: azure
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-azure-windows2016-sapmachine-tarball-13
     platform: windows2016core
@@ -86,11 +85,9 @@ provisioner:
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-azure-sapmachine-windows
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
+

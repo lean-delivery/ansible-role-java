@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-windows2016-adoptopenjdk-tarball-13
     aws_image_id: ami-00a20f508263efd30
@@ -110,11 +109,7 @@ provisioner:
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-adoptopenjdk-windows
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: azure
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-windows2016-openjdk-ga
     platform: windows2016core
@@ -49,11 +48,9 @@ provisioner:
     create: ../resources/provisioning/AZURE/create.yml
     destroy: ../resources/provisioning/AZURE/destroy.yml
     verify: ../resources/tests/verify_win.yml
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-azure-openjdk-windows-ga
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
+

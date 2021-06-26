@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-windows2016-oracle_java-12-zip
     aws_image_id: ami-00a20f508263efd30
@@ -65,11 +64,9 @@ provisioner:
     create: ../resources/provisioning/AWS/create.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify_win.yml
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-aws-windows-12
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
+

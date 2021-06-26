@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: azure
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-azure-windows2019-oracle_java-11-zip
     platform: windows2019core
@@ -66,11 +65,9 @@ provisioner:
     destroy: ../resources/provisioning/AZURE/destroy.yml
     prepare: prepare.yml
     verify: ../resources/tests/verify_win.yml
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-azure-windows-11
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
+
