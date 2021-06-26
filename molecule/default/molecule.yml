@@ -41,4 +41,3 @@ scenario:
   name: default
 verifier:
   name: ansible
-

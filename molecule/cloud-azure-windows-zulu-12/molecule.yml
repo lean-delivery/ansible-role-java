@@ -60,4 +60,3 @@ scenario:
   name: cloud-azure-windows-zulu-12
 verifier:
   name: ansible
-
