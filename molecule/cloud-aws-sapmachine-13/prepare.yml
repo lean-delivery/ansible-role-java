@@ -27,6 +27,7 @@
       rpm_key:
         state: present
         key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
+      become: true
     - name: Enable EPEL repository
       yum:
         name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-\
