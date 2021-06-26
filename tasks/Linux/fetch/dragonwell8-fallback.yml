@@ -13,7 +13,7 @@
   set_fact:
     sub_uri: >-
       {{ (java_minor_version != '*')
-        | ternary('tags/v' + java_major_version + '.' + java_minor_version + '-GA', 'latest') }}
+        | ternary('tags/v' + java_major_version|string + '.' + java_minor_version|string + '-GA', 'latest') }}
 
 - name: Fetch Dragonwell version by tag
   uri:
