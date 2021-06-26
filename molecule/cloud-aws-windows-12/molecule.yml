@@ -69,4 +69,3 @@ scenario:
   name: cloud-aws-windows-12
 verifier:
   name: ansible
-

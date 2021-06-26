@@ -78,4 +78,3 @@ scenario:
   name: cloud-aws-zulu-12
 verifier:
   name: ansible
-

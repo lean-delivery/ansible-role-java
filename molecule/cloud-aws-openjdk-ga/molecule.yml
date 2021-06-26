@@ -132,4 +132,3 @@ scenario:
   name: cloud-aws-openjdk-ga
 verifier:
   name: ansible
-

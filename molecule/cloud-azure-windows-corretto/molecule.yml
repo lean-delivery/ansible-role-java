@@ -100,4 +100,3 @@ scenario:
   name: cloud-azure-windows-corretto
 verifier:
   name: ansible
-

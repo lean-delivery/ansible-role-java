@@ -57,4 +57,3 @@ scenario:
   name: cloud-aws-openjdk-windows-ga
 verifier:
   name: ansible
-

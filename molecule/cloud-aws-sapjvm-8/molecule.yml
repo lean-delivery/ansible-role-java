@@ -97,4 +97,3 @@ scenario:
   name: cloud-aws-sapjvm-8
 verifier:
   name: ansible
-

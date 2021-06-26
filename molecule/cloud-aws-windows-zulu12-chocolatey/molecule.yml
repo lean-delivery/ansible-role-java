@@ -64,4 +64,3 @@ scenario:
   name: cloud-aws-windows-zulu12-chocolatey
 verifier:
   name: ansible
-

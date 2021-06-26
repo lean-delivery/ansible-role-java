@@ -61,4 +61,3 @@ scenario:
   name: cloud-azure-windows-sapjvm-8
 verifier:
   name: ansible
-

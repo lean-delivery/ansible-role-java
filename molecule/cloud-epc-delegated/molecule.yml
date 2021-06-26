@@ -54,4 +54,3 @@ scenario:
   name: cloud-epc-delegated
 verifier:
   name: ansible
-

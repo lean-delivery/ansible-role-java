@@ -113,4 +113,3 @@ scenario:
   name: cloud-aws-openjdk-8
 verifier:
   name: ansible
-

@@ -90,4 +90,3 @@ scenario:
   name: cloud-azure-sapmachine-windows
 verifier:
   name: ansible
-

@@ -139,4 +139,3 @@ scenario:
   name: cloud-aws-sapmachine-12
 verifier:
   name: ansible
-

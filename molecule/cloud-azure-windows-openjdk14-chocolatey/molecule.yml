@@ -62,4 +62,3 @@ scenario:
   name: cloud-azure-windows-openjdk14-chocolatey
 verifier:
   name: ansible
-

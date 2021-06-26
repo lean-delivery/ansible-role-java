@@ -70,4 +70,3 @@ scenario:
   name: cloud-azure-windows-12
 verifier:
   name: ansible
-

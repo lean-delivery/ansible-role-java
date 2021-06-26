@@ -65,4 +65,3 @@ scenario:
   name: cloud-aws-windows-openjdk11-chocolatey
 verifier:
   name: ansible
-
