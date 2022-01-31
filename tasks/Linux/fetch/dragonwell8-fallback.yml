@@ -32,7 +32,7 @@
   set_fact:
     release_url: >-
       {{ response.json.assets
-          | selectattr('browser_download_url', 'match', '.*_Linux_x64\.tar\.gz')
+          | selectattr('browser_download_url', 'match', '.*_x64_linux\.tar\.gz')
           | map(attribute='browser_download_url') | list | first }}
 
 - name: Download artifact from {{ release_url[0] }}
