@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
 
   - name: test-aws-centos8-oracle_java-8-s3-rpm
@@ -123,11 +122,7 @@ provisioner:
     prepare: prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-direct-8
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

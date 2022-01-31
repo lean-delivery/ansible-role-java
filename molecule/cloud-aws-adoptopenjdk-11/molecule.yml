@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-centos7-adoptopenjdk-hotspot-jre-tarball-11
     image: ami-9887c6e7
@@ -135,11 +134,7 @@ provisioner:
     prepare: ../cloud-aws-adoptopenjdk-11/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-adoptopenjdk-11
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

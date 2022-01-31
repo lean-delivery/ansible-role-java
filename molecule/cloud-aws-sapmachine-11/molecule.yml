@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-amazon2-sapmachine-jdk-tarball-11
     image: ami-0b898040803850657
@@ -140,11 +139,8 @@ provisioner:
     prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-aws-sapmachine-11
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-centos8-openjdk-ga
     image: ami-0ed2ad9dc845b42b6
@@ -128,11 +127,8 @@ provisioner:
     prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
+
 scenario:
   name: cloud-aws-openjdk-ga
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
