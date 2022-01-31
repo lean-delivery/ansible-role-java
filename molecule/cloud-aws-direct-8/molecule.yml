@@ -10,24 +10,24 @@ lint: |
   ansible-lint
 platforms:
 
-#  - name: test-aws-centos8-oracle_java-8-s3-rpm
-#    image: ami-0ed2ad9dc845b42b6
-#    platform: centos8
-#    instance_type: t3.medium
-#    profile_name: epmldi-instance-profile
-#    region: us-east-1
-#    vpc_subnet_id: subnet-0f2b9cd66faea38af
-#    assign_public_ip: false
-#    spot_price: 0.04
-#    security_group_name:
-#      - default
-#    wait_timeout: 1800
-#    ssh_user: centos
-#    groups:
-#      - rhel_family
-#      - s3
-#      - package
-#      - pip3
+  - name: test-aws-centos8-oracle_java-8-s3-rpm
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: t3.medium
+    profile_name: epmldi-instance-profile
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - s3
+      - package
+      - pip3
 
   - name: test-aws-centos7-oracle_java-8-s3
     image: ami-9887c6e7
