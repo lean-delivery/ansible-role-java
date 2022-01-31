@@ -74,7 +74,7 @@ AWS java-8:
  tags:
    - aws
 
-.AZURE java-8 Windows:
+AZURE java-8 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-8
@@ -92,7 +92,7 @@ AWS java-8:
    - aws
 
 # Windows tests are preferrably run in Azure
-.AZURE openjdk-14 Windows chocolatey:
+AZURE openjdk-14 Windows chocolatey:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-openjdk14-chocolatey
@@ -154,7 +154,7 @@ AWS openjdk-ga:
  tags:
    - aws
 
-.AZURE openjdk-ga Windows:
+AZURE openjdk-ga Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-openjdk-windows-ga
@@ -171,7 +171,7 @@ AWS openjdk-ga:
  tags:
    - aws
 
-.AZURE java-11 Windows:
+AZURE java-11 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-11
@@ -197,7 +197,7 @@ AWS openjdk-ga:
  tags:
    - aws
 
-.AZURE java-12 Windows:
+AZURE java-12 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-12
@@ -223,7 +223,7 @@ AWS sapjvm-8:
  tags:
    - aws
 
-.AZURE sapjvm-8 Windows:
+AZURE sapjvm-8 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-sapjvm-8
@@ -259,14 +259,14 @@ AWS zulu-12:
  tags:
    - aws
 
-.AZURE zulu-12 Windows:
+AZURE zulu-12 Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-zulu-12
  tags:
    - azure
 
-.AZURE zulu-12 Windows chocolatey:
+AZURE zulu-12 Windows chocolatey:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-zulu12-chocolatey
@@ -300,7 +300,7 @@ AWS adoptopenjdk-12:
  tags:
    - aws
 
-.AZURE adoptopenjdk Windows:
+AZURE adoptopenjdk Windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-adoptopenjdk-windows
@@ -363,7 +363,7 @@ AWS Alibaba Dragonwell8:
  tags:
    - aws
 
-.AZURE sapmachine-windows:
+AZURE sapmachine-windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-sapmachine-windows
@@ -388,7 +388,7 @@ AWS corretto-11:
   tags:
     - aws
 
-.AZURE corretto-windows:
+AZURE corretto-windows:
  stage: deployment test
  script:
    - molecule test -s cloud-azure-windows-corretto
