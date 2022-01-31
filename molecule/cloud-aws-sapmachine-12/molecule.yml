@@ -85,23 +85,23 @@ platforms:
       - sapmachine_fallback
       - pip3
 
-#  - name: test-aws-centos8-sapmachine-local-12
-#    image: ami-0ed2ad9dc845b42b6
-#    platform: centos8
-#    instance_type: t3.medium
-#    region: us-east-1
-#    vpc_subnet_id: subnet-314c223d
-#    assign_public_ip: true
-#    spot_price: 0.04
-#    security_group_name:
-#      - default
-#    wait_timeout: 1800
-#    ssh_user: centos
-#    groups:
-#      - rhel_family
-#      - sapmachine
-#      - local
-#      - pip3
+  - name: test-aws-centos8-sapmachine-local-12
+    image: ami-0ed2ad9dc845b42b6
+    platform: centos8
+    instance_type: t3.medium
+    region: us-east-1
+    vpc_subnet_id: subnet-314c223d
+    assign_public_ip: true
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+      - sapmachine
+      - local
+      - pip3
 
 provisioner:
   name: ansible
