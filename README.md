@@ -1,7 +1,6 @@
 java role
 =========
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-java/master/LICENSE)
-[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-java.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-java)
 [![Build Status](https://gitlab.com/lean-delivery/ansible-role-java/badges/master/pipeline.svg)](https://gitlab.com/lean-delivery/ansible-role-java/pipelines)
 [![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.java-blue.svg)](https://galaxy.ansible.com/lean_delivery/java)
 ![Ansible](https://img.shields.io/ansible/role/d/27687.svg)

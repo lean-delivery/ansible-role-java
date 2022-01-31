@@ -12,8 +12,8 @@
 - name: Prepare GitHub API release tag
   set_fact:
     sub_uri: >-
-      {{ ((java_minor_version != '*')
-        | ternary('tags/v{{ java_major_version }}.{{ java_minor_version }}-GA', 'latest')) }}
+      {{ (java_minor_version != '*')
+        | ternary('tags/v' + java_major_version|string + '.' + java_minor_version|string + '-GA', 'latest') }}
 
 - name: Fetch Dragonwell version by tag
   uri:

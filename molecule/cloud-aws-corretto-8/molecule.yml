@@ -5,10 +5,9 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
   - name: test-aws-centos7-corretto-jdk-fallback-8-tb
     image: ami-02eac2c0129f6376b
@@ -28,24 +27,24 @@ platforms:
       - fallback
       - tarball
 
-  - name: test-aws-centos8-corretto-jdk-fallback-8
-    image: ami-0ed2ad9dc845b42b6
-    platform: centos8
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - corretto
-      - fallback
-      - centos8
-      - package
+#  - name: test-aws-centos8-corretto-jdk-fallback-8
+#    image: ami-0ed2ad9dc845b42b6
+#    platform: centos8
+#    instance_type: t3.micro
+#    region: us-east-1
+#    vpc_subnet_id: subnet-0f2b9cd66faea38af
+#    assign_public_ip: false
+#    spot_price: 0.04
+#    security_group_name:
+#      - default
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - rhel_family
+#      - corretto
+#      - fallback
+#      - centos8
+#      - package
 
   - name: test-aws-Debian9-corretto-jdk-fallback-8
     image: ami-003f19e0e687de1cd
@@ -100,23 +99,23 @@ platforms:
       - corretto
       - web
 
-  - name: test-aws-centos8-corretto-jdk-web-8
-    image: ami-0ed2ad9dc845b42b6
-    platform: centos8
-    instance_type: t3.micro
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.004
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - corretto
-      - web
-      - centos8
+#  - name: test-aws-centos8-corretto-jdk-web-8
+#    image: ami-0ed2ad9dc845b42b6
+#    platform: centos8
+#    instance_type: t3.micro
+#    region: us-east-1
+#    vpc_subnet_id: subnet-0f2b9cd66faea38af
+#    assign_public_ip: false
+#    spot_price: 0.004
+#    security_group_name:
+#      - default
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - rhel_family
+#      - corretto
+#      - web
+#      - centos8
 
   - name: test-aws-Debian9-corretto-jdk-web-8
     image: ami-003f19e0e687de1cd
@@ -224,11 +223,7 @@ provisioner:
     prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-corretto-8
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint

@@ -5,27 +5,26 @@ dependency:
     role-file: requirements.yml
 driver:
   name: ec2
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: |
+  yamllint
+  ansible-lint
 platforms:
-  - name: test-aws-centos8-dragonwell8
-    image: ami-0ed2ad9dc845b42b6
-    platform: centos8
-    instance_type: t3.medium
-    region: us-east-1
-    vpc_subnet_id: subnet-314c223d
-    assign_public_ip: true
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - dragonwell8
-      - centos8
+#  - name: test-aws-centos8-dragonwell8
+#    image: ami-0ed2ad9dc845b42b6
+#    platform: centos8
+#    instance_type: t3.medium
+#    region: us-east-1
+#    vpc_subnet_id: subnet-314c223d
+#    assign_public_ip: true
+#    spot_price: 0.04
+#    security_group_name:
+#      - default
+#    wait_timeout: 1800
+#    ssh_user: centos
+#    groups:
+#      - rhel_family
+#      - dragonwell8
+#      - centos8
 
   - name: test-aws-centos7-dragonwell8
     image: ami-9887c6e7
@@ -92,11 +91,7 @@ provisioner:
     prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
-  lint:
-    name: ansible-lint
 scenario:
   name: cloud-aws-dragonwell8
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
