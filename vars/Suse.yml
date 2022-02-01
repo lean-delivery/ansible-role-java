@@ -1,6 +1,6 @@
 ---
-jdk_package_openjdk: "java-1_{{ java_major_version }}_0-openjdk"
+jdk_package_openjdk: "java-1_{{ java_major_version }}_0-openjdk-devel"
 
-java_folder_repo_transport: "java-1_{{ java_major_version }}_0-openjdk"
+java_folder_repo_transport: "java-1_{{ java_major_version }}_0-openjdk-devel"
 
-java_default_path: /usr/java
+java_default_path: /usr/lib64/jvm/
