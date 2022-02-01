@@ -1,4 +1,6 @@
 ---
+java_package_requirements: []
+
 jdk_package_openjdk: "java-1_{{ java_major_version }}_0-openjdk-devel"
 
 java_folder_repo_transport: "java-1.{{ java_major_version }}.0-openjdk-1.{{ java_major_version }}.0"
