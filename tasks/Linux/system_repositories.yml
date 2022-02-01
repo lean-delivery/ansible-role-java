@@ -7,6 +7,7 @@
         - 'install/{{ ansible_distribution }}_{{ ansible_distribution_version }}_{{ java_distribution }}_{{ java_major_version }}.yml'
         - 'install/{{ ansible_os_family }}_{{ java_distribution }}.yml'
         - 'install/{{ ansible_os_family }}.yml'
+        - 'install/other.yml'
       loop_control:
         loop_var: install_task
   become: true
