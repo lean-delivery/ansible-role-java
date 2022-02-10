@@ -1,4 +1,10 @@
 ---
+- name: OpenJDK Repository
+  community.general.zypper_repository:
+    name: openjdk
+    repo: "{{ openjdk_zypper_repo_url }}"
+    state: present
+
 - name: Install java packages
   zypper:
     name: '{{ (transport == "repositories") | ternary(jdk_package, java_artifact) }}'
