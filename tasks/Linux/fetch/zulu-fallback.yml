@@ -1,21 +1,21 @@
 ---
 - name: Fetch download page
   uri:
-    url: "{{ zulu_api_page }}\
-      /bundles/latest/\
-      ?version={{ java_major_version }}\
-      &ext=tar.gz&os=linux&\
-      arch={{ (java_arch == 'x64') | ternary('x64', 'x86') }}"
+    url: "{{ zulu_api_page }}/zulu/packages/\
+      ?java_version={{ java_major_version }}\
+      &os=linux\
+      &arch={{ (java_arch == 'x64') | ternary('x64', 'x86') }}\
+      &java_package_type={{ java_package }}\
+      &latest=true\
+      &archive_type=tar.gz"
     return_content: true
     follow_redirects: all
   register: root_page
 
-- name: Find release url and artifact_checksum
+- name: Find release url
   set_fact:
     release_url: >-
-      {{ (root_page.content | from_json).url }}
-    artifact_checksum: >-
-      {{ (root_page.content | from_json).md5_hash }}
+      {{ root_page.json[0].download_url }}
 
 - name: Exit if Zulu version is not found
   fail:
@@ -26,7 +26,6 @@
   get_url:
     url: '{{ release_url }}'
     dest: '{{ java_download_path }}/{{ (release_url|urlsplit).path|basename }}'
-    checksum: 'md5:{{ artifact_checksum }}'
   register: file_downloaded
   retries: 20
   delay: 5
