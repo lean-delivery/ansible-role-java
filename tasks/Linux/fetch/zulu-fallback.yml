@@ -8,7 +8,8 @@
       &java_package_type={{ java_package }}\
       &latest=true\
       &archive_type=tar.gz\
-      &javafx_bundled=false"
+      &javafx_bundled=false\
+      &crac_supported=false"
     return_content: true
     follow_redirects: all
   register: root_page
