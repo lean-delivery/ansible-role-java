@@ -98,10 +98,9 @@ Requirements
    - 7
    - 8
  - **Supported zulu version**:
-   - 7
    - 8
    - 11
-   - 12
+   - 17
  - **Supported AdoptOpenJDK version**:
    - 8
    - 11
@@ -188,7 +187,7 @@ Requirements
         These packages are not included in given role. You should install them preliminary.
 
   - `java_tarball_install` - boolean parameter to choose between tarball and package installation. Default is `true` if `transport` is not `repositories`.
-  - `java_major_version` - major version of OpenJDK (8,11,12) or oracle-java (6,7,8, 11 etc.) Default is 12.
+  - `java_major_version` - major version of OpenJDK (8,11,17) or oracle-java (6,7,8, 11 etc.) Default is 12.
   - `java_minor_version` - minor version of oracle-java. For version `8.202` minor will be `202` (default). For OpenJDK this variable not needed setup manually.
   - `java_arch` Package architecture. (With installing OpenJDK from repositories its variable you may use only for RHEL )
 
@@ -269,7 +268,7 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
-### Installing OpenJDK 13 from openjdk-fallback (default role behaviour):
+### Installing OpenJDK 17 from openjdk-fallback (default role behaviour):
 
 ```yaml
 - name: Install openjdk java
@@ -277,6 +276,7 @@ Example Playbook
 
   roles:
     - role: lean_delivery.java
+      java_major_version: 17
 ```
 
 ### Installing OpenJDK 8 from repositories:
@@ -360,7 +360,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: fallback
       java_major_version: 8
 ```
-### Installing ZULU 12 from zulu-fallback:
+### Installing ZULU 17 from zulu-fallback:
 
 ```yaml
 - name: Install zulu
@@ -370,6 +370,8 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
     - role: lean_delivery.java
       java_distribution: zulu
       transport: fallback
+      java_major_version: 17
+      java_package: jdk
 ```
 ### Installing AdoptOpenJDK 8-openj9-jre from adoptopenjdk-fallback:
 
