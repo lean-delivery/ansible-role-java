@@ -14,11 +14,13 @@
       when: transport != 'repositories'
 
     - name: 'Perform {{ java_binary_type }} install'
-      include_tasks: '{{ install_task }}'
+      ansible.builtin.include_tasks:
+        file: "{{ item }}"
       with_first_found:
-        - 'install/{{ java_distribution }}_{{ java_binary_type }}.yml'
-        - 'install/{{ java_binary_type }}.yml'
-        - 'install/{{ ansible_os_family }}.yml'
-      loop_control:
-        loop_var: install_task
+        - files:
+          - '{{ java_distribution }}_{{ java_binary_type }}.yml'
+          - '{{ java_binary_type }}.yml'
+          - '{{ ansible_os_family }}.yml'
+          paths:
+          - tasks/Linux/install
   become: true
