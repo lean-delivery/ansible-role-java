@@ -19,11 +19,11 @@
   - name: Unarchive to temporary directory
     win_unzip:
       src: '{{ java_artifact }}'
-      dest: '{{ temp_dir_path }}'
+      dest: '{{ temp_dir_path.path }}'
 
   - name: Find java_folder in temp
     win_find:
-      paths: '{{ temp_dir_path }}'
+      paths: '{{ temp_dir_path.path }}'
       recurse: false
       file_type: directory
     register: java_temp_folder
