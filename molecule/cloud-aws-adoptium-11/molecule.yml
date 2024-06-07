@@ -9,7 +9,7 @@ lint: |
   yamllint
   ansible-lint
 platforms:
-  - name: test-aws-centos7-adoptopenjdk-hotspot-jre-tarball-11
+  - name: test-aws-centos7-adoptium-hotspot-jre-tarball-11
     image: ami-9887c6e7
     platform: centos7
     instance_type: t3.micro
@@ -23,12 +23,12 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jre
-      - adoptopenjdk_fallback
+      - adoptium_fallback
 
-  - name: test-aws-ubuntu18-adoptopenjdk-openj9-jdk-tarball-11
+  - name: test-aws-ubuntu18-adoptium-openj9-jdk-tarball-11
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: t3.micro
@@ -42,12 +42,12 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jdk
-      - adoptopenjdk_fallback
+      - adoptium_fallback
 
-  - name: test-aws-Debian9-adoptopenjdk-hotspot-jdk-repositories-11
+  - name: test-aws-Debian9-adoptium-hotspot-jdk-repositories-11
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.micro
@@ -61,12 +61,12 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jdk
       - repositories
 
-#  - name: test-aws-centos8-adoptopenjdk-openj9-jre-repositories-11
+#  - name: test-aws-centos8-adoptium-openj9-jre-repositories-11
 #    image: ami-0ed2ad9dc845b42b6
 #    platform: centos8
 #    instance_type: t3.micro
@@ -80,12 +80,12 @@ platforms:
 #    ssh_user: centos
 #    groups:
 #      - rhel_family
-#      - adoptopenjdk
+#      - adoptium
 #      - openj9
 #      - jre
 #      - repositories
 
-  - name: test-aws-centos7-adoptopenjdk-local-11
+  - name: test-aws-centos7-adoptium-local-11
     image: ami-9887c6e7
     platform: centos7
     instance_type: t3.micro
@@ -99,7 +99,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - adoptopenjdk
+      - adoptium
       - local
 
 provisioner:
@@ -111,18 +111,18 @@ provisioner:
       callback_whitelist: profile_tasks,timer
   inventory:
     group_vars:
-      adoptopenjdk:
-        java_distribution: adoptopenjdk
+      adoptium:
+        java_distribution: adoptium
         java_major_version: 11
       jdk:
         java_package: jdk
       jre:
         java_package: jre
       openj9:
-        adoptopenjdk_impl: openj9
+        adoptium_impl: openj9
       hotspot:
-        adoptopenjdk_impl: hotspot
-      adoptopenjdk_fallback:
+        adoptium_impl: hotspot
+      adoptium_fallback:
         transport: fallback
       repositories:
         transport: repositories
@@ -131,10 +131,10 @@ provisioner:
         transport_local: /tmp/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../cloud-aws-adoptopenjdk-11/prepare.yml
+    prepare: ../cloud-aws-adoptium-11/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
 scenario:
-  name: cloud-aws-adoptopenjdk-11
+  name: cloud-aws-adoptium-11
 verifier:
   name: ansible

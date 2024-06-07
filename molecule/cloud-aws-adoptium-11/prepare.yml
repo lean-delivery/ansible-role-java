@@ -52,7 +52,7 @@
   gather_facts: true
   vars:
     transport_s3_bucket: java-molecule-s3-test
-    transport_s3_path: /java/adoptopenjdk/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
+    transport_s3_path: /java/adoptium/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz
     java_download_path: /tmp
   tasks:
     - name: Download artifact from s3

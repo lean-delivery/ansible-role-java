@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-windows2016-adoptopenjdk-tarball-13
+  - name: test-aws-windows2016-adoptium-tarball-13
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -22,12 +22,12 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jdk
-      - adoptopenjdk_fallback
+      - adoptium_fallback
 
-  - name: test-aws-windows2019-adoptopenjdk-tarball-13
+  - name: test-aws-windows2019-adoptium-tarball-13
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
@@ -39,12 +39,12 @@ platforms:
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jre
-      - adoptopenjdk_fallback
+      - adoptium_fallback
 
-  - name: test-aws-windows2016-adoptopenjdk-chocolatey-13
+  - name: test-aws-windows2016-adoptium-chocolatey-13
     aws_image_id: ami-00a20f508263efd30
     platform: windows2016core
     aws_region: us-east-1
@@ -56,12 +56,12 @@ platforms:
     vpc_subnet_id: subnet-314c223d
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jdk
       - chocolatey
 
-  - name: test-aws-windows2019-adoptopenjdk-chocolatey-13
+  - name: test-aws-windows2019-adoptium-chocolatey-13
     aws_image_id: ami-0477b9335a5a75438
     platform: windows2019core
     aws_region: us-east-1
@@ -73,7 +73,7 @@ platforms:
     vpc_subnet_id: subnet-314c223d
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jre
       - chocolatey
@@ -83,18 +83,18 @@ provisioner:
   log: false
   inventory:
     group_vars:
-      adoptopenjdk:
-        java_distribution: adoptopenjdk
+      adoptium:
+        java_distribution: adoptium
         java_major_version: 13
       jdk:
         java_package: jdk
       jre:
         java_package: jre
       openj9:
-        adoptopenjdk_impl: openj9
+        adoptium_impl: openj9
       hotspot:
-        adoptopenjdk_impl: hotspot
-      adoptopenjdk_fallback:
+        adoptium_impl: hotspot
+      adoptium_fallback:
         transport: fallback
       chocolatey:
         transport: chocolatey
@@ -113,7 +113,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-adoptopenjdk-windows
+  name: cloud-aws-adoptium-windows
 verifier:
   name: ansible
   lint:

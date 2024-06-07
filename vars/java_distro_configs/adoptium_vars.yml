@@ -1,5 +1,5 @@
 ---
-adoptopenjdk_api_page: https://api.adoptopenjdk.net/v3/
+adoptium_api_page: https://api.adoptium.net/v3/
 parts: >-
   {{ java_artifact_basename | default('undefined', true)
     | regex_findall('^OpenJ[DKRE]{1,2}[0-9]+U[\-]*([jdkre]+)'
@@ -22,24 +22,24 @@ java_jre_suffix: >-
 java_jre_regex_suffix: >-
   {{ (java_package == 'jdk') | ternary('[^-jre]$', '[jre]') }}
 
-adoptopenjdk_choco_folder: >-
+adoptium_choco_folder: >-
   {{ java_package ~ '[-]*' ~ java_major_version|string ~ '.*' }}
 
-adoptopenjdk_folder: >-
-  {{ (transport == 'chocolatey') | ternary(adoptopenjdk_choco_folder, java_def_folder_ext_transport) }}
+adoptium_folder: >-
+  {{ (transport == 'chocolatey') | ternary(adoptium_choco_folder, java_def_folder_ext_transport) }}
 
 jdk_package: >-
-  {{ 'adoptopenjdk-' + java_major_version|string+ '-' + adoptopenjdk_impl|string
+  {{ 'adoptium-' + java_major_version|string+ '-' + adoptium_impl|string
                   + ((java_package == 'jre') | ternary('-' + java_package, '')) }}
 
 java_folder_repo_transport: >-
-  {{ 'adoptopenjdk-' ~ java_major_version|string ~ '-' ~ adoptopenjdk_impl|string
+  {{ 'adoptium-' ~ java_major_version|string ~ '-' ~ adoptium_impl|string
         ~ ((java_package == 'jre') | ternary('-' ~ java_package, '')) }}
 
 java_folder: >-
   {{ (not java_tarball_install|bool and (ansible_system == 'Linux'))
-      | ternary(java_folder_repo_transport, adoptopenjdk_folder) }}
+      | ternary(java_folder_repo_transport, adoptium_folder) }}
 
-choco_java_package: 'adoptopenjdk{{ java_package_suffix }}{{ java_jre_suffix }}'
+choco_java_package: 'adoptium{{ java_package_suffix }}{{ java_jre_suffix }}'
 
 choco_path: 'C:\Program Files\AdoptOpenJDK'
