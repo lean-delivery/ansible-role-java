@@ -4,7 +4,7 @@
 #  - oracle_java
 #  - sapjvm
 #  - zulu
-#  - adoptopenjdk (not supported 9/10)
+#  - adoptium (not supported 9/10)
 #  - alibaba_dragonwell (8 only)
 #  - sapmachine
 #  - Amazon Corretto (supported only 8/11)
@@ -20,7 +20,7 @@ java_distribution: openjdk
 java_package: jdk
 
 # AdoptOpenJDK Implementation (hotspot/openj9)
-adoptopenjdk_impl: hotspot
+adoptium_impl: hotspot
 
 # OpenJDK Redhat: 8 (packages) / 11 (package for centos7, tarball for all other) / 12 (tarball)
 # OpenJDK Debian: 8 (packages) / 11 (package for ubuntu18, tarball for all other) / 12 (tarball)
@@ -52,7 +52,7 @@ transport: fallback
 # - "local" Local artifact
 # - "repositories" Install from repositories for Debian and RHEL
 # - "openjdk-fallback" Install from artifact downloaded from openjdk site
-# - "adoptopenjdk-fallback" Install from artifact downloaded from adoptopenjdk site
+# - "adoptium-fallback" Install from artifact downloaded from adoptium site
 # - "sapjvm-fallback" Install from artifact downloaded from SAP site
 # - "zulu-fallback" Install from artifact downloaded from AZUL site
 # - "sapmachine-fallback" Install from artifact downloaded from SapMachine site

@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-azure-windows2016-adoptopenjdk-tarball-11
+  - name: test-azure-windows2016-adoptium-tarball-11
     platform: windows2016core
     vm_size: Standard_D2s_v3
     az_location: northeurope
@@ -21,12 +21,12 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jdk
-      - adoptopenjdk_fallback
+      - adoptium_fallback
 
-  - name: test-azure-windows2019-adoptopenjdk-tarball-11
+  - name: test-azure-windows2019-adoptium-tarball-11
     platform: windows2019core
     vm_size: Standard_D2s_v3
     az_location: northeurope
@@ -37,12 +37,12 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jre
-      - adoptopenjdk_fallback
+      - adoptium_fallback
 
-  - name: test-azure-windows2016-adoptopenjdk-chocolatey-13
+  - name: test-azure-windows2016-adoptium-chocolatey-13
     platform: windows2016core
     vm_size: Standard_D2s_v3
     az_location: northeurope
@@ -53,12 +53,12 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jdk
       - chocolatey
 
-  - name: test-azure-windows2019-adoptopenjdk-chocolatey-13
+  - name: test-azure-windows2019-adoptium-chocolatey-13
     platform: windows2019core
     vm_size: Standard_D2s_v3
     az_location: northeurope
@@ -69,7 +69,7 @@ platforms:
     az_network_security_group: epm-ldi-northeurope-sg
     groups:
       - windows
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jre
       - chocolatey
@@ -79,17 +79,17 @@ provisioner:
   log: true
   inventory:
     group_vars:
-      adoptopenjdk:
-        java_distribution: adoptopenjdk
+      adoptium:
+        java_distribution: adoptium
       jdk:
         java_package: jdk
       jre:
         java_package: jre
       openj9:
-        adoptopenjdk_impl: openj9
+        adoptium_impl: openj9
       hotspot:
-        adoptopenjdk_impl: hotspot
-      adoptopenjdk_fallback:
+        adoptium_impl: hotspot
+      adoptium_fallback:
         transport: fallback
         java_major_version: 11
       chocolatey:
@@ -110,7 +110,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-azure-adoptopenjdk-windows
+  name: cloud-azure-adoptium-windows
 verifier:
   name: ansible
   lint:

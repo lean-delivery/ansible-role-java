@@ -1,15 +1,15 @@
 ---
 - name: Add apt-key for AdoptOpenJDK
   apt_key:
-    url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    url: https://adoptium.jfrog.io/adoptium/api/gpg/key/public
     state: present
   register: package_install
   until: package_install is succeeded
 
 - name: Add repository for AdoptOpenJDK
   apt_repository:
-    repo: 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ bionic main'
-    filename: adoptopenjdk
+    repo: 'deb https://adoptium.jfrog.io/adoptium/deb/ bionic main'
+    filename: adoptium
     state: present
     codename: trusty
     update_cache: true

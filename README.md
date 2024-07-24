@@ -32,10 +32,10 @@ This Ansible role has the following features for:
 - Install JDK
 - Additional opportunity to install from zulu-fallback, s3, web, local source, chocolatey.
 
-**AdoptOpenJDK**
+**Adoptium**
 
 - Install JDK, JRE
-- Additional opportunity to install from adoptopenjdk-fallback, repositories, web, local source, s3, chocolatey.
+- Additional opportunity to install from adoptium-fallback, repositories, web, local source, s3, chocolatey.
 
 
 **SapMachine**
@@ -101,7 +101,7 @@ Requirements
    - 8
    - 11
    - 17
- - **Supported AdoptOpenJDK version**:
+ - **Supported Adoptium version**:
    - 8
    - 11
    - 12
@@ -156,7 +156,7 @@ Requirements
      - `oracle_java`
      - `sapjvm`
      - `zulu`
-     - `adoptopenjdk`
+     - `adoptium`
      - `sapmachine`
      - `dragonwell8`
      - `corretto`
@@ -169,15 +169,15 @@ Requirements
       - `jdk` (default)
       - `jre`
 
-  - `transport` Artifact source transport. Use `fallback` (OpenJDK, SAPJVM, AdoptOpenJDK, SapMachine, ZULU, Alibaba Dragonwell, Amazon Corretto distributions are supported), `repositories`(OpenJDK, AdoptOpenJDK, Amazon Corretto distributions are supported), `local`, `web` or `s3` according to your requirements.
+  - `transport` Artifact source transport. Use `fallback` (OpenJDK, SAPJVM, Adoptium, SapMachine, ZULU, Alibaba Dragonwell, Amazon Corretto distributions are supported), `repositories`(OpenJDK, Adoptium, Amazon Corretto distributions are supported), `local`, `web` or `s3` according to your requirements.
 
     Available:
       - `repositories` Installing java from system repositories (yum or apt, Linux only)
       - `web` Fetching artifact from custom web url
-      - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11, 12 or JRE 8, SapMachine, ZULU, AdoptOpenJDK)
+      - `chocolatey` Windows specific package manager (Supported OpenJDK: JDK 11, 12 or JRE 8, SapMachine, ZULU, Adoptium)
       - `local` Local artifact stored on ansible master (can be used as cache for other transport)
       - `s3` Download artifact from s3 bucket (Linux clients only, for Windows please use other transports)
-      - `fallback` fetching artifacts from official sites (available for distributions: openjdk, sapjvm, zulu, adoptopenjdk, sapmachine, dragonwell8, corretto).   
+      - `fallback` fetching artifacts from official sites (available for distributions: openjdk, sapjvm, zulu, adoptium, sapmachine, dragonwell8, corretto).   
          This is *default* value for `transport` variable
 
         **Notice** using `s3` transport requires specific packages to be installed on target host:
@@ -226,8 +226,8 @@ Requirements
 
     default: `{{ lookup('env','AWS_SECRET_KEY') }}`
 
-#  Configure AdoptOpenJDK
-  - `adoptopenjdk_impl` AdoptOpenJDK Implementation
+#  Configure Adoptium
+  - `adoptium_impl` Adoptium Implementation
      - `hotspot` (default)
      - `openj9`
 
@@ -373,18 +373,18 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_major_version: 17
       java_package: jdk
 ```
-### Installing AdoptOpenJDK 8-openj9-jre from adoptopenjdk-fallback:
+### Installing Adoptium 8-openj9-jre from adoptium-fallback:
 
 ```yaml
-- name: Install AdoptOpenJDK
+- name: Install Adoptium
   hosts: all
 
   roles:
     - role: lean_delivery.java
-      java_distribution: adoptopenjdk
+      java_distribution: adoptium
       transport: fallback
       java_package: jre
-      adoptopenjdk_impl: openj9
+      adoptium_impl: openj9
       java_major_version: 8
 ```
 

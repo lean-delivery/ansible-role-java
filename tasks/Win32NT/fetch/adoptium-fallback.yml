@@ -1,49 +1,51 @@
 ---
 - name: Fetch download page
-  uri:
-    url: "{{ adoptopenjdk_api_page }}\
+  win_uri:
+    url: "{{ adoptium_api_page }}\
       assets/feature_releases/{{ java_major_version }}/ga\
       ?architecture={{ (java_arch == 'x64') | ternary('x64', 'x32') }}\
       &heap_size=normal\
       &image_type={{ java_package }}\
-      &jvm_impl={{ adoptopenjdk_impl }}\
-      &os=linux\
+      &jvm_impl={{ adoptium_impl }}\
+      &os=windows\
       &project=jdk\
-      &vendor=adoptopenjdk"
+      &vendor=adoptium"
     return_content: true
     follow_redirects: all
   register: download_page
 
-- name: "Find release url"
+- name: Find release url
   set_fact:
     release_url: >-
-      {{ (download_page.content | from_json)[0].binaries | map(attribute='package.link') | list +
-        (download_page.content | from_json)[0].binaries | map(attribute='package.checksum_link') | list }}
+      {{ (download_page.content | from_json).binaries | map(attribute='package.binary_link') | list +
+        (download_page.content | from_json).binaries | map(attribute='package.checksum_link') | list }}
 
-- name: Exit if AdoptOpenJDK version is not found
+- name: Exit if AdobtOpenJDK version is not found
   fail:
     msg: 'AdoptOpenJDK version {{ java_major_version }} not found'
   when: release_url[0] is not defined
 
 - name: 'Fetch artifact checksum file {{ release_url[1] }}'
-  uri:
+  win_uri:
     url: '{{ release_url[1] }}'
     return_content: true
   register: artifact_checksum_file
 
 - name: 'Get artifact checksum from file {{ release_url[1] }}'
   set_fact:
-    artifact_checksum: >-
-      {{ artifact_checksum_file['content']
-        | regex_search('([^\s]+)') }}
-    java_downloaded_file: >-
-      {{ (release_url[0]|urlsplit).path|basename }}
+    artifact_checksum:
+      content: >-
+        {{ artifact_checksum_file['content'] |
+          regex_search('([^\s]+)')
+        }}
 
 - name: 'Download artifact from {{ release_url[0] }}'
-  get_url:
+  win_get_url:
     url: '{{ release_url[0] }}'
-    dest: '{{ java_download_path }}/{{ java_downloaded_file }}'
-    checksum: 'sha256:{{ artifact_checksum }}'
+    dest: '{{ java_download_path }}'
+    force: true
+    checksum: '{{ artifact_checksum.content }}'
+    checksum_algorithm: sha256
   register: file_downloaded
   retries: 20
   delay: 5

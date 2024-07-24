@@ -3,11 +3,11 @@
   yum_repository:
     name: AdoptOpenJDK
     description: AdoptOpenJDK
-    baseurl: "http://adoptopenjdk.jfrog.io/adoptopenjdk/rpm/centos/\
+    baseurl: "http://adoptium.jfrog.io/adoptium/rpm/centos/\
               {{ rh_dist_repo_version }}/x86_64"
     enabled: true
     gpgcheck: true
-    gpgkey: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    gpgkey: https://adoptium.jfrog.io/adoptium/api/gpg/key/public
 
 - name: Install java packages
   yum:

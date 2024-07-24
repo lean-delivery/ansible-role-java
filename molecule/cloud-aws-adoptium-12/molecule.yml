@@ -9,7 +9,7 @@ lint: |
   yamllint
   ansible-lint
 platforms:
-#  - name: test-aws-centos8-adoptopenjdk-hotspot-jre-repositories-12
+#  - name: test-aws-centos8-adoptium-hotspot-jre-repositories-12
 #    image: ami-0ed2ad9dc845b42b6
 #    platform: centos8
 #    instance_type: t3.micro
@@ -23,13 +23,13 @@ platforms:
 #    ssh_user: centos
 #    groups:
 #      - rhel_family
-#      - adoptopenjdk
+#      - adoptium
 #      - hotspot
 #      - jre
 #      - repositories
 #      - pip3
 
-  - name: test-aws-centos7-adoptopenjdk-openj9-jdk-tarball-12
+  - name: test-aws-centos7-adoptium-openj9-jdk-tarball-12
     image: ami-9887c6e7
     platform: centos7
     instance_type: t3.micro
@@ -43,13 +43,13 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jdk
-      - adoptopenjdk_fallback
+      - adoptium_fallback
       - pip2
 
-  - name: test-aws-Debian9-adoptopenjdk-openj9-jre-tarball-12
+  - name: test-aws-Debian9-adoptium-openj9-jre-tarball-12
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.micro
@@ -63,13 +63,13 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - adoptopenjdk
+      - adoptium
       - openj9
       - jre
-      - adoptopenjdk_fallback
+      - adoptium_fallback
       - pip2
 
-  - name: test-aws-ubuntu18-adoptopenjdk-hotspot-jdk-repositories-12
+  - name: test-aws-ubuntu18-adoptium-hotspot-jdk-repositories-12
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: t3.micro
@@ -83,13 +83,13 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jdk
       - repositories
       - pip3
 
-  - name: test-aws-Debian9-adoptopenjdk-hotspot-jre-repositories-12
+  - name: test-aws-Debian9-adoptium-hotspot-jre-repositories-12
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.micro
@@ -103,13 +103,13 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - adoptopenjdk
+      - adoptium
       - hotspot
       - jre
       - repositories
       - pip2
 
-  - name: test-aws-Debian9-adoptopenjdk-s3-12
+  - name: test-aws-Debian9-adoptium-s3-12
     image: ami-003f19e0e687de1cd
     profile_name: epmldi-instance-profile
     platform: debian9
@@ -124,7 +124,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - adoptopenjdk
+      - adoptium
       - s3
       - pip2
 
@@ -143,33 +143,33 @@ provisioner:
       pip3:
         pip_executable: pip3
         python_executable: python3
-      adoptopenjdk:
-        java_distribution: adoptopenjdk
+      adoptium:
+        java_distribution: adoptium
         java_major_version: 12
       jdk:
         java_package: jdk
       jre:
         java_package: jre
       openj9:
-        adoptopenjdk_impl: openj9
+        adoptium_impl: openj9
       hotspot:
-        adoptopenjdk_impl: hotspot
-      adoptopenjdk_fallback:
+        adoptium_impl: hotspot
+      adoptium_fallback:
         transport: fallback
       repositories:
         transport: repositories
       s3:
         transport: s3
         transport_s3_bucket: java-molecule-s3-test
-        transport_s3_path: /java/adoptopenjdk/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz
+        transport_s3_path: /java/adoptium/OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz
         transport_s3_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
         transport_s3_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../cloud-aws-adoptopenjdk-12/prepare.yml
+    prepare: ../cloud-aws-adoptium-12/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
     verify: ../resources/tests/verify.yml
 scenario:
-  name: cloud-aws-adoptopenjdk-12
+  name: cloud-aws-adoptium-12
 verifier:
   name: ansible
