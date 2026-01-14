@@ -3,4 +3,4 @@
   roles:
     - role: ansible-role-java
       transport: repositories
-      java_major_version: 17
+      java_major_version: 21
