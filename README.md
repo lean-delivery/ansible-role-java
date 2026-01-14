@@ -60,7 +60,7 @@ This Ansible role has the following features for:
 Requirements
 ------------
 
- - Version of the ansible for installation: 2.7
+ - Version of the ansible for installation: 2.10 - 13
 - **Supported OpenJDK version**:
    - 8
       - EL 6: repositories, tarball
@@ -76,6 +76,7 @@ Requirements
       - Debian stretch: tarball
       - Windows: tarball
    - 17
+   - 21
  - **Supported oracle java version**:
    - 7
    - 8
