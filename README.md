@@ -75,20 +75,7 @@ Requirements
       - Ubuntu bionic: repositories, tarball
       - Debian stretch: tarball
       - Windows: tarball
-   - 12
-      - EL 6: tarball
-      - EL 7: tarball
-      - EL 8: tarball
-      - Ubuntu bionic: tarball
-      - Debian stretch: tarball
-      - Windows: tarball
-   - 13
-      - EL 6: tarball, fallback
-      - EL 7: tarball, fallback
-      - EL 8: tarball, fallback
-      - Ubuntu bionic: tarball, fallback
-      - Debian stretch: tarball, fallback
-      - Windows: tarball, fallback
+   - 17
  - **Supported oracle java version**:
    - 7
    - 8
@@ -279,7 +266,7 @@ Example Playbook
       java_major_version: 17
 ```
 
-### Installing OpenJDK 8 from repositories:
+### Installing OpenJDK 17 from repositories:
 
 ```yaml
 - name: Install openjdk java
@@ -288,7 +275,7 @@ Example Playbook
   roles:
     - role: lean_delivery.java
       transport: repositories
-      java_major_version: 8
+      java_major_version: 17
 ```
 
 ### Installing OpenJDK 11 from web:

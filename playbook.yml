@@ -1,0 +1,6 @@
+- name: Install Java
+  hosts: localhost
+  roles:
+    - role: ansible-role-java
+      transport: repositories
+      java_major_version: 17
