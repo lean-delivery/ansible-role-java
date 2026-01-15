@@ -2,4 +2,3 @@
   hosts: localhost
   roles:
     - role: ansible-role-java
-      java_major_version: 25
