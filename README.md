@@ -14,6 +14,11 @@ This Ansible role has the following features for:
 - Install JRE, JDK
 - Additional opportunity to install from openjdk-fallback, repositories, s3, web, chocolatey, local source.
 
+**ZULU**
+
+- Install JDK
+- Additional opportunity to install from zulu-fallback, s3, web, local source, chocolatey.
+
 **Oracle Java:**
 
  - Install JRE, JDK, Server-JRE
@@ -27,16 +32,10 @@ This Ansible role has the following features for:
 - Install JDK
 - Additional opportunity to install from sapjvm-fallback, s3, web, local source.
 
-**ZULU**
-
-- Install JDK
-- Additional opportunity to install from zulu-fallback, s3, web, local source, chocolatey.
-
 **Adoptium**
 
 - Install JDK, JRE
 - Additional opportunity to install from adoptium-fallback, repositories, web, local source, s3, chocolatey.
-
 
 **SapMachine**
 
@@ -78,6 +77,12 @@ Requirements
    - 17
    - 21
    - 25
+ - **Supported zulu version**:
+   - 8
+   - 11
+   - 17
+   - 21
+   - 25
  - **Supported oracle java version**:
    - 7
    - 8
@@ -86,10 +91,6 @@ Requirements
  - **Supported sapjvm version**:
    - 7
    - 8
- - **Supported zulu version**:
-   - 8
-   - 11
-   - 17
  - **Supported Adoptium version**:
    - 8
    - 11
@@ -258,7 +259,6 @@ ansible-galaxy install lean_delivery.java
 Example Playbook
 ----------------
 ### Installing OpenJDK 25 from openjdk-fallback (default role behaviour):
-
 ```yaml
 - name: Install openjdk java
   hosts: all
@@ -269,19 +269,17 @@ Example Playbook
 ```
 
 ### Installing OpenJDK 21, 17, 11, 8 from repositories:
-
 ```yaml
 - name: Install openjdk java
   hosts: all
 
   roles:
     - role: lean_delivery.java
-      transport: repositories
       java_major_version: 21
+      transport: repositories
 ```
 
 ### Installing OpenJDK 11 from web:
-
 ```yaml
 - name: Install openjdk java
   hosts: all
@@ -294,8 +292,31 @@ Example Playbook
       transport_web: https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
 ```
 
-### Installing Oracle java 8 from local file:
+### Installing OpenJDK 11.0.2 on Windows host with win_chocolatey:
+```yaml
+- name: Install java
+  hosts: windows
 
+  roles:
+    - role: lean_delivery.java
+      java_package: jdk
+      transport: chocolatey
+      java_major_version: 11
+      java_minor_version: 0.2
+```
+
+### Installing ZULU 25, 21, 17, 11, 8 from zulu-fallback:
+```yaml
+- name: Install zulu
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_major_version: 25
+      java_distribution: zulu
+```
+
+### Installing Oracle java 8 from local file:
 ```yaml
 - name: Install oracle java
   hosts: all
@@ -306,6 +327,7 @@ Example Playbook
       transport: local
       transport_local: /tmp/jdk-8u181-linux-x64.tar.gz
 ```
+
 ### Installing Oracle java 8 from S3 bucket:
 Before install you should prepare host to use aws_s3 module
 https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
@@ -322,21 +344,8 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
         transport: s3
         transport_s3_bucket: java-s3-bucket
         transport_s3_path: /java/jre-8u181-linux-x64.tar.gz
-
 ```
-### Installing OpenJDK 11.0.2 on Windows host with win_chocolatey:
 
-```yaml
-- name: Install java
-  hosts: windows
-
-  roles:
-    - role: lean_delivery.java
-      java_package: jdk
-      transport: chocolatey
-      java_major_version: 11
-      java_minor_version: 0.2
-```
 ### Installing SAPJVM 8 from sapjvm-fallback:
 
 ```yaml
@@ -349,19 +358,7 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       transport: fallback
       java_major_version: 8
 ```
-### Installing ZULU 17 from zulu-fallback:
 
-```yaml
-- name: Install zulu
-  hosts: all
-
-  roles:
-    - role: lean_delivery.java
-      java_distribution: zulu
-      transport: fallback
-      java_major_version: 17
-      java_package: jdk
-```
 ### Installing Adoptium 8-openj9-jre from adoptium-fallback:
 
 ```yaml
