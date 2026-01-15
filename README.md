@@ -77,6 +77,7 @@ Requirements
       - Windows: tarball
    - 17
    - 21
+   - 25
  - **Supported oracle java version**:
    - 7
    - 8
@@ -256,7 +257,7 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
-### Installing OpenJDK 17 from openjdk-fallback (default role behaviour):
+### Installing OpenJDK 25 from openjdk-fallback (default role behaviour):
 
 ```yaml
 - name: Install openjdk java
@@ -264,7 +265,7 @@ Example Playbook
 
   roles:
     - role: lean_delivery.java
-      java_major_version: 17
+      java_major_version: 25
 ```
 
 ### Installing OpenJDK 17 from repositories:
