@@ -39,7 +39,14 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=25"
-  openjdk-repo-21:
+  openjdk-repo:
+    strategy:
+      matrix:
+        java_version:
+          - '21'
+          - '17'
+          - '11'
+          - '8'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -55,4 +62,4 @@ jobs:
       - name: Run playbook
         run: |
           cd ..
-          ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=21 transport=repositories"
+          ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} transport=repositories"
