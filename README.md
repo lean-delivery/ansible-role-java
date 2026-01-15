@@ -268,7 +268,7 @@ Example Playbook
       java_major_version: 25
 ```
 
-### Installing OpenJDK 17 from repositories:
+### Installing OpenJDK 21, 17, 11, 8 from repositories:
 
 ```yaml
 - name: Install openjdk java
@@ -277,7 +277,7 @@ Example Playbook
   roles:
     - role: lean_delivery.java
       transport: repositories
-      java_major_version: 17
+      java_major_version: 21
 ```
 
 ### Installing OpenJDK 11 from web:

@@ -22,7 +22,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  ubuntu-22:
+  openjdk-fallback:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -38,4 +38,28 @@ jobs:
       - name: Run playbook
         run: |
           cd ..
-          ansible-playbook ansible-role-java/playbook.yml
+          ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=25"
+  openjdk-repo:
+    strategy:
+      matrix:
+        java_version:
+          - '21'
+          - '17'
+          - '11'
+          - '8'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 0
+      - name: Install ansible
+        run: |
+          sudo apt-add-repository --yes --update ppa:ansible/ansible
+          sudo apt-get update
+          sudo apt-get install ansible -y
+          ansible --version
+      - name: Run playbook
+        run: |
+          cd ..
+          ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} transport=repositories"
