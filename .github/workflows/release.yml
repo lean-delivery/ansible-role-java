@@ -1,0 +1,29 @@
+---
+name: Publish Ansible Role
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      SECRET: ${{ secrets.GALAXY_API_KEY }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Ansible
+        run: pip install ansible
+
+      - name: Trigger a new import on Galaxy. # geerlingguy
+        run: >-
+          ansible-galaxy role import --api-key $SECRET
+          $(echo ${{ github.repository }} | cut -d/ -f1) $(echo ${{ github.repository }} | cut -d/ -f2)
