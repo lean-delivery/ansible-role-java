@@ -39,6 +39,8 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=25"
+      - name: Verify Java installation
+        run: java -version
   openjdk-repo:
     strategy:
       matrix:
@@ -63,6 +65,8 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} transport=repositories"
+      - name: Verify Java installation
+        run: java -version
   zulu-fallback:
     strategy:
       matrix:
@@ -88,3 +92,32 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} java_distribution=zulu"
+      - name: Verify Java installation
+        run: java -version
+  corretto-fallback:
+    strategy:
+      matrix:
+        java_version:
+          - '25'
+          - '21'
+          - '17'
+          - '11'
+          - '8'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 0
+      - name: Install ansible
+        run: |
+          sudo apt-add-repository --yes --update ppa:ansible/ansible
+          sudo apt-get update
+          sudo apt-get install ansible -y
+          ansible --version
+      - name: Run playbook
+        run: |
+          cd ..
+          ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} java_distribution=corretto"
+      - name: Verify Java installation
+        run: java -version
