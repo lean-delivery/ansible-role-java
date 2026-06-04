@@ -1,11 +1,4 @@
 ---
-- name: Check requested major version for Corretto
-  fail:
-    msg: Supported versions of Amazon Corretto only 8 and 11
-  when:
-    - java_major_version|int != 8
-    - java_major_version|int != 11
-
 - name: Check requested architecture for Corretto
   fail:
     msg: Amazon Corretto currently supports x64 platform only
