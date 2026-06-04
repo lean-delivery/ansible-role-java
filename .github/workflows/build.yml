@@ -39,6 +39,8 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=25"
+      - name: Verify Java installation
+        run: java -version
   openjdk-repo:
     strategy:
       matrix:
@@ -63,6 +65,8 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} transport=repositories"
+      - name: Verify Java installation
+        run: java -version
   zulu-fallback:
     strategy:
       matrix:
@@ -88,6 +92,8 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} java_distribution=zulu"
+      - name: Verify Java installation
+        run: java -version
   corretto-fallback:
     strategy:
       matrix:
@@ -113,3 +119,5 @@ jobs:
         run: |
           cd ..
           ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=${{ matrix.java_version }} java_distribution=corretto"
+      - name: Verify Java installation
+        run: java -version
