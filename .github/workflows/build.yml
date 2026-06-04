@@ -92,6 +92,9 @@ jobs:
     strategy:
       matrix:
         java_version:
+          - '25'
+          - '21'
+          - '17'
           - '11'
           - '8'
     runs-on: ubuntu-22.04
