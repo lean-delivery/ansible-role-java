@@ -17,6 +17,12 @@ This Ansible role has the following features for:
 - Install JDK
 - Additional opportunity to install from zulu-fallback, s3, web, local source, chocolatey.
 
+**Amazon Corretto**
+
+- Install JDK 8, 11, 17, 21, 25 
+- Install JRE 8 (Amazon Linux 2 only)
+- Additional opportunity to install from fallback, web, local source, s3.
+
 **Oracle Java:**
 
  - Install JRE, JDK, Server-JRE
@@ -47,12 +53,6 @@ This Ansible role has the following features for:
 - Linux/x86_64 platform only
 - Additional opportunity to install from dragonwell8-fallback, web, local source, s3.
 
-**Amazon Corretto**
-
-- Install JDK 8 and 11 
-- Install JRE 8 (Amazon Linux 2 only)
-- Additional opportunity to install from fallback, web, local source, s3.
-
 
 Requirements
 ------------
@@ -76,6 +76,12 @@ Requirements
    - 21
    - 25
  - **Supported zulu version**:
+   - 8
+   - 11
+   - 17
+   - 21
+   - 25
+ - **Supported Amazon Corretto version**:
    - 8
    - 11
    - 17
@@ -116,9 +122,6 @@ Requirements
  - **Supported Alibaba Dragonwell version**:
    - 8.0.0
    - 8.1.1
- - **Supported Amazon Corretto version**:
-   - 8
-   - 11
  - **Supported OS**:
    - Ubuntu
      - bionic
@@ -314,6 +317,31 @@ Example Playbook
       java_distribution: zulu
 ```
 
+### Installing Amazon Corretto JDK 25, 21, 17, 11, 8 from corretto-fallback:
+
+```yaml
+- name: Install Amazon Corretto
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_major_version: 25
+      java_distribution: corretto
+```
+
+### Installing Amazon Corretto JDK 11 on Ubuntu 18.04 from web:
+
+```yaml
+- name: Install Amazon Corretto
+  hosts: all
+
+  roles:
+    - role: lean_delivery.java
+      java_distribution: corretto
+      transport: web
+      transport_web: https://d3pxv6yz143wms.cloudfront.net/11.0.5.10.1/amazon-corretto-11.0.5.10.1-linux-x64.tar.gz
+```
+
 ### Installing Oracle java 8 from local file:
 ```yaml
 - name: Install oracle java
@@ -396,44 +424,6 @@ https://docs.ansible.com/ansible/latest/modules/aws_s3_module.html#requirements
       java_distribution: dragonwell8
       transport: fallback
       java_major_version: 8
-```
-### Installing Amazon Corretto JDK 8 from corretto-fallback:
-
-```yaml
-- name: Install Amazon Corretto
-  hosts: all
-
-  roles:
-    - role: lean_delivery.java
-      java_distribution: corretto
-      transport: fallback
-      java_major_version: 8
-```
-
-### Installing Amazon Corretto JDK 11 from repo on Amazon Linux 2:
-
-```yaml
-- name: Install Amazon Corretto
-  hosts: all
-
-  roles:
-    - role: lean_delivery.java
-      java_distribution: corretto
-      transport: repositories
-      java_major_version: 11
-```
-
-### Installing Amazon Corretto JDK 11 on Ubuntu 18.04 from web:
-
-```yaml
-- name: Install Amazon Corretto
-  hosts: all
-
-  roles:
-    - role: lean_delivery.java
-      java_distribution: corretto
-      transport: web
-      transport_web: https://d3pxv6yz143wms.cloudfront.net/11.0.5.10.1/amazon-corretto-11.0.5.10.1-linux-x64.tar.gz
 ```
 
 License
