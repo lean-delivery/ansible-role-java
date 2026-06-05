@@ -19,7 +19,7 @@ This Ansible role has the following features for:
 
 **Amazon Corretto**
 
-- Install JDK 8, 11, 17, 21, 25 
+- Install JDK 
 - Install JRE 8 (Amazon Linux 2 only)
 - Additional opportunity to install from fallback, web, local source, s3.
 
@@ -259,17 +259,16 @@ ansible-galaxy install lean_delivery.java
 
 Example Playbook
 ----------------
-### Installing OpenJDK 25 from openjdk-fallback (default role behaviour):
+### Installing OpenJDK GA release from openjdk-fallback (default role behaviour):
 ```yaml
 - name: Install openjdk java
   hosts: all
 
   roles:
     - role: lean_delivery.java
-      java_major_version: 25
 ```
 
-### Installing OpenJDK 21, 17, 11, 8 from repositories:
+### Installing OpenJDK 25, 21, 17, 11, 8 from repositories:
 ```yaml
 - name: Install openjdk java
   hosts: all

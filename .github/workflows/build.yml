@@ -38,13 +38,14 @@ jobs:
       - name: Run playbook
         run: |
           cd ..
-          ansible-playbook ansible-role-java/playbook.yml -e "java_major_version=25"
+          ansible-playbook ansible-role-java/playbook.yml
       - name: Verify Java installation
         run: java -version
   openjdk-repo:
     strategy:
       matrix:
         java_version:
+          - '25'
           - '21'
           - '17'
           - '11'
