@@ -12,6 +12,9 @@ galaxy_info:
       versions:
         - "xenial"
         - "bionic"
+        - "focal"
+        - "jammy"
+        - "noble"
     - name: "Debian"
       versions:
         - "stretch"
@@ -35,14 +38,15 @@ galaxy_info:
     - "system"
     - "packaging"
     - "java"
-    - "oracle"
     - "jdk"
     - "jre"
+    - "oracle"
     - "openjdk"
     - "adoptopenjdk"
     - "sapmachine"
     - "zulu"
     - "sapjvm"
+    - "corretto"
     - "windows"
 
 dependencies: []
